@@ -1,0 +1,163 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" icon="arrow-back"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Agregar aviso de incidencia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-padding" fixed>
+    <ion-row>
+      <ion-col>
+        <ion-label position="stacked">Prioridad:</ion-label>
+        <ion-toggle color="danger"></ion-toggle>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-datetime
+            displayFormat="DDDD, DD/MM/YY"
+            placeholder="Vigencia"
+          ></ion-datetime>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-item-divider>
+      <ion-label></ion-label>
+    </ion-item-divider>
+    <ion-row>
+      <ion-col>
+        <ion-textarea
+          style="border-style: groove;"
+          spellcheck="true"
+          autoGrow
+          placeholder="Descripción"
+        ></ion-textarea>
+      </ion-col>
+    </ion-row>
+    <br />
+    <br />
+    <ion-item-divider>
+      <ion-label>Paciente Involucrado:</ion-label>
+    </ion-item-divider>
+    <ion-row>
+      <ion-col>
+        <ion-item button color="light" (click)="openModal()">
+          <ion-avatar>
+            <img
+              src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=retro&f=y%22"
+            />
+          </ion-avatar>
+          <ion-label>Seleccionar paciente</ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <br />
+    <br />
+    <ion-item-divider><ion-label>Tipo</ion-label></ion-item-divider>
+
+    <ion-row>
+      <ion-col>
+        <ion-avatar>
+          <img
+            src="https://cdn3.iconfinder.com/data/icons/science-flat-round/512/report_document_reports_paper_graph_chart-512.png"
+            complete
+          />
+        </ion-avatar>
+        <ion-label>Conducta</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-avatar>
+          <img
+            src="https://image.winudf.com/v2/image/Y29tLmFuZHJvbW8uZGV2Mjc5MjM3LmFwcDUyNDMyNl9pY29uXzBfOTU3NGM1MTk/icon.png?w=170&fakeurl=1"
+          />
+        </ion-avatar>
+        <ion-label>Salud</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-avatar>
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA2jl7WBBF3s0sG2eOoLFAj1M9b5aRYBzJ4NPFcNmA5KL25KZA&s"
+          />
+        </ion-avatar>
+        <ion-label>Higiene</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-avatar>
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1QvrvvFJWS3fhoKm1wNg_AbGdAGLZlVWveydcUrI8umPDMOT3&s"
+          />
+        </ion-avatar>
+        <ion-label>Fisica</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-avatar>
+          <img
+            src="https://previews.123rf.com/images/luplupme/luplupme1610/luplupme161000472/64154337-sleep-time-icon-flat-isolated-vector-illustration-sleep-icon-sweat-dream-night-rest-human-sleep-icon.jpg"
+          />
+        </ion-avatar>
+        <ion-label>Sueño</ion-label>
+      </ion-col>
+    </ion-row>
+    <br />
+    <br />
+    <ion-item-divider>
+      <ion-label>Area de notificación</ion-label>
+    </ion-item-divider>
+
+    <ion-row>
+      <ion-col>
+        <ion-avatar>
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-NG7Dwu4FFvJatQ0Ptv5XiMbCP9owKetSqrR0a2HsVTOqJCjF&s"
+            complete
+          />
+        </ion-avatar>
+        <ion-label>Enfermería</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-avatar>
+          <img
+            src="https://cdn3.iconfinder.com/data/icons/medical-206/130/57-512.png"
+          />
+        </ion-avatar>
+        <ion-label>Fisioterapia</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-avatar>
+          <img
+            src="https://cdn.pixabay.com/photo/2015/06/05/10/35/dishes-798316_960_720.png"
+          />
+        </ion-avatar>
+        <ion-label>Nutrición</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-avatar>
+          <img
+            src="https://cdn0.iconfinder.com/data/icons/alzheimer-s-disease-symbol-flat/64/neurodegenerative-alzheimer-dementia-memory-loss-512.png"
+          />
+        </ion-avatar>
+        <ion-label>Fase</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-avatar>
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPGkkSSKUso3jH-gSHg32d_sOSOfEM7jVm73r9K2EvSiYwlVhu&s"
+          />
+        </ion-avatar>
+        <ion-label>Higiene</ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <br />
+        <br />
+        <ion-button type="button" color="primary" expand="block">
+          Enviar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

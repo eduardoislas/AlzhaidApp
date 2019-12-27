@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Avisos de incidencias</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h5 class="ion-padding">{{ today | date: "dd/MM/yyyy HH:MM" }}</h5>
+  <ion-list>
+    <ion-item>
+      <ion-card button color="danger" class="ion-padding">
+        <ion-card-header>
+          <ion-card-title>
+            <ion-avatar>
+              <img
+                src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=retro&f=y%22"
+              />
+            </ion-avatar>
+            Sergio Castellanos
+          </ion-card-title>
+          <ion-card-subtitle>
+            Caída
+            <ion-label>dd/mm/aaaa</ion-label>
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          Keep close to Nature's heart... and break clear away, once in awhile,
+          and climb a mountain or spend a week in the woods. Wash your spirit
+          clean.
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab horizontal="end" vertical="bottom">
+    <ion-fab-button routerLink="/notifications-add">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
