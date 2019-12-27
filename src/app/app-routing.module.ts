@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', loadChildren: () => import('./tabs/nursery-tab/nursery-tab.module').then(m => m.NurseryTabPageModule)},
+  { path: '', loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)},
   {
     path: 'notifications-show', loadChildren: () => import('./notifications/notifications-show/notifications-show.module').then( m => m.NotificationsShowPageModule)
   },
@@ -38,6 +38,14 @@ const routes: Routes = [
     path: 'user-list',
     loadChildren: () => import('./users/user-list/user-list.module').then( m => m.UserListPageModule)
   },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  { path: 'nursery-tab', 
+  loadChildren: () => import('./tabs/nursery-tab/nursery-tab.module').then(m => m.NurseryTabPageModule)
+  },
+
   
 ];
 
