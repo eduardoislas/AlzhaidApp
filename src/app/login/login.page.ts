@@ -9,33 +9,45 @@ import { User } from "../user/user.module";
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
-  constructor(private loginService: LoginService, 
+  /*
+    loginService: Servicio de login que realiza el POST con los datos del
+    usuario para iniciar la sesión.
+    router: Para realizar un navigate a las distintas paginas de la app.
+    userService: Servicio que funciona para mantener la sesión del usuario
+    abierta.
+  */
+  constructor(private loginService: LoginService,
               private router: Router,
               private userService: UserService) { }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() { }
 
-
+  /*
+    Método login que recibe dos parametros, el usuario y contraseña obtenidos
+    en el input del HTML (login.page.html) para realizar el Subscribe al servicio 
+    de login para obtener los datos de la persona que va a iniciar sesión.
+    Dentro del switch se agarra el nombre del rol y se hace un switch para, 
+    según el nombre que llega, construir los tabs.
+  */
   login(username: string, password: string) {
-    this.loginService.login(username, password).subscribe(res => {
-      let u:User = {username: username}
+    
+    this.loginService.login(username, password).subscribe((res:any) => {
+      
+      let u: User = {username: username}
       this.userService.setUserLogged(u);
-      console.log(res);
+      
+      switch(res.user.role.name) {
+        case "ENFERMERIA":
+          this.router.navigateByUrl("/nursery-tab");
+          break;
+        // Anexar aquí los posibles casos existentes
+        default:
+          break;
+      }
 
     }, err => {
+      // Aquí se pondrá un modal o algún aviso con el error correspondiente
       console.log(err.error);
-    }, 
-
-    () => this.navigate()
-
-    );
+    });
   }
-
-  navigate() {
-    this.router.navigateByUrl('/nursery-tab');
-  }
-
 }

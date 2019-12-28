@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { LoginService } from "./services/login.service";
+import { RolesService } from "./services/roles.service";
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +21,7 @@ import { LoginService } from "./services/login.service";
     StatusBar,
     SplashScreen,
     LoginService,
+    RolesService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
