@@ -12,9 +12,10 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { LoginService } from "./services/login.service";
 import { RolesService } from "./services/roles.service";
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, FilterPipe],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [
