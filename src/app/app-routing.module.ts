@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)},
+  { path: '', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)},
   {
     path: 'notifications-show', loadChildren: () => import('./notifications/notifications-show/notifications-show.module').then( m => m.NotificationsShowPageModule)
   },
@@ -40,13 +40,31 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   },
   { path: 'nursery-tab', 
   loadChildren: () => import('./tabs/nursery-tab/nursery-tab.module').then(m => m.NurseryTabPageModule)
   },
-
-  
+  {
+    path: 'phase',
+    loadChildren: () => import('./pages/phase/phase.module').then( m => m.PhasePageModule)
+  },
+  {
+    path: 'nursery',
+    loadChildren: () => import('./pages/nursery/nursery.module').then( m => m.NurseryPageModule)
+  },
+  {
+    path: 'nutrition',
+    loadChildren: () => import('./pages/nutrition/nutrition.module').then( m => m.NutritionPageModule)
+  },
+  {
+    path: 'hygiene',
+    loadChildren: () => import('./pages/hygiene/hygiene.module').then( m => m.HygienePageModule)
+  },
+  {
+    path: 'physio',
+    loadChildren: () => import('./pages/physio/physio.module').then( m => m.PhysioPageModule)
+  },
 ];
 
 @NgModule({

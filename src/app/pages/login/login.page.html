@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header no-border>
   <ion-toolbar>
     <ion-title>login</ion-title>
   </ion-toolbar>
@@ -14,6 +14,9 @@
         <ion-input placeholder="Password" type="password" #password required></ion-input>
       </ion-item>
     </ion-list>
-    <ion-button type="submit" expand="block" (click)="login(name.value, password.value)">Login</ion-button>
+    <ion-button type="submit" 
+                expand="block"
+                (click)="login(name.value, password.value)"
+                >Login</ion-button>
   </form>
 </ion-content>

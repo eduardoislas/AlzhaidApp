@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Patients } from "../interfaces/interfaces";
 
 const url = 'https://alzaid.herokuapp.com/patient/';
 
@@ -22,7 +23,7 @@ export class PatientsService {
   postPatients( name: string, lastName: string, birthdate: any, 
                 lastNameSecond?: string, registerDate?: any, img?: any ) {
     
-    return this.http.post( url, {
+    return this.http.post<Patients>( url, {
       name,
       lastName,
       lastNameSecond,
@@ -36,7 +37,7 @@ export class PatientsService {
   */
   putPatients( id: string, name: string, lastName: string, birthdate: any, 
                lastNameSecond?: string, registerDate?: any, img?: any ) {
-    return this.http.put(url + id, {
+    return this.http.put<Patients>(url + id, {
       name,
       lastName,
       lastNameSecond,

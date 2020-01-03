@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from "../services/login.service";
+import { LoginService } from "../../services/login.service";
 import { Router } from '@angular/router';
-import { UserService } from "../services/user.service";
-import { User } from "../user/user.module";
+import { AlertController } from '@ionic/angular';
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -16,9 +17,9 @@ export class LoginPage implements OnInit {
     userService: Servicio que funciona para mantener la sesión del usuario
     abierta.
   */
-  constructor(private loginService: LoginService,
-              private router: Router,
-              private userService: UserService) { }
+  constructor( private loginService: LoginService,
+               private router: Router,
+               private alertCtrl: AlertController ) { }
 
   ngOnInit() { }
 
@@ -29,16 +30,12 @@ export class LoginPage implements OnInit {
     Dentro del switch se agarra el nombre del rol y se hace un switch para, 
     según el nombre que llega, construir los tabs.
   */
-  login(username: string, password: string) {
-    
-    this.loginService.login(username, password).subscribe((res:any) => {
-      
-      let u: User = {username: username}
-      this.userService.setUserLogged(u);
-      
-      switch(res.user.role.name) {
+  login( username: string, password: string ) {
+    this.loginService.login( username, password ).subscribe(( res: any ) => {
+
+      switch( res.user.role.name ) {
         case "ENFERMERIA":
-          this.router.navigateByUrl("/nursery-tab");
+          this.router.navigateByUrl( '/phase' );
           break;
         // Anexar aquí los posibles casos existentes
         default:
@@ -46,8 +43,27 @@ export class LoginPage implements OnInit {
       }
 
     }, err => {
-      // Aquí se pondrá un modal o algún aviso con el error correspondiente
-      console.log(err.error);
+      this.presentAlert( err.error.err.message );
     });
+  }
+
+  /* 
+
+  */
+  async presentAlert( message: string ) {
+    const alert = await this.alertCtrl.create({
+      header: 'Error.',
+      subHeader: 'No pudo iniciar sesión.',
+      message,
+      buttons: [
+        {
+            text: 'Aceptar',
+            handler: (blah) => {
+              console.log('Boton Aceptar');
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 }
