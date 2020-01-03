@@ -10,6 +10,10 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  sliderOpts = {
+    allowSlidePrev: false,
+    allowSlideNext: false,
+  }
   /*
     loginService: Servicio de login que realiza el POST con los datos del
     usuario para iniciar la sesión.
@@ -34,10 +38,22 @@ export class LoginPage implements OnInit {
     this.loginService.login( username, password ).subscribe(( res: any ) => {
 
       switch( res.user.role.name ) {
-        case "ENFERMERIA":
+
+        case 'FASE_INICIAL' || 'FASE_INTERMEDIA' || 'FASE_AVANZADA':
           this.router.navigateByUrl( '/phase' );
           break;
-        // Anexar aquí los posibles casos existentes
+        case 'FISIOTERAPIA':
+          this.router.navigateByUrl( '/physio' );
+          break;
+        case 'HIGIENE':
+          this.router.navigateByUrl( '/hygiene' );
+          break;
+        case 'NUTRICION':
+          this.router.navigateByUrl( '/nutrition' );
+          break;
+        case 'ENFERMERIA':
+          this.router.navigateByUrl( '/nursery' );
+          break;
         default:
           break;
       }
@@ -48,7 +64,8 @@ export class LoginPage implements OnInit {
   }
 
   /* 
-
+    Método que despliega un mensaje de error, siendo este
+    el que regresa el método de login()
   */
   async presentAlert( message: string ) {
     const alert = await this.alertCtrl.create({

@@ -5,18 +5,29 @@
 </ion-header>
 
 <ion-content>
-  <form class="ion-padding">
-    <ion-list>
-      <ion-item>
-        <ion-input placeholder="User" type="text" #name required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input placeholder="Password" type="password" #password required></ion-input>
-      </ion-item>
-    </ion-list>
-    <ion-button type="submit" 
-                expand="block"
-                (click)="login(name.value, password.value)"
-                >Login</ion-button>
-  </form>
+
+  <ion-slides [options]="sliderOpts">
+    <ion-slide>
+
+      <form>
+        <ion-list>
+          <ion-item>
+            <ion-input placeholder="User" type="text" #name required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input placeholder="Password" type="password" #password required></ion-input>
+          </ion-item>
+        </ion-list>
+
+        <ion-button type="submit" 
+                    expand="block"
+                    (click)="login(name.value, password.value)">
+          Login
+        </ion-button>
+        
+      </form>
+
+    </ion-slide>
+  </ion-slides>
+
 </ion-content>
