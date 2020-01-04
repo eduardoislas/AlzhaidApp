@@ -7,15 +7,13 @@ import { IonicModule } from '@ionic/angular';
 import { NurseryPageRoutingModule } from './nursery-routing.module';
 
 import { NurseryPage } from './nursery.page';
-import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    NurseryPageRoutingModule,
-    ComponentsModule
+    NurseryPageRoutingModule
   ],
   declarations: [NurseryPage]
 })

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { concat } from 'rxjs';
+import { RootDaily } from "../interfaces/daily-records";
 
 const url = 'https://alzaid.herokuapp.com/dailyRecord/';
 
@@ -15,7 +15,7 @@ export class DailyRecordService {
     Método GET que obtiene todos los registros diarios.
   */
   getDailyRecords() {
-    return this.http.get( url );
+    return this.http.get<RootDaily>( url );
   }
   /* 
     Método GET que obtiene todos los registros diarios por paciente

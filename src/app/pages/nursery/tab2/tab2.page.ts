@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PatientsService } from 'src/app/services/patients.service';
 
 @Component({
   selector: 'app-tab2',
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tab2.page.scss'],
 })
 export class Tab2Page implements OnInit {
-
-  constructor() { }
-
+  pacientes = [];
+  constructor( private patientService: PatientsService ) { }
+  
   ngOnInit() {
+    this.patientService.getPatients().subscribe(res => {
+      console.log(res);
+      this.pacientes.push( ...res.patients );
+    });
+  }
+
+  onClick() {
+    
   }
 
 }

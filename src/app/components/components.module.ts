@@ -1,20 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SearchBarComponent } from './search-bar/search-bar.component';
-
+import { SearchbarComponent } from './searchbar/searchbar.component';
+import { IonicModule } from "@ionic/angular";
 
 
 @NgModule({
   declarations: [
-    SearchBarComponent
-    // Anexar los componentes creados
+    SearchbarComponent
   ],
   exports: [
-    SearchBarComponent
-    // Anexar los componentes creados
+    SearchbarComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    IonicModule
   ]
 })
 export class ComponentsModule { }

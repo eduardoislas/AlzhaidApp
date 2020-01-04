@@ -1,0 +1,41 @@
+<ion-header no-border>
+  <ion-toolbar>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+
+            <ion-segment>
+              <ion-segment-button checked>
+                <ion-label>Entrada</ion-label>
+              </ion-segment-button>
+              <ion-segment-button>
+                <ion-label>Salida</ion-label>
+              </ion-segment-button>
+            </ion-segment>
+
+          </ion-col>
+        </ion-row>
+
+          <ion-row>
+            <ion-col><ion-searchbar animated (ionChange)="( $event )"></ion-searchbar></ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-segment>
+                <ion-segment-button checked>
+                  <ion-label>Inicial</ion-label>
+                </ion-segment-button>
+                <ion-segment-button>
+                  <ion-label>Intermedio</ion-label>
+                </ion-segment-button>
+                <ion-segment-button>
+                  <ion-label>Avanzado</ion-label>
+                </ion-segment-button>
+              </ion-segment>
+            </ion-col>
+          </ion-row>
+          
+      </ion-grid>
+  </ion-toolbar>
+</ion-header>

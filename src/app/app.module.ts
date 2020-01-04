@@ -15,6 +15,7 @@ import { RolesService } from "./services/roles.service";
 import { FilterPipe } from './pipes/filter.pipe';
 import { ComponentsModule } from './components/components.module';
 
+
 @NgModule({
   declarations: [AppComponent, FilterPipe],
   entryComponents: [],
