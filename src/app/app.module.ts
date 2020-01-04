@@ -13,11 +13,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginService } from "./services/login.service";
 import { RolesService } from "./services/roles.service";
 import { FilterPipe } from './pipes/filter.pipe';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
   declarations: [AppComponent, FilterPipe],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, ComponentsModule],
   providers: [
     StatusBar,
     SplashScreen,
