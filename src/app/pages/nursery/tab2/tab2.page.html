@@ -1,12 +1,13 @@
-<app-searchbar></app-searchbar>
+<app-searchbar (post)="eventListener( $event )"></app-searchbar>
 
 <ion-content>
-  <ion-grid fixed>
-    <ion-row>
-      <ion-col size="4" *ngFor="let paciente of pacientes" (click)="onClick()">
-        <ion-img src="../../../../assets/icon/favicon.png"></ion-img>
-        <ion-label>{{ paciente.name + ' ' + paciente.lastName }}</ion-label> 
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-list>
+    <ion-item *ngFor="let paciente of pacientes">
+      <ion-avatar slot="start">
+        <img src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
+      </ion-avatar>
+      <ion-label class="ion-text-capitalize">{{ paciente.name + ' ' + paciente.lastName }}</ion-label>
+      <ion-icon slot="end" name="arrow-forward" mode="ios"></ion-icon>
+    </ion-item>
+  </ion-list>
 </ion-content>

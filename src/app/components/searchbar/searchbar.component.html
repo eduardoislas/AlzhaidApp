@@ -4,11 +4,12 @@
         <ion-row>
           <ion-col>
 
-            <ion-segment>
-              <ion-segment-button checked>
+            <ion-segment #iSegmentRegistros
+                         (ionChange)="segmentChangedRegistros( $event )">
+              <ion-segment-button value="entrada">
                 <ion-label>Entrada</ion-label>
               </ion-segment-button>
-              <ion-segment-button>
+              <ion-segment-button value="salida">
                 <ion-label>Salida</ion-label>
               </ion-segment-button>
             </ion-segment>
@@ -17,19 +18,24 @@
         </ion-row>
 
           <ion-row>
-            <ion-col><ion-searchbar animated (ionChange)="( $event )"></ion-searchbar></ion-col>
+            <ion-col>
+              <ion-searchbar #iSearchbar 
+                             animated 
+                             (ionChange)="searchBar( $event )"></ion-searchbar>
+            </ion-col>
           </ion-row>
 
           <ion-row>
             <ion-col>
-              <ion-segment>
-                <ion-segment-button checked>
+              <ion-segment #iSegmentFase 
+                           (ionChange)="segmentChangedFase( $event )">
+                <ion-segment-button value="inicial">
                   <ion-label>Inicial</ion-label>
                 </ion-segment-button>
-                <ion-segment-button>
+                <ion-segment-button value="intermedio">
                   <ion-label>Intermedio</ion-label>
                 </ion-segment-button>
-                <ion-segment-button>
+                <ion-segment-button value="avanzado">
                   <ion-label>Avanzado</ion-label>
                 </ion-segment-button>
               </ion-segment>
