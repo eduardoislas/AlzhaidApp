@@ -13,7 +13,7 @@ export class SearchbarComponent implements OnInit {
 
   @Output() post = new EventEmitter<string[]>();
 
-  data = [];
+  data = ['', '', ''];
 
   constructor() { }
 
@@ -26,13 +26,14 @@ export class SearchbarComponent implements OnInit {
     this.data[0] = event.detail.value;
     this.post.emit(this.data);
   }
-  segmentChangedFase( event ) {
+  searchBar( event ) {
     this.data[1] = event.detail.value;
     this.post.emit(this.data);
   }
-  searchBar( event ) {
+  segmentChangedFase( event ) {
     this.data[2] = event.detail.value;
     this.post.emit(this.data);
   }
+  
 
 }

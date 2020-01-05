@@ -18,6 +18,12 @@ export class PatientsService {
     return this.http.get<RootPatient>( url );
   }
   /* 
+    Método GET que obtiene todos los pacientes activos por fase.
+  */
+ getPatientsRole( role: string ) {
+   return this.http.get<RootPatient>( url + role );
+ }
+  /* 
     Método POST que agrega un paciente nuevo a la base de datos.
   */
   postPatients( name: string, lastName: string, birthdate: any, 

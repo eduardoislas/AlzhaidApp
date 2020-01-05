@@ -12,30 +12,29 @@ export class Tab2Page implements OnInit {
   constructor( private patientService: PatientsService ) { }
   
   ngOnInit() {
-    this.patientService.getPatients().subscribe(res => {
-      console.log(res);
-      this.pacientes.push( ...res.patients );
-    });
+    this.patientsRole( 'inicial' );
 
   }
   eventListener( data: string ) {
-    console.log('Que info tengo?', data);
-    switch( data[1] ) {
+    switch( data[2] ) {
       case 'inicial':
-        // Aquí se llena el arreglo con la información recibida
-        // en el servicio
+        this.patientsRole( data[2] );
         break;
       case 'intermedia':
-        // Aquí se llena el arreglo con la información recibida
-        // en el servicio
+        this.patientsRole( data[2] );
         break;
       case 'avanzada':
-        // Aquí se llena el arreglo con la información recibida
-        // en el servicio
+        this.patientsRole( data[2] );
         break;
       default:
         break;
     }
+  }
+  patientsRole( role: string ) {
+    this.pacientes = [];
+    this.patientService.getPatientsRole( role ).forEach(res => {
+      this.pacientes.push( ...res.patients );
+    });
   }
 
 }

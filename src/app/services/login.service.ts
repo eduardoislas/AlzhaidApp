@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { RootLogin } from '../interfaces/users';
 
 const url = 'https://alzaid.herokuapp.com/login';
 
@@ -15,7 +16,7 @@ export class LoginService {
     Estos datos son obtenidos de login.page.ts
   */
   login( name: string, password: string ) {
-    return this.http.post( url, {
+    return this.http.post<RootLogin>( url, {
       name,
       password,
     }); 
