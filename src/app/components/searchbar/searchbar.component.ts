@@ -13,13 +13,13 @@ export class SearchbarComponent implements OnInit {
 
   @Output() post = new EventEmitter<string[]>();
 
-  data = ['', '', ''];
+  data = ['entrada', '', 'inicial'];
 
   constructor() { }
 
   ngOnInit() {
-    this.iSegmentRegistro.value = 'entrada';
-    this.iSegmentFase.value = 'inicial'
+    this.iSegmentRegistro.value = this.data[0];
+    this.iSegmentFase.value = this.data[2];
   }
 
   segmentChangedRegistros( event ) {
