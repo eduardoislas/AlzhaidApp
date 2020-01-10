@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PatientsService } from 'src/app/services/patients.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, IonSegment } from '@ionic/angular';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
 
 @Component({
@@ -9,6 +9,8 @@ import { DailyRecordService } from 'src/app/services/daily-record.service';
   styleUrls: ['./tab2.page.scss'],
 })
 export class Tab2Page implements OnInit {
+  @ViewChild('iSegmentRegistros', {static: true}) iSegmentRegistros: IonSegment;
+
   today = new Date();
   fecha;
 
@@ -26,16 +28,18 @@ export class Tab2Page implements OnInit {
                private alertCtrl: AlertController,
                private dailyService: DailyRecordService ) { }
   
-  ngOnInit() { this.patientsRole( this.fase ); }
+  ngOnInit() { 
+    this.iSegmentRegistros.value = this.registro;
+    this.patientsRole( this.fase ); 
+  }
   /* 
     Método encargado de escuchar el segundo dato del arreglo proviniente
     del componente de searchbar ( el cual es la fase del paciente) y 
     llamar al método patientsRole.
   */
   eventListener( data: string ) {
-    this.registro = data[0];
-    this.busqueda = data[1];
-    this.fase = data[2];
+    this.busqueda = data[0];
+    this.fase = data[1];
 
     switch( this.fase ) {
       case 'inicial':
@@ -69,15 +73,14 @@ export class Tab2Page implements OnInit {
         this.pacientesEntrada.push( ...res.patients );
       });
     } else if(this.registro === 'salida') {
-      // Si el registro es igual a salida, se agregan los pacientes a los
+      // Si registro es igual a salida, se agregan los pacientes a los
       // cuales se les agregó asistencia en el día actual, esto del servicio
       // de dailyRecordsDate.
       this.dailyService.getDailyRecordsDate().subscribe(res => {
         res.drs.forEach(r => {
-          if( this.capitalize(this.fase) === r.patient.phase ) {
-            debugger;
-            this.pacientesSalida.push( ...res.drs );
-            console.log(...res.drs);
+          if( r.patient.phase === this.capitalize(this.fase) ) {
+            this.pacientesSalida.push( r );
+            console.log(r);
           }
         });
       });
@@ -88,8 +91,8 @@ export class Tab2Page implements OnInit {
     se haya seleccionado la opción de Entrada, en caso de querer
     registrar una salida, se llama a departureAlert().
   */
-  chooseAlert( id: string ) {
-    this.registro === 'entrada' ? this.attendanceAlert( id ) : this.departureAlert( id );
+  chooseAlert( data: string ) {
+    this.registro === 'entrada' ? this.attendanceAlert( data ) : this.departureAlert( data );
   }
   /* 
     Método que pedirá confirmación del usuario para registrar
@@ -123,9 +126,9 @@ export class Tab2Page implements OnInit {
   }
   /* 
     Método que pedirá confirmación del usuario para registrar
-    una asistencia a un paciente.
+    la salida de un paciente.
   */
-  async departureAlert( id: string ) {
+  async departureAlert( data: any ) {
     const alert = await this.alertCtrl.create({
       header: 'Registro de Salida',
       message: '¿Está seguro de querer registrar esta salida?' ,
@@ -141,8 +144,13 @@ export class Tab2Page implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
-            console.log(id);
-            // this.dailyService.putExitDailyRecords( id ).subscribe();
+            let conversor = data._id.toString();
+            this.dailyService.putExitDailyRecords( conversor ).subscribe(res => {
+              console.log(res);
+            }, err => {
+              console.error(err);
+            });
+            
           }
         }
       ]
@@ -154,6 +162,14 @@ export class Tab2Page implements OnInit {
   */
   capitalize( word: string ) {
     return word.charAt(0).toUpperCase() + word.slice(1);
+  }
+  /* 
+    Método que checa la opción seleccionada en el IonSegment de la entrada 
+    y salida, lo iguala a registro y llama al método patientsRole().
+  */
+  segmentChangedRegistros( event ) {
+    this.registro = event.detail.value;
+    this.patientsRole( this.fase );
   }
 
   // async openModal( name: string, lastName: string ) {

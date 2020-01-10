@@ -1,4 +1,23 @@
-<app-searchbar (post)="eventListener( $event )"></app-searchbar>
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col>
+          <ion-segment #iSegmentRegistros
+                        (ionChange)="segmentChangedRegistros( $event )">
+            <ion-segment-button value="entrada">
+              <ion-label>Entrada</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="salida">
+              <ion-label>Salida</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <app-searchbar (post)="eventListener( $event )"></app-searchbar>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content>
   <ion-list *ngIf="pacientesEntrada.length > 0">
