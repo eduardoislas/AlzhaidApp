@@ -11,14 +11,9 @@ import { DailyRecordService } from 'src/app/services/daily-record.service';
 export class Tab2Page implements OnInit {
   @ViewChild('iSegmentRegistros', {static: true}) iSegmentRegistros: IonSegment;
 
-  today = new Date();
-  fecha;
-
   registro = 'entrada';
   busqueda;
   fase = 'inicial';
-
-  idDaily;
 
   pacientesEntrada = [];
   pacientesSalida = [];
@@ -80,7 +75,6 @@ export class Tab2Page implements OnInit {
         res.drs.forEach(r => {
           if( r.patient.phase === this.capitalize(this.fase) ) {
             this.pacientesSalida.push( r );
-            console.log(r);
           }
         });
       });

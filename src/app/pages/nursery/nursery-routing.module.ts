@@ -35,6 +35,10 @@ const routes: Routes = [
     path: '',
     redirectTo: '/nursery/tab1',
     pathMatch: 'full'
+  },
+  {
+    path: 'nursery-modal',
+    loadChildren: () => import('./nursery-modal/nursery-modal.module').then( m => m.NurseryModalPageModule)
   }
 ];
 

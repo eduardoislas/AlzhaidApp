@@ -41,7 +41,6 @@ export class DailyRecordService {
     Método PUT que registra la salida de un paciente.
   */
   putExitDailyRecords( id: string ) {
-    console.log(url + 'exit/' + id);
     return this.http.put( url + 'exit/' + id, false);
     
   }

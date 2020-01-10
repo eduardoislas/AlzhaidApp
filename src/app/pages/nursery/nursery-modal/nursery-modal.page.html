@@ -1,0 +1,31 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-title>Signos Vitales</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="{{ paciente.patient.img }}">
+      </ion-avatar>
+      <ion-label>{{ paciente.patient.name + ' ' + paciente.patient.lastName}}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Start Time</ion-label>
+      <ion-datetime display-format="h:mm A" picker-format="h:mm A" value="1990-02-19T07:43Z"></ion-datetime>
+    </ion-item>
+  </ion-list>
+
+  <ion-button color="primary" expand="full" (click)="salirSinArgumentos()">
+    Salir sin argumentos
+  </ion-button>
+  
+  <ion-button color="tertiary" expand="full" (click)="salirConArgumentos()">
+    Salir con argumentos
+  </ion-button>
+
+</ion-content>
