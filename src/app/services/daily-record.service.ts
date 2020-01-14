@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RootDaily, Dr } from "../interfaces/daily-records";
 
-const url = 'https://alzaid.herokuapp.com/dailyRecord/';
+const url = 'http://alzaid.herokuapp.com/dailyRecord/';
+// -const url = 'http://192.168.0.12:3000/dailyRecord/';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +54,14 @@ export class DailyRecordService {
     return this.http.put( url + id , {
       id
     });
+  }
+  /*
+    Método PUT que actuliza los signos vitales en Daily Records.
+  */
+  putVitalDailyRecords( id: string, vitalSigns ) {
+    return this.http.put(url + 'vitalSign/' + id, {
+      vitalSigns
+    })
   }
 
 

@@ -15,17 +15,122 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>Start Time</ion-label>
-      <ion-datetime display-format="h:mm A" picker-format="h:mm A" value="1990-02-19T07:43Z"></ion-datetime>
+      <ion-label>Hora</ion-label>
+      <ion-datetime display-format="HH:mm A" 
+                    picker-format="HH:mm A"
+                    [(ngModel)]="today"></ion-datetime>
     </ion-item>
   </ion-list>
 
-  <ion-button color="primary" expand="full" (click)="salirSinArgumentos()">
-    Salir sin argumentos
-  </ion-button>
-  
-  <ion-button color="tertiary" expand="full" (click)="salirConArgumentos()">
-    Salir con argumentos
-  </ion-button>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6">
+
+        <!-- Presión arterial -->
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              <ion-toggle [(ngModel)]="togglePresion"></ion-toggle>
+              <ion-item>
+                <ion-input type="number" 
+                           placeholder="0" 
+                           [(ngModel)]="presionA" 
+                           [disabled]="!togglePresion"></ion-input>
+
+                <ion-label>/</ion-label>
+
+                <ion-input type="number" 
+                           placeholder="0"
+                           [(ngModel)]="presionB" 
+                           [disabled]="!togglePresion"></ion-input>
+              </ion-item>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-label>Presión Arterial</ion-label>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Frecuencia Cardiaca -->
+      <ion-col size="6">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              <ion-toggle [(ngModel)]="toggleFrecuencia"></ion-toggle>
+              <ion-item>
+                <ion-input type="number" 
+                           placeholder="0"
+                           [(ngModel)]="latidos"
+                           [disabled]="!toggleFrecuencia"></ion-input>
+              </ion-item>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-label>Frecuencia Cardíaca</ion-label>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6">
+
+        <!-- Saturación oxígeno -->
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              <ion-toggle [(ngModel)]="toggleSaturacion"></ion-toggle>
+              <ion-item>
+                <ion-input type="number" 
+                           placeholder="0"
+                           [(ngModel)]="oxigeno"
+                           [disabled]="!toggleSaturacion"></ion-input>
+              </ion-item>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-label>Saturación oxígeno</ion-label>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Glucosa -->
+      <ion-col size="6">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              <ion-toggle [(ngModel)]="toggleGlucosa"></ion-toggle>
+              <ion-item>
+                <ion-input type="number" 
+                           placeholder="0" 
+                           [(ngModel)]="glucosa"
+                           [disabled]="!toggleGlucosa"></ion-input>
+              </ion-item>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-label>Glucosa</ion-label>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button color="primary" expand="full" (click)="salirSinArgumentos()">
+          Salir
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button color="secondary" expand="full" (click)="salirConArgumentos()">
+          Aceptar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>

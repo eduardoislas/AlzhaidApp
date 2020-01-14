@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 const url: string = 'https://alzaid.herokuapp.com/catalog/';
+// -const url: string = 'http://192.168.0.12:3000/catalog/';
 
 @Injectable({
   providedIn: 'root'
