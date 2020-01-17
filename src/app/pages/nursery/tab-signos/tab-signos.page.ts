@@ -5,10 +5,10 @@ import { NurseryModalPage } from '../nursery-modal/nursery-modal.page';
 
 @Component({
   selector: 'app-tab3',
-  templateUrl: './tab3.page.html',
-  styleUrls: ['./tab3.page.scss'],
+  templateUrl: './tab-signos.page.html',
+  styleUrls: ['./tab-signos.page.scss'],
 })
-export class Tab3Page implements OnInit {
+export class TabSignosPage implements OnInit {
   busqueda;
   fase = 'inicial';
 

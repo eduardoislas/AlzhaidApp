@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { Tab3PageRoutingModule } from './tab3-routing.module';
+import { TabSignosPageRoutingModule } from './tab-signos-routing.module';
 
-import { Tab3Page } from './tab3.page';
+import { TabSignosPage } from './tab-signos.page';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { NurseryModalPage } from '../nursery-modal/nursery-modal.page';
 import { NurseryModalPageModule } from '../nursery-modal/nursery-modal.module';
@@ -19,10 +19,10 @@ import { NurseryModalPageModule } from '../nursery-modal/nursery-modal.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    Tab3PageRoutingModule,
+    TabSignosPageRoutingModule,
     ComponentsModule,
     NurseryModalPageModule
   ],
-  declarations: [Tab3Page]
+  declarations: [TabSignosPage]
 })
-export class Tab3PageModule {}
+export class TabSignosPageModule {}

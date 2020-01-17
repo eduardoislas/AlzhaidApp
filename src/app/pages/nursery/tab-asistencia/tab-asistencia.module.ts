@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { Tab2PageRoutingModule } from './tab2-routing.module';
+import { TabAsistenciaPageRoutingModule } from './tab-asistencia-routing.module';
 
-import { Tab2Page } from './tab2.page';
+import { TabAsistenciaPage } from './tab-asistencia.page';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
 
@@ -18,9 +18,9 @@ import { ModalComponent } from 'src/app/components/modal/modal.component';
     CommonModule,
     FormsModule,
     IonicModule,
-    Tab2PageRoutingModule,
+    TabAsistenciaPageRoutingModule,
     ComponentsModule,
   ],
-  declarations: [Tab2Page]
+  declarations: [TabAsistenciaPage]
 })
-export class Tab2PageModule {}
+export class TabAsistenciaPageModule {}
