@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { PhasePageRoutingModule } from './phase-routing.module';
+import { PhaseModalPageRoutingModule } from './phase-modal-routing.module';
 
-import { PhasePage } from './phase.page';
+import { PhaseModalPage } from './phase-modal.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PhasePageRoutingModule,
+    PhaseModalPageRoutingModule
   ],
-  declarations: [PhasePage]
+  declarations: [PhaseModalPage]
 })
-export class PhasePageModule {}
+export class PhaseModalPageModule {}

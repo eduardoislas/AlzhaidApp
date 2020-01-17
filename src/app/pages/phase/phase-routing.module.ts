@@ -35,6 +35,10 @@ const routes: Routes = [
     path: '',
     redirectTo: '/tabs/tab1',
     pathMatch: 'full'
+  },
+  {
+    path: 'modal-conducta',
+    loadChildren: () => import('./phase-modal/phase-modal.module').then( m => m.PhaseModalPageModule)
   }
 ];
 

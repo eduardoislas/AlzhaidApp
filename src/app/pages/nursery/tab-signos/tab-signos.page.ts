@@ -29,7 +29,6 @@ export class TabSignosPage implements OnInit {
   eventListener( data: string ) {
     this.busqueda = data[0];
     this.fase = data[1];
-    
     this.patientsRole();
   }
   /* 

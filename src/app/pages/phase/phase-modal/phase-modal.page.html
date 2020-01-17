@@ -1,0 +1,89 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Intervención Terapéutica</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item class="patient-item">
+    <ion-avatar slot="start">
+      <img src="{{ paciente.patient.img }}">
+    </ion-avatar>
+    <ion-label>{{ paciente.patient.name + ' ' + paciente.patient.lastName}}</ion-label>
+    <ion-label slot="end">{{ paciente.patient.phase }}</ion-label>
+  </ion-item>
+
+  <ion-list>
+    <ion-radio-group name="auto" (ionChange)="radioGroupChange( $event )">
+      <ion-list-header>Tiempo del día</ion-list-header>
+      <ion-item>
+        <ion-label>Mañana</ion-label>
+        <ion-radio slot="start" value="mañana"></ion-radio>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Tarde</ion-label>
+        <ion-radio slot="start" value="tarde"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+  <ion-list *ngIf="tipoBitacora === 'conducta'">
+    <ion-item *ngFor="let item of [1,1,1,1]">
+      <ion-label>Delirio</ion-label>
+      <ion-toggle [(ngModel)]="toggleConducta"></ion-toggle>
+      <ion-range *ngIf="toggleConducta === true" 
+                 min="0" max="5" 
+                 snaps="true"
+                 (ionChange)="segmentChangedRange( $event )"></ion-range>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="tipoBitacora === 'comportamiento'">
+    <ion-item *ngFor="let item of [1,1,1,1]">
+      <ion-label>Agresión</ion-label>
+      <ion-toggle [(ngModel)]="toggleConducta"></ion-toggle>
+      <ion-range *ngIf="toggleConducta === true" 
+                 min="0" max="5" 
+                 snaps="true"
+                 (ionChange)="segmentChangedRange( $event )"></ion-range>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="tipoBitacora === 'crisis'">
+    <ion-radio-group name="auto" (ionChange)="radioGroup( $event )">
+      <ion-list-header>Tipo de crisis</ion-list-header>
+      <ion-item *ngFor="let item of [1,1,1,1]; let i = index">
+        <ion-avatar slot="start">
+          <img src="https://i.pinimg.com/originals/08/26/73/082673f0d75b9179d159f968d5c5ee71.png" />
+        </ion-avatar>
+        <ion-label>Llanto</ion-label>
+        <ion-radio slot="end" value="{{i}}"></ion-radio>
+      </ion-item>
+
+    </ion-radio-group>
+  </ion-list>
+
+  <hr>
+
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button (click)="salirSinArgumentos()" 
+                    expand="full"
+                    color="secondary">
+          Salir
+        </ion-button>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-button (click)="salirConArgumentos()" 
+                    expand="full">
+          Enviar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
