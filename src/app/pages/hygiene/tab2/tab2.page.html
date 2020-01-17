@@ -1,9 +1,26 @@
 <ion-header no-border>
   <ion-toolbar>
-    <ion-title>tab2</ion-title>
+    <ion-title text-center>Intervención Terapéutica</ion-title>
+    <ion-segment #iSegmentRegistros
+                        (ionChange)="segmentChangedRegistros( $event )"
+                        mode="md">
+            <ion-segment-button value="programa">
+              <ion-label>Programa Diario</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="desempeno">
+              <ion-label>Desempeño</ion-label>
+            </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <div [ngSwitch]="md">
+    <ionic-list *ngSwitchCase="'programa'">
+      <h3 class="ion-text-center">Tipo de Actividades</h3>
+    </ionic-list>
+    <ionic-list *ngSwitchCase="'desempeno'">
+      <h3 class="ion-text-center">Busqueda</h3>
+    </ionic-list>
+  </div>
 </ion-content>
