@@ -1,9 +1,49 @@
 <ion-header no-border>
-  <ion-toolbar>
-    <ion-title>tab2</ion-title>
+  <ion-toolbar class="ion-padding">
+    <ion-title class="ion-text-center">Activación Física</ion-title>
+    <ion-segment #iSegmentRegistros
+                        (ionChange)="segmentChangedRegistros( $event )"
+                        mode="md" [(ngModel)]="yudsegment">
+            <ion-segment-button value="programaDiario">
+              <ion-label>Programa Diario</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="reporteDesempeno">
+              <ion-label>ReporteDesempeño</ion-label>
+            </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <div [ngSwitch]="yudsegment">
+    <ion-list *ngSwitchCase="'programaDiario'">
+        <!-- Enviar aviso--> 
+    </ion-list>
+    <ion-list *ngSwitchCase="'reporteDesempeno'">
+      <ion-item>Cargar lista</ion-item>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col>
+            <div>
+              <ion-img [src]="image"></ion-img><ion-label>Nombre</ion-label>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div>
+              <ion-toggle [(ngModel)]="toggleOrden"></ion-toggle>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div>
+              <ion-range *ngIf="toggleOrden" min="0" max="5" step="1" snaps="true" color="secondary" [(ngModel)]="singleValue4"></ion-range>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+        
+      <ion-button color="secondary" expand="full" (click)="salirConArgumentos()">
+        Enviar
+      </ion-button>
+    </ion-list>
+  </div>
 </ion-content>

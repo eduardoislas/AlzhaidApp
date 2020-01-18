@@ -13,7 +13,7 @@ import { PhasePage } from './phase.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    PhasePageRoutingModule
+    PhasePageRoutingModule,
   ],
   declarations: [PhasePage]
 })

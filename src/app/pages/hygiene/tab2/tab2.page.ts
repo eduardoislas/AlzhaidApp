@@ -12,4 +12,8 @@ export class Tab2Page implements OnInit {
   ngOnInit() {
   }
 
+  segmentChangedRegistros( event ) {
+    console.log(event);
+  }
+
 }

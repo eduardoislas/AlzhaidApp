@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { concat } from 'rxjs';
+import { RootDaily, Dr } from "../interfaces/daily-records";
 
-const url = 'https://alzaid.herokuapp.com/dailyRecord/';
+const url = 'http://alzaid.herokuapp.com/dailyRecord/';
+// -const url = 'http://192.168.0.12:3000/dailyRecord/';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +18,7 @@ export class DailyRecordService {
     Método GET que obtiene todos los registros diarios.
   */
   getDailyRecords() {
-    return this.http.get( url );
+    return this.http.get<RootDaily>( url );
   }
   /* 
     Método GET que obtiene todos los registros diarios por paciente
@@ -26,16 +29,23 @@ export class DailyRecordService {
   /* 
     Método GET que obtiene todos los registros diarios por fecha.
   */
-  getDailyRecordsDate( fecha: any ) {
-    return this.http.get( url + fecha );
+  getDailyRecordsDate() {
+    return this.http.get<RootDaily>( url + 'today' );
   }
   /* 
     Método POST que registra la asistencia de un paciente.
   */
-  postDailyRecords( id: any ) {
-    return this.http.post( url + id , {
+  postDailyRecords( id: string ) {
+    return this.http.post<Dr>( url + id , {
       id
     });
+  }
+  /* 
+    Método PUT que registra la salida de un paciente.
+  */
+  putExitDailyRecords( id: string ) {
+    return this.http.put( url + 'exit/' + id, false);
+    
   }
   /*
     Método PUT que registra la hora de salida de un paciente.
@@ -44,6 +54,14 @@ export class DailyRecordService {
     return this.http.put( url + id , {
       id
     });
+  }
+  /*
+    Método PUT que actuliza los signos vitales en Daily Records.
+  */
+  putVitalDailyRecords( id: string, vitalSigns ) {
+    return this.http.put(url + 'vitalSign/' + id, {
+      vitalSigns
+    })
   }
 
 

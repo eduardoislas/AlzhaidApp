@@ -15,6 +15,8 @@ import { RolesService } from "./services/roles.service";
 import { FilterPipe } from './pipes/filter.pipe';
 import { ComponentsModule } from './components/components.module';
 
+import { IonicStorageModule } from "@ionic/storage";
+
 @NgModule({
   declarations: [AppComponent, FilterPipe],
   entryComponents: [],
@@ -23,7 +25,8 @@ import { ComponentsModule } from './components/components.module';
     IonicModule.forRoot(), 
     AppRoutingModule, 
     HttpClientModule,
-    ComponentsModule
+    ComponentsModule,
+    IonicStorageModule.forRoot()
   ],
   providers: [
     StatusBar,

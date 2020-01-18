@@ -1,26 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { NotificationsShowComponent } from './notifications-show/notifications-show.component';
-import { IonicModule } from "@ionic/angular";
-
-import { SearchBarComponent } from './search-bar/search-bar.component';
-
-
-
+import { SearchbarComponent } from './searchbar/searchbar.component';
+import { NotificationListComponent } from './notification-list/notification-list.component';
+import { IonicModule } from '@ionic/angular';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
-    SearchBarComponent,
-    NotificationsShowComponent
+    SearchbarComponent,
+    NotificationListComponent,
+    ModalComponent
   ],
   exports: [
-    SearchBarComponent,
-    NotificationsShowComponent
+    SearchbarComponent,
+    NotificationListComponent,
+    ModalComponent
   ],
   imports: [
-    IonicModule,
-    CommonModule
+    CommonModule,
+    IonicModule
   ]
 })
 export class ComponentsModule { }

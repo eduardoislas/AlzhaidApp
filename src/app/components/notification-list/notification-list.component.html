@@ -1,0 +1,27 @@
+<ion-list>
+  <ion-card
+    fullscreen="fullscreen"
+    *ngFor="let notificacion of notifications"
+    href="#"
+    class="activated"
+  >
+    <ion-card-header>
+      <ion-card-title>
+        {{notificacion.patient.name}} {{notificacion.patient.lastName}} {{notificacion.patient.lastNameSecond}}
+      </ion-card-title>
+
+      <ion-card-subtitle>
+        {{notificacion.expiration_date}}
+      </ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>{{notificacion.description}}</ion-card-content>
+  </ion-card>
+</ion-list>
+
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button>
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

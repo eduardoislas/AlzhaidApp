@@ -10,19 +10,19 @@ const routes: Routes = [
     children: [
       {
         path: 'tab1',
-        loadChildren: () => import('./tab1/tab1.module').then( m => m.Tab1PageModule)
+        loadChildren: () => import('./tab-avisos/tab-avisos.module').then( m => m.TabAvisosPageModule)
       },
       {
         path: 'tab2',
-        loadChildren: () => import('./tab2/tab2.module').then( m => m.Tab2PageModule)
+        loadChildren: () => import('./tab-asistencia/tab-asistencia.module').then( m => m.TabAsistenciaPageModule)
       },
       {
         path: 'tab3',
-        loadChildren: () => import('./tab3/tab3.module').then( m => m.Tab3PageModule)
+        loadChildren: () => import('./tab-signos/tab-signos.module').then( m => m.TabSignosPageModule)
       },
       {
         path: 'tab4',
-        loadChildren: () => import('./tab4/tab4.module').then( m => m.Tab4PageModule)
+        loadChildren: () => import('./tab-registros/tab-registros.module').then( m => m.TabRegistrosPageModule)
       },
       {
         path: '',
@@ -35,6 +35,10 @@ const routes: Routes = [
     path: '',
     redirectTo: '/nursery/tab1',
     pathMatch: 'full'
+  },
+  {
+    path: 'nursery-modal',
+    loadChildren: () => import('./nursery-modal/nursery-modal.module').then( m => m.NurseryModalPageModule)
   }
 ];
 

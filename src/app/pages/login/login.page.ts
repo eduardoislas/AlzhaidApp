@@ -36,8 +36,7 @@ export class LoginPage implements OnInit {
   */
   login( username: string, password: string ) {
     this.loginService.login( username, password ).subscribe(( res: any ) => {
-
-      switch( res.user.role.name ) {
+      switch( res.user.role ) {
 
         case 'FASE_INICIAL' || 'FASE_INTERMEDIA' || 'FASE_AVANZADA':
           this.router.navigateByUrl( '/phase' );
@@ -59,6 +58,7 @@ export class LoginPage implements OnInit {
       }
 
     }, err => {
+      debugger;
       this.presentAlert( err.error.err.message );
     });
   }
@@ -76,11 +76,12 @@ export class LoginPage implements OnInit {
         {
             text: 'Aceptar',
             handler: (blah) => {
-              console.log('Boton Aceptar');
+              return;
           }
         }
       ]
     });
     await alert.present();
   }
+
 }

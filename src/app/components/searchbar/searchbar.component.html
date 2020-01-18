@@ -1,0 +1,30 @@
+
+<ion-grid>
+  
+    <ion-row>
+      <ion-col>
+        <ion-searchbar #iSearchbar 
+                        animated 
+                        (ionChange)="searchBar( $event )"></ion-searchbar>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-segment #iSegmentFase 
+                      (ionChange)="segmentChangedFase( $event )"
+                      mode="md">
+          <ion-segment-button value="inicial">
+            <ion-label>Inicial</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="intermedia">
+            <ion-label>Intermedio</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="avanzada">
+            <ion-label>Avanzado</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-col>
+    </ion-row>
+    
+</ion-grid>
