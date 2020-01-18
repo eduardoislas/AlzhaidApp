@@ -18,7 +18,13 @@ import { ComponentsModule } from './components/components.module';
 @NgModule({
   declarations: [AppComponent, FilterPipe],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, ComponentsModule],
+  imports: [
+    BrowserModule, 
+    IonicModule.forRoot(), 
+    AppRoutingModule, 
+    HttpClientModule,
+    ComponentsModule
+  ],
   providers: [
     StatusBar,
     SplashScreen,
