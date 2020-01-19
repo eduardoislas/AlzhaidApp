@@ -31,7 +31,11 @@ const routes: Routes = [
     path: '',
     redirectTo: '/hygiene/tab1',
     pathMatch: 'full'
-  } 
+  },   {
+    path: 'hygiene-modal',
+    loadChildren: () => import('./hygiene-modal/hygiene-modal.module').then( m => m.HygieneModalPageModule)
+  }
+
 ];
 
 @NgModule({

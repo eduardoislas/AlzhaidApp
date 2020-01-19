@@ -1,0 +1,113 @@
+<ion-content padding>
+  <ion-item class="patient-item">
+    <ion-avatar slot="start">
+      <img src={{paciente.patient.img}}>
+    </ion-avatar>
+
+    <ion-label>
+      {{ paciente.patient.name + ' ' + paciente.patient.lastName}}
+    </ion-label>
+
+    <ion-label>Hipertención</ion-label>
+
+    <ion-label slot="end"></ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>-Lesión en la rodilla</ion-label>
+
+    <ion-label slot="end"></ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Hora</ion-label>
+
+    <ion-datetime
+      displayFormat="HH:MM"
+      placeholder="horas:minutos"
+    ></ion-datetime>
+  </ion-item>
+
+  <hr>
+
+  <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS__rOADCVL3XYW7NyqHObTU6hRbmTCvSEz_MojKVorjudYZWMd&s">
+    </ion-avatar>
+
+    <ion-label>Micción</ion-label>
+
+    <ion-label>Observación: </ion-label>
+
+    <ion-select
+      interface="popover"
+      value=""
+      okText="Seleccionar"
+      cancelText="Cancelar"
+    >
+      <ion-select-option value="normal">Normal</ion-select-option>
+
+      <ion-select-option value="anormal">Anormal</ion-select-option>
+
+      <ion-select-option value="asistido">Asistido</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhIhz9wfewM3omioGz3ouXnZX7Wnrsyhh2U52kT7ymzIcEVFep&s">
+    </ion-avatar>
+
+    <ion-label>Evacuación</ion-label>
+
+    <ion-label>Observación: </ion-label>
+
+    <ion-select
+      interface="popover"
+      value=""
+      okText="Seleccionar"
+      cancelText="Cancelar"
+    >
+      <ion-select-option value="normal">Normal</ion-select-option>
+
+      <ion-select-option value="anormal">Anormal</ion-select-option>
+
+      <ion-select-option value="asistido">Asistido</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+
+
+  <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmZei1KeFEz0gsZFR52vBMB8WkDVfJsi7qTm2Fm-5EJu8eeJWc&s">
+    </ion-avatar>
+
+    <ion-label>Cambio de ropa</ion-label>
+
+    <ion-label>Observación: </ion-label>
+
+    <ion-select
+      interface="popover"
+      value=""
+      okText="Seleccionar"
+      cancelText="Cancelar"
+    >
+      <ion-select-option value="incontinencia">Incontinencia</ion-select-option>
+
+      <ion-select-option value="anormal">Anormal</ion-select-option>
+
+      <ion-select-option value="asistido">Asistido</ion-select-option>
+    </ion-select>
+  </ion-item>
+  
+  <hr>
+
+   <ion-button (click)="salirSinArgumentos()">Regresar</ion-button>
+
+  <ion-button
+    color="primary"
+    (click)="salirConArgumentos()"
+  >Enviar</ion-button>
+
+</ion-content>

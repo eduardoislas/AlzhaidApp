@@ -1,121 +1,16 @@
 <app-searchbar (post)="eventListener( $event )"></app-searchbar>
 
-<hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr>
 <ion-content>
-  <ion-item class="patient-item">
-    <ion-avatar slot="start">
-      <img src="https://banner2.cleanpng.com/20180920/yko/kisspng-computer-icons-portable-network-graphics-avatar-ic-5ba3c66df14d32.3051789815374598219884.jpg">
-    </ion-avatar>
+        <!-- <img src="https://banner2.cleanpng.com/20180920/yko/kisspng-computer-icons-portable-network-graphics-avatar-ic-5ba3c66df14d32.3051789815374598219884.jpg"> -->
 
-    <ion-label>Sergio Castellanos</ion-label>
-
-    <ion-label>Hipertención</ion-label>
-
-    <ion-label slot="end"></ion-label>
-  </ion-item>
-
-  <ion-item>
-    <ion-label>-Lesión en la rodilla</ion-label>
-
-    <ion-label slot="end"></ion-label>
-  </ion-item>
-
-  <ion-item>
-    <ion-label>Hora</ion-label>
-    <ion-datetime
-      displayFormat="HH:MM"
-      placeholder="horas:minutos"
-    ></ion-datetime>
-  </ion-item>
-
-  <ion-item>
-    <ion-avatar slot="start">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS__rOADCVL3XYW7NyqHObTU6hRbmTCvSEz_MojKVorjudYZWMd&s">
-    </ion-avatar>
-    <ion-label>
-      Micción
-    </ion-label>
+  <ion-content>
     <ion-list>
-  <ion-label>Observación</ion-label>
-    <ion-select
-    value=""
-    okText="Seleccionar"
-    cancelText="Cancelar"
-  >
-
-    <ion-select-option value="normal">Normal</ion-select-option>
-
-    <ion-select-option value="anormal">Anormal</ion-select-option>
-
-    <ion-select-option value="asistido">Asistido</ion-select-option>
-
-  </ion-select>
-</ion-list>
-  </ion-item>
-
-
-  <ion-item>
-    <ion-avatar slot="start">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhIhz9wfewM3omioGz3ouXnZX7Wnrsyhh2U52kT7ymzIcEVFep&s">
-    </ion-avatar>
-    <ion-label>
-      Evacuación
-    </ion-label>
-    <ion-list>
-  <ion-label>Observación</ion-label>
-    <ion-select
-    value=""
-    okText="Seleccionar"
-    cancelText="Cancelar"
-  >
-
-    <ion-select-option value="normal">Normal</ion-select-option>
-
-    <ion-select-option value="anormal">Anormal</ion-select-option>
-
-    <ion-select-option value="asistido">Asistido</ion-select-option>
-
-  </ion-select>
-</ion-list>
-  </ion-item>
-
-  
-
-  <ion-list>
-    <ion-item *ngFor="let item of [1,1,1,1]">
-      <ion-label>Item</ion-label>
-
-      <ion-toggle></ion-toggle>
-
-      <ion-range
-        min="0"
-        max="5"
-        snaps="true"
-      ></ion-range>
-
-      <ion-list>
-        <ion-item>
-          <ion-label>Razón</ion-label>
-
-          <ion-select
-            value=""
-            okText="Seleccionar"
-            cancelText="Cancelar"
-          >
-            <ion-select-option value="incontinencia">Incontinencia</ion-select-option>
-
-            <ion-select-option value="2">opción 2</ion-select-option>
-
-            <ion-select-option value="3">opción 3</ion-select-option>
-
-            <ion-select-option value="4">opción 4</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-list>
-    </ion-item>
-  </ion-list>
-
-  <hr>
-
-  <ion-button color="primary">Enviar</ion-button>
+      <ion-item *ngFor="let paciente of pacientes" (click)="openModal( paciente )">
+        <ion-avatar slot="start">
+          <img src="{{ paciente.patient.img }}" />
+        </ion-avatar>
+        <ion-label class="ion-text-capitalize">{{ paciente.patient.name + ' ' + paciente.patient.lastName }}</ion-label>
+        <ion-icon slot="end" name="arrow-forward" mode="ios"></ion-icon>
+      </ion-item>
+    </ion-list>
 </ion-content>
