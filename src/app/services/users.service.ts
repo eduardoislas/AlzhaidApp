@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Users } from "../interfaces/users";
+import { Users } from '../interfaces/users';
 
 const url = 'http://alzaid.herokuapp.com/user/';
 // -const url: string = 'http://192.168.0.12:3000/user/';
