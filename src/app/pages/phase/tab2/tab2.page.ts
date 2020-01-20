@@ -96,6 +96,68 @@ export class Tab2Page implements OnInit {
         console.log(array);
       }
     })
+    this.calculo.forEach(r => {
+      if(r.selected === true) {
+        let data = {
+          name: r.name,
+          classification: r.classification
+        }
+        array.push(data);
+        console.log(array);
+      }
+    })
+    this.estimulacion.forEach(r => {
+      if(r.selected === true) {
+        let data = {
+          name: r.name,
+          classification: r.classification
+        }
+        array.push(data);
+        console.log(array);
+      }
+    })
+    this.fisioterapia.forEach(r => {
+      if(r.selected === true) {
+        let data = {
+          name: r.name,
+          classification: r.classification
+        }
+        array.push(data);
+        console.log(array);
+      }
+    })
+    this.lenguaje.forEach(r => {
+      if(r.selected === true) {
+        let data = {
+          name: r.name,
+          classification: r.classification
+        }
+        array.push(data);
+        console.log(array);
+      }
+    })
+    this.memoria.forEach(r => {
+      if(r.selected === true) {
+        let data = {
+          name: r.name,
+          classification: r.classification
+        }
+        array.push(data);
+        console.log(array);
+      }
+    })
+    this.reminiscencia.forEach(r => {
+      if(r.selected === true) {
+        let data = {
+          name: r.name,
+          classification: r.classification
+        }
+        array.push(data);
+        console.log(array);
+      }
+    })
+
+
 
     let dailyprogram = {
       phase: 'Inicial',
