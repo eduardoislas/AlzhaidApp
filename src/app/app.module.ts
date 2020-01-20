@@ -16,6 +16,8 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { ComponentsModule } from './components/components.module';
 
 import { IonicStorageModule } from "@ionic/storage";
+import { NotificationsAddPageModule } from './components/notifications-add/notifications-add.module';
+
 
 @NgModule({
   declarations: [AppComponent, FilterPipe],
@@ -26,6 +28,7 @@ import { IonicStorageModule } from "@ionic/storage";
     AppRoutingModule, 
     HttpClientModule,
     ComponentsModule,
+    NotificationsAddPageModule,
     IonicStorageModule.forRoot()
   ],
   providers: [

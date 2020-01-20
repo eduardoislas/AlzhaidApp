@@ -12,4 +12,6 @@ export class HygienePage implements OnInit {
   ngOnInit() {
   }
 
+  
+
 }
