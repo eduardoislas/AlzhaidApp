@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { RootCatalog } from "../interfaces/catalogs";
 
 const url = 'http://alzaid.herokuapp.com/catalog/';
-// -const url = 'http://192.168.0.12:3000/catalog/';
+// const url = 'http://192.168.0.12:3000//catalog/';
 
 @Injectable({
   providedIn: 'root'

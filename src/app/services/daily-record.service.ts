@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { RootDaily, Dr } from "../interfaces/daily-records";
 
 const url = 'http://alzaid.herokuapp.com/dailyRecord/';
-// -const url = 'http://192.168.0.12:3000/dailyRecord/';
+// const url = 'http://192.168.0.12:3000//dailyRecord/';
 
 
 
@@ -61,8 +61,30 @@ export class DailyRecordService {
   putVitalDailyRecords( id: string, vitalSigns ) {
     return this.http.put(url + 'vitalSign/' + id, {
       vitalSigns
-    })
+    });
   }
-
-
+  /* 
+    Método PUT que agrega registros de actitudes en Daily Records.
+  */ 
+  putAttitudeDailyRecords( id: string, attitudes ) {
+    return this.http.put( url + 'attitude/' + id, {
+      attitudes
+    });
+  }
+  /* 
+    Método PUT que agrega registros de comportamiento en Daily Records.
+  */ 
+  putBehaviorDailyRecords( id: string, behaviors ) {
+    return this.http.put( url + 'behavior/' + id, {
+      behaviors
+    });
+  } 
+  /* 
+    Método PUT que agrega registros de Crisis en Daily Records.
+  */ 
+  putCrisisDailyRecords( id: string, crisis ) {
+    return this.http.put( url + 'crisis/' + id, {
+      crisis
+    });
+  }
 }

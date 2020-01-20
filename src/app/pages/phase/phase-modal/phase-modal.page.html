@@ -15,51 +15,76 @@
   </ion-item>
 
   <ion-list>
-    <ion-radio-group name="auto" (ionChange)="radioGroupChange( $event )">
+    <ion-radio-group name="auto" (ionChange)="timeOfDay( $event )">
       <ion-list-header>Tiempo del día</ion-list-header>
       <ion-item>
         <ion-label>Mañana</ion-label>
-        <ion-radio slot="start" value="mañana"></ion-radio>
+        <ion-radio slot="end" value="Mañana"></ion-radio>
       </ion-item>
-  
+
       <ion-item>
         <ion-label>Tarde</ion-label>
-        <ion-radio slot="start" value="tarde"></ion-radio>
+        <ion-radio slot="end" value="Tarde"></ion-radio>
       </ion-item>
     </ion-radio-group>
   </ion-list>
 
+  <!-- Lista de Conductas -->
   <ion-list *ngIf="tipoBitacora === 'conducta'">
-    <ion-item *ngFor="let item of [1,1,1,1]">
-      <ion-label>Delirio</ion-label>
-      <ion-toggle [(ngModel)]="toggleConducta"></ion-toggle>
-      <ion-range *ngIf="toggleConducta === true" 
-                 min="0" max="5" 
-                 snaps="true"
-                 (ionChange)="segmentChangedRange( $event )"></ion-range>
+    <ion-list-header>Conductas</ion-list-header>
+
+    <ion-item *ngFor="let item of catalogoConductas">
+      <ion-label>{{ item.name }}</ion-label>
+
+      <ion-toggle [(ngModel)]="item.selected"
+                  (ionChange)="selectedActions( item )"></ion-toggle>
+
+      <ion-range *ngIf="item.selected"
+                 pin
+                 snaps
+                 min="0" max="5"
+                 [(ngModel)]="item.score"
+                 (ionChange)="activityScore( $event )">
+
+        <ion-icon slot="start" size="small" color="medium" name="star"></ion-icon>
+        <ion-icon slot="end" color="medium" name="star"></ion-icon>
+      </ion-range>
     </ion-item>
   </ion-list>
 
+  <!-- Lista de Comporamientos -->
   <ion-list *ngIf="tipoBitacora === 'comportamiento'">
-    <ion-item *ngFor="let item of [1,1,1,1]">
-      <ion-label>Agresión</ion-label>
-      <ion-toggle [(ngModel)]="toggleConducta"></ion-toggle>
-      <ion-range *ngIf="toggleConducta === true" 
-                 min="0" max="5" 
-                 snaps="true"
-                 (ionChange)="segmentChangedRange( $event )"></ion-range>
+    <ion-list-header>Conductas</ion-list-header>
+
+    <ion-item *ngFor="let item of catalogoConductas">
+      <ion-label>{{ item.name }}</ion-label>
+
+      <ion-toggle [(ngModel)]="item.selected"
+                  (ionChange)="selectedActions( item )"></ion-toggle>
+
+      <ion-range *ngIf="item.selected"
+                 pin
+                 min="0" max="5"
+                 snaps
+                 [(ngModel)]="item.score"
+                 (ionChange)="activityScore( $event )">
+
+        <ion-icon slot="start" size="small" color="medium" name="star"></ion-icon>
+        <ion-icon slot="end" color="medium" name="star"></ion-icon>
+      </ion-range>
     </ion-item>
   </ion-list>
 
+  <!-- Lista de Crisis -->
   <ion-list *ngIf="tipoBitacora === 'crisis'">
-    <ion-radio-group name="auto" (ionChange)="radioGroup( $event )">
+    <ion-radio-group name="auto" (ionChange)="selectedCrisis( $event )">
       <ion-list-header>Tipo de crisis</ion-list-header>
-      <ion-item *ngFor="let item of [1,1,1,1]; let i = index">
+      <ion-item *ngFor="let item of catalogoConductas; let i = index">
         <ion-avatar slot="start">
           <img src="https://i.pinimg.com/originals/08/26/73/082673f0d75b9179d159f968d5c5ee71.png" />
         </ion-avatar>
-        <ion-label>Llanto</ion-label>
-        <ion-radio slot="end" value="{{i}}"></ion-radio>
+        <ion-label>{{ item.name }}</ion-label>
+        <ion-radio slot="end" value="{{ item.name }}"></ion-radio>
       </ion-item>
 
     </ion-radio-group>
@@ -67,10 +92,22 @@
 
   <hr>
 
+  <div *ngIf="tipoBitacora === 'crisis'">
+    <ion-list-header>Detalles</ion-list-header>
+    <ion-card>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="stacked">Explicación del suceso</ion-label>
+          <ion-textarea [(ngModel)]="observation"></ion-textarea>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
   <ion-grid fixed>
     <ion-row>
       <ion-col size="6">
-        <ion-button (click)="salirSinArgumentos()" 
+        <ion-button (click)="salirSinArgumentos()"
                     expand="full"
                     color="secondary">
           Salir
@@ -78,7 +115,7 @@
       </ion-col>
 
       <ion-col size="6">
-        <ion-button (click)="salirConArgumentos()" 
+        <ion-button (click)="salirConArgumentos()"
                     expand="full">
           Enviar
         </ion-button>

@@ -58,7 +58,6 @@ export class LoginPage implements OnInit {
       }
 
     }, err => {
-      debugger;
       this.presentAlert( err.error.err.message );
     });
   }

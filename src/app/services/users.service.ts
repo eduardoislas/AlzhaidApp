@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Users } from "../interfaces/users";
 
 const url = 'http://alzaid.herokuapp.com/user/';
-// -const url: string = 'http://192.168.0.12:3000/user/';
+// const url = 'http://192.168.0.12:3000//user/';
 
 @Injectable({
   providedIn: 'root'
