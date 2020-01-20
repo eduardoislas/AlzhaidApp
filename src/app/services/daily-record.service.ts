@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RootDaily, Dr } from "../interfaces/daily-records";
+import { RootDaily, Dr, RootDailyDesempeno } from "../interfaces/daily-records";
 
 const url = 'http://alzaid.herokuapp.com/dailyRecord/';
 // const url = 'http://192.168.0.12:3000//dailyRecord/';
@@ -32,6 +32,13 @@ export class DailyRecordService {
   getDailyRecordsDate() {
     return this.http.get<RootDaily>( url + 'today' );
   }
+/* 
+    Método GET que obtiene todos los registros diarios por fecha.
+  */
+ getDailyRecordsActivities() {
+  return this.http.get<RootDailyDesempeno>( url + 'dp/dailyProgram' );
+}
+
   /* 
     Método POST que registra la asistencia de un paciente.
   */
@@ -40,6 +47,12 @@ export class DailyRecordService {
       id
     });
   }
+  /* 
+    Método POST que registra un programa diario.
+  */
+postDailyProgram(dailyprogram: any){
+  return this.http.post(url+'dp/dailyProgram', dailyprogram  );
+}
   /* 
     Método PUT que registra la salida de un paciente.
   */

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {NotificationsService} from '../../services/notifications.service';
 import { Vigente } from '../../interfaces/notifications';
+import { ModalController } from '@ionic/angular';
+import { NotificationsAddPage } from '../notifications-add/notifications-add.page';
 
 @Component({
   selector: 'app-notification-list',
@@ -10,7 +12,7 @@ import { Vigente } from '../../interfaces/notifications';
 export class NotificationListComponent implements OnInit {
 notifications: any = [];
 
-  constructor(private NotificationsService: NotificationsService) {}
+  constructor(private modalCtrl: ModalController, private NotificationsService: NotificationsService) {}
   
   ngOnInit() {
     this.NotificationsService.getNotifications().subscribe(res => {
@@ -18,6 +20,19 @@ notifications: any = [];
       this.notifications.push(res.vigentes);
       this.notifications = res.vigentes;
     });
+    }
+
+    async openModal() {
+      const modal = await this.modalCtrl.create({
+        component: NotificationsAddPage,
+        componentProps: {
+
+        }
+      });
+      await modal.present();
+
+      const { data } = await modal.onDidDismiss();
+      console.log('Retorno modal', data);
     }
 
 }

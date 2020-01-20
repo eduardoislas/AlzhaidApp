@@ -14,7 +14,13 @@ import { LoginService } from "./services/login.service";
 import { FilterPipe } from './pipes/filter.pipe';
 import { ComponentsModule } from './components/components.module';
 
+<<<<<<< HEAD
 import { IonicStorageModule } from '@ionic/storage';
+=======
+import { IonicStorageModule } from "@ionic/storage";
+import { NotificationsAddPageModule } from './components/notifications-add/notifications-add.module';
+
+>>>>>>> dc0f53f44d8bbb04e4149cc8b3cd8acc0c31f4e2
 
 @NgModule({
   declarations: [AppComponent, FilterPipe],
@@ -25,7 +31,12 @@ import { IonicStorageModule } from '@ionic/storage';
     AppRoutingModule, 
     HttpClientModule,
     ComponentsModule,
+<<<<<<< HEAD
     IonicStorageModule.forRoot(),
+=======
+    NotificationsAddPageModule,
+    IonicStorageModule.forRoot()
+>>>>>>> dc0f53f44d8bbb04e4149cc8b3cd8acc0c31f4e2
   ],
   providers: [
     StatusBar,

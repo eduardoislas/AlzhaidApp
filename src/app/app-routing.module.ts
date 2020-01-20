@@ -64,7 +64,15 @@ const routes: Routes = [
   {
     path: 'physio',
     loadChildren: () => import('./pages/physio/physio.module').then( m => m.PhysioPageModule)
+  },  {
+    path: 'notifications-add',
+    loadChildren: () => import('./components/notifications-add/notifications-add.module').then( m => m.NotificationsAddPageModule)
   },
+  {
+    path: 'user-list',
+    loadChildren: () => import('./components/user-list/user-list.module').then( m => m.UserListPageModule)
+  },
+
 
 ];
 

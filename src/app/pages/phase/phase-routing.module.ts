@@ -39,7 +39,11 @@ const routes: Routes = [
   {
     path: 'modal-conducta',
     loadChildren: () => import('./phase-modal/phase-modal.module').then( m => m.PhaseModalPageModule)
+  },  {
+    path: 'phase-modal-actividades',
+    loadChildren: () => import('./phase-modal-actividades/phase-modal-actividades.module').then( m => m.PhaseModalActividadesPageModule)
   }
+
 ];
 
 @NgModule({

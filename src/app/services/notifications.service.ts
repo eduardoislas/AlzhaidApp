@@ -4,6 +4,11 @@ import {RootNotification} from '../interfaces/notifications';
 
 
 const url = 'http://alzaid.herokuapp.com/notification/';
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dc0f53f44d8bbb04e4149cc8b3cd8acc0c31f4e2
 
 @Injectable({
   providedIn: 'root'
