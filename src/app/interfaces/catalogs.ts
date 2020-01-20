@@ -9,4 +9,5 @@ export interface Catalog {
     name: string;
     type: string;
     value?: number;
+    classification: string;
 }
