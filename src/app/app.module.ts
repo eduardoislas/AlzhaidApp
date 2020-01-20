@@ -14,7 +14,7 @@ import { LoginService } from "./services/login.service";
 import { FilterPipe } from './pipes/filter.pipe';
 import { ComponentsModule } from './components/components.module';
 
-import { IonicStorageModule } from "@ionic/storage";
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [AppComponent, FilterPipe],
@@ -25,7 +25,7 @@ import { IonicStorageModule } from "@ionic/storage";
     AppRoutingModule, 
     HttpClientModule,
     ComponentsModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
   ],
   providers: [
     StatusBar,

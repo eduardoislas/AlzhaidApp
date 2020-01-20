@@ -10,6 +10,7 @@ export class Tab1Page implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(history.state.data);
   }
 
 }

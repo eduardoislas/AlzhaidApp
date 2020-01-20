@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-tab2',
@@ -11,10 +12,9 @@ export class Tab2Page implements OnInit {
   busqueda;
   fase = 'inicial';
 
-  constructor() { }
+  constructor(private storage: Storage) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   segmentChangedRegistros( event ) {
     this.opcion = event.detail.value;

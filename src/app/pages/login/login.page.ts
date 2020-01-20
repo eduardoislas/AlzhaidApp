@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from "../../services/login.service";
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 
 @Component({
@@ -23,7 +24,8 @@ export class LoginPage implements OnInit {
   */
   constructor( private loginService: LoginService,
                private router: Router,
-               private alertCtrl: AlertController ) { }
+               private alertCtrl: AlertController,
+               private storage: Storage ) { }
 
   ngOnInit() { }
 
@@ -39,6 +41,7 @@ export class LoginPage implements OnInit {
       switch( res.user.role ) {
 
         case 'FASE_INICIAL' || 'FASE_INTERMEDIA' || 'FASE_AVANZADA':
+          this.storage.set('Rol', res.user.role);
           this.router.navigateByUrl( '/phase' );
           break;
         case 'FISIOTERAPIA':
@@ -52,8 +55,6 @@ export class LoginPage implements OnInit {
           break;
         case 'ENFERMERIA':
           this.router.navigateByUrl( '/nursery' );
-          break;
-        default:
           break;
       }
 

@@ -22,13 +22,14 @@ export class TabSignosPage implements OnInit {
   }
 
   /* 
-    Método encargado de escuchar el segundo dato del arreglo proviniente
-    del componente de searchbar ( el cual es la fase del paciente) y 
-    llamar al método patientsRole.
+    Método encargado de escuchar los datos del arreglo proviniente
+    del componente de searchbar, setear los valores a sus respectivas
+    vabiables y llamar al método patientsRole.
   */
   eventListener( data: string ) {
     this.busqueda = data[0];
     this.fase = data[1];
+    
     this.patientsRole();
   }
   /* 
