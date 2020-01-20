@@ -16,6 +16,7 @@ export class Tab2Page implements OnInit {
 
   busqueda;
   fase = 'inicial';
+  rol; 
 
   pacientes = [];
 
@@ -32,6 +33,9 @@ export class Tab2Page implements OnInit {
                private storage: Storage ) { }
 
   ngOnInit() {
+    this.storage.get('Rol').then((val) => {
+      this.rol = val;
+    });
     this.getTodayDailyRecords();
   }
 
@@ -179,7 +183,7 @@ export class Tab2Page implements OnInit {
     })
 
     let dailyprogram = {
-      phase: 'Inicial',
+      phase: this.rol,
       activities: array
     }
     this.dailyService.postDailyProgram(dailyprogram).subscribe(res =>{
