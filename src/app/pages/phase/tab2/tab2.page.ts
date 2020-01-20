@@ -157,8 +157,6 @@ export class Tab2Page implements OnInit {
       }
     })
 
-
-
     let dailyprogram = {
       phase: 'Inicial',
       activities: array
