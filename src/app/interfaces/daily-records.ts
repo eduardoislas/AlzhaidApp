@@ -1,3 +1,4 @@
+// Daily Records
 export interface RootDaily {
   success: boolean;
   cuantos: number;
@@ -35,4 +36,23 @@ export interface Patient {
   lastNameSecond: string;
   phase: string;
 }
+
+// Daily Records desempeño
+export interface RootDailyDesempeno {
+  success: boolean;
+  cuantos: number;
+  dps: Dp[];
+}
+
+export interface Dp {
+  _id: string;
+  date: string;
+  phase: string;
+  activities: any[];
+  __v: number;
+}
+
+
+
+
 

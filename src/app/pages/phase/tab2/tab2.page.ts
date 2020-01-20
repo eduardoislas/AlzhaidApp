@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CatalogService } from 'src/app/services/catalog.service';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
+import { ModalController } from '@ionic/angular';
+import { PhaseModalActividadesPage } from '../phase-modal-actividades/phase-modal-actividades.page';
 
 @Component({
   selector: 'app-tab2',
@@ -14,23 +16,25 @@ export class Tab2Page implements OnInit {
   busqueda;
   fase = 'inicial';
 
+  pacientes = [];
+
   atencion = [];
   calculo = [];
   estimulacion = [];
-  fisioterapia = [];
   lenguaje = [];
   memoria = [];
   reminiscencia = [];
 
   constructor(private catalogService:CatalogService,
-              private dailyService:DailyRecordService) { }
+              private dailyService:DailyRecordService,
+              private modalCtrl: ModalController) { }
 
   ngOnInit() {
+    this.getTodayDailyRecords();
   }
 
   segmentChangedRegistros( event ) {
     this.opcion = event.detail.value;
-    console.log(this.opcion);
     switch( this.opcion ) {
       case 'programa':
         this.getCatolosTipos('actividad');
@@ -45,8 +49,41 @@ export class Tab2Page implements OnInit {
     this.busqueda = data[0];
     this.fase = data[1];
 
-    console.log(this.busqueda, this.fase);
+    this.getTodayDailyRecords();
   }
+  getTodayDailyRecords() {
+    // Se limpian los arreglos antes de agregar nuevos de distintas fases.
+    this.pacientes = [];
+    
+    // Se obtienen todos los pacientes filtrados por su fase.
+      this.dailyService.getDailyRecordsDate().subscribe(res => {
+        res.drs.forEach(r => {
+          if( r.patient.phase === this.capitalize(this.fase) ) {
+            this.pacientes.push( r );
+          }
+        });
+      });
+  }
+  async openModal( paciente ) {
+    const modal = await this.modalCtrl.create({
+      component: PhaseModalActividadesPage,
+      componentProps: {
+        paciente,
+      }
+    });
+    await modal.present();
+
+    const { data } = await modal.onDidDismiss();
+  }
+  
+/* 
+    Método que sirve para volver mayúscula la primera letra de una palabra
+    */
+   capitalize( word: string ) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }
+  
+
   selectedActivity( item ) {
     console.log(item);
   }
@@ -66,8 +103,6 @@ export class Tab2Page implements OnInit {
           case 'Cálculo':this.calculo.push(r);
             break;
           case 'Estimulación sensorial':this.estimulacion.push(r);
-            break;
-          case 'Fisioterapia':this.fisioterapia.push(r);
             break;
           case 'Lenguaje':this.lenguaje.push(r);
             break;
@@ -93,7 +128,6 @@ export class Tab2Page implements OnInit {
           classification: r.classification
         }
         array.push(data);
-        console.log(array);
       }
     })
     this.calculo.forEach(r => {
@@ -103,7 +137,6 @@ export class Tab2Page implements OnInit {
           classification: r.classification
         }
         array.push(data);
-        console.log(array);
       }
     })
     this.estimulacion.forEach(r => {
@@ -113,17 +146,6 @@ export class Tab2Page implements OnInit {
           classification: r.classification
         }
         array.push(data);
-        console.log(array);
-      }
-    })
-    this.fisioterapia.forEach(r => {
-      if(r.selected === true) {
-        let data = {
-          name: r.name,
-          classification: r.classification
-        }
-        array.push(data);
-        console.log(array);
       }
     })
     this.lenguaje.forEach(r => {
@@ -133,7 +155,6 @@ export class Tab2Page implements OnInit {
           classification: r.classification
         }
         array.push(data);
-        console.log(array);
       }
     })
     this.memoria.forEach(r => {
@@ -143,7 +164,6 @@ export class Tab2Page implements OnInit {
           classification: r.classification
         }
         array.push(data);
-        console.log(array);
       }
     })
     this.reminiscencia.forEach(r => {
@@ -153,7 +173,6 @@ export class Tab2Page implements OnInit {
           classification: r.classification
         }
         array.push(data);
-        console.log(array);
       }
     })
 
@@ -161,9 +180,8 @@ export class Tab2Page implements OnInit {
       phase: 'Inicial',
       activities: array
     }
-    console.log(dailyprogram);
     this.dailyService.postDailyProgram(dailyprogram).subscribe(res =>{
-      console.log(res);
+      console.log('respuesta servicio daily program', res);
     });
 
   }
