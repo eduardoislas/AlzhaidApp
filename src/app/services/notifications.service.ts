@@ -7,7 +7,6 @@ const url = 'http://alzaid.herokuapp.com/notification/';
 
 
 
-
 @Injectable({
   providedIn: 'root'
 })

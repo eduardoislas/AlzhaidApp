@@ -11,7 +11,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { LoginService } from "./services/login.service";
-import { RolesService } from "./services/roles.service";
 import { FilterPipe } from './pipes/filter.pipe';
 import { ComponentsModule } from './components/components.module';
 
@@ -35,7 +34,6 @@ import { NotificationsAddPageModule } from './components/notifications-add/notif
     StatusBar,
     SplashScreen,
     LoginService,
-    RolesService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

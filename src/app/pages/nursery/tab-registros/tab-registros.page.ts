@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
 
 @Component({
   selector: 'app-tab4',
@@ -6,10 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tab-registros.page.scss'],
 })
 export class TabRegistrosPage implements OnInit {
+  
+  ngOnInit(): void { }
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  
 
 }
