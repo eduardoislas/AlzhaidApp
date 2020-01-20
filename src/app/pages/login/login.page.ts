@@ -40,7 +40,15 @@ export class LoginPage implements OnInit {
     this.loginService.login( username, password ).subscribe(( res: any ) => {
       switch( res.user.role ) {
 
-        case 'FASE_INICIAL' || 'FASE_INTERMEDIA' || 'FASE_AVANZADA':
+        case 'FASE_INICIAL':
+          this.storage.set('Rol', res.user.role);
+          this.router.navigateByUrl( '/phase' );
+          break;
+        case 'FASE_INTERMEDIA':
+          this.storage.set('Rol', res.user.role);
+          this.router.navigateByUrl( '/phase' );
+          break;
+        case 'FASE_AVANZADA':
           this.storage.set('Rol', res.user.role);
           this.router.navigateByUrl( '/phase' );
           break;
