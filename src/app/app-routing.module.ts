@@ -65,6 +65,7 @@ const routes: Routes = [
     path: 'physio',
     loadChildren: () => import('./pages/physio/physio.module').then( m => m.PhysioPageModule)
   },
+
 ];
 
 @NgModule({

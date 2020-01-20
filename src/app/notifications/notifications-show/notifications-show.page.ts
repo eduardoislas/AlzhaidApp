@@ -7,9 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotificationsShowPage implements OnInit {
 today = Date.now();
-  constructor() { 
-     
-  }
+
+  constructor() {}
 
   ngOnInit() {
   }

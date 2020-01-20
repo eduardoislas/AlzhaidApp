@@ -7,13 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { Tab2PageRoutingModule } from './tab2-routing.module';
 
 import { Tab2Page } from './tab2.page';
+import { ComponentsModule } from '../../../components/components.module';
+import { HygieneModalPageModule } from '../hygiene-modal/hygiene-modal.module';
 
 @NgModule({
   imports: [
+    ComponentsModule,
     CommonModule,
     FormsModule,
     IonicModule,
-    Tab2PageRoutingModule
+    Tab2PageRoutingModule,
+    HygieneModalPageModule
   ],
   declarations: [Tab2Page]
 })
