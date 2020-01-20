@@ -41,6 +41,12 @@ export class DailyRecordService {
     });
   }
   /* 
+    Método POST que registra un programa diario.
+  */
+postDailyProgram(dailyprogram: any){
+  return this.http.post(url+'dp/dailyProgram', dailyprogram  );
+}
+  /* 
     Método PUT que registra la salida de un paciente.
   */
   putExitDailyRecords( id: string ) {
