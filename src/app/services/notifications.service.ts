@@ -4,11 +4,6 @@ import {RootNotification} from '../interfaces/notifications';
 
 
 const url = 'http://alzaid.herokuapp.com/notification/';
-<<<<<<< HEAD
-// const url = 'http://192.168.0.12:3000//notification/';
-
-=======
->>>>>>> 255a9071d2fb7441c30713bc880dd0547b0078b6
 
 
 
