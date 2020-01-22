@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { Tab2PageRoutingModule } from './tab2-routing.module';
 
 import { Tab2Page } from './tab2.page';
-import { ComponentsModule } from 'src/app/components/components.module';
 import { PhaseModalActividadesPage } from '../phase-modal-actividades/phase-modal-actividades.page';
 import { PhaseModalActividadesPageModule } from '../phase-modal-actividades/phase-modal-actividades.module';
 
@@ -20,7 +19,6 @@ import { PhaseModalActividadesPageModule } from '../phase-modal-actividades/phas
     FormsModule,
     IonicModule,
     Tab2PageRoutingModule,
-    ComponentsModule,
     PhaseModalActividadesPageModule
   ],
   declarations: [Tab2Page]

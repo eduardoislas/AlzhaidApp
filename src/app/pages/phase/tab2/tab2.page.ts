@@ -4,6 +4,7 @@ import { CatalogService } from 'src/app/services/catalog.service';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
 import { ModalController } from '@ionic/angular';
 import { PhaseModalActividadesPage } from '../phase-modal-actividades/phase-modal-actividades.page';
+import { Info } from "../../../interfaces/daily-records";
 
 @Component({
   selector: 'app-tab2',
@@ -12,14 +13,13 @@ import { PhaseModalActividadesPage } from '../phase-modal-actividades/phase-moda
 })
 export class Tab2Page implements OnInit {
   opcion;
-  contador;
 
   busqueda;
-  fase = 'inicial';
-  rol; 
+  fase;
+  rol;
 
   pacientes = [];
-
+  
   atencion = [];
   calculo = [];
   estimulacion = [];
@@ -36,40 +36,54 @@ export class Tab2Page implements OnInit {
     this.storage.get('Rol').then((val) => {
       this.rol = val;
     });
-    this.getTodayDailyRecords();
   }
 
   segmentChangedRegistros( event ) {
     this.opcion = event.detail.value;
-    switch( this.opcion ) {
-      case 'programa':
-        this.getCatolosTipos('actividad');
-        break;
-      case 'desempeno':
-        break;
-      default:
-        break;
-    }
+     this.opcion === 'programa' ? this.getCatalogosTipo('actividad') : this.getTodayDailyRecords();
   }
-  eventListener( data: string ) {
-    this.busqueda = data[0];
-    this.fase = data[1];
+  /* 
+    Método que obtiene el arreglo enviado por el componente
+    searchbar.
+  */
+  searchBar( event ) {
+    this.busqueda = event.detail.value;
 
-    this.getTodayDailyRecords();
+    console.log(this.busqueda);
   }
+  /* 
+    Método encargado de limpiar el arreglo de pacientes, llamar al servicio
+    de getDailyRecordsDate() el cual obtiene los dailyRecords del día y los
+    filtra por la fase elegida en el ion segment.
+  */
   getTodayDailyRecords() {
     // Se limpian los arreglos antes de agregar nuevos de distintas fases.
     this.pacientes = [];
     
+    switch( this.rol ) {
+      case 'FASE_INICIAL':
+        this.fase = 'inicial';
+        break;
+      case 'FASE_INTERMEDIA':
+        this.fase = 'intermedia';
+        break;
+      case 'FASE_AVANZADA':
+        this.fase = 'avanzada';
+        break;
+    }
+
     // Se obtienen todos los pacientes filtrados por su fase.
       this.dailyService.getDailyRecordsDate().subscribe(res => {
         res.drs.forEach(r => {
-          if( r.patient.phase === this.capitalize(this.fase) ) {
+          if( r.patient.phase === this.capitalize( this.fase ) ) {
             this.pacientes.push( r );
           }
         });
       });
   }
+  /* 
+    Método encargado de abrir el modal de actividades.
+  */
   async openModal( paciente ) {
     const modal = await this.modalCtrl.create({
       component: PhaseModalActividadesPage,
@@ -81,113 +95,136 @@ export class Tab2Page implements OnInit {
 
     const { data } = await modal.onDidDismiss();
   }
-  
-/* 
+  /*
     Método que sirve para volver mayúscula la primera letra de una palabra
     */
    capitalize( word: string ) {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
-  
-
-  selectedActivity( item ) {
-    console.log(item);
-  }
-  getCatolosTipos(type:string){
-    this.catalogService.getCatalogsType(type).subscribe(res =>{
+  /* 
+    Método encargado de llamar el servicio getCatalogsType() el
+    cual se encarga de traer el catalogo de actividades, filtrar
+    el tipo de actividad y guardarlo en su respectivo arreglo.
+  */
+  getCatalogosTipo( type:string ){
+    this.catalogService.getCatalogsType( type ).subscribe(res =>{
       for( let i of res.catalogs ) {
         i['selected'] = false;
       }
       res.catalogs.forEach(r => {
-        // if(r.classification === 'Memoria') {
-        //   this.memoria.push(r);
-        //   console.log(r);
-        // }
-        switch(r.classification){
-          case 'Atención':this.atencion.push(r);
+        switch( r.classification ){
+          case 'Atención':
+            this.atencion.push( r );
             break;
-          case 'Cálculo':this.calculo.push(r);
+          case 'Cálculo':
+            this.calculo.push( r );
             break;
-          case 'Estimulación sensorial':this.estimulacion.push(r);
+          case 'Estimulación sensorial':
+            this.estimulacion.push( r );
             break;
-          case 'Lenguaje':this.lenguaje.push(r);
+          case 'Lenguaje':
+            this.lenguaje.push( r );
             break;
-          case 'Memoria':this.memoria.push(r);
+          case 'Memoria':
+            this.memoria.push( r );
             break;
-            case 'Reminiscencia':this.reminiscencia.push(r);
+            case 'Reminiscencia':
+              this.reminiscencia.push( r );
             break;
-          default:
-            break;  
         }
       });
-      
-    })
+    });
   }
-
+  /*
+    Método que sirve para enviar los datos seleccionados en
+    el modal de actividades, esto utilizando el servicio postDailyProgram().
+  */
   salirConArgumentos(){
-    let array = [];
+    let attention = [];
+    let calculus = [];
+    let sensory = [];
+    let language = [];
+    let memory = [];
+    let reminiscence = [];
 
-    this.atencion.forEach(r => {
+    this.atencion.forEach( r => {
       if(r.selected === true) {
-        let data = {
+        let data: Info = {
           name: r.name,
           classification: r.classification
         }
-        array.push(data);
+        attention.push(data);
       }
-    })
+      
+    });
+
     this.calculo.forEach(r => {
       if(r.selected === true) {
         let data = {
           name: r.name,
           classification: r.classification
         }
-        array.push(data);
+        calculus.push(data);
       }
-    })
+    });
+
     this.estimulacion.forEach(r => {
       if(r.selected === true) {
         let data = {
           name: r.name,
           classification: r.classification
         }
-        array.push(data);
+        sensory.push(data);
       }
-    })
+    });
+
     this.lenguaje.forEach(r => {
       if(r.selected === true) {
         let data = {
           name: r.name,
           classification: r.classification
         }
-        array.push(data);
+        language.push(data);
       }
-    })
+    });
+
     this.memoria.forEach(r => {
       if(r.selected === true) {
         let data = {
           name: r.name,
           classification: r.classification
         }
-        array.push(data);
+        memory.push(data);
       }
-    })
+    });
+
     this.reminiscencia.forEach(r => {
       if(r.selected === true) {
         let data = {
           name: r.name,
           classification: r.classification
         }
-        array.push(data);
+        reminiscence.push(data);
       }
-    })
+    });
 
-    let dailyprogram = {
+    let dailyProgram = {
       phase: this.rol,
-      activities: array
-    }
-    this.dailyService.postDailyProgram(dailyprogram).subscribe(res =>{
-      console.log('respuesta servicio daily program', res);
+      activities: {
+        attention,
+        calculus,
+        sensory,
+        language,
+        memory,
+        reminiscence
+      }
+    };
+
+    console.log(dailyProgram);
+    this.dailyService.postDailyProgram( dailyProgram ).subscribe(res =>{
+      console.log('Servicio', res);
+    }, err => {
+      console.log('Error servicio', err);
     });
 
   }

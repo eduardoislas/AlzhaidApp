@@ -16,19 +16,19 @@ export class CatalogService {
     Método GET que obtiene todos los catálogos activos. 
   */
   getCatalogs() {
-    return this.http.get<RootCatalog>( url );
+    return this.http.get<RootCatalog>( `${ url }` );
   }
   /* 
     Método GET que obtiene todos los catálogos activos por tipo.
   */
   getCatalogsType( type: string ) {
-    return this.http.get<RootCatalog>( url + type );
+    return this.http.get<RootCatalog>( `${ url }${ type }` );
   }
   /* 
     Método POST que agrega un nuevo catálogo a la base de datos.
   */
   postCatalog( name, type ) {
-    return this.http.post( url, {
+    return this.http.post( `${ url }`, {
       name,
       type
     });
@@ -37,6 +37,6 @@ export class CatalogService {
     Método DELETE que inactiva un catálogo sin eliminarlo de la base de datos.
   */
   deleteCatalog( id: string ) {
-    return this.http.delete( url + id );
+    return this.http.delete( `${ url }${ id }` );
   }
 }

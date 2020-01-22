@@ -38,21 +38,32 @@ export interface Patient {
 }
 
 // Daily Records desempeño
-export interface RootDailyDesempeno {
+export interface RootDailyDesempeno{
   success: boolean;
   cuantos: number;
   dps: Dp[];
 }
 
 export interface Dp {
+  activities: Activity | Info[];
   _id: string;
   date: string;
   phase: string;
-  activities: any[];
   __v: number;
 }
 
+export interface Activity {
+  attention: Info[];
+  calculus: Info[];
+  sensory: Info[];
+  language: Info[];
+  memory: Info[];
+  reminiscence: Info[];
+}
 
-
-
+export interface Info {
+  _id?: string;
+  name: string;
+  classification: string;
+}
 

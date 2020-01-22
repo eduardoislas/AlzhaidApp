@@ -16,13 +16,13 @@ export class NotificationsService {
    * Obtener todas las notificaciones
    */
   getNotifications() {
-    return this.http.get<RootNotification>(url);
+    return this.http.get<RootNotification>( `${ url }` );
   }
 
   /**
    * Obtener notificaciones por rol
    */
   getNotificationsByRole(role: string) {
-    return this.http.get(url + '/' + role);
+    return this.http.get( `${ url }/${ role }` );
   }
 }

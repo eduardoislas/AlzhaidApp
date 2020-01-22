@@ -4,6 +4,7 @@ export interface Users {
     role?: string;
 }
 
+// Login
 export interface RootLogin {
     success: boolean;
     user: User;

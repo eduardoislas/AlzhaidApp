@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
 import { ModalController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-phase-modal-actividades',
@@ -10,21 +11,31 @@ import { ModalController } from '@ionic/angular';
 export class PhaseModalActividadesPage implements OnInit {
   actividades = [];
 
-  constructor(private dailyService:DailyRecordService,
-    private modalCtrl: ModalController) { }
+  rol;
+
+  constructor( private dailyService:DailyRecordService,
+               private modalCtrl: ModalController,
+               private storage: Storage ) { }
 
   ngOnInit() {
+    this.storage.get('Rol').then((val) => {
+      this.rol = val;
+    });
+
     this.dailyService.getDailyRecordsActivities().subscribe(res => {
-      console.log('daily records activitie', res);
-      // res.dps.forEach(r => {
-      //   if( r.activities === this.capitalize(this.fase) ) {
-      //     this.pacientes.push( r );
-      //   }
-      // });
+      res.dps.forEach(element => {
+        if( element.phase === this.rol ) {
+          
+        }
+      });
+      console.log('Act DR', this.actividades);
     });
   }
 
   EnviarDatos(){
+    this.modalCtrl.dismiss();
+  }
+  salirSinArgumentos() {
     this.modalCtrl.dismiss();
   }
 

@@ -3,6 +3,7 @@ import { LoginService } from "../../services/login.service";
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { User } from 'src/app/interfaces/users';
 
 
 @Component({
@@ -38,18 +39,18 @@ export class LoginPage implements OnInit {
   */
   login( username: string, password: string ) {
     this.loginService.login( username, password ).subscribe(( res: any ) => {
-      switch( res.user.role ) {
+      let user: User = res.user;
+
+      this.storage.set('Rol', user.role);
+      switch( user.role ) {
 
         case 'FASE_INICIAL':
-          this.storage.set('Rol', res.user.role);
           this.router.navigateByUrl( '/phase' );
           break;
         case 'FASE_INTERMEDIA':
-          this.storage.set('Rol', res.user.role);
           this.router.navigateByUrl( '/phase' );
           break;
         case 'FASE_AVANZADA':
-          this.storage.set('Rol', res.user.role);
           this.router.navigateByUrl( '/phase' );
           break;
         case 'FISIOTERAPIA':
@@ -83,7 +84,7 @@ export class LoginPage implements OnInit {
       buttons: [
         {
             text: 'Aceptar',
-            handler: (blah) => {
+            handler: () => {
               return;
           }
         }
