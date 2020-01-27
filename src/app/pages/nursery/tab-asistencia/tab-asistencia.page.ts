@@ -16,8 +16,13 @@ export class TabAsistenciaPage implements OnInit {
   busqueda;
   fase = "inicial";
 
-  pacientesEntrada = [];
-  pacientesSalida = [];
+  inicialesEntrada = [];
+  intermediosEntrada = [];
+  avanzadosEntrada = [];
+
+  inicialesSalida = [];
+  intermediosSalida = [];
+  avanzadosSalida = [];
 
   constructor(
     private patientService: PatientsService,
@@ -27,59 +32,111 @@ export class TabAsistenciaPage implements OnInit {
 
   ngOnInit() {
     this.iSegmentRegistros.value = this.registro;
-    this.patientsRole(this.fase);
-  }
-  /* 
-    Método encargado de escuchar el segundo dato del arreglo proviniente
-    del componente de searchbar ( el cual es la fase del paciente) y 
-    llamar al método patientsRole.
-  */
-  eventListener(data: string) {
-    this.busqueda = data[0];
-    this.fase = data[1];
-
-    switch (this.fase) {
-      case "inicial":
-        this.patientsRole(this.fase);
-        break;
-      case "intermedia":
-        this.patientsRole(this.fase);
-        break;
-      case "avanzada":
-        this.patientsRole(this.fase);
-        break;
-      default:
-        break;
-    }
-  }
-  /* 
-    Método que obtiene a los pacientes según su fase:
-    Inicial, Intermedia o Avanzada.
-    Estos pacientes son guardados en el arreglo de pacientes.
-  */
-  patientsRole(role: string) {
-    // Se limpian los arreglos para agregar los de distintas fases
-    this.pacientesEntrada = [];
-    this.pacientesSalida = [];
-
-    if (this.registro === "entrada") {
-      // Si registro es igual a entrada, se agregan los pacientes con la
-      // fase recibida en el parametro, esto del servicio de obtener
-      // pacientes por fase/rol
-      this.patientService.getPatientsRole(role).forEach(res => {
-        this.pacientesEntrada.push(...res.patients);
-      });
-    } else if (this.registro === "salida") {
-      // Si registro es igual a salida, se agregan los pacientes a los
-      // cuales se les agregó asistencia en el día actual, esto del servicio
-      // de dailyRecordsDate.
-      this.dailyService.getDailyRecordsDate().subscribe(res => {
-        res.drs.forEach(r => {
-          if (r.patient.phase === this.capitalize(this.fase)) {
-            this.pacientesSalida.push(r);
+    let fases = ["inicial", "intermedia", "avanzada"];
+    for (let fase of fases) {
+      this.patientService.getPatientsRole(fase).subscribe(res => {
+        res.patients.forEach(element => {
+          switch (element.phase) {
+            case "Inicial":
+              this.inicialesEntrada.push(element);
+              break;
+            case "Intermedia":
+              this.intermediosEntrada.push(element);
+              break;
+            case "Avanzada":
+              this.avanzadosEntrada.push(element);
+              break;
           }
         });
       });
+    }
+    this.getDailyRecords();
+  }
+  /* 
+    Método que obtiene los dailyRecords del día llamando al servicio de
+    getDailyRecordsDate() y los guarda en el arreglo de pacientesSalida.
+  */
+  getDailyRecords() {
+    // Se limpian los arreglos.
+    this.inicialesSalida = [];
+    this.intermediosSalida = [];
+    this.avanzadosSalida = [];
+
+    // Si registro es igual a salida, se agregan los pacientes a los
+    // cuales se les agregó asistencia en el día actual, esto del servicio
+    // de dailyRecordsDate.
+    this.dailyService.getDailyRecordsDate().subscribe(res => {
+      res.drs.forEach(r => {
+        if (r.patient.phase === 'Inicial') {
+          this.inicialesSalida.push(r);
+          return;
+        } else if (r.patient.phase === 'Intermedia') {
+          this.intermediosSalida.push(r);
+          return;
+        } else {
+          this.avanzadosSalida.push(r);
+          return;
+        }
+      });
+    });
+  }
+  /*
+    Método que elimina de la lista de asistencia (InicialEntrada,
+    IntermediosEntrada o AvanzadosEntrada según sea el caso) el paciente
+    al cual se le registró una asistencia.
+  */
+  deleteOnAttendance(id) {
+    console.log(this.fase);
+    if (this.fase === "inicial") {
+      this.inicialesEntrada.forEach(element => {
+        if (element._id === id) {
+          this.inicialesEntrada.splice(this.inicialesEntrada.indexOf(element), 1);
+          return;
+        }
+      });
+    } else if (this.fase === "intermedia") {
+      this.intermediosEntrada.forEach(element => {
+        if (element._id === id) {
+          this.intermediosEntrada.splice(this.intermediosEntrada.indexOf(element), 1);
+          return;
+        }
+      });
+    } else {
+      this.avanzadosEntrada.forEach(element => {
+        if (element._id === id) {
+          this.avanzadosEntrada.splice(this.avanzadosEntrada.indexOf(element), 1);
+          return;
+        }
+      });
+    }
+  }
+  /*
+    Método que elimina de la lista de salida (InicialEntrada,
+    IntermediosEntrada o AvanzadosEntrada según sea el caso) el paciente
+    al cual se le registró una salida.
+  */
+  deleteOnDeparture(data) {
+    if (this.fase === "inicial") {
+      this.inicialesSalida.forEach(element => {
+        if (data._id === element._id) {
+          this.inicialesSalida.splice(this.intermediosSalida.indexOf(element), 1);
+          return;
+        } 
+      });
+    } else if (this.fase === "intermedia") {
+        this.intermediosSalida.forEach(element => {
+          if (data._id === element._id) {
+            this.intermediosSalida.splice(this.intermediosSalida.indexOf(element), 1);
+            return;
+          }
+      });
+    } else {
+        this.avanzadosSalida.forEach(element => {
+          if (data._id === element._id) {
+            this.avanzadosSalida.splice(this.avanzadosSalida.indexOf(element), 1);
+            return;
+          }
+        });
     }
   }
   /* 
@@ -113,9 +170,8 @@ export class TabAsistenciaPage implements OnInit {
           text: "Aceptar",
           handler: blah => {
             this.dailyService.postDailyRecords(id).subscribe();
-            // for(var i = 0; i < this.pacientesEntrada.length; i++) {
-            //   if(this.pacientesEntrada[i]._id === id) this.pacientesEntrada.splice(i, 1);
-            // }
+            this.getDailyRecords();
+            this.deleteOnAttendance(id);
           }
         }
       ]
@@ -142,8 +198,8 @@ export class TabAsistenciaPage implements OnInit {
         {
           text: "Aceptar",
           handler: () => {
-            let conversor = data._id.toString();
-            this.dailyService.putExitDailyRecords(conversor).subscribe(
+            
+            this.dailyService.putExitDailyRecords(data._id).subscribe(
               res => {
                 console.log(res);
               },
@@ -151,6 +207,7 @@ export class TabAsistenciaPage implements OnInit {
                 console.error(err);
               }
             );
+            this.deleteOnDeparture(data);
           }
         }
       ]
@@ -158,18 +215,19 @@ export class TabAsistenciaPage implements OnInit {
     await alert.present();
   }
   /* 
-    Método que sirve para volver mayúscula la primera letra de una palabra
-  */
-  capitalize(word: string) {
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  }
-  /* 
     Método que checa la opción seleccionada en el IonSegment de la entrada 
-    y salida, lo iguala a registro y llama al método patientsRole().
+    y salida, lo iguala a registro.
   */
   segmentChangedRegistros(event) {
     this.registro = event.detail.value;
-    this.patientsRole(this.fase);
   }
-
+  /* 
+    Método encargado de escuchar el segundo dato del arreglo proviniente
+    del componente de searchbar ( el cual es la fase del paciente) y 
+    llamar al método patientsRole.
+  */
+  eventListener(data: string) {
+    this.busqueda = data[0];
+    this.fase = data[1];
+  }
 }

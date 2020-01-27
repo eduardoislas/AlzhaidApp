@@ -21,23 +21,84 @@
 </ion-header>
 
 <ion-content>
-  <ion-list *ngIf="pacientesEntrada.length > 0">
-    <ion-item *ngFor="let paciente of pacientesEntrada" (click)="chooseAlert( paciente._id )">
-      <ion-avatar slot="start">
-        <img src="{{ paciente.img }}" />
-      </ion-avatar>
-      <ion-label class="ion-text-capitalize">{{ paciente.name + ' ' + paciente.lastName }}</ion-label>
-      <ion-icon slot="end" name="arrow-forward" mode="ios"></ion-icon>
-    </ion-item>
-  </ion-list>
+  <div *ngIf="registro === 'entrada'">
+    <div [ngSwitch]="fase">
+      <!-- Inicial -->
+      <div *ngSwitchCase="'inicial'">
+        <ion-list>
+          <ion-item *ngFor="let paciente of inicialesEntrada" (click)="chooseAlert( paciente._id )">
+            <ion-avatar slot="start">
+              <img src="{{ paciente.img }}" />
+            </ion-avatar>
+            <ion-label class="ion-text-capitalize">{{ paciente.name + ' ' + paciente.lastName }}</ion-label>
+            <ion-icon slot="end" name="arrow-forward" mode="ios"></ion-icon>
+          </ion-item>
+        </ion-list>
+      </div>
+      <!-- Intermedia -->
+      <div *ngSwitchCase="'intermedia'">
+        <ion-list>
+          <ion-item *ngFor="let paciente of intermediosEntrada" (click)="chooseAlert( paciente._id )">
+            <ion-avatar slot="start">
+              <img src="{{ paciente.img }}" />
+            </ion-avatar>
+            <ion-label class="ion-text-capitalize">{{ paciente.name + ' ' + paciente.lastName }}</ion-label>
+            <ion-icon slot="end" name="arrow-forward" mode="ios"></ion-icon>
+          </ion-item>
+        </ion-list>
+      </div>
+      <!-- Avanzada -->
+      <div *ngSwitchCase="'avanzada'">
+        <ion-list>
+          <ion-item *ngFor="let paciente of avanzadosEntrada" (click)="chooseAlert( paciente._id )">
+            <ion-avatar slot="start">
+              <img src="{{ paciente.img }}" />
+            </ion-avatar>
+            <ion-label class="ion-text-capitalize">{{ paciente.name + ' ' + paciente.lastName }}</ion-label>
+            <ion-icon slot="end" name="arrow-forward" mode="ios"></ion-icon>
+          </ion-item>
+        </ion-list>
+      </div>
+    </div>
+  </div>
+  
 
-  <ion-list *ngIf="pacientesSalida.length > 0">
-    <ion-item *ngFor="let paciente of pacientesSalida" (click)="chooseAlert( paciente )">
-      <ion-avatar slot="start">
-        <img src="{{ paciente.patient.img }}" />
-      </ion-avatar>
-      <ion-label class="ion-text-capitalize">{{ paciente.patient.name + ' ' + paciente.patient.lastName }}</ion-label>
-      <ion-icon slot="end" name="arrow-forward" mode="ios"></ion-icon>
-    </ion-item>
-  </ion-list>
+  <div *ngIf="registro === 'salida'">
+    <div [ngSwitch]="fase">
+      <!-- Inicial -->
+      <div *ngSwitchCase="'inicial'">
+        <ion-item *ngFor="let paciente of inicialesSalida" (click)="chooseAlert( paciente )">
+          <ion-avatar slot="start">
+            <img src="{{ paciente.patient.img }}" />
+          </ion-avatar>
+          <ion-label class="ion-text-capitalize">{{ paciente.patient.name + ' ' + paciente.patient.lastName }}</ion-label>
+          <ion-icon slot="end" name="arrow-forward" mode="ios"></ion-icon>
+        </ion-item>
+      </div>
+      <!-- Intermedia -->
+      <div *ngSwitchCase="'intermedia'">
+        <ion-list>
+          <ion-item *ngFor="let paciente of intermediosSalida" (click)="chooseAlert( paciente )">
+            <ion-avatar slot="start">
+              <img src="{{ paciente.patient.img }}" />
+            </ion-avatar>
+            <ion-label class="ion-text-capitalize">{{ paciente.patient.name + ' ' + paciente.patient.lastName }}</ion-label>
+            <ion-icon slot="end" name="arrow-forward" mode="ios"></ion-icon>
+          </ion-item>
+        </ion-list>
+      </div>
+      <!-- Avanzada -->
+      <div *ngSwitchCase="'avanzada'">
+        <ion-list>
+          <ion-item *ngFor="let paciente of avanzadosSalida" (click)="chooseAlert( paciente )">
+            <ion-avatar slot="start">
+              <img src="{{ paciente.patient.img }}" />
+            </ion-avatar>
+            <ion-label class="ion-text-capitalize">{{ paciente.patient.name + ' ' + paciente.patient.lastName }}</ion-label>
+            <ion-icon slot="end" name="arrow-forward" mode="ios"></ion-icon>
+          </ion-item>
+        </ion-list>
+      </div>
+    </div>
+  </div>
 </ion-content>
