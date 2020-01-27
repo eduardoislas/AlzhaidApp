@@ -1,15 +1,15 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { ModalController, IonRange } from '@ionic/angular';
-import { CatalogService } from 'src/app/services/catalog.service';
-import { DailyRecordService } from 'src/app/services/daily-record.service';
+import { Component, OnInit, Input, ViewChild } from "@angular/core";
+import { ModalController, IonRange } from "@ionic/angular";
+import { CatalogService } from "src/app/services/catalog.service";
+import { DailyRecordService } from "src/app/services/daily-record.service";
 
 @Component({
-  selector: 'app-phase-modal',
-  templateUrl: './phase-modal.page.html',
-  styleUrls: ['./phase-modal.page.scss'],
+  selector: "app-phase-modal",
+  templateUrl: "./phase-modal.page.html",
+  styleUrls: ["./phase-modal.page.scss"]
 })
 export class PhaseModalPage implements OnInit {
-  @ViewChild(IonRange, {static: true}) iRange: IonRange;
+  @ViewChild(IonRange, { static: true }) iRange: IonRange;
 
   @Input() paciente;
   @Input() tipoBitacora;
@@ -24,45 +24,47 @@ export class PhaseModalPage implements OnInit {
   catalogoConductas = [];
   infoConductas = [];
 
-  constructor( private modalCtrl: ModalController,
-               private catalogService: CatalogService,
-               private dailyService: DailyRecordService ) { }
+  constructor(
+    private modalCtrl: ModalController,
+    private catalogService: CatalogService,
+    private dailyService: DailyRecordService
+  ) {}
 
   ngOnInit() {
-    this.getCatalogs( this.tipoBitacora );
+    this.getCatalogs(this.tipoBitacora);
   }
 
   /*
     Método que obtiene el momento del día seleccionado
     (Mañana o Tarde) en el Phase-Modal.
   */
-  timeOfDay( time ) {
+  timeOfDay(time) {
     this.tiempoSeleccionado = time.detail.value;
   }
   /*
     Método que obtiene los valores de los ion range de los
     comportamientos o conductas seleccionados en el Phase-Modal.
   */
-  activityScore( score ) {
+  activityScore(score) {
     this.valorRange = score.detail.value;
 
-    console.log('Catalogo Score', this.valorRange);
+    console.log("Catalogo Score", this.valorRange);
   }
   /*
     Método que obtiene la crisis seleccionada en el Phase-Modal
     esto en caso que crisis haya sido seleccionado en la bitácora.
   */
-  selectedCrisis( crisis ) {
+  selectedCrisis(crisis) {
     this.crisisSeleccionada = crisis.detail.value;
 
-    console.log( this.crisisSeleccionada );
+    console.log(this.crisisSeleccionada);
   }
   /* 
     Método que obtiene las conductas o comportamiento seleccionadas
     en el Modal-Phase.
   */
-  selectedActions( action ) {
-    console.log('name', action);
+  selectedActions(action) {
+    console.log("name", action);
   }
   /*
     Método que obtiene los catalogos de Conducta, Comportamientos
@@ -70,13 +72,13 @@ export class PhaseModalPage implements OnInit {
     servicio de obtener catalogos por tipo y los guarda en el arreglo
     catalogoConductas.
   */
-  getCatalogs( type: string ) {
-    this.catalogService.getCatalogsType( type ).subscribe(res => {
-      for( let i of res.catalogs ) {
+  getCatalogs(type: string) {
+    this.catalogService.getCatalogsType(type).subscribe(res => {
+      for (let i of res.catalogs) {
         i["selected"] = false;
         i["score"] = 0;
       }
-      this.catalogoConductas.push( ...res.catalogs );
+      this.catalogoConductas.push(...res.catalogs);
     });
   }
   /* 
@@ -85,36 +87,41 @@ export class PhaseModalPage implements OnInit {
   */
   sendActionsValues() {
     let conductasSeleccionadas = [];
-    
+
     this.catalogoConductas.forEach(res => {
-      if(res.selected === true) {
+      if (res.selected === true) {
         let data = {
           name: res.name,
           time: this.tiempoSeleccionado,
           score: res.score
-        }
-        conductasSeleccionadas.push( data );
+        };
+        conductasSeleccionadas.push(data);
         console.log(conductasSeleccionadas);
       }
     });
 
-    if( this.tipoBitacora === 'conducta' ) {
-      
-      this.dailyService.putAttitudeDailyRecords( this.paciente._id, conductasSeleccionadas )
-      .subscribe( res => {
-        console.log(res);
-      }, err => {
-        console.log(err);
-      });
-
+    if (this.tipoBitacora === "conducta") {
+      this.dailyService
+        .putAttitudeDailyRecords(this.paciente._id, conductasSeleccionadas)
+        .subscribe(
+          res => {
+            console.log(res);
+          },
+          err => {
+            console.log(err);
+          }
+        );
     } else {
-
-      this.dailyService.putBehaviorDailyRecords( this.paciente._id, conductasSeleccionadas )
-      .subscribe( res => {
-        console.log(res);
-      }, err => {
-        console.log(err);
-      });
+      this.dailyService
+        .putBehaviorDailyRecords(this.paciente._id, conductasSeleccionadas)
+        .subscribe(
+          res => {
+            console.log(res);
+          },
+          err => {
+            console.log(err);
+          }
+        );
     }
   }
   /*
@@ -129,11 +136,14 @@ export class PhaseModalPage implements OnInit {
       observation: this.observation
     };
 
-    this.dailyService.putCrisisDailyRecords( this.paciente._id , data ).subscribe(res => {
-      console.log('respuesta', res);
-    }, err => {
-      console.log('error', err);
-    });
+    this.dailyService.putCrisisDailyRecords(this.paciente._id, data).subscribe(
+      res => {
+        console.log("respuesta", res);
+      },
+      err => {
+        console.log("error", err);
+      }
+    );
   }
   /* 
     Botón para salir del modal sin enviar datos.
@@ -145,16 +155,14 @@ export class PhaseModalPage implements OnInit {
     Botón para salir del modal enviando datos a la bdd.
   */
   salirConArgumentos() {
-    
-
-    switch( this.tipoBitacora ) {
-      case 'conducta':
+    switch (this.tipoBitacora) {
+      case "conducta":
         this.sendActionsValues();
         break;
-      case 'comportamiento':
+      case "comportamiento":
         this.sendActionsValues();
         break;
-      case 'crisis':
+      case "crisis":
         this.sendCrisisValues();
         break;
     }

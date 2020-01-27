@@ -1,16 +1,16 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { DailyRecordService } from 'src/app/services/daily-record.service';
-import { VitalSign } from 'src/app/interfaces/daily-records';
+import { Component, OnInit, ViewChild, Input } from "@angular/core";
+import { ModalController } from "@ionic/angular";
+import { DailyRecordService } from "src/app/services/daily-record.service";
+import { VitalSign } from "src/app/interfaces/daily-records";
 
 @Component({
-  selector: 'app-nursery-modal',
-  templateUrl: './nursery-modal.page.html',
-  styleUrls: ['./nursery-modal.page.scss'],
+  selector: "app-nursery-modal",
+  templateUrl: "./nursery-modal.page.html",
+  styleUrls: ["./nursery-modal.page.scss"]
 })
 export class NurseryModalPage implements OnInit {
   @Input() paciente;
-  
+
   togglePresion = false;
   toggleFrecuencia = false;
   toggleSaturacion = false;
@@ -23,31 +23,37 @@ export class NurseryModalPage implements OnInit {
   glucosa;
 
   today;
-  
-  info = [];
-  
-  constructor( private modalCtrl: ModalController,
-               private dailyService: DailyRecordService ) { }
 
-  ngOnInit() { 
+  info = [];
+
+  constructor(
+    private modalCtrl: ModalController,
+    private dailyService: DailyRecordService
+  ) {}
+
+  ngOnInit() {
     this.today = new Date().toISOString();
   }
 
-  
   salirSinArgumentos() {
     this.modalCtrl.dismiss();
   }
   salirConArgumentos() {
-    if( this.togglePresion === true ) this.getPresionValues();
-    if( this.toggleFrecuencia === true ) this.getFrecuenciaValues();
-    if( this.toggleGlucosa === true ) this.getGlucosaValues();
-    if( this.toggleSaturacion === true ) this.getSaturacionValues();
-    
-    this.dailyService.putVitalDailyRecords( this.paciente._id, this.info).subscribe(res => {
-      console.log('respuesta', res);
-    }, err => {
-      console.log('error', err);
-    });
+    if (this.togglePresion === true) this.getPresionValues();
+    if (this.toggleFrecuencia === true) this.getFrecuenciaValues();
+    if (this.toggleGlucosa === true) this.getGlucosaValues();
+    if (this.toggleSaturacion === true) this.getSaturacionValues();
+
+    this.dailyService
+      .putVitalDailyRecords(this.paciente._id, this.info)
+      .subscribe(
+        res => {
+          console.log("respuesta", res);
+        },
+        err => {
+          console.log("error", err);
+        }
+      );
 
     this.modalCtrl.dismiss();
   }
@@ -57,7 +63,7 @@ export class NurseryModalPage implements OnInit {
   */
   getPresionValues() {
     let data: VitalSign = {
-      vitalSign: 'Presion arterial',
+      vitalSign: "Presion arterial",
       date: this.today,
       value: this.presionA,
       valueB: this.presionB
@@ -70,7 +76,7 @@ export class NurseryModalPage implements OnInit {
   */
   getFrecuenciaValues() {
     let data: VitalSign = {
-      vitalSign: 'Frecuencia cardiaca',
+      vitalSign: "Frecuencia cardiaca",
       date: this.today,
       value: this.latidos
     };
@@ -82,7 +88,7 @@ export class NurseryModalPage implements OnInit {
   */
   getSaturacionValues() {
     let data: VitalSign = {
-      vitalSign: 'Saturacion de oxigeno',
+      vitalSign: "Saturacion de oxigeno",
       date: this.today,
       value: this.oxigeno
     };
@@ -94,7 +100,7 @@ export class NurseryModalPage implements OnInit {
   */
   getGlucosaValues() {
     let data: VitalSign = {
-      vitalSign: 'Glucosa',
+      vitalSign: "Glucosa",
       date: this.today,
       value: this.glucosa
     };

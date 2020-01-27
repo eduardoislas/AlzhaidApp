@@ -43,9 +43,14 @@ export interface RootDailyDesempeno{
   cuantos: number;
   dps: Dp[];
 }
+export interface RootDailyProgram{
+  success: boolean;
+  cuantos: number;
+  dps: Dp;
+}
 
 export interface Dp {
-  activities: Activity | Info[];
+  activities: Activity;
   _id: string;
   date: string;
   phase: string;

@@ -119,23 +119,20 @@
   <!-- Lista de desempeño -->
   <ion-list *ngIf="opcion === 'desempeno'" 
             class="ion-padding-top">
-
     <ion-item *ngFor="let paciente of pacientes" 
               (click)="openModal( paciente )">
       <ion-avatar slot="start">
         <img src="{{ paciente.patient.img }}" />
       </ion-avatar>
-
       <ion-label class="ion-text-capitalize">
         {{ paciente.patient.name + ' ' + paciente.patient.lastName }}
       </ion-label>
-
       <ion-icon slot="end" 
                 name="arrow-forward" 
                 mode="ios"></ion-icon>
     </ion-item>
-
   </ion-list>
+
 
   <ion-button *ngIf="opcion === 'programa'"
               (click)="salirConArgumentos()"

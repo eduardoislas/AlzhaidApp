@@ -7,20 +7,19 @@ const url = 'http://alzaid.herokuapp.com/login';
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class LoginService {
-
-  constructor( private http: HttpClient ) { }
+  constructor(private http: HttpClient) {}
   /*
     Método POST que envía los datos del usuario para realizar el inicio
     de sesión.
     Estos datos son obtenidos de login.page.ts
   */
-  login( name: string, password: string ) {
-    return this.http.post<RootLogin>( `${ url }`, {
+  login(name: string, password: string) {
+    return this.http.post<RootLogin>(`${url}`, {
       name,
-      password,
-    }); 
+      password
+    });
   }
 }

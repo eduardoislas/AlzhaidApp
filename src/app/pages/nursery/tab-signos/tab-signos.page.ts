@@ -1,21 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { DailyRecordService } from 'src/app/services/daily-record.service';
-import { ModalController } from '@ionic/angular';
-import { NurseryModalPage } from '../nursery-modal/nursery-modal.page';
+import { Component, OnInit } from "@angular/core";
+import { DailyRecordService } from "src/app/services/daily-record.service";
+import { ModalController } from "@ionic/angular";
+import { NurseryModalPage } from "../nursery-modal/nursery-modal.page";
 
 @Component({
-  selector: 'app-tab3',
-  templateUrl: './tab-signos.page.html',
-  styleUrls: ['./tab-signos.page.scss'],
+  selector: "app-tab3",
+  templateUrl: "./tab-signos.page.html",
+  styleUrls: ["./tab-signos.page.scss"]
 })
 export class TabSignosPage implements OnInit {
   busqueda;
-  fase = 'inicial';
+  fase = "inicial";
 
   pacientes = [];
 
-  constructor( private dailyService: DailyRecordService,
-               private modalCtrl: ModalController ) { }
+  constructor(
+    private dailyService: DailyRecordService,
+    private modalCtrl: ModalController
+  ) {}
 
   ngOnInit() {
     this.patientsRole();
@@ -26,10 +28,10 @@ export class TabSignosPage implements OnInit {
     del componente de searchbar, setear los valores a sus respectivas
     vabiables y llamar al método patientsRole.
   */
-  eventListener( data: string ) {
+  eventListener(data: string) {
     this.busqueda = data[0];
     this.fase = data[1];
-    
+
     this.patientsRole();
   }
   /* 
@@ -41,31 +43,30 @@ export class TabSignosPage implements OnInit {
     // Se limpian los arreglos para agregar los de distintas fases
     this.pacientes = [];
 
-      this.dailyService.getDailyRecordsDate().subscribe(res => {
-        res.drs.forEach(r => {
-          if( r.patient.phase === this.capitalize(this.fase) ) {
-            this.pacientes.push( r );
-          }
-        });
-      });
-    }
-    async openModal( paciente ) {
-      const modal = await this.modalCtrl.create({
-        component: NurseryModalPage,
-        componentProps: {
-          paciente
+    this.dailyService.getDailyRecordsDate().subscribe(res => {
+      res.drs.forEach(r => {
+        if (r.patient.phase === this.capitalize(this.fase)) {
+          this.pacientes.push(r);
         }
       });
-      await modal.present();
+    });
+  }
+  async openModal(paciente) {
+    const modal = await this.modalCtrl.create({
+      component: NurseryModalPage,
+      componentProps: {
+        paciente
+      }
+    });
+    await modal.present();
 
-      const { data } = await modal.onDidDismiss();
-      console.log('Retorno modal', data);
-    }
-    /* 
+    const { data } = await modal.onDidDismiss();
+    console.log("Retorno modal", data);
+  }
+  /* 
     Método que sirve para volver mayúscula la primera letra de una palabra
     */
-    capitalize( word: string ) {
-      return word.charAt(0).toUpperCase() + word.slice(1);
-    }
-
+  capitalize(word: string) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }
 }
