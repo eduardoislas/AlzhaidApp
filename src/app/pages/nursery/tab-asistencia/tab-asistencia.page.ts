@@ -32,24 +32,22 @@ export class TabAsistenciaPage implements OnInit {
 
   ngOnInit() {
     this.iSegmentRegistros.value = this.registro;
-    let fases = ["inicial", "intermedia", "avanzada"];
-    for (let fase of fases) {
-      this.patientService.getPatientsRole(fase).subscribe(res => {
-        res.patients.forEach(element => {
-          switch (element.phase) {
-            case "Inicial":
-              this.inicialesEntrada.push(element);
-              break;
-            case "Intermedia":
-              this.intermediosEntrada.push(element);
-              break;
-            case "Avanzada":
-              this.avanzadosEntrada.push(element);
-              break;
-          }
-        });
+    
+    this.patientService.getPatients().subscribe(res => {
+      res.patients.forEach(element => {
+        switch (element.phase) {
+          case "Inicial":
+            this.inicialesEntrada.push(element);
+            break;
+          case "Intermedia":
+            this.intermediosEntrada.push(element);
+            break;
+          case "Avanzada":
+            this.avanzadosEntrada.push(element);
+            break;
+        }
       });
-    }
+    });
     this.getDailyRecords();
   }
   /* 
