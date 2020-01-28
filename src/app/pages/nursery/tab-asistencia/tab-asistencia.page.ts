@@ -67,10 +67,10 @@ export class TabAsistenciaPage implements OnInit {
     // de dailyRecordsDate.
     this.dailyService.getDailyRecordsDate().subscribe(res => {
       res.drs.forEach(r => {
-        if (r.patient.phase === 'Inicial') {
+        if (r.patient.phase === "Inicial") {
           this.inicialesSalida.push(r);
           return;
-        } else if (r.patient.phase === 'Intermedia') {
+        } else if (r.patient.phase === "Intermedia") {
           this.intermediosSalida.push(r);
           return;
         } else {
@@ -90,21 +90,30 @@ export class TabAsistenciaPage implements OnInit {
     if (this.fase === "inicial") {
       this.inicialesEntrada.forEach(element => {
         if (element._id === id) {
-          this.inicialesEntrada.splice(this.inicialesEntrada.indexOf(element), 1);
+          this.inicialesEntrada.splice(
+            this.inicialesEntrada.indexOf(element),
+            1
+          );
           return;
         }
       });
     } else if (this.fase === "intermedia") {
       this.intermediosEntrada.forEach(element => {
         if (element._id === id) {
-          this.intermediosEntrada.splice(this.intermediosEntrada.indexOf(element), 1);
+          this.intermediosEntrada.splice(
+            this.intermediosEntrada.indexOf(element),
+            1
+          );
           return;
         }
       });
     } else {
       this.avanzadosEntrada.forEach(element => {
         if (element._id === id) {
-          this.avanzadosEntrada.splice(this.avanzadosEntrada.indexOf(element), 1);
+          this.avanzadosEntrada.splice(
+            this.avanzadosEntrada.indexOf(element),
+            1
+          );
           return;
         }
       });
@@ -119,24 +128,30 @@ export class TabAsistenciaPage implements OnInit {
     if (this.fase === "inicial") {
       this.inicialesSalida.forEach(element => {
         if (data._id === element._id) {
-          this.inicialesSalida.splice(this.intermediosSalida.indexOf(element), 1);
+          this.inicialesSalida.splice(
+            this.intermediosSalida.indexOf(element),
+            1
+          );
           return;
-        } 
+        }
       });
     } else if (this.fase === "intermedia") {
-        this.intermediosSalida.forEach(element => {
-          if (data._id === element._id) {
-            this.intermediosSalida.splice(this.intermediosSalida.indexOf(element), 1);
-            return;
-          }
+      this.intermediosSalida.forEach(element => {
+        if (data._id === element._id) {
+          this.intermediosSalida.splice(
+            this.intermediosSalida.indexOf(element),
+            1
+          );
+          return;
+        }
       });
     } else {
-        this.avanzadosSalida.forEach(element => {
-          if (data._id === element._id) {
-            this.avanzadosSalida.splice(this.avanzadosSalida.indexOf(element), 1);
-            return;
-          }
-        });
+      this.avanzadosSalida.forEach(element => {
+        if (data._id === element._id) {
+          this.avanzadosSalida.splice(this.avanzadosSalida.indexOf(element), 1);
+          return;
+        }
+      });
     }
   }
   /* 
@@ -198,7 +213,6 @@ export class TabAsistenciaPage implements OnInit {
         {
           text: "Aceptar",
           handler: () => {
-            
             this.dailyService.putExitDailyRecords(data._id).subscribe(
               res => {
                 console.log(res);
