@@ -25,7 +25,7 @@ export class Tab2Page implements OnInit {
     this.pacientes = [];
 
     // Se obtienen todos los pacientes filtrados por su fase.
-    this.dailyService.getDailyRecordsDate().subscribe(res => {
+    this.dailyService.getDailyRecordsToday().subscribe(res => {
         res.drs.forEach(r => {
           if ( r.patient.phase === this.capitalize(this.fase) ) {
             this.pacientes.push( r );

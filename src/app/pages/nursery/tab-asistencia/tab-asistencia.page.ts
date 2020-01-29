@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { PatientsService } from "src/app/services/patients.service";
 import { AlertController, IonSegment } from "@ionic/angular";
 import { DailyRecordService } from "src/app/services/daily-record.service";
+import { element } from "protractor";
 
 @Component({
   selector: "app-tab2",
@@ -24,6 +25,15 @@ export class TabAsistenciaPage implements OnInit {
   intermediosSalida = [];
   avanzadosSalida = [];
 
+  date = new Date();
+  today =
+    this.date.getFullYear() +
+    "-" +
+    this.date.getMonth() +
+    1 +
+    "-" +
+    this.date.getDate();
+
   constructor(
     private patientService: PatientsService,
     private alertCtrl: AlertController,
@@ -32,18 +42,18 @@ export class TabAsistenciaPage implements OnInit {
 
   ngOnInit() {
     this.iSegmentRegistros.value = this.registro;
-    
-    this.patientService.getPatients().subscribe(res => {
-      res.patients.forEach(element => {
-        switch (element.phase) {
+
+    this.patientService.getPatients().subscribe(resPatient => {
+      resPatient.patients.forEach(patients => {
+        switch (patients.phase) {
           case "Inicial":
-            this.inicialesEntrada.push(element);
+            this.inicialesEntrada.push(patients);
             break;
           case "Intermedia":
-            this.intermediosEntrada.push(element);
+            this.intermediosEntrada.push(patients);
             break;
           case "Avanzada":
-            this.avanzadosEntrada.push(element);
+            this.avanzadosEntrada.push(patients);
             break;
         }
       });
@@ -52,7 +62,7 @@ export class TabAsistenciaPage implements OnInit {
   }
   /* 
     Método que obtiene los dailyRecords del día llamando al servicio de
-    getDailyRecordsDate() y los guarda en el arreglo de pacientesSalida.
+    getDailyRecordsToday() y los guarda en el arreglo de pacientesSalida.
   */
   getDailyRecords() {
     // Se limpian los arreglos.
@@ -63,7 +73,7 @@ export class TabAsistenciaPage implements OnInit {
     // Si registro es igual a salida, se agregan los pacientes a los
     // cuales se les agregó asistencia en el día actual, esto del servicio
     // de dailyRecordsDate.
-    this.dailyService.getDailyRecordsDate().subscribe(res => {
+    this.dailyService.getDailyRecordsToday().subscribe(res => {
       res.drs.forEach(r => {
         if (r.patient.phase === "Inicial") {
           this.inicialesSalida.push(r);

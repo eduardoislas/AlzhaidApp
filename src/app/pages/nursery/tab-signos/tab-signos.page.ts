@@ -43,7 +43,7 @@ export class TabSignosPage implements OnInit {
     // Se limpian los arreglos para agregar los de distintas fases
     this.pacientes = [];
 
-    this.dailyService.getDailyRecordsDate().subscribe(res => {
+    this.dailyService.getDailyRecordsToday().subscribe(res => {
       res.drs.forEach(r => {
         if (r.patient.phase === this.capitalize(this.fase)) {
           this.pacientes.push(r);

@@ -29,10 +29,16 @@ export class DailyRecordService {
     return this.http.get(`${url}patient/${id}`);
   }
   /* 
+    Método GET que obtiene todos los registros diarios del día.
+  */
+  getDailyRecordsToday() {
+    return this.http.get<RootDaily>(`${url}today`);
+  }
+  /*
     Método GET que obtiene todos los registros diarios por fecha.
   */
-  getDailyRecordsDate() {
-    return this.http.get<RootDaily>(`${url}today`);
+  getDailyRecordsDate(date: string) {
+    return this.http.get<RootDaily>(`${url}date/${date}`);
   }
   /* 
     Método GET que obtiene todos los registros diarios por fecha.

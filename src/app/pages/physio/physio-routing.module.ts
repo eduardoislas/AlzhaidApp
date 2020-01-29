@@ -35,6 +35,10 @@ const routes: Routes = [
     path: '',
     redirectTo: '/physio/tab1',
     pathMatch: 'full'
+  },
+  {
+    path: 'modal-bitacora',
+    loadChildren: () => import('./modal-bitacora/modal-bitacora.module').then( m => m.ModalBitacoraPageModule)
   }
 ];
 

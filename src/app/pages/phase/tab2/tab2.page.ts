@@ -57,7 +57,7 @@ export class Tab2Page implements OnInit {
   }
   /* 
     Método encargado de limpiar el arreglo de pacientes, llamar al servicio
-    de getDailyRecordsDate() el cual obtiene los dailyRecords del día y los
+    de getDailyRecordsToday() el cual obtiene los dailyRecords del día y los
     filtra por la fase elegida en el ion segment.
   */
   getTodayDailyRecords() {
@@ -77,7 +77,7 @@ export class Tab2Page implements OnInit {
     }
 
     // Se obtienen todos los pacientes filtrados por su fase.
-    this.dailyService.getDailyRecordsDate().subscribe(res => {
+    this.dailyService.getDailyRecordsToday().subscribe(res => {
       console.log(res);
       res.drs.forEach(r => {
         if (r.patient.phase === this.capitalize(this.fase)) {
