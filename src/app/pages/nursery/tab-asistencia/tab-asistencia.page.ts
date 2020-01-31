@@ -193,8 +193,8 @@ export class TabAsistenciaPage implements OnInit {
           text: "Aceptar",
           handler: blah => {
             this.dailyService.postDailyRecords(id).subscribe();
-            this.getDailyRecords();
             this.deleteOnAttendance(id);
+            this.getDailyRecords();
           }
         }
       ]
@@ -242,6 +242,9 @@ export class TabAsistenciaPage implements OnInit {
   */
   segmentChangedRegistros(event) {
     this.registro = event.detail.value;
+
+    if(this.registro === 'salida') this.getDailyRecords();
+    console.log(this.registro);
   }
   /* 
     Método encargado de escuchar el segundo dato del arreglo proviniente
