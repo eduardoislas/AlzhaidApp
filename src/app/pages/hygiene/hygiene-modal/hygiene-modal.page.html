@@ -31,10 +31,16 @@
   <ion-item>
     <ion-label>Hora</ion-label>
 
+    <!--
     <ion-datetime
       displayFormat="HH:MM"
       placeholder="horas:minutos"
     ></ion-datetime>
+    -->
+    <ion-segment>
+      <ion-segment-button checked>Mañana</ion-segment-button>
+      <ion-select-option value="tarde">tarde</ion-select-option>
+    </ion-segment>
   </ion-item>
   
 
@@ -94,6 +100,75 @@
     </ion-avatar>
 
     <ion-label>Cambio de ropa</ion-label>
+
+    <ion-label>Observación: </ion-label>
+
+    <ion-select
+      interface="popover"
+      value=""
+      okText="Seleccionar"
+      cancelText="Cancelar"
+    >
+      <ion-select-option value="incontinencia">Incontinencia</ion-select-option>
+
+      <ion-select-option value="anormal">Anormal</ion-select-option>
+
+      <ion-select-option value="asistido">Asistido</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://i0.pngocean.com/files/42/790/576/large-intestine-computer-icons-intestine.jpg">
+    </ion-avatar>
+
+    <ion-label>Estreñimiento</ion-label>
+
+    <ion-label>Observación: </ion-label>
+
+    <ion-select
+      interface="popover"
+      value=""
+      okText="Seleccionar"
+      cancelText="Cancelar"
+    >
+      <ion-select-option value="incontinencia">Incontinencia</ion-select-option>
+
+      <ion-select-option value="anormal">Anormal</ion-select-option>
+
+      <ion-select-option value="asistido">Asistido</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://images.vexels.com/media/users/3/150852/isolated/preview/929f7e318405074be14e322ad973e92a-icono-de-c--rculo-de-ba--era-de-beb--by-vexels.png">
+    </ion-avatar>
+
+    <ion-label>Baño</ion-label>
+
+    <ion-label>Observación: </ion-label>
+
+    <ion-select
+      interface="popover"
+      value=""
+      okText="Seleccionar"
+      cancelText="Cancelar"
+    >
+      <ion-select-option value="incontinencia">Incontinencia</ion-select-option>
+
+      <ion-select-option value="anormal">Anormal</ion-select-option>
+
+      <ion-select-option value="asistido">Asistido</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://images.vexels.com/media/users/3/150865/isolated/preview/4e0f6717f75015182321a8d571d71433-icono-de-c--rculo-de-pa--al-de-beb--by-vexels.png">
+    </ion-avatar>
+
+    <ion-label>Cambio de protectores</ion-label>
 
     <ion-label>Observación: </ion-label>
 
