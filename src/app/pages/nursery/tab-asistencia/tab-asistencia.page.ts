@@ -3,6 +3,7 @@ import { PatientsService } from "src/app/services/patients.service";
 import { AlertController, IonSegment } from "@ionic/angular";
 import { DailyRecordService } from "src/app/services/daily-record.service";
 import { element } from "protractor";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: "app-tab2",
@@ -193,6 +194,11 @@ export class TabAsistenciaPage implements OnInit {
           text: "Aceptar",
           handler: blah => {
             this.dailyService.postDailyRecords(id).subscribe();
+            Swal.fire(
+              'Registrado!',
+              'Asistencia registrada!',
+              'success'
+            )
             this.deleteOnAttendance(id);
             this.getDailyRecords();
           }
@@ -224,6 +230,11 @@ export class TabAsistenciaPage implements OnInit {
             this.dailyService.putExitDailyRecords(data._id).subscribe(
               res => {
                 console.log(res);
+                Swal.fire(
+                  'Registrado!',
+                  'Salida registrada!',
+                  'success'
+                )
               },
               err => {
                 console.error(err);

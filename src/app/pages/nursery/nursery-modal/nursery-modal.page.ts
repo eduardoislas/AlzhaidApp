@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, Input } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { DailyRecordService } from "src/app/services/daily-record.service";
 import { VitalSign } from "src/app/interfaces/daily-records";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: "app-nursery-modal",
@@ -49,6 +50,11 @@ export class NurseryModalPage implements OnInit {
       .subscribe(
         res => {
           console.log("respuesta", res);
+          Swal.fire(
+            'Registrado!',
+            'Signos vitales actualizados!',
+            'success'
+          )
         },
         err => {
           console.log("error", err);
