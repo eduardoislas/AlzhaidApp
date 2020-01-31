@@ -50,14 +50,43 @@ export class NurseryModalPage implements OnInit {
       .subscribe(
         res => {
           console.log("respuesta", res);
-          Swal.fire(
-            'Registrado!',
-            'Signos vitales actualizados!',
-            'success'
-          )
+          // SweetAlert
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'center',
+            showConfirmButton: false,
+            timer: 1000,
+            timerProgressBar: true,
+            onOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          
+          Toast.fire({
+            icon: 'success',
+            title: 'Signos vitales registrados'
+          })
         },
         err => {
           console.log("error", err);
+          // SweetAlert
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'center',
+            showConfirmButton: false,
+            timer: 1000,
+            timerProgressBar: true,
+            onOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          
+          Toast.fire({
+            icon: 'error',
+            title: 'No se registró Signos vitales'
+          })
         }
       );
 
