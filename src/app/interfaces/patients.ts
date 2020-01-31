@@ -3,7 +3,13 @@ export interface RootPatient {
     patients: Patient[];
     count: number;
 }
-  
+
+export interface RPatient {
+    success: boolean;
+    patient: Patient;
+    count: number;
+}
+
 export interface Patient {
     img?: string;
     status: boolean;
@@ -17,17 +23,32 @@ export interface Patient {
     phaseHistory: PhaseHistory[];
     __v: number;
     technicalSupport: TechnicalSupport[];
-    diagnosis: any[];
-    allergies: any[];
+    diagnosis: Diagnosis[];
+    allergies: Allergy[];
     medicines: any[];
-    physicalLimitations: any[];
+    physicalLimitations: PhysicalLimitations[];
+}
+
+export interface Allergy {
+    _id: string;
+    name: string;
+}
+
+export interface Diagnosis {
+    status: boolean;
+    name: string;
+}
+
+export interface PhysicalLimitations {
+    status: boolean;
+    name: string;
 }
 
 export interface TechnicalSupport {
     _id: string;
     name: string;
 }
-  
+
 export interface PhaseHistory {
     status: boolean;
     _id: string;
