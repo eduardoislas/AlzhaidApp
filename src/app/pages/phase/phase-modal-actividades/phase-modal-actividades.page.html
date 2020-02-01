@@ -5,6 +5,16 @@
 </ion-header>
 
  <ion-content>
+
+  <ion-list>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="{{ paciente.patient.img }}" />
+      </ion-avatar>
+      <ion-label>{{ paciente.patient.name + ' ' + paciente.patient.lastName }}</ion-label>
+    </ion-item>
+  </ion-list>
+
   <ion-grid fixed>
     <ion-row>
       <ion-col size="6">

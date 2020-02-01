@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Storage } from "@ionic/storage";
 import { CatalogService } from "src/app/services/catalog.service";
 import { DailyRecordService } from "src/app/services/daily-record.service";
-import { ModalController } from "@ionic/angular";
+import { ModalController, ToastController } from "@ionic/angular";
 import { PhaseModalActividadesPage } from "../phase-modal-actividades/phase-modal-actividades.page";
 import { Info } from "../../../interfaces/daily-records";
 
@@ -18,6 +18,14 @@ export class Tab2Page implements OnInit {
   fase;
   rol;
 
+  toggleAtencion;
+  toggleCalculo;
+  toggleEstimulacion;
+  toggleLenguaje;
+  toggleMemoria;
+  toggleReminiscencia;
+
+
   pacientes = [];
 
   atencion = [];
@@ -31,7 +39,8 @@ export class Tab2Page implements OnInit {
     private catalogService: CatalogService,
     private dailyService: DailyRecordService,
     private modalCtrl: ModalController,
-    private storage: Storage
+    private storage: Storage,
+    private toastCtrl: ToastController,
   ) {}
 
   ngOnInit() {
@@ -112,6 +121,13 @@ export class Tab2Page implements OnInit {
     el tipo de actividad y guardarlo en su respectivo arreglo.
   */
   getCatalogosTipo(type: string) {
+    this.atencion = [];
+    this.calculo = [];
+    this.estimulacion = [];
+    this.lenguaje = [];
+    this.memoria = [];
+    this.reminiscencia = [];
+
     this.catalogService.getCatalogsType(type).subscribe(res => {
       for (let i of res.catalogs) {
         i["selected"] = false;
@@ -159,6 +175,7 @@ export class Tab2Page implements OnInit {
           classification: r.classification
         };
         attention.push(data);
+        r.selected = false;
       }
     });
 
@@ -169,6 +186,7 @@ export class Tab2Page implements OnInit {
           classification: r.classification
         };
         calculus.push(data);
+        r.selected = false;
       }
     });
 
@@ -179,6 +197,7 @@ export class Tab2Page implements OnInit {
           classification: r.classification
         };
         sensory.push(data);
+        r.selected = false;
       }
     });
 
@@ -189,6 +208,7 @@ export class Tab2Page implements OnInit {
           classification: r.classification
         };
         language.push(data);
+        r.selected = false;
       }
     });
 
@@ -199,6 +219,7 @@ export class Tab2Page implements OnInit {
           classification: r.classification
         };
         memory.push(data);
+        r.selected = false;
       }
     });
 
@@ -209,6 +230,7 @@ export class Tab2Page implements OnInit {
           classification: r.classification
         };
         reminiscence.push(data);
+        r.selected = false;
       }
     });
 
@@ -227,11 +249,36 @@ export class Tab2Page implements OnInit {
     console.log(dailyProgram);
     this.dailyService.postDailyProgram(dailyProgram).subscribe(
       res => {
+
+        this.toggleAtencion = false;
+        this.toggleCalculo = false;
+        this.toggleEstimulacion = false;
+        this.toggleLenguaje = false;
+        this.toggleMemoria = false;
+        this.toggleReminiscencia = false;
+        reminiscence
         console.log("Servicio", res);
+      
+        this.presentToast();
+        
       },
       err => {
         console.log("Error servicio", err);
       }
     );
+  }
+
+  async presentToast() {
+    const toast = await this.toastCtrl.create({
+      message: 'El programa diario se actualizó con éxito',
+      duration: 2000,
+      buttons: [
+        {
+          text: 'Ok',
+          role: 'cancel'
+        }
+      ]
+    });
+    toast.present();
   }
 }

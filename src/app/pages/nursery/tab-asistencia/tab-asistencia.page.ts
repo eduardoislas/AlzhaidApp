@@ -58,7 +58,6 @@ export class TabAsistenciaPage implements OnInit {
         }
       });
     });
-    this.getDailyRecords();
   }
   /* 
     Método que obtiene los dailyRecords del día llamando al servicio de
@@ -194,7 +193,6 @@ export class TabAsistenciaPage implements OnInit {
           handler: blah => {
             this.dailyService.postDailyRecords(id).subscribe();
             this.deleteOnAttendance(id);
-            this.getDailyRecords();
           }
         }
       ]

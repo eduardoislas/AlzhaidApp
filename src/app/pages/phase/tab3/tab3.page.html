@@ -17,7 +17,9 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <app-searchbar (post)="eventListener( $event )"></app-searchbar>
+    <ion-searchbar placeholder="Search"
+                   (ionChange)="onSearchChange($event)" 
+                   animated></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 

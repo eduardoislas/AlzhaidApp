@@ -7,7 +7,7 @@ import {
   RootDailyProgram
 } from "../interfaces/daily-records";
 
-const url = "http://alzaid.herokuapp.com/dailyRecord/";
+const url = "https:/alzaid.herokuapp.com/dailyRecord/";
 // const url = 'http://192.168.0.12:3000/dailyRecord/';
 
 @Injectable({

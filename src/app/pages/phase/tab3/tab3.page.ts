@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { IonSegment, ModalController } from "@ionic/angular";
 import { DailyRecordService } from "src/app/services/daily-record.service";
-import { PhasePageModule } from "../phase.module";
-import { PhaseModalPageModule } from "../phase-modal/phase-modal.module";
 import { PhaseModalPage } from "../phase-modal/phase-modal.page";
+import { Storage } from "@ionic/storage";
 
 @Component({
   selector: "app-tab3",
@@ -17,18 +16,22 @@ export class Tab3Page implements OnInit {
   busqueda;
   fase = "inicial";
 
+  rol;
+
   pacientes = [];
 
   constructor(
     private dailyService: DailyRecordService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private storage: Storage,
   ) {}
 
   ngOnInit() {
+    this.storage.get("Rol").then(val => {
+      this.getTodayDailyRecords(val);
+    });
     this.iSegment.value = this.tipoBitacora;
-    this.getTodayDailyRecords();
   }
-
   /* 
     Método que checa la opción seleccionada en el IonSegment 
     (Conducta, Comportamiento o Crisis), lo iguala a tipoBitacora 
@@ -36,25 +39,8 @@ export class Tab3Page implements OnInit {
   */
   segmentChanged(event) {
     this.tipoBitacora = event.detail.value;
-
-    switch (this.tipoBitacora) {
-      case "conducta":
-        this.getTodayDailyRecords();
-        break;
-      default:
-        return;
-    }
   }
-  /* 
-    Método encargado de escuchar el segundo dato del arreglo proviniente
-    del componente de searchbar ( el cual es la fase del paciente).
-  */
-  eventListener(data: string) {
-    this.busqueda = data[0];
-    this.fase = data[1];
-
-    this.getTodayDailyRecords();
-  }
+  
   async openModal(paciente) {
     const modal = await this.modalCtrl.create({
       component: PhaseModalPage,
@@ -68,14 +54,25 @@ export class Tab3Page implements OnInit {
     const { data } = await modal.onDidDismiss();
     console.log("Retorno modal", data);
   }
-  getTodayDailyRecords() {
+  getTodayDailyRecords(value: string) {
     // Se limpian los arreglos antes de agregar nuevos de distintas fases.
     this.pacientes = [];
-
+    
+    switch( value ) {
+      case 'FASE_INICIAL':
+        this.rol = 'Inicial';
+        break;
+      case 'FASE_INTERMEDIA':
+        this.rol = 'Intermedia';
+        break;
+      case 'FASE_AVANZADA':
+        this.rol = 'Avanzada';
+        break;
+    }
     // Se obtienen todos los pacientes filtrados por su fase.
     this.dailyService.getDailyRecordsToday().subscribe(res => {
       res.drs.forEach(r => {
-        if (r.patient.phase === this.capitalize(this.fase)) {
+        if (r.patient.phase === this.rol) {
           this.pacientes.push(r);
         }
       });

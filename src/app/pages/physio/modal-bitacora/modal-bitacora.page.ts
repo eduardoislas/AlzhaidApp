@@ -14,4 +14,8 @@ export class ModalBitacoraPage implements OnInit {
     console.log(this.paciente);
   }
 
+  onClick( value ) {
+    console.log('value', value);
+  }
+
 }
