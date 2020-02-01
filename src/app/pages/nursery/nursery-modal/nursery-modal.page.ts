@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, Input } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { DailyRecordService } from "src/app/services/daily-record.service";
 import { VitalSign } from "src/app/interfaces/daily-records";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: "app-nursery-modal",
@@ -49,9 +50,43 @@ export class NurseryModalPage implements OnInit {
       .subscribe(
         res => {
           console.log("respuesta", res);
+          // SweetAlert
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'center',
+            showConfirmButton: false,
+            timer: 1000,
+            timerProgressBar: true,
+            onOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          
+          Toast.fire({
+            icon: 'success',
+            title: 'Signos vitales registrados'
+          })
         },
         err => {
           console.log("error", err);
+          // SweetAlert
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'center',
+            showConfirmButton: false,
+            timer: 1000,
+            timerProgressBar: true,
+            onOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          
+          Toast.fire({
+            icon: 'error',
+            title: 'No se registró Signos vitales'
+          })
         }
       );
 

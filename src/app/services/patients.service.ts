@@ -1,29 +1,35 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RootPatient, Patient } from "../interfaces/patients";
+import { RootPatient, Patient, RPatient } from '../interfaces/patients';
 
 const url = 'https:/alzaid.herokuapp.com/patient/';
 // const url = 'http://192.168.0.12:3000/patient/'
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class PatientsService {
   constructor(private http: HttpClient) {}
 
-  /* 
+  /*
     Método GET que obtiene todos los pacientes activos.
   */
   getPatients() {
     return this.http.get<RootPatient>(`${url}`);
   }
-  /* 
+  /*
     Método GET que obtiene todos los pacientes activos por fase.
   */
   getPatientsRole(role: string) {
     return this.http.get<RootPatient>(`${url}${role}`);
   }
-  /* 
+  /*
+   Metodo GET que obtiene RPatient por id
+  */
+  getPatientId(id: string) {
+    return this.http.get<RPatient>(`${url}id/${id}`);
+  }
+  /*
     Método POST que agrega un paciente nuevo a la base de datos.
   */
   postPatients(
@@ -43,7 +49,7 @@ export class PatientsService {
       img
     });
   }
-  /* 
+  /*
     Método PUT que actualiza un paciente de la base de datos.
   */
   putPatients(
@@ -64,7 +70,7 @@ export class PatientsService {
       img
     });
   }
-  /* 
+  /*
     Método DELETE que da de baja un paciente sin eliminarlo de la base de datos.
   */
   deletePatients(id) {

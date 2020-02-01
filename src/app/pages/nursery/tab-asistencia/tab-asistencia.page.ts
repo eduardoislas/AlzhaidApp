@@ -3,6 +3,7 @@ import { PatientsService } from "src/app/services/patients.service";
 import { AlertController, IonSegment } from "@ionic/angular";
 import { DailyRecordService } from "src/app/services/daily-record.service";
 import { element } from "protractor";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: "app-tab2",
@@ -192,6 +193,23 @@ export class TabAsistenciaPage implements OnInit {
           text: "Aceptar",
           handler: blah => {
             this.dailyService.postDailyRecords(id).subscribe();
+            // SweetAlert
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'center',
+              showConfirmButton: false,
+              timer: 1000,
+              timerProgressBar: true,
+              onOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+            
+            Toast.fire({
+              icon: 'success',
+              title: 'Asistencia registrada'
+            })
             this.deleteOnAttendance(id);
           }
         }
@@ -222,9 +240,43 @@ export class TabAsistenciaPage implements OnInit {
             this.dailyService.putExitDailyRecords(data._id).subscribe(
               res => {
                 console.log(res);
+                // SweetAlert
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'center',
+                  showConfirmButton: false,
+                  timer: 1000,
+                  timerProgressBar: true,
+                  onOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                  }
+                })
+                
+                Toast.fire({
+                  icon: 'success',
+                  title: 'Salida registrada'
+                })
               },
               err => {
                 console.error(err);
+                // SweetAlert
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'center',
+                  showConfirmButton: false,
+                  timer: 1000,
+                  timerProgressBar: true,
+                  onOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                  }
+                })
+                
+                Toast.fire({
+                  icon: 'error',
+                  title: 'No se registró Salida'
+                })
               }
             );
             this.deleteOnDeparture(data);
