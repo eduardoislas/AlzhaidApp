@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild } from "@angular/core";
 import { ModalController, IonRange } from "@ionic/angular";
 import { CatalogService } from "src/app/services/catalog.service";
 import { DailyRecordService } from "src/app/services/daily-record.service";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: "app-phase-modal",
@@ -106,6 +107,7 @@ export class PhaseModalPage implements OnInit {
         .subscribe(
           res => {
             console.log(res);
+            this.disparaAlert("Conductas actualizadas exitosamente");
           },
           err => {
             console.log(err);
@@ -117,6 +119,7 @@ export class PhaseModalPage implements OnInit {
         .subscribe(
           res => {
             console.log(res);
+            this.disparaAlert("Comportamientos actualizados exitosamente");
           },
           err => {
             console.log(err);
@@ -139,6 +142,7 @@ export class PhaseModalPage implements OnInit {
     this.dailyService.putCrisisDailyRecords(this.paciente._id, data).subscribe(
       res => {
         console.log("respuesta", res);
+        this.disparaAlert("Crisis actualizadas exitosamente");
       },
       err => {
         console.log("error", err);
@@ -168,5 +172,26 @@ export class PhaseModalPage implements OnInit {
     }
 
     this.modalCtrl.dismiss();
+  }
+
+
+  disparaAlert(title: string){
+    // SweetAlert
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'center',
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+      onOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+    
+    Toast.fire({
+      icon: 'success',
+      title
+    })
   }
 }

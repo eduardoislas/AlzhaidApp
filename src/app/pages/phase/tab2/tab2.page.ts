@@ -5,6 +5,7 @@ import { DailyRecordService } from "src/app/services/daily-record.service";
 import { ModalController, ToastController } from "@ionic/angular";
 import { PhaseModalActividadesPage } from "../phase-modal-actividades/phase-modal-actividades.page";
 import { Info } from "../../../interfaces/daily-records";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: "app-tab2",
@@ -259,8 +260,25 @@ export class Tab2Page implements OnInit {
         reminiscence
         console.log("Servicio", res);
       
-        this.presentToast();
+        //this.presentToast();
+        // SweetAlert
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'center',
+          showConfirmButton: false,
+          timer: 1500,
+          timerProgressBar: true,
+          onOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
         
+        Toast.fire({
+          icon: 'success',
+          title: 'El programa diario se actualizó con éxito'
+        })
+        //End sweetalert
       },
       err => {
         console.log("Error servicio", err);

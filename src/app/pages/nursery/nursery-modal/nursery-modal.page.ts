@@ -51,42 +51,10 @@ export class NurseryModalPage implements OnInit {
         res => {
           console.log("respuesta", res);
           // SweetAlert
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'center',
-            showConfirmButton: false,
-            timer: 1000,
-            timerProgressBar: true,
-            onOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-          
-          Toast.fire({
-            icon: 'success',
-            title: 'Signos vitales registrados'
-          })
+          this.disparaAlert("Signos vitales actualizados")
         },
         err => {
           console.log("error", err);
-          // SweetAlert
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'center',
-            showConfirmButton: false,
-            timer: 1000,
-            timerProgressBar: true,
-            onOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-          
-          Toast.fire({
-            icon: 'error',
-            title: 'No se registró Signos vitales'
-          })
         }
       );
 
@@ -140,5 +108,25 @@ export class NurseryModalPage implements OnInit {
       value: this.glucosa
     };
     this.info.push(data);
+  }
+
+  disparaAlert(title: string){
+    // SweetAlert
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'center',
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+      onOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+    
+    Toast.fire({
+      icon: 'success',
+      title
+    })
   }
 }

@@ -193,23 +193,7 @@ export class TabAsistenciaPage implements OnInit {
           text: "Aceptar",
           handler: blah => {
             this.dailyService.postDailyRecords(id).subscribe();
-            // SweetAlert
-            const Toast = Swal.mixin({
-              toast: true,
-              position: 'center',
-              showConfirmButton: false,
-              timer: 1000,
-              timerProgressBar: true,
-              onOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-              }
-            })
-            
-            Toast.fire({
-              icon: 'success',
-              title: 'Asistencia registrada'
-            })
+            this.disparaAlert("Asistencia registrada");
             this.deleteOnAttendance(id);
           }
         }
@@ -240,43 +224,10 @@ export class TabAsistenciaPage implements OnInit {
             this.dailyService.putExitDailyRecords(data._id).subscribe(
               res => {
                 console.log(res);
-                // SweetAlert
-                const Toast = Swal.mixin({
-                  toast: true,
-                  position: 'center',
-                  showConfirmButton: false,
-                  timer: 1000,
-                  timerProgressBar: true,
-                  onOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                  }
-                })
-                
-                Toast.fire({
-                  icon: 'success',
-                  title: 'Salida registrada'
-                })
+                this.disparaAlert("Salida registrada");
               },
               err => {
                 console.error(err);
-                // SweetAlert
-                const Toast = Swal.mixin({
-                  toast: true,
-                  position: 'center',
-                  showConfirmButton: false,
-                  timer: 1000,
-                  timerProgressBar: true,
-                  onOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                  }
-                })
-                
-                Toast.fire({
-                  icon: 'error',
-                  title: 'No se registró Salida'
-                })
               }
             );
             this.deleteOnDeparture(data);
@@ -305,4 +256,25 @@ export class TabAsistenciaPage implements OnInit {
     this.busqueda = data[0];
     this.fase = data[1];
   }
+
+  disparaAlert(title: string){
+    // SweetAlert
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'center',
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+      onOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+    
+    Toast.fire({
+      icon: 'success',
+      title
+    })
+  }
+
 }
