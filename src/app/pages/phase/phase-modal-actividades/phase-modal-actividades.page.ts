@@ -3,6 +3,7 @@ import { DailyRecordService } from "src/app/services/daily-record.service";
 import { ModalController } from "@ionic/angular";
 import { Storage } from "@ionic/storage";
 import { Activity } from "src/app/interfaces/daily-records";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: "app-phase-modal-actividades",
@@ -193,6 +194,7 @@ export class PhaseModalActividadesPage implements OnInit {
       .subscribe(
         res => {
           console.log(res);
+          this.disparaAlert("Actualizado con éxito")
         },
         err => {
           console.log(err);
@@ -203,5 +205,25 @@ export class PhaseModalActividadesPage implements OnInit {
   }
   salirSinArgumentos() {
     this.modalCtrl.dismiss();
+  }
+
+  disparaAlert(title: string){
+    // SweetAlert
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'center',
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+      onOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+    
+    Toast.fire({
+      icon: 'success',
+      title
+    })
   }
 }
