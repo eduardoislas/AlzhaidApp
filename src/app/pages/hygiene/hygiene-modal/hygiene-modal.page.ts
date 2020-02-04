@@ -13,6 +13,12 @@ export class HygieneModalPage implements OnInit {
 
   diagnosticoPaciente = [];
   limitacionesFisicas = [];
+  toggleMiccion = false;
+  toggleEvacuacion = false;
+  toggleCambio = false;
+  toggleEstrenimiento = false;
+  toggleBano = false;
+  toggleProtector = false;
 
   constructor(private modalCtrl: ModalController,
               private patientService: PatientsService) {}
