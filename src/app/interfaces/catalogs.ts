@@ -5,6 +5,8 @@ export interface RootCatalog {
 }
   
 export interface Catalog {
+    selected?: boolean;
+    score?: number;
     _id: string;
     name: string;
     type: string;

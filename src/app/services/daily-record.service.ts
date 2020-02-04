@@ -123,4 +123,12 @@ export class DailyRecordService {
       phaseBinnacle
     });
   }
+  /*
+    Método PUT que agrega las actividades de Physio
+  */
+  putDailyRecordsPhysio(id: string, physioBinnacle) {
+    return this.http.put(`${url}physio/${id}`, {
+      physioBinnacle
+    });
+  }
 }

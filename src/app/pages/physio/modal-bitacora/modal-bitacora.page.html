@@ -14,90 +14,83 @@
     </ion-item>
   </ion-list>
 
-  <!-- <ion-list>
+  <ion-list>
     <ion-list-header>
-      <ion-label>Humor antes de la terapia</ion-label>
+      <ion-label>Humor antes de terapia</ion-label>
     </ion-list-header>
 
     <ion-grid fixed>
       <ion-row>
-        <ion-col size="4">
-          <ion-button (click)="onClick( value, this.value )" expand="full" value="sadValue">
-            Triste
-          </ion-button>
-        </ion-col>
-        <ion-col size="4">
-          <ion-button (click)="onClick( $event )" expand="full" value="normalValue">
-            Normal
-          </ion-button>
-        </ion-col>
-        <ion-col size="4">
-          <ion-button (click)="onClick( $event )" expand="full" value="happyValue">
-            Feliz
+        <ion-col size="4" *ngFor="let estado of estados">
+          <ion-button (click)="gethumorAntes( estado )" expand="full">
+            {{ estado }}
           </ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
+  </ion-list>
 
-  </ion-list> -->
+  <ion-list>
+    <ion-item>
+      <ion-label>Hora Inicio</ion-label>
+      <ion-datetime display-format="HH:mm A" 
+                    picker-format="HH:mm A" 
+                    value="1990-02-19T07:43Z"
+                    [(ngModel)]="horaInicio"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Hora Fin</ion-label>
+      <ion-datetime display-format="HH:mm A" 
+                    picker-format="HH:mm A" 
+                    value="1990-02-19T07:43Z"
+                    [(ngModel)]="horaFin"></ion-datetime>
+    </ion-item>
+  </ion-list>
 
-  <!-- <ion-list>
-    <ion-list>
-      <ion-radio-group name="auto">
-        <ion-list-header>Humor antes de terapia</ion-list-header>
-        <ion-item>
-          <ion-avatar slot="start">
-            <img src="https://pngimage.net/wp-content/uploads/2018/05/donald-trump-face-png-2.png"/>
-          </ion-avatar>
-          <ion-label>Triste</ion-label>
-          <ion-radio value="triste" slot="end"></ion-radio>
-        </ion-item>
+  <ion-list>
+    <ion-item *ngFor="let item of actividades">
+      <ion-label>{{ item.name }}</ion-label>
+      <ion-toggle [(ngModel)]="item.selected"></ion-toggle>
+      <ion-range *ngIf="item.selected"
+                  pin
+                  snaps
+                  min="0" max="5"
+                  [(ngModel)]="item.score">
+        <ion-icon size="small" slot="start" name="star" color="medium"></ion-icon>
+        <ion-icon slot="end" name="star" color="medium"></ion-icon>
+      </ion-range>
+    </ion-item>
+  </ion-list>
 
-        <ion-item>
-          <ion-avatar slot="start">
-            <img src="https://www.stickpng.com/assets/images/580b57fbd9996e24bc43be54.png"/>
-          </ion-avatar>
-          <ion-label>Normal</ion-label>
-          <ion-radio value="normal" slot="end"></ion-radio>
-        </ion-item>
 
-        <ion-item>
-          <ion-avatar slot="start">
-            <img src="https://www.freepnglogos.com/uploads/face-png/download-will-smith-face-image-5.png"/>
-          </ion-avatar>
-          <ion-label>Feliz</ion-label>
-          <ion-radio value="feliz" slot="end"></ion-radio>
-        </ion-item>
-      </ion-radio-group>
-    </ion-list>
-  </ion-list> -->
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Humor despues de terapia</ion-label>
+    </ion-list-header>
 
-  <!-- <ion-list>
-    
     <ion-grid fixed>
       <ion-row>
-        <ion-col>
-          <ion-avatar>
-            <img src="https://pngimage.net/wp-content/uploads/2018/05/donald-trump-face-png-2.png"/>
-          </ion-avatar>
-          <ion-radio value="triste"></ion-radio>
-        </ion-col>
-  
-        <ion-col>
-          <ion-avatar>
-            <img src="https://www.stickpng.com/assets/images/580b57fbd9996e24bc43be54.png"/>
-          </ion-avatar>
-          <ion-radio value="normal"></ion-radio>
-        </ion-col>
-  
-        <ion-col>
-          <ion-avatar>
-            <img src="https://www.freepnglogos.com/uploads/face-png/download-will-smith-face-image-5.png"/>
-          </ion-avatar>
-          <ion-radio value="feliz"></ion-radio>
+        <ion-col size="4" *ngFor="let estado of estados">
+          <ion-button (click)="gethumorDespues( estado )" expand="full">
+            {{ estado }}
+          </ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
-  </ion-list> -->
+  </ion-list>
   
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button (click)="salirSinArgumentos()" expand="full" color="secondary">
+          Salir
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button (click)="salirConArgumentos()" expand="full">
+          Enviar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
