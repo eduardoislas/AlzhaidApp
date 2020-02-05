@@ -29,6 +29,11 @@ export class ModalBitacoraPage implements OnInit {
     this.getCatalogsType();
   }
 
+  /*
+    Método que obtiene los catálogos de actividades, se filtran los
+    de fisioterapia, se les agrega un campo selected y score y finalmente
+    se agregan al arreglo de actividades.
+  */
   getCatalogsType() {
     this.catalogService.getCatalogsType('actividad').subscribe(res => {
       res.catalogs.forEach( element => {
@@ -42,17 +47,35 @@ export class ModalBitacoraPage implements OnInit {
     });
   }
 
+  /*
+    Método que obtiene el valor del humor antes de la sesión, esto
+    según el botón clickeado en la interfaz.
+  */
   gethumorAntes( value ) {
     this.humorAntes = value;
   }
+  /*
+    Método que obtiene el valor del humor después de la sesión, esto
+    según el botón clickeado en la interfaz.
+  */
   gethumorDespues( value ) {
     this.humorDespues = value;
   }
 
+  /*
+    Método para salir sin argumentos del modal.
+  */
   salirSinArgumentos() {
     this.modalCtrl.dismiss();
   }
 
+  /*
+    Método que recorre las habilidades de fisioterapia, selecciona
+    las cuales fueron seleccionadas y asignadas con un score y las
+    mete en el arreglo de actividades seleccionadas a modo de objeto.
+    Los switch son para cambiar el valor de los humores según el que
+    fue seleccionado, prepara la información y la envía en el servicio.
+  */
   salirConArgumentos() {
     let actividadesSeleccionadas = [];
 
@@ -102,7 +125,7 @@ export class ModalBitacoraPage implements OnInit {
       console.log(err);
     });
 
-    // this.modalCtrl.dismiss();
+    this.modalCtrl.dismiss();
   }
 
 }

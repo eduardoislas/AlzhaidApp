@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DailyRecordService } from 'src/app/services/daily-record.service';
 
 @Component({
   selector: 'app-tab2',
@@ -6,32 +7,57 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tab2.page.scss'],
 })
 export class Tab2Page implements OnInit {
+  sliderOpts = {
+    allowSlidePrev: false,
+    allowSlideNext: false,
+  }
+
+  pacientes = [];
+
   opcion;
 
-  busqueda;
-  fase = 'inicial';
-  constructor() { }
+  constructor( private dailyService: DailyRecordService ) { }
 
   ngOnInit() {
   }
 
   segmentChangedRegistros( event ) {
     this.opcion = event.detail.value;
-    console.log(this.opcion);
-    switch( this.opcion ) {
-      case 'programaDiario':
-        break;
-      case 'reporteDesempeno':
-        break;
-      default:
-        break;
-    }
+    this.getDailyRecords(); 
   }
-  eventListener( data: string ) {
-    this.busqueda = data[0];
-    this.fase = data[1];
 
-    console.log(this.busqueda, this.fase);
+  getDailyRecords() {
+    this.pacientes = [];
+    this.dailyService.getDailyRecordsToday().subscribe( res => {
+      res.drs.forEach(element => {
+        this.pacientes.push(element);
+      });
+      console.log(this.pacientes);
+    });
   }
+
+  rangeChange( event ) {
+    console.log(event.detail.value);
+  }
+
+  sendData() {
+    let pacientesSeleccionados = [];
+
+    this.pacientes.forEach(element => {
+      if( element.selected === true ) {
+        pacientesSeleccionados.push({
+          id: element._id,
+          performance: element.score
+        });
+      } else {
+        pacientesSeleccionados.push({
+          id: element._id,
+          performance: 5
+        });
+      }
+    });
+    console.log(pacientesSeleccionados);
+  }
+  
 
 }
