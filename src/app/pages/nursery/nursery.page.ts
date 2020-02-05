@@ -15,10 +15,10 @@ export class NurseryPage implements OnInit {
   }
 
 
-  cerrarSesion(){
+  cerrarSesion() {
     Swal.fire({
       title: '¿Cerrar sesión?',
-      text: "La sesión con este usuario se cerrará.",
+      text: 'La sesión con este usuario se cerrará.',
       icon: 'warning',
       backdrop: false,
       showCancelButton: true,
@@ -29,7 +29,6 @@ export class NurseryPage implements OnInit {
       if (result.value) {
         this.router.navigateByUrl( '' );
       }
-    })
+    });
   }
-
 }

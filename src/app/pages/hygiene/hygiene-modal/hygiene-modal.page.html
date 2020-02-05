@@ -37,162 +37,192 @@
       placeholder="horas:minutos"
     ></ion-datetime>
     -->
-    <ion-segment>
-      <ion-segment-button checked>Mañana</ion-segment-button>
-      <ion-select-option value="tarde">tarde</ion-select-option>
+    <ion-segment (ionChange)="timeChanged($event)">
+      <ion-segment-button value="Mañana" checked >Mañana</ion-segment-button>
+      <ion-segment-button value="Tarde"checked>Tarde</ion-segment-button>
     </ion-segment>
   </ion-item>
   
 
   <hr>
 
-  <ion-item>
-    <ion-avatar slot="start">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS__rOADCVL3XYW7NyqHObTU6hRbmTCvSEz_MojKVorjudYZWMd&s">
-    </ion-avatar>
-
-    <ion-label>Micción</ion-label>
-
-    <ion-label>Observación: </ion-label>
-
-    <ion-select
-      interface="popover"
-      value=""
-      okText="Seleccionar"
-      cancelText="Cancelar"
-    >
-      <ion-select-option value="normal">Normal</ion-select-option>
-
-      <ion-select-option value="anormal">Anormal</ion-select-option>
-
-      <ion-select-option value="asistido">Asistido</ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <ion-item>
-    <ion-avatar slot="start">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhIhz9wfewM3omioGz3ouXnZX7Wnrsyhh2U52kT7ymzIcEVFep&s">
-    </ion-avatar>
-
-    <ion-label>Evacuación</ion-label>
-
-    <ion-label>Observación: </ion-label>
-
-    <ion-select
-      interface="popover"
-      value=""
-      okText="Seleccionar"
-      cancelText="Cancelar"
-    >
-      <ion-select-option value="normal">Normal</ion-select-option>
-
-      <ion-select-option value="anormal">Anormal</ion-select-option>
-
-      <ion-select-option value="asistido">Asistido</ion-select-option>
-    </ion-select>
-  </ion-item>
+  <ion-list>
+    <ion-item >
+      <ion-avatar slot="start">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS__rOADCVL3XYW7NyqHObTU6hRbmTCvSEz_MojKVorjudYZWMd&s">
+      </ion-avatar>
+      <ion-label>Micción</ion-label>
+      <ion-toggle [(ngModel)]="toggleMiccion" slot="end"></ion-toggle>
+    </ion-item >
+        
+    <div *ngIf=toggleMiccion>
+      <ion-radio-group (ionChange)="observationMiccion($event)">
+        <ion-item>
+          <ion-label>Normal</ion-label>
+          <ion-radio slot="start" value="Normal" checked></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Anormal</ion-label>
+          <ion-radio slot="start" value="Anormal" checked></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Asistido</ion-label>
+          <ion-radio slot="start" value="Asistido" checked></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </div>
+  </ion-list>
 
 
+  <ion-list>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhIhz9wfewM3omioGz3ouXnZX7Wnrsyhh2U52kT7ymzIcEVFep&s">
+      </ion-avatar>
+      <ion-label>Evacuación</ion-label>
+      <ion-toggle [(ngModel)]="toggleEvacuacion" slot="end"></ion-toggle>
+    </ion-item>
+    <div *ngIf=toggleEvacuacion>
+      <ion-radio-group (ionChange)="observationEvacuacion($event)">
+        <ion-item>
+          <ion-label>Normal</ion-label>
+          <ion-radio slot="start" value="Normal" checked></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Anormal</ion-label>
+          <ion-radio slot="start" value="Anormal" checked></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Asistido</ion-label>
+          <ion-radio slot="start" value="Asistido" checked></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </div>
+  </ion-list>
 
-  <ion-item>
-    <ion-avatar slot="start">
+  <ion-list>
+    <ion-item>
+      <ion-avatar slot="start">
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmZei1KeFEz0gsZFR52vBMB8WkDVfJsi7qTm2Fm-5EJu8eeJWc&s">
     </ion-avatar>
 
     <ion-label>Cambio de ropa</ion-label>
 
-    <ion-label>Observación: </ion-label>
+      <ion-toggle [(ngModel)]="toggleCambio" slot="end"></ion-toggle>
+    </ion-item>
+    <div *ngIf=toggleCambio>
+      <ion-radio-group (ionChange)="observationIncontinencia($event)">
+        <ion-item>
+          <ion-label>Incontinencia</ion-label>
+          <ion-radio slot="start" value="Incontinencia" checked></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Derrame ...</ion-label>
+          <ion-radio slot="start" value="Derrame" checked></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Incomodidad</ion-label>
+          <ion-radio slot="start" value="Incomodidad" checked></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Mal olor</ion-label>
+          <ion-radio slot="start" value="Mal olor" checked></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </div>
+  </ion-list>
 
-    <ion-select
-      interface="popover"
-      value=""
-      okText="Seleccionar"
-      cancelText="Cancelar"
-    >
-      <ion-select-option value="incontinencia">Incontinencia</ion-select-option>
+  <ion-list>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://i0.pngocean.com/files/42/790/576/large-intestine-computer-icons-intestine.jpg">
+      </ion-avatar>
+  
+      <ion-label>Estreñimiento</ion-label>  
 
-      <ion-select-option value="anormal">Anormal</ion-select-option>
+      <ion-toggle [(ngModel)]="toggleEstrenimiento" slot="end"></ion-toggle>
+    </ion-item>
+    <div *ngIf=toggleEstrenimiento>
+      <ion-radio-group (ionChange)="observationEstrenimiento($event)">
+        <ion-item>
+          <ion-label>Dieta</ion-label>
+          <ion-radio slot="start" value="Dieta" checked></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Enfermedad</ion-label>
+          <ion-radio slot="start" value="Enfermedad" checked></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </div>
+  </ion-list>
 
-      <ion-select-option value="asistido">Asistido</ion-select-option>
-    </ion-select>
-  </ion-item>
+  <ion-list>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://images.vexels.com/media/users/3/150852/isolated/preview/929f7e318405074be14e322ad973e92a-icono-de-c--rculo-de-ba--era-de-beb--by-vexels.png">
+      </ion-avatar>
+  
+      <ion-label>Baño</ion-label>  
 
-  <ion-item>
-    <ion-avatar slot="start">
-      <img src="https://i0.pngocean.com/files/42/790/576/large-intestine-computer-icons-intestine.jpg">
-    </ion-avatar>
+      <ion-toggle [(ngModel)]="toggleBano" slot="end"></ion-toggle>
+    </ion-item>
+    <div *ngIf=toggleBano>
+      <ion-radio-group (ionChange)="observationBano($event)">
+        <ion-item>
+          <ion-label>Incontinencia</ion-label>
+          <ion-radio slot="start" value="Incontinencia" checked></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Derrame ...</ion-label>
+          <ion-radio slot="start" value="Derrame" checked></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Mal olor</ion-label>
+          <ion-radio slot="start" value="Mal olor" checked></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </div>
+  </ion-list>
 
-    <ion-label>Estreñimiento</ion-label>
+  <ion-list>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://images.vexels.com/media/users/3/150865/isolated/preview/4e0f6717f75015182321a8d571d71433-icono-de-c--rculo-de-pa--al-de-beb--by-vexels.png">
+      </ion-avatar>
+  
+      <ion-label>Cambio de protectores</ion-label>
 
-    <ion-label>Observación: </ion-label>
-
-    <ion-select
-      interface="popover"
-      value=""
-      okText="Seleccionar"
-      cancelText="Cancelar"
-    >
-      <ion-select-option value="incontinencia">Incontinencia</ion-select-option>
-
-      <ion-select-option value="anormal">Anormal</ion-select-option>
-
-      <ion-select-option value="asistido">Asistido</ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <ion-item>
-    <ion-avatar slot="start">
-      <img src="https://images.vexels.com/media/users/3/150852/isolated/preview/929f7e318405074be14e322ad973e92a-icono-de-c--rculo-de-ba--era-de-beb--by-vexels.png">
-    </ion-avatar>
-
-    <ion-label>Baño</ion-label>
-
-    <ion-label>Observación: </ion-label>
-
-    <ion-select
-      interface="popover"
-      value=""
-      okText="Seleccionar"
-      cancelText="Cancelar"
-    >
-      <ion-select-option value="incontinencia">Incontinencia</ion-select-option>
-
-      <ion-select-option value="anormal">Anormal</ion-select-option>
-
-      <ion-select-option value="asistido">Asistido</ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <ion-item>
-    <ion-avatar slot="start">
-      <img src="https://images.vexels.com/media/users/3/150865/isolated/preview/4e0f6717f75015182321a8d571d71433-icono-de-c--rculo-de-pa--al-de-beb--by-vexels.png">
-    </ion-avatar>
-
-    <ion-label>Cambio de protectores</ion-label>
-
-    <ion-label>Observación: </ion-label>
-
-    <ion-select
-      interface="popover"
-      value=""
-      okText="Seleccionar"
-      cancelText="Cancelar"
-    >
-      <ion-select-option value="incontinencia">Incontinencia</ion-select-option>
-
-      <ion-select-option value="anormal">Anormal</ion-select-option>
-
-      <ion-select-option value="asistido">Asistido</ion-select-option>
-    </ion-select>
-  </ion-item>
+      <ion-toggle [(ngModel)]="toggleProtector" slot="end"></ion-toggle>
+    </ion-item>
+    <div *ngIf=toggleProtector>
+      <ion-radio-group (ionChange)="observationProtector($event)">
+        <ion-item>
+          <ion-label>Incontinencia</ion-label>
+          <ion-radio slot="start" value="incontinencia" checked></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Incapacidad</ion-label>
+          <ion-radio slot="start" value="Incapacidad" checked></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </div>
+  </ion-list>
   
   <hr>
 
-   <ion-button (click)="salirSinArgumentos()">Regresar</ion-button>
-
-  <ion-button
-    color="primary"
-    (click)="salirConArgumentos()"
-  >Enviar</ion-button>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button (click)="salirSinArgumentos()" expand="full">
+            Regresar
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button color="primary" (click)="salirConArgumentos()"expand="full">
+          Enviar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>
