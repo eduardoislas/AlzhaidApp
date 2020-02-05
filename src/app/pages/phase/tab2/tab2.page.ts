@@ -13,6 +13,11 @@ import Swal from 'sweetalert2';
   styleUrls: ["./tab2.page.scss"]
 })
 export class Tab2Page implements OnInit {
+  sliderOpts = {
+    allowSlidePrev: false,
+    allowSlideNext: false,
+  }
+  
   opcion;
 
   busqueda;
@@ -26,6 +31,7 @@ export class Tab2Page implements OnInit {
   toggleMemoria;
   toggleReminiscencia;
 
+  dailyRecordsExists = false;
 
   pacientes = [];
 
@@ -40,12 +46,12 @@ export class Tab2Page implements OnInit {
     private catalogService: CatalogService,
     private dailyService: DailyRecordService,
     private modalCtrl: ModalController,
-    private storage: Storage,
-    private toastCtrl: ToastController,
-  ) {}
+    private storage: Storage 
+    ) {}
 
   ngOnInit() {
     this.storage.get("Rol").then(val => {
+      this.getDailyProgramsPhase(val);
       this.rol = val;
     });
   }
@@ -62,8 +68,13 @@ export class Tab2Page implements OnInit {
   */
   searchBar(event) {
     this.busqueda = event.detail.value;
+    
+  }
 
-    console.log(this.busqueda);
+  getDailyProgramsPhase(phase: string) {
+    this.dailyService.getDailyProgramPhase(phase).subscribe(res => {
+      res.cuantos === 0 ? this.dailyRecordsExists = false : this.dailyRecordsExists = true;
+    });
   }
   /* 
     Método encargado de limpiar el arreglo de pacientes, llamar al servicio
@@ -88,7 +99,6 @@ export class Tab2Page implements OnInit {
 
     // Se obtienen todos los pacientes filtrados por su fase.
     this.dailyService.getDailyRecordsToday().subscribe(res => {
-      console.log(res);
       res.drs.forEach(r => {
         if (r.patient.phase === this.capitalize(this.fase)) {
           this.pacientes.push(r);
@@ -247,9 +257,10 @@ export class Tab2Page implements OnInit {
       }
     };
 
-    console.log(dailyProgram);
     this.dailyService.postDailyProgram(dailyProgram).subscribe(
       res => {
+
+        this.getDailyProgramsPhase(this.rol);
 
         this.toggleAtencion = false;
         this.toggleCalculo = false;
@@ -257,10 +268,7 @@ export class Tab2Page implements OnInit {
         this.toggleLenguaje = false;
         this.toggleMemoria = false;
         this.toggleReminiscencia = false;
-        reminiscence
-        console.log("Servicio", res);
-      
-        //this.presentToast();
+        reminiscence      
         // SweetAlert
         const Toast = Swal.mixin({
           toast: true,
@@ -284,19 +292,5 @@ export class Tab2Page implements OnInit {
         console.log("Error servicio", err);
       }
     );
-  }
-
-  async presentToast() {
-    const toast = await this.toastCtrl.create({
-      message: 'El programa diario se actualizó con éxito',
-      duration: 2000,
-      buttons: [
-        {
-          text: 'Ok',
-          role: 'cancel'
-        }
-      ]
-    });
-    toast.present();
   }
 }
