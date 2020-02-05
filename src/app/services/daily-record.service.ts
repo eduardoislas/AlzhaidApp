@@ -131,4 +131,15 @@ export class DailyRecordService {
       physioBinnacle
     });
   }
+
+  /*
+    Método PUT que agrega las incidencias de higiene al DR
+  */
+  putDailyRecordsHygiene(id: string, hygiene){
+    return this.http.put(`${url}hygiene/${id}`, {
+      hygiene
+    });
+  }
+
+
 }
