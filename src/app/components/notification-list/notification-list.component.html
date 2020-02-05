@@ -1,34 +1,26 @@
 <ion-list>
-  <ion-card
-    fullscreen="fullscreen"
-    *ngFor="let notificacion of notifications"
-    onclick=""
-  >
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-      </ion-avatar>
+    <ion-card fullscreen="fullscreen" *ngFor="let notificacion of notifications" onclick="">
+        <ion-item>
+            <ion-avatar slot="start">
+                <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+            </ion-avatar>
 
-      <ion-card-title>
-        {{notificacion.patient.name}} {{notificacion.patient.lastName}} {{notificacion.patient.lastNameSecond}}
-      </ion-card-title>
+            <ion-card-title>
+                {{notificacion.patient.name}} {{notificacion.patient.lastName}} {{notificacion.patient.lastNameSecond}}
+            </ion-card-title>
 
-    </ion-item>
+        </ion-item>
 
-    <ion-card-subtitle class="ion-padding">
-      {{notificacion.expiration_date}}
-    </ion-card-subtitle>
-
-    <ion-card-content>{{notificacion.description}}</ion-card-content>
-  </ion-card>
+        <ion-card-subtitle class="ion-padding">
+            {{notificacion.expiration_date |date:"dd-MM-yyyy"}}
+        </ion-card-subtitle>
+        <ion-card-content>{{notificacion.type}}</ion-card-content>
+        <ion-card-content>{{notificacion.description}}</ion-card-content>
+    </ion-card>
 </ion-list>
 
-<ion-fab
-  vertical="bottom"
-  horizontal="end"
-  slot="fixed"
->
-  <ion-fab-button (click)="openModal()" >
-    <ion-icon name="add"></ion-icon>
-  </ion-fab-button>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openModal()">
+        <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
 </ion-fab>
