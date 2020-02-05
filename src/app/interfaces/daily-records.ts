@@ -72,3 +72,11 @@ export interface Info {
   classification: string;
 }
 
+export interface InfoHygiene {
+  _id?: string;
+  name: string;
+  time: string;
+  observation: string;
+}
+
+

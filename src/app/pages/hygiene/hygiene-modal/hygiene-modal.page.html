@@ -37,192 +37,180 @@
       placeholder="horas:minutos"
     ></ion-datetime>
     -->
-    <ion-segment>
-      <ion-segment-button checked>Mañana</ion-segment-button>
-      <ion-segment-button checked>Tarde</ion-segment-button>
-      <ion-select-option value="tarde">tarde</ion-select-option>
+    <ion-segment (ionChange)="timeChanged($event)">
+      <ion-segment-button value="mañana" checked>Mañana</ion-segment-button>
+      <ion-segment-button value="tarde"checked>Tarde</ion-segment-button>
     </ion-segment>
   </ion-item>
   
 
   <hr>
 
-  <ion-item>
-    <ion-list>
-      <ion-item >
-        <ion-avatar slot="start">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS__rOADCVL3XYW7NyqHObTU6hRbmTCvSEz_MojKVorjudYZWMd&s">
-        </ion-avatar>
-        <ion-label>Micción</ion-label>
-        <ion-toggle [(ngModel)]="toggleMiccion" slot="end"></ion-toggle>
-      </ion-item >
-         
-      <div *ngIf=toggleMiccion>
-        <ion-radio-group>
-          <ion-item>
-            <ion-label>Normal</ion-label>
-            <ion-radio slot="start" value="normal" checked></ion-radio>
-          </ion-item>
-          <ion-item>
-            <ion-label>Anormal</ion-label>
-            <ion-radio slot="start" value="anormal" checked></ion-radio>
-          </ion-item>
-          <ion-item>
-            <ion-label>Asistido</ion-label>
-            <ion-radio slot="start" value="asistido" checked></ion-radio>
-          </ion-item>
-        </ion-radio-group>
-      </div>
-    </ion-list>
-  </ion-item>
+  <ion-list>
+    <ion-item >
+      <ion-avatar slot="start">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS__rOADCVL3XYW7NyqHObTU6hRbmTCvSEz_MojKVorjudYZWMd&s">
+      </ion-avatar>
+      <ion-label>Micción</ion-label>
+      <ion-toggle [(ngModel)]="toggleMiccion" slot="end"></ion-toggle>
+    </ion-item >
+        
+    <div *ngIf=toggleMiccion>
+      <ion-radio-group (ionChange)="observationMiccion($event)">
+        <ion-item>
+          <ion-label>Normal</ion-label>
+          <ion-radio slot="start" value="normal" checked></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Anormal</ion-label>
+          <ion-radio slot="start" value="anormal" checked></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Asistido</ion-label>
+          <ion-radio slot="start" value="asistido" checked></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </div>
+  </ion-list>
 
-  <ion-item>
-    <ion-list>
-      <ion-item>
-        <ion-avatar slot="start">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhIhz9wfewM3omioGz3ouXnZX7Wnrsyhh2U52kT7ymzIcEVFep&s">
-        </ion-avatar>
-        <ion-label>Evacuación</ion-label>
-        <ion-toggle [(ngModel)]="toggleEvacuacion" slot="end"></ion-toggle>
-      </ion-item>
-      <div *ngIf=toggleEvacuacion>
-        <ion-radio-group>
-          <ion-item>
-            <ion-label>Normal</ion-label>
-            <ion-radio slot="start" value="normal" checked></ion-radio>
-          </ion-item>
-          <ion-item>
-            <ion-label>Anormal</ion-label>
-            <ion-radio slot="start" value="anormal" checked></ion-radio>
-          </ion-item>
-          <ion-item>
-            <ion-label>Asistido</ion-label>
-            <ion-radio slot="start" value="asistido" checked></ion-radio>
-          </ion-item>
-        </ion-radio-group>
-      </div>
-    </ion-list>
-  </ion-item>
 
-  <ion-item>
-    <ion-list>
-      <ion-item>
-        <ion-avatar slot="start">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmZei1KeFEz0gsZFR52vBMB8WkDVfJsi7qTm2Fm-5EJu8eeJWc&s">
+  <ion-list>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhIhz9wfewM3omioGz3ouXnZX7Wnrsyhh2U52kT7ymzIcEVFep&s">
+      </ion-avatar>
+      <ion-label>Evacuación</ion-label>
+      <ion-toggle [(ngModel)]="toggleEvacuacion" slot="end"></ion-toggle>
+    </ion-item>
+    <div *ngIf=toggleEvacuacion>
+      <ion-radio-group (ionChange)="observationEvacuacion($event)">
+        <ion-item>
+          <ion-label>Normal</ion-label>
+          <ion-radio slot="start" value="normal" checked></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Anormal</ion-label>
+          <ion-radio slot="start" value="anormal" checked></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Asistido</ion-label>
+          <ion-radio slot="start" value="asistido" checked></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </div>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-avatar slot="start">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmZei1KeFEz0gsZFR52vBMB8WkDVfJsi7qTm2Fm-5EJu8eeJWc&s">
+    </ion-avatar>
+
+    <ion-label>Cambio de ropa</ion-label>
+
+      <ion-toggle [(ngModel)]="toggleCambio" slot="end"></ion-toggle>
+    </ion-item>
+    <div *ngIf=toggleCambio>
+      <ion-radio-group (ionChange)="observationIncontinencia($event)">
+        <ion-item>
+          <ion-label>Incontinencia</ion-label>
+          <ion-radio slot="start" value="incontinencia" checked></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Anormal</ion-label>
+          <ion-radio slot="start" value="anormal" checked></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Asistido</ion-label>
+          <ion-radio slot="start" value="asistido" checked></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </div>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://i0.pngocean.com/files/42/790/576/large-intestine-computer-icons-intestine.jpg">
       </ion-avatar>
   
-      <ion-label>Cambio de ropa</ion-label>
-  
-        <ion-toggle [(ngModel)]="toggleCambio" slot="end"></ion-toggle>
-      </ion-item>
-      <div *ngIf=toggleCambio>
-        <ion-radio-group>
-          <ion-item>
-            <ion-label>Incontinencia</ion-label>
-            <ion-radio slot="start" value="incontinencia" checked></ion-radio>
-          </ion-item>
-          <ion-item>
-            <ion-label>Anormal</ion-label>
-            <ion-radio slot="start" value="anormal" checked></ion-radio>
-          </ion-item>
-          <ion-item>
-            <ion-label>Asistido</ion-label>
-            <ion-radio slot="start" value="asistido" checked></ion-radio>
-          </ion-item>
-        </ion-radio-group>
-      </div>
-    </ion-list>
-  </ion-item>
+      <ion-label>Estreñimiento</ion-label>  
 
-  <ion-item>
-    <ion-list>
-      <ion-item>
-        <ion-avatar slot="start">
-          <img src="https://i0.pngocean.com/files/42/790/576/large-intestine-computer-icons-intestine.jpg">
-        </ion-avatar>
-    
-        <ion-label>Estreñimiento</ion-label>  
-  
-        <ion-toggle [(ngModel)]="toggleEstrenimiento" slot="end"></ion-toggle>
-      </ion-item>
-      <div *ngIf=toggleEstrenimiento>
-        <ion-radio-group>
-          <ion-item>
-            <ion-label>Incontinencia</ion-label>
-            <ion-radio slot="start" value="incontinencia" checked></ion-radio>
-          </ion-item>
-          <ion-item>
-            <ion-label>Anormal</ion-label>
-            <ion-radio slot="start" value="anormal" checked></ion-radio>
-          </ion-item>
-          <ion-item>
-            <ion-label>Asistido</ion-label>
-            <ion-radio slot="start" value="asistido" checked></ion-radio>
-          </ion-item>
-        </ion-radio-group>
-      </div>
-    </ion-list>
-  </ion-item>
+      <ion-toggle [(ngModel)]="toggleEstrenimiento" slot="end"></ion-toggle>
+    </ion-item>
+    <div *ngIf=toggleEstrenimiento>
+      <ion-radio-group (ionChange)="observationEstrenimiento($event)">
+        <ion-item>
+          <ion-label>Incontinencia</ion-label>
+          <ion-radio slot="start" value="incontinencia" checked></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Anormal</ion-label>
+          <ion-radio slot="start" value="anormal" checked></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Asistido</ion-label>
+          <ion-radio slot="start" value="asistido" checked></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </div>
+  </ion-list>
 
-  <ion-item>
-    <ion-list>
-      <ion-item>
-        <ion-avatar slot="start">
-          <img src="https://images.vexels.com/media/users/3/150852/isolated/preview/929f7e318405074be14e322ad973e92a-icono-de-c--rculo-de-ba--era-de-beb--by-vexels.png">
-        </ion-avatar>
-    
-        <ion-label>Baño</ion-label>  
+  <ion-list>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://images.vexels.com/media/users/3/150852/isolated/preview/929f7e318405074be14e322ad973e92a-icono-de-c--rculo-de-ba--era-de-beb--by-vexels.png">
+      </ion-avatar>
   
-        <ion-toggle [(ngModel)]="toggleBano" slot="end"></ion-toggle>
-      </ion-item>
-      <div *ngIf=toggleBano>
-        <ion-radio-group>
-          <ion-item>
-            <ion-label>Incontinencia</ion-label>
-            <ion-radio slot="start" value="incontinencia" checked></ion-radio>
-          </ion-item>
-          <ion-item>
-            <ion-label>Anormal</ion-label>
-            <ion-radio slot="start" value="anormal" checked></ion-radio>
-          </ion-item>
-          <ion-item>
-            <ion-label>Asistido</ion-label>
-            <ion-radio slot="start" value="asistido" checked></ion-radio>
-          </ion-item>
-        </ion-radio-group>
-      </div>
-    </ion-list>
-  </ion-item>
+      <ion-label>Baño</ion-label>  
 
-  <ion-item>
-    <ion-list>
-      <ion-item>
-        <ion-avatar slot="start">
-          <img src="https://images.vexels.com/media/users/3/150865/isolated/preview/4e0f6717f75015182321a8d571d71433-icono-de-c--rculo-de-pa--al-de-beb--by-vexels.png">
-        </ion-avatar>
-    
-        <ion-label>Cambio de protectores</ion-label>
+      <ion-toggle [(ngModel)]="toggleBano" slot="end"></ion-toggle>
+    </ion-item>
+    <div *ngIf=toggleBano>
+      <ion-radio-group (ionChange)="observationBano($event)">
+        <ion-item>
+          <ion-label>Incontinencia</ion-label>
+          <ion-radio slot="start" value="incontinencia" checked></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Anormal</ion-label>
+          <ion-radio slot="start" value="anormal" checked></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Asistido</ion-label>
+          <ion-radio slot="start" value="asistido" checked></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </div>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://images.vexels.com/media/users/3/150865/isolated/preview/4e0f6717f75015182321a8d571d71433-icono-de-c--rculo-de-pa--al-de-beb--by-vexels.png">
+      </ion-avatar>
   
-        <ion-toggle [(ngModel)]="toggleProtector" slot="end"></ion-toggle>
-      </ion-item>
-      <div *ngIf=toggleProtector>
-        <ion-radio-group>
-          <ion-item>
-            <ion-label>Incontinencia</ion-label>
-            <ion-radio slot="start" value="incontinencia" checked></ion-radio>
-          </ion-item>
-          <ion-item>
-            <ion-label>Anormal</ion-label>
-            <ion-radio slot="start" value="anormal" checked></ion-radio>
-          </ion-item>
-          <ion-item>
-            <ion-label>Asistido</ion-label>
-            <ion-radio slot="start" value="asistido" checked></ion-radio>
-          </ion-item>
-        </ion-radio-group>
-      </div>
-    </ion-list>
-  </ion-item>
+      <ion-label>Cambio de protectores</ion-label>
+
+      <ion-toggle [(ngModel)]="toggleProtector" slot="end"></ion-toggle>
+    </ion-item>
+    <div *ngIf=toggleProtector>
+      <ion-radio-group (ionChange)="observationProtector($event)">
+        <ion-item>
+          <ion-label>Incontinencia</ion-label>
+          <ion-radio slot="start" value="incontinencia" checked></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Anormal</ion-label>
+          <ion-radio slot="start" value="anormal" checked></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Asistido</ion-label>
+          <ion-radio slot="start" value="asistido" checked></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </div>
+  </ion-list>
   
   <hr>
 
