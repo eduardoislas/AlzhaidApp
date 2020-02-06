@@ -31,7 +31,7 @@ export class Tab2Page implements OnInit {
   toggleMemoria;
   toggleReminiscencia;
 
-  dailyRecordsExists = false;
+  emptyDailyRecords = false;
 
   pacientes = [];
 
@@ -73,7 +73,7 @@ export class Tab2Page implements OnInit {
 
   getDailyProgramsPhase(phase: string) {
     this.dailyService.getDailyProgramPhase(phase).subscribe(res => {
-      res.cuantos === 0 ? this.dailyRecordsExists = false : this.dailyRecordsExists = true;
+      res.cuantos === 0 ? this.emptyDailyRecords = true : this.emptyDailyRecords = false;
     });
   }
   /* 
