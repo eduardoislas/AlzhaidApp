@@ -38,21 +38,18 @@ export class HygieneModalPage implements OnInit {
   ngOnInit() {
     const id = this.paciente.patient._id;
     this.patientService.getPatientId(id).subscribe(res => {
-      console.log(res);
       res.patient.diagnosis.forEach(e => {
         this.diagnosticoPaciente.push(e);
       });
       res.patient.physicalLimitations.forEach(e => {
         this.limitacionesFisicas.push(e);
       });
-      console.log(this.diagnosticoPaciente);
     }, err => {
       console.log(err);
     });
   }
 
   salirSinArgumentos() {
-    console.log('sin args');
     this.modalCtrl.dismiss();
   }
 
@@ -61,7 +58,6 @@ export class HygieneModalPage implements OnInit {
    * de objetos seleccionados en hygiene-modal.page
    */
   salirConArgumentos() {
-    console.log('con args');
     let data;
     const higiene = [];
     if (this.toggleMiccion) {

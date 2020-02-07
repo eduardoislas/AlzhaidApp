@@ -25,7 +25,6 @@ export class ModalBitacoraPage implements OnInit {
                private dailyService: DailyRecordService ) { }
 
   ngOnInit() {
-    console.log(this.paciente);
     this.getCatalogsType();
   }
 
@@ -43,7 +42,6 @@ export class ModalBitacoraPage implements OnInit {
           this.actividades.push( element );
         }
       });
-      console.log(...this.actividades);
     });
   }
 
@@ -117,10 +115,7 @@ export class ModalBitacoraPage implements OnInit {
       endTime: this.horaFin,
       activities: actividadesSeleccionadas
     }
-    console.log('data', data);
-
     this.dailyService.putDailyRecordsPhysio( this.paciente._id, data ).subscribe( res => {
-      console.log(res);
     }, err => {
       console.log(err);
     });

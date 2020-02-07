@@ -31,7 +31,6 @@ export class Tab3Page implements OnInit {
     this.pacientes = [];
 
     this.dailyService.getDailyRecordsToday().subscribe(res => {
-      console.log(res);
       res.drs.forEach(r => {
         if (r.patient.phase === this.capitalize(this.fase)) {
           this.pacientes.push(r);
@@ -49,7 +48,6 @@ export class Tab3Page implements OnInit {
     await modal.present();
 
     const { data } = await modal.onDidDismiss();
-    console.log("Retorno modal", data);
   }
 
   /* 
