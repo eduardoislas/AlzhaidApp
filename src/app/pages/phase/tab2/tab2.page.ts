@@ -12,12 +12,7 @@ import Swal from 'sweetalert2';
   templateUrl: "./tab2.page.html",
   styleUrls: ["./tab2.page.scss"]
 })
-export class Tab2Page implements OnInit {
-  sliderOpts = {
-    allowSlidePrev: false,
-    allowSlideNext: false,
-  }
-  
+export class Tab2Page implements OnInit { 
   opcion;
 
   busqueda;
@@ -31,7 +26,7 @@ export class Tab2Page implements OnInit {
   toggleMemoria;
   toggleReminiscencia;
 
-  emptyDailyRecords = false;
+  emptyDailyRecords;
 
   pacientes = [];
 

@@ -17,17 +17,13 @@
 <ion-content>
 
 
-  <ion-list *ngIf="opcion === 'programa'">
 
-     <div class="slide" *ngIf="emptyDailyRecords === false">
-      <ion-slides [options]="sliderOpts">
-        <ion-slide>
-          <ion-label>Ya existe un Programa diario.</ion-label>
-        </ion-slide>
-      </ion-slides>
+  <div *ngIf="opcion === 'programa'">
+    <div class="daily-msg" *ngIf="emptyDailyRecords === false">
+      <ion-label>Ya existe un programa diario</ion-label>
     </div>
 
-    <div *ngIf="emptyDailyRecords === true">
+    <ion-list *ngIf="emptyDailyRecords === true">
       <ion-list-header>
         <ion-label>Tipo de Actividades</ion-label>
       </ion-list-header>
@@ -108,10 +104,11 @@
       <ion-button (click)="salirConArgumentos()" expand="full">
         Enviar
       </ion-button>
-    </div>
-  </ion-list>
+    </ion-list>
+  </div>
 
-  
+
+
 
 
 

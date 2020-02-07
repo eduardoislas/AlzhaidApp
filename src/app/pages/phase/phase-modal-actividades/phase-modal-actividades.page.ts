@@ -11,11 +11,6 @@ import Swal from "sweetalert2";
   styleUrls: ["./phase-modal-actividades.page.scss"]
 })
 export class PhaseModalActividadesPage implements OnInit {
-  sliderOpts = {
-    allowSlidePrev: false,
-    allowSlideNext: false,
-  }
-  
   @Input() paciente;
 
   atencion = [];
@@ -27,7 +22,7 @@ export class PhaseModalActividadesPage implements OnInit {
 
   variable: Activity;
 
-  emptyDailyRecords = false;
+  emptyDailyRecords;
 
   toggleUbicacion = false;
   toggleFecha = false;
