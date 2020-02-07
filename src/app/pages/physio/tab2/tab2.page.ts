@@ -41,22 +41,25 @@ export class Tab2Page implements OnInit {
   }
 
   sendData() {
-    let pacientesSeleccionados = [];
+    let activation = [];
 
     this.pacientes.forEach(element => {
       if( element.selected === true ) {
-        pacientesSeleccionados.push({
+        activation.push({
           id: element._id,
           performance: element.score
         });
       } else {
-        pacientesSeleccionados.push({
+        activation.push({
           id: element._id,
           performance: 5
         });
       }
     });
-    console.log(pacientesSeleccionados);
+
+    // Por hacer: Enviar notificación de confirmación y deshabilitar el envío de otra actualización de datos de activación
+    console.log(activation);
+    this.dailyService.putDailyRecordsPhysicalActivation(activation).subscribe();
   }
   
 
