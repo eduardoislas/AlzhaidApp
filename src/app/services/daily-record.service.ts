@@ -141,5 +141,13 @@ export class DailyRecordService {
     });
   }
 
+  /*
+    Método PUT que agrega el arreglo de activación física al DR
+  */
+ putDailyRecordsPhysicalActivation(activation){
+  return this.http.put(`${url}physio/activation/todos`, {
+    activation
+  });
+}
 
 }
