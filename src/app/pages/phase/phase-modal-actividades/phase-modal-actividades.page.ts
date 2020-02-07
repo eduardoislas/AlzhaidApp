@@ -27,7 +27,7 @@ export class PhaseModalActividadesPage implements OnInit {
 
   variable: Activity;
 
-  dailyRecordsExists = false;
+  emptyDailyRecords = false;
 
   toggleUbicacion = false;
   toggleFecha = false;
@@ -48,7 +48,7 @@ export class PhaseModalActividadesPage implements OnInit {
   getDailyProgramPhase(phase: string) {
     this.dailyService.getDailyProgramPhase(phase).subscribe(res => {
       if (res.cuantos === 0) {
-        this.dailyRecordsExists = true;
+        this.emptyDailyRecords = true;
       } else {
         // Attention
         res.dps.activities.attention.forEach(element => {
