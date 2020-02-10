@@ -16,7 +16,6 @@ notifications: any = [];
   
   ngOnInit() {
     this.NotificationsService.getNotifications().subscribe(res => {
-      console.log(res.vigentes);
       this.notifications.push(res.vigentes);
       this.notifications = res.vigentes;
     });
@@ -32,7 +31,6 @@ notifications: any = [];
       await modal.present();
 
       const { data } = await modal.onDidDismiss();
-      console.log('Retorno modal', data);
     }
 
 }

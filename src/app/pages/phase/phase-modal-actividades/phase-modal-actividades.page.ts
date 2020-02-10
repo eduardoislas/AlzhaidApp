@@ -11,11 +11,6 @@ import Swal from "sweetalert2";
   styleUrls: ["./phase-modal-actividades.page.scss"]
 })
 export class PhaseModalActividadesPage implements OnInit {
-  sliderOpts = {
-    allowSlidePrev: false,
-    allowSlideNext: false,
-  }
-  
   @Input() paciente;
 
   atencion = [];
@@ -27,7 +22,7 @@ export class PhaseModalActividadesPage implements OnInit {
 
   variable: Activity;
 
-  emptyDailyRecords = false;
+  emptyDailyRecords;
 
   toggleUbicacion = false;
   toggleFecha = false;
@@ -103,8 +98,6 @@ export class PhaseModalActividadesPage implements OnInit {
   }
   EnviarDatos() {
     let array = [];
-    console.log("Fecha:", this.toggleFecha);
-    console.log("Ubicacion:", this.toggleUbicacion);
     // Atención
     if (this.atencion.length > 0) {
       this.atencion.forEach(element => {
@@ -115,7 +108,6 @@ export class PhaseModalActividadesPage implements OnInit {
             performance: element.score
           };
           array.push(data);
-          console.log(data);
         }
       });
     }
@@ -129,7 +121,6 @@ export class PhaseModalActividadesPage implements OnInit {
             performance: element.score
           };
           array.push(data);
-          console.log(data);
         }
       });
     }
@@ -143,7 +134,6 @@ export class PhaseModalActividadesPage implements OnInit {
             performance: element.score
           };
           array.push(data);
-          console.log(data);
         }
       });
     }
@@ -157,7 +147,6 @@ export class PhaseModalActividadesPage implements OnInit {
             performance: element.score
           };
           array.push(data);
-          console.log(data);
         }
       });
     }
@@ -171,7 +160,6 @@ export class PhaseModalActividadesPage implements OnInit {
             performance: element.score
           };
           array.push(data);
-          console.log(data);
         }
       });
     }
@@ -185,7 +173,6 @@ export class PhaseModalActividadesPage implements OnInit {
             performance: element.score
           };
           array.push(data);
-          console.log(data);
         }
       });
     }
@@ -197,13 +184,11 @@ export class PhaseModalActividadesPage implements OnInit {
       activities: array
     };
 
-    console.log(data);
 
     this.dailyService
       .putDailyRecordActivities(this.paciente._id, data)
       .subscribe(
         res => {
-          console.log(res);
           this.disparaAlert("Actualizado con éxito");
         },
         err => {

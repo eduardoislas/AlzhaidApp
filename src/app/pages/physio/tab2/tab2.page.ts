@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tab2',
@@ -11,6 +12,8 @@ export class Tab2Page implements OnInit {
     allowSlidePrev: false,
     allowSlideNext: false,
   }
+
+  infoEnviada = false; // true o false
 
   pacientes = [];
 
@@ -32,12 +35,10 @@ export class Tab2Page implements OnInit {
       res.drs.forEach(element => {
         this.pacientes.push(element);
       });
-      console.log(this.pacientes);
     });
   }
 
   rangeChange( event ) {
-    console.log(event.detail.value);
   }
 
   sendData() {
@@ -58,8 +59,37 @@ export class Tab2Page implements OnInit {
     });
 
     // Por hacer: Enviar notificación de confirmación y deshabilitar el envío de otra actualización de datos de activación
-    console.log(activation);
-    this.dailyService.putDailyRecordsPhysicalActivation(activation).subscribe();
+    this.dailyService.putDailyRecordsPhysicalActivation(activation).subscribe(res => {
+      if( res.success === true ) {
+        this.infoEnviada = true;
+        this.disparaAlert('Datos enviados correctamente.')
+       
+        console.log('respuesta', res);
+
+      }
+    }, err => {
+      console.log('error', err);
+    });
+  }
+
+  disparaAlert(title: string){
+    // SweetAlert
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'center',
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+      onOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+    
+    Toast.fire({
+      icon: 'success',
+      title
+    });
   }
   
 

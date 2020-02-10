@@ -61,7 +61,6 @@ export class TabSignosPage implements OnInit {
     await modal.present();
 
     const { data } = await modal.onDidDismiss();
-    console.log("Retorno modal", data);
   }
   /* 
     Método que sirve para volver mayúscula la primera letra de una palabra

@@ -52,7 +52,6 @@ export class Tab3Page implements OnInit {
     await modal.present();
 
     const { data } = await modal.onDidDismiss();
-    console.log("Retorno modal", data);
   }
   getTodayDailyRecords(value: string) {
     // Se limpian los arreglos antes de agregar nuevos de distintas fases.

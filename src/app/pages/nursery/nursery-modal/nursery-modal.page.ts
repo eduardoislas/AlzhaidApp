@@ -49,7 +49,6 @@ export class NurseryModalPage implements OnInit {
       .putVitalDailyRecords(this.paciente._id, this.info)
       .subscribe(
         res => {
-          console.log("respuesta", res);
           // SweetAlert
           this.disparaAlert("Signos vitales actualizados")
         },
@@ -127,6 +126,6 @@ export class NurseryModalPage implements OnInit {
     Toast.fire({
       icon: 'success',
       title
-    })
+    });
   }
 }

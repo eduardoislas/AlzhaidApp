@@ -94,7 +94,6 @@ export class TabAsistenciaPage implements OnInit {
     al cual se le registró una asistencia.
   */
   deleteOnAttendance(id) {
-    console.log(this.fase);
     if (this.fase === "inicial") {
       this.inicialesEntrada.forEach(element => {
         if (element._id === id) {
@@ -223,7 +222,6 @@ export class TabAsistenciaPage implements OnInit {
           handler: () => {
             this.dailyService.putExitDailyRecords(data._id).subscribe(
               res => {
-                console.log(res);
                 this.disparaAlert("Salida registrada");
               },
               err => {

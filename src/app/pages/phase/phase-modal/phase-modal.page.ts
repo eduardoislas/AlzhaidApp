@@ -49,7 +49,6 @@ export class PhaseModalPage implements OnInit {
   activityScore(score) {
     this.valorRange = score.detail.value;
 
-    console.log("Catalogo Score", this.valorRange);
   }
   /*
     Método que obtiene la crisis seleccionada en el Phase-Modal
@@ -58,14 +57,12 @@ export class PhaseModalPage implements OnInit {
   selectedCrisis(crisis) {
     this.crisisSeleccionada = crisis.detail.value;
 
-    console.log(this.crisisSeleccionada);
   }
   /* 
     Método que obtiene las conductas o comportamiento seleccionadas
     en el Modal-Phase.
   */
   selectedActions(action) {
-    console.log("name", action);
   }
   /*
     Método que obtiene los catalogos de Conducta, Comportamientos
@@ -97,7 +94,6 @@ export class PhaseModalPage implements OnInit {
           score: res.score
         };
         conductasSeleccionadas.push(data);
-        console.log(conductasSeleccionadas);
       }
     });
 
@@ -106,7 +102,6 @@ export class PhaseModalPage implements OnInit {
         .putAttitudeDailyRecords(this.paciente._id, conductasSeleccionadas)
         .subscribe(
           res => {
-            console.log(res);
             this.disparaAlert("Conductas actualizadas exitosamente");
           },
           err => {
@@ -118,7 +113,6 @@ export class PhaseModalPage implements OnInit {
         .putBehaviorDailyRecords(this.paciente._id, conductasSeleccionadas)
         .subscribe(
           res => {
-            console.log(res);
             this.disparaAlert("Comportamientos actualizados exitosamente");
           },
           err => {
@@ -141,7 +135,6 @@ export class PhaseModalPage implements OnInit {
 
     this.dailyService.putCrisisDailyRecords(this.paciente._id, data).subscribe(
       res => {
-        console.log("respuesta", res);
         this.disparaAlert("Crisis actualizadas exitosamente");
       },
       err => {
