@@ -16,15 +16,30 @@
 <ion-content>
 
   <div class="slides" *ngIf="this.opcion === 'orden'">
-    <ion-slides [options]="sliderOpts">
-      <ion-slide>
+    <div *ngIf="infoEnviada === false">
+      <ion-slides [options]="sliderOpts">
+        <ion-slide>
+  
+          <ion-button (click)="sendData()">
+            Todo en orden
+          </ion-button>
+  
+        </ion-slide>
+      </ion-slides>
+    </div>
 
-        <ion-button (click)="sendData()">
-          Todo en orden
-        </ion-button>
-
-      </ion-slide>
-    </ion-slides>
+    <div *ngIf="infoEnviada === true">
+      <ion-slides [options]="sliderOpts">
+        <ion-slide>
+  
+          <ion-list>
+            Activación física ya reportada.
+          </ion-list>
+  
+        </ion-slide>
+      </ion-slides>
+    </div>
+    
   </div>
 
   <div class="reporte" *ngIf="this.opcion === 'reporte'">
@@ -62,7 +77,7 @@
     <div class="slides" *ngIf="infoEnviada === true">
       <ion-slides [options]="sliderOpts">
         <ion-slide>
-          <ion-label>Desempeños ya reportados</ion-label>
+          <ion-label>Activación física ya reportada.</ion-label>
         </ion-slide>
       </ion-slides>
     </div>

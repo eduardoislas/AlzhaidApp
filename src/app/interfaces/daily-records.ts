@@ -79,4 +79,10 @@ export interface InfoHygiene {
   observation: string;
 }
 
+// Physio
+export interface RootPhysio {
+  success: boolean;
+  respuestas: [];
+}
+
 

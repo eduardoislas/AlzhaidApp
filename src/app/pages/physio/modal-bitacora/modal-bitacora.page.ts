@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { CatalogService } from 'src/app/services/catalog.service';
 import { Catalog } from 'src/app/interfaces/catalogs';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modal-bitacora',
@@ -17,8 +18,10 @@ export class ModalBitacoraPage implements OnInit {
   humorAntes;
   humorDespues;
 
-  horaInicio;
-  horaFin;
+  today = new Date().toISOString();
+
+  horaInicio = this.today;
+  horaFin = this.today;
 
   constructor( private modalCtrl: ModalController,
                private catalogService: CatalogService,
@@ -121,6 +124,30 @@ export class ModalBitacoraPage implements OnInit {
     });
 
     this.modalCtrl.dismiss();
+    this.disparaAlert('Datos enviados correctamente');
+  }
+
+   /**
+   * Muestra un mensaje de alerta con una confirmacion
+   * @param title mensaje que mostrara la alerta
+   */
+  disparaAlert(title: string) {
+    // SweetAlert
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'center',
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+      onOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+      }
+    });
+    Toast.fire({
+      icon: 'success',
+      title
+    });
   }
 
 }

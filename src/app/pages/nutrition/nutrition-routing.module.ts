@@ -31,7 +31,11 @@ const routes: Routes = [
     path: '',
     redirectTo: '/nutrition/tab1',
     pathMatch: 'full'
+  },  {
+    path: 'comida-modal',
+    loadChildren: () => import('./comida-modal/comida-modal.module').then( m => m.ComidaModalPageModule)
   }
+
 ];
 
 @NgModule({
