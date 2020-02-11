@@ -19,7 +19,6 @@ export class Tab2Page implements OnInit {
   pacientes = [];
 
   opcionDesempeno;
-  opcionComida;
 
   constructor(private dailyService: DailyRecordService,
               private modalCtrl: ModalController) { }
@@ -29,13 +28,7 @@ export class Tab2Page implements OnInit {
 
   segmentChangedDesempeno(event) {
     this.opcionDesempeno = event.detail.value;
-    console.log(this.opcionDesempeno);
     this.getDailyRecords();
-  }
-
-  segmentChangedComida(event) {
-    this.opcionComida = event.detail.value;
-    console.log(this.opcionComida);
   }
 
   getDailyRecords() {
@@ -45,10 +38,6 @@ export class Tab2Page implements OnInit {
         this.pacientes.push(element);
       });
     });
-  }
-
-  rangeChange(event) {
-    
   }
 
   sendDataDesempeno() {
@@ -69,14 +58,17 @@ export class Tab2Page implements OnInit {
     });
     
     this.dailyService.putDailyRecordsCollation(activation).subscribe(res => {
-      console.log(res);
+      if(res.success === true) {
+        this.disparaAlert('Datos enviados correctamente.');
+        this.infoEnviada = true;
+      }
     }, err => {
       console.log(err);
     });
 
   }
 
-  sendData(comida) {
+  sendMassiveData() {
     let activation = [];
 
     this.pacientes.forEach(element => {
@@ -86,33 +78,17 @@ export class Tab2Page implements OnInit {
       });
     });
     
-    if(comida === "colacion") {
-      this.dailyService.putDailyRecordsCollation(activation).subscribe(res => {
-        console.log(res);
-      }, err => {
-        console.log(err);
-      });
-    } else if(comida === "comida") {
-
-    }
-  }
-
-  /*
-    Método que abre el modal de comidas, esto solo en caso que
-    haya sido seleccionada la opción de comida y reportar desempeño
-    en la pantalla.
-  */
-  async openModal(paciente) {
-    const modal = await this.modalCtrl.create({
-      component: ComidaModalPage,
-      componentProps: {
-        paciente
+    this.dailyService.putDailyRecordsCollation(activation).subscribe(res => {
+      if(res.success === true) {
+        this.disparaAlert('Datos enviados correctamente.');
+        this.infoEnviada = true;
       }
+    }, err => {
+      console.log(err);
     });
-    await modal.present();
-
-    const { data } = await modal.onDidDismiss();
+    
   }
+
   /**
   * Muestra un mensaje de alerta con una confirmacion
   * @param title mensaje que mostrara la alerta

@@ -158,7 +158,7 @@ export class DailyRecordService {
     });
   }
   putDailyRecordsCollation(collation) {
-    return this.http.put(`${url}meal/collation/todos`, {
+    return this.http.put<RootPhysio>(`${url}meal/collation/todos`, {
       collation
     });
   }

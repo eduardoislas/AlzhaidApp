@@ -21,6 +21,10 @@ const routes: Routes = [
         loadChildren: () => import('./tab3/tab3.module').then( m => m.Tab3PageModule)
       },
       {
+        path: 'tab4',
+        loadChildren: () => import('./tab4/tab4.module').then( m => m.Tab4PageModule)
+      },
+      {
         path: '',
         redirectTo: '/nutrition/tab1',
         pathMatch: 'full'
@@ -31,10 +35,11 @@ const routes: Routes = [
     path: '',
     redirectTo: '/nutrition/tab1',
     pathMatch: 'full'
-  },  {
+  },
+  {
     path: 'comida-modal',
     loadChildren: () => import('./comida-modal/comida-modal.module').then( m => m.ComidaModalPageModule)
-  }
+  },
 
 ];
 

@@ -1,30 +1,19 @@
 <ion-header no-border>
   <ion-toolbar>
-
     <ion-list>
       <ion-item>
-        <ion-segment #iSegmentComida (ionChange)="segmentChangedComida( $event )" mode="md">
-          <ion-segment-button value="colacion">
-            <ion-label>Colación</ion-label>
-          </ion-segment-button>
-          <ion-segment-button value="comida">
-            <ion-label>Comida</ion-label>
-          </ion-segment-button>
-        </ion-segment>
-      </ion-item>
-      <br>
-      <ion-item>
+
         <ion-segment #iSegmentDesempeno (ionChange)="segmentChangedDesempeno( $event )" mode="md">
-          <ion-segment-button value="orden" *ngIf="this.opcionComida === 'colacion'">
+          <ion-segment-button value="orden">
             <ion-label>Todo En orden</ion-label>
           </ion-segment-button>
           <ion-segment-button value="reporte">
             <ion-label>Reportar Desempeño</ion-label>
           </ion-segment-button>
         </ion-segment>
+
       </ion-item>
     </ion-list>
-
   </ion-toolbar>
 </ion-header>
 
@@ -34,7 +23,7 @@
     <div *ngIf="infoEnviada === false">
       <ion-slides [options]="sliderOpts">
         <ion-slide>
-          <ion-button (click)="sendData(this.opcionComida)">
+          <ion-button (click)="sendMassiveData()">
             Todo en orden
           </ion-button>
         </ion-slide>
@@ -45,7 +34,7 @@
       <ion-slides [options]="sliderOpts">
         <ion-slide>
           <ion-list>
-            Activación física ya reportada.
+            Colación ya reportada.
           </ion-list>
         </ion-slide>
       </ion-slides>
@@ -56,55 +45,37 @@
   <div class="reporte" *ngIf="this.opcionDesempeno === 'reporte'">
     <!-- La información aún no ha sido enviada -->
     <div *ngIf="infoEnviada === false">
-      <!-- si Opción comida es colación -->
-      <div *ngIf="this.opcionComida === 'colacion'">
-        <ion-list>
-          <ion-list-header>
-            <ion-label>Pacientes del día</ion-label>
-          </ion-list-header>
+      <ion-list>
+        <ion-list-header>
+          <ion-label>Pacientes del día</ion-label>
+        </ion-list-header>
 
-          <ion-item *ngFor="let paciente of pacientes">
+        <ion-item *ngFor="let paciente of pacientes">
 
-            <ion-avatar slot="start">
-              <img src="{{ paciente.patient.img }}" />
-            </ion-avatar>
-            <ion-label>{{ paciente.patient.name + ' ' + paciente.patient.lastName}}</ion-label>
-            <ion-toggle slot="end" [(ngModel)]="paciente.selected"></ion-toggle>
+          <ion-avatar slot="start">
+            <img src="{{ paciente.patient.img }}" />
+          </ion-avatar>
+          <ion-label>{{ paciente.patient.name + ' ' + paciente.patient.lastName}}</ion-label>
+          <ion-toggle slot="end" [(ngModel)]="paciente.selected"></ion-toggle>
 
-            <ion-range *ngIf="paciente.selected" pin snaps min="0" max="5" [(ngModel)]="paciente.score"
-              (ionChange)="rangeChange($event)">
-              <ion-icon size="small" slot="start" name="star" color="medium"></ion-icon>
-              <ion-icon slot="end" name="star" color="medium"></ion-icon>
-            </ion-range>
-          </ion-item>
-        </ion-list>
+          <ion-range *ngIf="paciente.selected" pin snaps min="0" max="5" [(ngModel)]="paciente.score">
+            <ion-icon size="small" slot="start" name="star" color="medium"></ion-icon>
+            <ion-icon slot="end" name="star" color="medium"></ion-icon>
+          </ion-range>
+        </ion-item>
+      </ion-list>
 
-        <br><br>
-        <ion-button (click)="sendDataDesempeno()" expand="full">
-          Enviar
-        </ion-button>
-      </div>
-
-      <!-- Opción comida es comida -->
-      <div *ngIf="this.opcionComida === 'comida'">
-        <ion-list>
-          <ion-item *ngFor="let paciente of pacientes" (click)="openModal( paciente )">
-            <ion-avatar slot="start">
-              <img src="{{ paciente.patient.img }}" />
-            </ion-avatar>
-            <ion-label class="ion-text-capitalize">{{ paciente.patient.name + ' ' + paciente.patient.lastName }}
-            </ion-label>
-            <ion-icon slot="end" name="arrow-forward" mode="ios"></ion-icon>
-          </ion-item>
-        </ion-list>
-      </div>
+      <br><br>
+      <ion-button (click)="sendDataDesempeno()" expand="full">
+        Enviar
+      </ion-button>
     </div>
 
     <!-- Información enviada es true -->
     <div class="slides" *ngIf="infoEnviada === true">
       <ion-slides [options]="sliderOpts">
         <ion-slide>
-          <ion-label>Activación física ya reportada.</ion-label>
+          <ion-label>Colación ya reportada.</ion-label>
         </ion-slide>
       </ion-slides>
     </div>
