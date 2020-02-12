@@ -7,8 +7,8 @@ export   interface Vigente {
     high_priority: boolean;
     area: string[];
     _id: string;
-    date: string;
-    expiration_date: string;
+    date: Date;
+    expiration_date: Date;
     description: string;
     type: Type;
     patient: Patient;
