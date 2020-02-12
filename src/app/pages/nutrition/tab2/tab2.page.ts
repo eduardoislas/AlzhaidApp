@@ -62,6 +62,8 @@ export class Tab2Page implements OnInit {
     // Se recorre el arreglo de pacientes, el cual fue llenado con el servicio
     // de dailyRecords
     this.pacientes.forEach(element => {
+      // Si no se asignó valor, queda en 0
+      if(element.score === undefined) element.score = 0;
       // Si el paciente ha sido seleccionado
       if (element.selected === true) {
         activation.push({
