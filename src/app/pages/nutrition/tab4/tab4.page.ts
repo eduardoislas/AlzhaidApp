@@ -19,6 +19,10 @@ export class Tab4Page implements OnInit {
     this.getDailyRecords();
   }
 
+  /**
+   * Método getDailyRecords() obtiene los dailyRecords del día y los
+   * mete en el arreglo de pacientes.
+   */
   getDailyRecords() {
     this.pacientes = [];
     this.dailyService.getDailyRecordsToday().subscribe(res => {
@@ -28,10 +32,10 @@ export class Tab4Page implements OnInit {
     });
   }
 
-  /*
-    Método que abre el modal de comidas, esto solo en caso que
-    haya sido seleccionada la opción de comida y reportar desempeño
-    en la pantalla.
+  /**
+  *  Método que abre el modal de comidas, esto solo en caso que
+  *  haya sido seleccionada la opción de comida y reportar desempeño
+  *  en la pantalla.
   */
   async openModal(paciente) {
     const modal = await this.modalCtrl.create({
@@ -46,9 +50,9 @@ export class Tab4Page implements OnInit {
   }
 
   /**
-    * Muestra un mensaje de alerta con una confirmacion
-    * @param title mensaje que mostrara la alerta
-    */
+  * Muestra un mensaje de alerta con una confirmacion
+  * @param title mensaje que mostrara la alerta
+  */
   disparaAlert(title: string) {
     // SweetAlert
     const Toast = Swal.mixin({
