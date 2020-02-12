@@ -38,7 +38,8 @@ export class LoginPage implements OnInit {
       let user: User = res.user;
 
       this.storage.set('Rol', user.role);
-      switch( user.role ) {
+      this.storage.set('idUser', user._id);
+      switch ( user.role ) {
 
         case 'FASE_INICIAL':
           this.router.navigateByUrl( '/phase' );

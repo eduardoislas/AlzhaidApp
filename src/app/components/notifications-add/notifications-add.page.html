@@ -10,31 +10,33 @@
     <ion-title>Agregar aviso de incidencia</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
   <ion-grid
     class="ion-padding"
     fixed="fixed"
   >
+<!-- Boton prioridad y vigencia-->
     <ion-row>
         <ion-item>
           <ion-label position="stacked">Prioridad:</ion-label>
-          <ion-toggle name="tglPrioridad" color="danger" slot="end"></ion-toggle>
+          <ion-toggle [(ngModel)]="tglPrioridad" color="danger" slot="end" (ionChange)="VerPrioridad($event)"></ion-toggle>
         </ion-item>
       <ion-col>
         <ion-item>
           <ion-datetime
             displayFormat="DDDD, DD/MM/YY"
             placeholder="Vigencia"
+            [(ngModel)]="ExpirationDate"
+            (ionChange)="FecharExpiracion()"
           ></ion-datetime>
         </ion-item>
       </ion-col>
     </ion-row>
-
     <ion-item-divider>
       <ion-label></ion-label>
     </ion-item-divider>
 
+<!-- Cuadro de texto "Descripcion" -->
     <ion-row>
       <ion-col>
         <ion-textarea
@@ -42,22 +44,35 @@
           spellcheck="true"
           autoGrow="autoGrow"
           placeholder="Descripción"
+          [(ngModel)]="textDescripcion"
         ></ion-textarea>
       </ion-col>
     </ion-row>
 
     <hr>
 
-    <ion-row>
-      <ion-col>
-        <ion-item
-          (click)="openModal()"
-          color="light"
-        >
-          <ion-label>Seleccionar paciente</ion-label>
-        </ion-item>
-      </ion-col>
-    </ion-row>
+<!-- Selector paciente -->
+  
+    <ion-item>
+      <ion-label>Paciente</ion-label>
+      <ion-select (ionChange)="selecionarPaciente($event)">
+        <ion-select-option *ngFor="let paciente of pacientes" [value]="paciente.patient._id" >
+          <ion-avatar slot="start">
+            <img src="{{ paciente.patient.img }}" />
+            <ion-label class="ion-text-capitalize">
+              {{ paciente.patient.name + ' ' + paciente.patient.lastName }}
+            </ion-label>
+          </ion-avatar>
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+  <!-- 
+      <ion-select *ngFor="let paciente of pacientes" value="--Seleccione paciente--">
+        <ion-select-option value="pacientes._id">
+        </ion-select-option>
+      </ion-select>
+  -->
 
     <hr>
 
@@ -65,7 +80,31 @@
       <ion-label>Tipo</ion-label>
     </ion-item-divider>
 
-    <ion-row>
+<!-- Botones "tipo" -->
+    <ion-segment mode="ios" scrollable="false" name= "btnTipo" (ionChange)="tipoAviso($event)">
+        <ion-segment-button value='Conducta'>
+          <ion-label>Conducta</ion-label>
+          <ion-icon name="clipboard"></ion-icon>
+        </ion-segment-button>
+        <ion-segment-button value='Salud'>
+          <ion-label>Salud</ion-label>
+          <ion-icon name="heart-empty"></ion-icon>
+        </ion-segment-button>
+        <ion-segment-button value='Higiene'>
+          <ion-label>Higiene</ion-label>
+          <ion-icon name="water"></ion-icon>
+        </ion-segment-button>
+        <ion-segment-button value='Fisica'>
+          <ion-label>Fisica</ion-label>
+          <ion-icon name="body"></ion-icon>
+        </ion-segment-button>
+        <ion-segment-button value='Sueño'>
+          <ion-label>Sueño</ion-label>
+          <ion-icon name="bed"></ion-icon>
+        </ion-segment-button>
+    </ion-segment>
+    <!-- Anterior codigo botones
+      <ion-row>
       <ion-col>
         <ion-avatar>
           <img
@@ -74,10 +113,8 @@
             complete="complete"
           >
         </ion-avatar>
-
         <ion-label>Conducta</ion-label>
       </ion-col>
-
       <ion-col>
         <ion-avatar>
           <img 
@@ -117,68 +154,52 @@
 
         <ion-label>Sueño</ion-label>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
-    <br>
     <br>
 
     <ion-item-divider>
       <ion-label>Area de notificación</ion-label>
     </ion-item-divider>
 
-    <ion-row>
-      <ion-col>
-        <ion-avatar>
-          <img
-          (click)="establecerArea( 'Enfermeria' )"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-NG7Dwu4FFvJatQ0Ptv5XiMbCP9owKetSqrR0a2HsVTOqJCjF&s"
-            complete="complete"
-          >
-        </ion-avatar>
-
-        <ion-label>Enfermería</ion-label>
-      </ion-col>
-
-      <ion-col>
-        <ion-avatar>
-          <img 
-          (click)="establecerArea( 'Fisioterapia' )"
-          src="https://cdn3.iconfinder.com/data/icons/medical-206/130/57-512.png">
-        </ion-avatar>
-
-        <ion-label>Fisioterapia</ion-label>
-      </ion-col>
-
-      <ion-col>
-        <ion-avatar>
-          <img 
-          (click)="establecerArea( 'Nutricion' )"
-          src="https://cdn.pixabay.com/photo/2015/06/05/10/35/dishes-798316_960_720.png">
-        </ion-avatar>
-
-        <ion-label>Nutrición</ion-label>
-      </ion-col>
-
-      <ion-col>
-        <ion-avatar>
-          <img 
-          (click)="establecerArea( 'Fase' )"
-          src="https://cdn0.iconfinder.com/data/icons/alzheimer-s-disease-symbol-flat/64/neurodegenerative-alzheimer-dementia-memory-loss-512.png">
-        </ion-avatar>
-
-        <ion-label>Fase</ion-label>
-      </ion-col>
-
-      <ion-col>
-        <ion-avatar>
-          <img 
-          (click)="establecerArea( 'Higiene' )"
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPGkkSSKUso3jH-gSHg32d_sOSOfEM7jVm73r9K2EvSiYwlVhu&s">
-        </ion-avatar>
-
-        <ion-label>Higiene</ion-label>
-      </ion-col>
-    </ion-row>
+<!-- Botones "Area de notificacion" -->
+<ion-list name="btnArea" align-items-center >
+  <ion-item (ionChange)="listenerArea($event)">
+    <ion-label>Enfermería</ion-label>
+    <ion-icon name="medkit" slot="start"></ion-icon>
+    <ion-checkbox slot="end" value="ENFERMERIA" ></ion-checkbox>
+  </ion-item>
+  <ion-item (ionChange)="listenerArea($event)">
+    <ion-label>Fisioterapia</ion-label>
+    <ion-icon name="basketball" slot="start"></ion-icon>
+    <ion-checkbox slot="end" value="FISIOTERAPIA"></ion-checkbox>
+  </ion-item>
+  <ion-item (ionChange)="listenerArea($event)">
+    <ion-label>Nutrición</ion-label>
+    <ion-icon name="pizza" slot="start"></ion-icon>
+    <ion-checkbox slot="end" value="NUTRICION"></ion-checkbox>
+  </ion-item>
+  <ion-item (ionChange)="listenerArea($event)">
+    <ion-label>Fase Inicial</ion-label >
+    <ion-icon name="git-branch" slot="start"></ion-icon>
+    <ion-checkbox slot="end" value="FASE_INICIAL"></ion-checkbox>
+  </ion-item>
+  <ion-item (ionChange)="listenerArea($event)">
+    <ion-label>Fase Intermedia</ion-label >
+    <ion-icon name="git-branch" slot="start"></ion-icon>
+    <ion-checkbox slot="end" value="FASE_INTERMEDIA"></ion-checkbox>
+  </ion-item>
+  <ion-item (ionChange)="listenerArea($event)">
+    <ion-label>Fase Avanzada</ion-label >
+    <ion-icon name="git-branch" slot="start"></ion-icon>
+    <ion-checkbox slot="end" value="FASE_AVANZADA"></ion-checkbox>
+  </ion-item>
+  <ion-item (ionChange)="listenerArea($event)">
+    <ion-label>Higiene</ion-label>
+    <ion-icon name="water" slot="start"></ion-icon>
+    <ion-checkbox slot="end" value="HIGIENE"></ion-checkbox>
+  </ion-item>
+</ion-list>
 
     <ion-row>
       <ion-col>
