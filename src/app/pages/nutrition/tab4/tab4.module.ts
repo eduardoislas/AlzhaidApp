@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { Tab2PageRoutingModule } from './tab2-routing.module';
+import { Tab4PageRoutingModule } from './tab4-routing.module';
 
-import { Tab2Page } from './tab2.page';
+import { Tab4Page } from './tab4.page';
 import { ComidaModalPage } from '../comida-modal/comida-modal.page';
 import { ComidaModalPageModule } from '../comida-modal/comida-modal.module';
 
@@ -18,9 +18,9 @@ import { ComidaModalPageModule } from '../comida-modal/comida-modal.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    Tab2PageRoutingModule,
+    Tab4PageRoutingModule,
     ComidaModalPageModule
   ],
-  declarations: [Tab2Page]
+  declarations: [Tab4Page]
 })
-export class Tab2PageModule {}
+export class Tab4PageModule {}

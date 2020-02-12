@@ -4,7 +4,8 @@ import {
   RootDaily,
   Dr,
   RootDailyDesempeno,
-  RootDailyProgram
+  RootDailyProgram,
+  RootPhysio
 } from "../interfaces/daily-records";
 
 const url = "https:/alzaid.herokuapp.com/dailyRecord/";
@@ -140,14 +141,26 @@ export class DailyRecordService {
       hygiene
     });
   }
-
   /*
     Método PUT que agrega el arreglo de activación física al DR
   */
  putDailyRecordsPhysicalActivation(activation){
-  return this.http.put(`${url}physio/activation/todos`, {
-    activation
-  });
-}
+    return this.http.put<RootPhysio>(`${url}physio/activation/todos`, {
+      activation
+    });
+  }
+  /*
+    Método PUT que agrega el objeto de comida al DR del paciente.
+  */
+  putDailyRecordsMeal( meal, id ) {
+    return this.http.put<RootPhysio>(`${url}meal/${id}`, {
+      meal
+    });
+  }
+  putDailyRecordsCollation(collation) {
+    return this.http.put<RootPhysio>(`${url}meal/collation/todos`, {
+      collation
+    });
+  }
 
 }

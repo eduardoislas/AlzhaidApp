@@ -1,33 +1,26 @@
-<ion-header no-border>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
 
-  <ion-slides [options]="sliderOpts">
-    <ion-slide>
+  <div class="form-content">
 
-      <form>
-        <ion-list>
-          <ion-item>
-            <ion-input placeholder="User" type="text" #name required></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input placeholder="Password" type="password" #password required></ion-input>
-          </ion-item>
-        </ion-list>
+    <div class="image-content">
+      <ion-img class="alzaid-logo" src="../../../assets/ic_launcher_round.png"></ion-img>
+    </div>
 
-        <ion-button type="submit" 
-                    expand="block"
-                    (click)="login(name.value, password.value)">
-                    Iniciar Sesión
-        </ion-button>
-        
-      </form>
+    <form>
+      <ion-list>
+        <ion-item>
+          <ion-input placeholder="Usuario" type="text" #name required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="Contraseña" type="password" #password required></ion-input>
+        </ion-item>
+      </ion-list>
 
-    </ion-slide>
-  </ion-slides>
+      <ion-button type="submit" expand="block" (click)="login(name.value, password.value)">
+        Iniciar Sesión
+      </ion-button>
+    </form>
+  </div>
+
 
 </ion-content>

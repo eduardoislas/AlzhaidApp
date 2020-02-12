@@ -12,10 +12,6 @@ import { User } from 'src/app/interfaces/users';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  sliderOpts = {
-    allowSlidePrev: false,
-    allowSlideNext: false,
-  }
   /*
     loginService: Servicio de login que realiza el POST con los datos del
     usuario para iniciar la sesión.

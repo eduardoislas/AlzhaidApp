@@ -24,28 +24,28 @@ export class Tab2Page implements OnInit {
   ngOnInit() {
   }
 
-  segmentChangedRegistros( event ) {
+  segmentChangedRegistros(event) {
     this.opcion = event.detail.value;
-    this.getDailyRecords(); 
+    this.getDailyRecords();
   }
 
   getDailyRecords() {
     this.pacientes = [];
-    this.dailyService.getDailyRecordsToday().subscribe( res => {
+    this.dailyService.getDailyRecordsToday().subscribe(res => {
       res.drs.forEach(element => {
         this.pacientes.push(element);
       });
     });
   }
 
-  rangeChange( event ) {
+  rangeChange(event) {
   }
 
   sendData() {
     let activation = [];
 
     this.pacientes.forEach(element => {
-      if( element.selected === true ) {
+      if (element.selected === true) {
         activation.push({
           id: element._id,
           performance: element.score
@@ -58,12 +58,14 @@ export class Tab2Page implements OnInit {
       }
     });
 
+    console.log(activation);
+
     // Por hacer: Enviar notificación de confirmación y deshabilitar el envío de otra actualización de datos de activación
     this.dailyService.putDailyRecordsPhysicalActivation(activation).subscribe(res => {
-      if( res.success === true ) {
+      if (res.success === true) {
         this.infoEnviada = true;
         this.disparaAlert('Datos enviados correctamente.')
-       
+
         console.log('respuesta', res);
 
       }
@@ -72,7 +74,7 @@ export class Tab2Page implements OnInit {
     });
   }
 
-  disparaAlert(title: string){
+  disparaAlert(title: string) {
     // SweetAlert
     const Toast = Swal.mixin({
       toast: true,
@@ -85,7 +87,7 @@ export class Tab2Page implements OnInit {
         toast.addEventListener('mouseleave', Swal.resumeTimer)
       }
     })
-    
+
     Toast.fire({
       icon: 'success',
       title
