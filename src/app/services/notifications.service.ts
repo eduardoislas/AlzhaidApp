@@ -3,10 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import {RootNotification} from '../interfaces/notifications';
 
 
-const url = 'https:/alzaid.herokuapp.com/notification';
+const url = 'https://alzaid.herokuapp.com/notification';
+// const url = 'http://localhost:3000/notification';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class NotificationsService {
   constructor(private http: HttpClient) {}
@@ -29,6 +30,6 @@ export class NotificationsService {
    * Obtener notificaciones por rol
    */
   postNotifications(notification: any) {
-    return this.http.post(`${url}`, notification);
+    return this.http.post(`${url}`, {notification});
   }
 }

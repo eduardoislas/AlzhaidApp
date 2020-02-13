@@ -15,10 +15,8 @@ notifications: any = [];
   constructor(private modalCtrl: ModalController, private NotificationsService: NotificationsService) {}
   
   ngOnInit() {
-    this.NotificationsService.getNotifications().subscribe(res => {
-      this.notifications.push(res.vigentes);
-      this.notifications = res.vigentes;
-    });
+    this.cargarLista()
+    
     }
 
     async openModal() {
@@ -31,6 +29,15 @@ notifications: any = [];
       await modal.present();
 
       const { data } = await modal.onDidDismiss();
+      this.cargarLista()
+      
+    }
+  
+    cargarLista(){
+      this.NotificationsService.getNotifications().subscribe(res => {
+        this.notifications.push(res.vigentes);
+        this.notifications = res.vigentes;
+      });
     }
 
 }

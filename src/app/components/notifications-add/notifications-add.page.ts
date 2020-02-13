@@ -121,7 +121,7 @@ export class NotificationsAddPage implements OnInit {
       high_priority: this.tglPrioridad,
       description: this.textDescripcion,
       type: this.tipoDeAviso,
-      areas: this.btnArea,
+      area: this.btnArea,
       patient: this.paciente
     };
 
