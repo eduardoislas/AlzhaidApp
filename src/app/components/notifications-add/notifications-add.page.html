@@ -1,109 +1,94 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button
-        text=""
-        icon="arrow-back"
-      ></ion-back-button>
-    </ion-buttons>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="" icon="arrow-back"></ion-back-button>
+        </ion-buttons>
 
-    <ion-title>Agregar aviso de incidencia</ion-title>
-  </ion-toolbar>
+        <ion-title>Agregar aviso de incidencia</ion-title>
+    </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-grid
-    class="ion-padding"
-    fixed="fixed"
-  >
-<!-- Boton prioridad y vigencia-->
-    <ion-row>
+    <ion-grid class="ion-padding" fixed="fixed">
+        <!-- Boton prioridad y vigencia-->
+        <ion-row>
+            <ion-item>
+                <ion-label position="stacked">Prioridad:</ion-label>
+                <ion-toggle [(ngModel)]="tglPrioridad" color="danger" slot="end" (ionChange)="VerPrioridad($event)"></ion-toggle>
+            </ion-item>
+            <ion-col>
+                <ion-item>
+                    <ion-datetime displayFormat="DDDD, DD/MMMM/YYYY" dayNames="Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado" monthNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre" min="2020" max="2090-10-31"
+                        cancelText="Cancelar" doneText="Listo" placeholder="Vigencia" [(ngModel)]="ExpirationDate" (ionChange)="FecharExpiracion()"></ion-datetime>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-item-divider>
+            <ion-label>Descripción</ion-label>
+        </ion-item-divider>
+
+        <!-- Cuadro de texto "Descripcion" -->
+        <ion-row>
+            <ion-col>
+                <ion-input autoGrow="autoGrow" placeholder="Descripción" [(ngModel)]="textDescripcion" type="text"></ion-input>
+                <!-- <ion-textarea style="border-style: groove;" spellcheck="true" autoGrow="autoGrow" placeholder="Descripción" [(ngModel)]="textDescripcion"></ion-textarea> -->
+            </ion-col>
+        </ion-row>
+
+        <hr>
+
+        <!-- Selector paciente -->
+
         <ion-item>
-          <ion-label position="stacked">Prioridad:</ion-label>
-          <ion-toggle [(ngModel)]="tglPrioridad" color="danger" slot="end" (ionChange)="VerPrioridad($event)"></ion-toggle>
+            <ion-label>Paciente</ion-label>
+            <ion-select (ionChange)="selecionarPaciente($event)">
+                <ion-select-option *ngFor="let paciente of pacientes" [value]="paciente.patient._id">
+                    <ion-avatar slot="start">
+                        <img src="{{ paciente.patient.img }}" />
+                        <ion-label class="ion-text-capitalize">
+                            {{ paciente.patient.name + ' ' + paciente.patient.lastName }}
+                        </ion-label>
+                    </ion-avatar>
+                </ion-select-option>
+            </ion-select>
         </ion-item>
-      <ion-col>
-        <ion-item>
-          <ion-datetime
-            displayFormat="DDDD, DD/MM/YY"
-            placeholder="Vigencia"
-            [(ngModel)]="ExpirationDate"
-            (ionChange)="FecharExpiracion()"
-          ></ion-datetime>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-item-divider>
-      <ion-label></ion-label>
-    </ion-item-divider>
 
-<!-- Cuadro de texto "Descripcion" -->
-    <ion-row>
-      <ion-col>
-        <ion-textarea
-          style="border-style: groove;"
-          spellcheck="true"
-          autoGrow="autoGrow"
-          placeholder="Descripción"
-          [(ngModel)]="textDescripcion"
-        ></ion-textarea>
-      </ion-col>
-    </ion-row>
-
-    <hr>
-
-<!-- Selector paciente -->
-  
-    <ion-item>
-      <ion-label>Paciente</ion-label>
-      <ion-select (ionChange)="selecionarPaciente($event)">
-        <ion-select-option *ngFor="let paciente of pacientes" [value]="paciente.patient._id" >
-          <ion-avatar slot="start">
-            <img src="{{ paciente.patient.img }}" />
-            <ion-label class="ion-text-capitalize">
-              {{ paciente.patient.name + ' ' + paciente.patient.lastName }}
-            </ion-label>
-          </ion-avatar>
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
-
-  <!-- 
+        <!-- 
       <ion-select *ngFor="let paciente of pacientes" value="--Seleccione paciente--">
         <ion-select-option value="pacientes._id">
         </ion-select-option>
       </ion-select>
   -->
 
-    <hr>
+        <hr>
 
-    <ion-item-divider>
-      <ion-label>Tipo</ion-label>
-    </ion-item-divider>
+        <ion-item-divider>
+            <ion-label>Tipo</ion-label>
+        </ion-item-divider>
 
-<!-- Botones "tipo" -->
-    <ion-segment mode="ios" scrollable="false" name= "btnTipo" (ionChange)="tipoAviso($event)">
-        <ion-segment-button value='Conducta'>
-          <ion-label>Conducta</ion-label>
-          <ion-icon name="clipboard"></ion-icon>
-        </ion-segment-button>
-        <ion-segment-button value='Salud'>
-          <ion-label>Salud</ion-label>
-          <ion-icon name="heart-empty"></ion-icon>
-        </ion-segment-button>
-        <ion-segment-button value='Higiene'>
-          <ion-label>Higiene</ion-label>
-          <ion-icon name="water"></ion-icon>
-        </ion-segment-button>
-        <ion-segment-button value='Fisica'>
-          <ion-label>Fisica</ion-label>
-          <ion-icon name="body"></ion-icon>
-        </ion-segment-button>
-        <ion-segment-button value='Sueño'>
-          <ion-label>Sueño</ion-label>
-          <ion-icon name="bed"></ion-icon>
-        </ion-segment-button>
-    </ion-segment>
-    <!-- Anterior codigo botones
+        <!-- Botones "tipo" -->
+        <ion-segment mode="ios" scrollable="false" name="btnTipo" (ionChange)="tipoAviso($event)">
+            <ion-segment-button value='Conducta'>
+                <ion-label>Conducta</ion-label>
+                <ion-icon name="clipboard"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value='Salud'>
+                <ion-label>Salud</ion-label>
+                <ion-icon name="heart-empty"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value='Higiene'>
+                <ion-label>Higiene</ion-label>
+                <ion-icon name="water"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value='Fisica'>
+                <ion-label>Fisica</ion-label>
+                <ion-icon name="body"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value='Sueño'>
+                <ion-label>Sueño</ion-label>
+                <ion-icon name="bed"></ion-icon>
+            </ion-segment-button>
+        </ion-segment>
+        <!-- Anterior codigo botones
       <ion-row>
       <ion-col>
         <ion-avatar>
@@ -156,63 +141,58 @@
       </ion-col>
     </ion-row> -->
 
-    <br>
-
-    <ion-item-divider>
-      <ion-label>Area de notificación</ion-label>
-    </ion-item-divider>
-
-<!-- Botones "Area de notificacion" -->
-<ion-list name="btnArea" align-items-center >
-  <ion-item (ionChange)="listenerArea($event)">
-    <ion-label>Enfermería</ion-label>
-    <ion-icon name="medkit" slot="start"></ion-icon>
-    <ion-checkbox slot="end" value="ENFERMERIA" ></ion-checkbox>
-  </ion-item>
-  <ion-item (ionChange)="listenerArea($event)">
-    <ion-label>Fisioterapia</ion-label>
-    <ion-icon name="basketball" slot="start"></ion-icon>
-    <ion-checkbox slot="end" value="FISIOTERAPIA"></ion-checkbox>
-  </ion-item>
-  <ion-item (ionChange)="listenerArea($event)">
-    <ion-label>Nutrición</ion-label>
-    <ion-icon name="pizza" slot="start"></ion-icon>
-    <ion-checkbox slot="end" value="NUTRICION"></ion-checkbox>
-  </ion-item>
-  <ion-item (ionChange)="listenerArea($event)">
-    <ion-label>Fase Inicial</ion-label >
-    <ion-icon name="git-branch" slot="start"></ion-icon>
-    <ion-checkbox slot="end" value="FASE_INICIAL"></ion-checkbox>
-  </ion-item>
-  <ion-item (ionChange)="listenerArea($event)">
-    <ion-label>Fase Intermedia</ion-label >
-    <ion-icon name="git-branch" slot="start"></ion-icon>
-    <ion-checkbox slot="end" value="FASE_INTERMEDIA"></ion-checkbox>
-  </ion-item>
-  <ion-item (ionChange)="listenerArea($event)">
-    <ion-label>Fase Avanzada</ion-label >
-    <ion-icon name="git-branch" slot="start"></ion-icon>
-    <ion-checkbox slot="end" value="FASE_AVANZADA"></ion-checkbox>
-  </ion-item>
-  <ion-item (ionChange)="listenerArea($event)">
-    <ion-label>Higiene</ion-label>
-    <ion-icon name="water" slot="start"></ion-icon>
-    <ion-checkbox slot="end" value="HIGIENE"></ion-checkbox>
-  </ion-item>
-</ion-list>
-
-    <ion-row>
-      <ion-col>
-        <br>
         <br>
 
-        <ion-button
-          type="button"
-          color="primary"
-          expand="block"
-          (click)="enviar()"
-        >Enviar</ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+        <ion-item-divider>
+            <ion-label>Area de notificación</ion-label>
+        </ion-item-divider>
+
+        <!-- Botones "Area de notificacion" -->
+        <ion-list name="btnArea" align-items-center>
+            <ion-item (ionChange)="listenerArea($event)">
+                <ion-label>Enfermería</ion-label>
+                <ion-icon name="medkit" slot="start"></ion-icon>
+                <ion-checkbox slot="end" value="ENFERMERIA"></ion-checkbox>
+            </ion-item>
+            <ion-item (ionChange)="listenerArea($event)">
+                <ion-label>Fisioterapia</ion-label>
+                <ion-icon name="basketball" slot="start"></ion-icon>
+                <ion-checkbox slot="end" value="FISIOTERAPIA"></ion-checkbox>
+            </ion-item>
+            <ion-item (ionChange)="listenerArea($event)">
+                <ion-label>Nutrición</ion-label>
+                <ion-icon name="pizza" slot="start"></ion-icon>
+                <ion-checkbox slot="end" value="NUTRICION"></ion-checkbox>
+            </ion-item>
+            <ion-item (ionChange)="listenerArea($event)">
+                <ion-label>Fase Inicial</ion-label>
+                <ion-icon name="git-branch" slot="start"></ion-icon>
+                <ion-checkbox slot="end" value="FASE_INICIAL"></ion-checkbox>
+            </ion-item>
+            <ion-item (ionChange)="listenerArea($event)">
+                <ion-label>Fase Intermedia</ion-label>
+                <ion-icon name="git-branch" slot="start"></ion-icon>
+                <ion-checkbox slot="end" value="FASE_INTERMEDIA"></ion-checkbox>
+            </ion-item>
+            <ion-item (ionChange)="listenerArea($event)">
+                <ion-label>Fase Avanzada</ion-label>
+                <ion-icon name="git-branch" slot="start"></ion-icon>
+                <ion-checkbox slot="end" value="FASE_AVANZADA"></ion-checkbox>
+            </ion-item>
+            <ion-item (ionChange)="listenerArea($event)">
+                <ion-label>Higiene</ion-label>
+                <ion-icon name="water" slot="start"></ion-icon>
+                <ion-checkbox slot="end" value="HIGIENE"></ion-checkbox>
+            </ion-item>
+        </ion-list>
+
+        <ion-row>
+            <ion-col>
+                <br>
+                <br>
+
+                <ion-button type="button" color="primary" expand="block" (click)="enviar()">Enviar</ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

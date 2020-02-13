@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RootPatient, Patient, RPatient } from '../interfaces/patients';
 
-const url = 'https:/alzaid.herokuapp.com/patient/';
-// const url = 'http://192.168.0.12:3000/patient/'
+const url = 'https://alzaid.herokuapp.com/patient/';
+// const url = 'http://localhost:3000/patient/'
 
 @Injectable({
   providedIn: 'root'
