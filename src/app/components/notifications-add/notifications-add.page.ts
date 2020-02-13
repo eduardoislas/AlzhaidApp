@@ -24,6 +24,7 @@ export class NotificationsAddPage implements OnInit {
   btnArea = [];
   paciente;
   pacientes = [];
+  user: string;
 
   constructor(private modalCtrl: ModalController,
               private dailyService: DailyRecordService,
@@ -32,6 +33,9 @@ export class NotificationsAddPage implements OnInit {
 
   ngOnInit() {
     this.patientsList();
+    this.storage.get('username').then((val) => {
+      this.user = val;
+  });
   }
 
   async openModal() {
@@ -122,7 +126,8 @@ export class NotificationsAddPage implements OnInit {
       description: this.textDescripcion,
       type: this.tipoDeAviso,
       area: this.btnArea,
-      patient: this.paciente
+      patient: this.paciente,
+      user: this.user
     };
 
     console.log(notification);

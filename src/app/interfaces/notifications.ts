@@ -12,7 +12,7 @@ export   interface Vigente {
     description: string;
     type: Type;
     patient: Patient;
-    user: Type;
+    user: string;
   }
 
 export   interface Patient {
@@ -26,3 +26,5 @@ export   interface Type {
     _id: string;
     name: string;
   }
+
+  
