@@ -12,7 +12,10 @@ import Swal from 'sweetalert2';
 })
 export class ModalBitacoraPage implements OnInit {
   @Input() paciente;
-  estados = ['negativo', 'neutral', 'positivo'];
+  
+  estadoAntes;
+  estadoDespues;
+
   actividades: Catalog[] = [];
 
   humorAntes;
@@ -52,15 +55,15 @@ export class ModalBitacoraPage implements OnInit {
     Método que obtiene el valor del humor antes de la sesión, esto
     según el botón clickeado en la interfaz.
   */
-  gethumorAntes( value ) {
-    this.humorAntes = value;
+  radioAntesComida( event ) {
+    this.humorAntes = event.detail.value;
   }
   /*
     Método que obtiene el valor del humor después de la sesión, esto
     según el botón clickeado en la interfaz.
   */
-  gethumorDespues( value ) {
-    this.humorDespues = value;
+ radioDespuesComida( event ) {
+    this.humorDespues = event.detail.value;
   }
 
   /*
@@ -118,13 +121,18 @@ export class ModalBitacoraPage implements OnInit {
       endTime: this.horaFin,
       activities: actividadesSeleccionadas
     }
+    console.log(data);
+
     this.dailyService.putDailyRecordsPhysio( this.paciente._id, data ).subscribe( res => {
+      if(res.success === true) {
+        this.modalCtrl.dismiss();
+        this.disparaAlert('Datos enviados correctamente');
+      }
     }, err => {
       console.log(err);
     });
 
-    this.modalCtrl.dismiss();
-    this.disparaAlert('Datos enviados correctamente');
+    
   }
 
    /**

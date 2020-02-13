@@ -15,19 +15,31 @@
   </ion-list>
 
   <ion-list>
-    <ion-list-header>
-      <ion-label>Humor antes de terapia</ion-label>
-    </ion-list-header>
-
-    <ion-grid fixed>
-      <ion-row>
-        <ion-col size="4" *ngFor="let estado of estados">
-          <ion-button (click)="gethumorAntes( estado )" expand="full">
-            {{ estado }}
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <ion-radio-group name="cantidadComida" (ionChange)="radioAntesComida( $event )">
+      <ion-list-header>Humor antes de terapia</ion-list-header>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label>Negativo</ion-label>
+              <ion-radio value="negativo"></ion-radio>
+            </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label>Neutral</ion-label>
+              <ion-radio value="neutral"></ion-radio>
+            </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label>Positivo</ion-label>
+              <ion-radio value="positivo"></ion-radio>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-radio-group>
   </ion-list>
 
   <ion-list>
@@ -62,19 +74,31 @@
 
 
   <ion-list>
-    <ion-list-header>
-      <ion-label>Humor despues de terapia</ion-label>
-    </ion-list-header>
-
-    <ion-grid fixed>
-      <ion-row>
-        <ion-col size="4" *ngFor="let estado of estados">
-          <ion-button (click)="gethumorDespues( estado )" expand="full">
-            {{ estado }}
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <ion-radio-group name="cantidadComida" (ionChange)="radioDespuesComida( $event )">
+      <ion-list-header>Humor después de terapia</ion-list-header>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label>Negativo</ion-label>
+              <ion-radio value="negativo"></ion-radio>
+            </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label>Neutral</ion-label>
+              <ion-radio value="neutral"></ion-radio>
+            </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label>Positivo</ion-label>
+              <ion-radio value="positivo"></ion-radio>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-radio-group>
   </ion-list>
   
   <ion-grid fixed>

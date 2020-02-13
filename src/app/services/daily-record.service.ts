@@ -128,7 +128,7 @@ export class DailyRecordService {
     Método PUT que agrega las actividades de Physio
   */
   putDailyRecordsPhysio(id: string, physioBinnacle) {
-    return this.http.put(`${url}physio/${id}`, {
+    return this.http.put<RootPhysio>(`${url}physio/${id}`, {
       physioBinnacle
     });
   }
