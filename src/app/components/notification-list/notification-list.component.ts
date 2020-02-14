@@ -29,7 +29,8 @@ filtradas: any = [];
         component: NotificationsAddPage,
         componentProps: {
 
-        }
+        },
+        backdropDismiss: false
       });
       await modal.present();
 

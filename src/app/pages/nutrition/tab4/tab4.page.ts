@@ -42,7 +42,8 @@ export class Tab4Page implements OnInit {
       component: ComidaModalPage,
       componentProps: {
         paciente
-      }
+      },
+      backdropDismiss: false
     });
     await modal.present();
 

@@ -109,7 +109,8 @@ export class Tab2Page implements OnInit {
       component: PhaseModalActividadesPage,
       componentProps: {
         paciente
-      }
+      },
+      backdropDismiss: false
     });
     await modal.present();
 

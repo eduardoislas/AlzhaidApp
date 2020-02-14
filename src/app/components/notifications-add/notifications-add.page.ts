@@ -43,7 +43,8 @@ export class NotificationsAddPage implements OnInit {
       component: UserListPage,
       componentProps: {
 
-      }
+      },
+      backdropDismiss: false
     });
     await modal.present();
 

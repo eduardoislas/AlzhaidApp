@@ -8,8 +8,8 @@ import {
   RootPhysio
 } from "../interfaces/daily-records";
 
-const url = "https://alzaid.herokuapp.com/dailyRecord/";
-// const url = 'http://localhost:3000/dailyRecord/';
+// const url = 'https://alzaid.herokuapp.com/dailyRecord/';
+const url = 'http://74.208.247.106:3000/dailyRecord/';
 
 @Injectable({
   providedIn: "root"

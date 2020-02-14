@@ -56,7 +56,8 @@ export class TabSignosPage implements OnInit {
       component: NurseryModalPage,
       componentProps: {
         paciente
-      }
+      },
+      backdropDismiss: false
     });
     await modal.present();
 

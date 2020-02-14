@@ -22,7 +22,7 @@ export class PhaseModalActividadesPage implements OnInit {
 
   variable: Activity;
 
-  emptyDailyRecords;
+  emptyDailyRecords = false;
 
   toggleUbicacion = false;
   toggleFecha = false;
@@ -185,19 +185,18 @@ export class PhaseModalActividadesPage implements OnInit {
     };
 
 
-    this.dailyService
-      .putDailyRecordActivities(this.paciente._id, data)
-      .subscribe(
-        res => {
-          this.disparaAlert("Actualizado con éxito");
-        },
-        err => {
-          console.log(err);
-        }
-      );
+    this.dailyService.putDailyRecordActivities(this.paciente._id, data).subscribe(res => {
+        this.disparaAlert("Actualizado con éxito");
+
+    }, err => {
+        console.log(err);
+      }
+    );
 
     this.modalCtrl.dismiss();
   }
+
+
   salirSinArgumentos() {
     this.modalCtrl.dismiss();
   }

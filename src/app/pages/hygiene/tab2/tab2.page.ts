@@ -49,7 +49,8 @@ export class Tab2Page implements OnInit {
       component: HygieneModalPage,
       componentProps: {
         paciente,
-      }
+      },
+      backdropDismiss: false
     });
     await modal.present();
 

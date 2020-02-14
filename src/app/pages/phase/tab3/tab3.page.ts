@@ -47,7 +47,8 @@ export class Tab3Page implements OnInit {
       componentProps: {
         paciente,
         tipoBitacora: this.tipoBitacora
-      }
+      },
+      backdropDismiss: false
     });
     await modal.present();
 

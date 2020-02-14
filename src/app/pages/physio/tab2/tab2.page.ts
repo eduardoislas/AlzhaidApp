@@ -45,6 +45,8 @@ export class Tab2Page implements OnInit {
     let activation = [];
 
     this.pacientes.forEach(element => {
+      if(element.score === undefined) element.score = 0;
+      
       if (element.selected === true) {
         activation.push({
           id: element._id,
