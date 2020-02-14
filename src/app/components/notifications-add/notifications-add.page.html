@@ -13,12 +13,16 @@
         <ion-row>
             <ion-item>
                 <ion-label position="stacked">Prioridad:</ion-label>
-                <ion-toggle [(ngModel)]="tglPrioridad" color="danger" slot="end" (ionChange)="VerPrioridad($event)"></ion-toggle>
+                <ion-toggle [(ngModel)]="tglPrioridad" color="danger" slot="end"></ion-toggle>
             </ion-item>
             <ion-col>
                 <ion-item>
-                    <ion-datetime displayFormat="DDDD, DD/MMMM/YYYY" dayNames="Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado" monthNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre" min="2020" max="2090-10-31"
-                        cancelText="Cancelar" doneText="Listo" placeholder="Vigencia" [(ngModel)]="ExpirationDate" (ionChange)="FecharExpiracion()"></ion-datetime>
+                    <ion-datetime displayFormat="DDDD, DD/MMMM/YYYY" 
+                                  dayNames="Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado" 
+                                  monthNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre" min="2020" max="2090-10-31"
+                                  cancelText="Cancelar" doneText="Listo" 
+                                  placeholder="Vigencia" 
+                                  [(ngModel)]="ExpirationDate"></ion-datetime>
                 </ion-item>
             </ion-col>
         </ion-row>
@@ -88,58 +92,6 @@
                 <ion-icon name="bed"></ion-icon>
             </ion-segment-button>
         </ion-segment>
-        <!-- Anterior codigo botones
-      <ion-row>
-      <ion-col>
-        <ion-avatar>
-          <img
-            (click)="tipoNotificacion( 'Conducta' )"
-            src="https://cdn3.iconfinder.com/data/icons/science-flat-round/512/report_document_reports_paper_graph_chart-512.png"
-            complete="complete"
-          >
-        </ion-avatar>
-        <ion-label>Conducta</ion-label>
-      </ion-col>
-      <ion-col>
-        <ion-avatar>
-          <img 
-          (click)="tipoNotificacion( 'Salud' )"
-          src="https://image.winudf.com/v2/image/Y29tLmFuZHJvbW8uZGV2Mjc5MjM3LmFwcDUyNDMyNl9pY29uXzBfOTU3NGM1MTk/icon.png?w=170&fakeurl=1">
-        </ion-avatar>
-
-        <ion-label>Salud</ion-label>
-      </ion-col>
-
-      <ion-col>
-        <ion-avatar>
-          <img 
-          (click)="tipoNotificacion( 'Higiene' )"
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA2jl7WBBF3s0sG2eOoLFAj1M9b5aRYBzJ4NPFcNmA5KL25KZA&s">
-        </ion-avatar>
-
-        <ion-label>Higiene</ion-label>
-      </ion-col>
-
-      <ion-col>
-        <ion-avatar>
-          <img 
-          (click)="tipoNotificacion( 'Fisica' )"
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1QvrvvFJWS3fhoKm1wNg_AbGdAGLZlVWveydcUrI8umPDMOT3&s">
-        </ion-avatar>
-
-        <ion-label>Fisica</ion-label>
-      </ion-col>
-
-      <ion-col>
-        <ion-avatar>
-          <img 
-          (click)="tipoNotificacion( 'Sueño' )"
-          src="https://previews.123rf.com/images/luplupme/luplupme1610/luplupme161000472/64154337-sleep-time-icon-flat-isolated-vector-illustration-sleep-icon-sweat-dream-night-rest-human-sleep-icon.jpg">
-        </ion-avatar>
-
-        <ion-label>Sueño</ion-label>
-      </ion-col>
-    </ion-row> -->
 
         <br>
 
@@ -186,13 +138,21 @@
             </ion-item>
         </ion-list>
 
-        <ion-row>
-            <ion-col>
-                <br>
-                <br>
+        <ion-grid fixed>
+            <ion-row>
+                <ion-col>
+                    <br>
+                    <br>
 
-                <ion-button type="button" color="primary" expand="block" (click)="enviar()">Enviar</ion-button>
-            </ion-col>
-        </ion-row>
+                    <ion-button type="button" color="secondary" expand="block" (click)="salir()">Salir</ion-button>
+                </ion-col>
+                <ion-col>
+                    <br>
+                    <br>
+
+                    <ion-button type="button" color="primary" expand="block" (click)="enviar()">Enviar</ion-button>
+                </ion-col>
+            </ion-row>
+</ion-grid>
     </ion-grid>
 </ion-content>
