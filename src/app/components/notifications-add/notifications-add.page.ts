@@ -35,7 +35,7 @@ export class NotificationsAddPage implements OnInit {
     this.patientsList();
     this.storage.get('username').then((val) => {
       this.user = val;
-  });
+    });
   }
 
   async openModal() {
@@ -66,41 +66,17 @@ export class NotificationsAddPage implements OnInit {
     });
   }
 
-  tipoNotificacion( t: string ) {
-    this.tipo = t;
-  }
-
-  establecerArea(a: string) {
-    this.area = a;
-  }
-
+  /*
+    Determina el tipo de aviso de la notificación
+  */
   tipoAviso( event ) {
     this.tipoDeAviso = event.detail.value;
     console.log(this.tipoDeAviso);
   }
 
-  btnAreaEnfermeria() {
-  }
-
-  convert(b: boolean) {
-    if (b) {
-      b = false;
-    } else {
-      b = true;
-    }
-    return b;
-  }
-
-  VerPrioridad( event) {
-    console.log(this.tglPrioridad);
-  }
-
-  FecharExpiracion( event ) {
-    console.log(this.ExpirationDate);
-    console.log(this.textDescripcion);
-    console.log(this.paciente);
-  }
-
+  /*
+    Escucha cuando se selecciona un area
+  */
   listenerArea( event) {
     let del;
     console.log(event.detail.checked);
@@ -114,11 +90,14 @@ export class NotificationsAddPage implements OnInit {
     console.log(this.btnArea);
   }
 
+  /* Determina el id del paciente seleccionado */
   selecionarPaciente(event) {
     this.paciente = event.detail.value;
-    console.log(this.paciente);
   }
 
+  /*
+    Envia a la base de datos la notificación
+    */
   enviar() {
     let notification;
     notification = {
@@ -140,6 +119,10 @@ export class NotificationsAddPage implements OnInit {
       this.disparaAlert('Notificacion registrada');
       this.modalCtrl.dismiss();
     });
+  }
+
+  salir() {
+    this.modalCtrl.dismiss();
   }
 
   /**
