@@ -8,8 +8,8 @@ import {
   RootPhysio
 } from "../interfaces/daily-records";
 
-// const url = 'https://alzaid.herokuapp.com/dailyRecord/';
-const url = 'http://74.208.247.106:3000/dailyRecord/';
+const url = 'https://alzaid.herokuapp.com/dailyRecord/';
+// const url = 'http://74.208.247.106:3000/dailyRecord/';
 
 @Injectable({
   providedIn: "root"
@@ -85,7 +85,7 @@ export class DailyRecordService {
     Método PUT que actuliza los signos vitales en Daily Records.
   */
   putVitalDailyRecords(id: string, vitalSigns) {
-    return this.http.put(`${url}vitalSign/${id}`, {
+    return this.http.put<RootPhysio>(`${url}vitalSign/${id}`, {
       vitalSigns
     });
   }

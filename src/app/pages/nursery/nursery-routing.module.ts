@@ -37,9 +37,11 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'nursery-modal',
-    loadChildren: () => import('./nursery-modal/nursery-modal.module').then( m => m.NurseryModalPageModule)
-  }
+    path: 'tab3/signos',
+    loadChildren: () => import('./signos/signos.module').then( m => m.SignosPageModule)
+  },
+
+
 ];
 
 @NgModule({

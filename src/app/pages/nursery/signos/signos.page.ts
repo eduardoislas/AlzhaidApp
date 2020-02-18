@@ -1,16 +1,17 @@
-import { Component, OnInit, ViewChild, Input } from "@angular/core";
-import { ModalController } from "@ionic/angular";
-import { DailyRecordService } from "src/app/services/daily-record.service";
-import { VitalSign } from "src/app/interfaces/daily-records";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { DailyRecordService } from 'src/app/services/daily-record.service';
+import { VitalSign } from 'src/app/interfaces/daily-records';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: "app-nursery-modal",
-  templateUrl: "./nursery-modal.page.html",
-  styleUrls: ["./nursery-modal.page.scss"]
+  selector: 'app-signos',
+  templateUrl: './signos.page.html',
+  styleUrls: ['./signos.page.scss'],
 })
-export class NurseryModalPage implements OnInit {
-  @Input() paciente;
+export class SignosPage implements OnInit {
+  paciente;
 
   togglePresion = false;
   toggleFrecuencia = false;
@@ -27,17 +28,17 @@ export class NurseryModalPage implements OnInit {
 
   info = [];
 
-  constructor(
-    private modalCtrl: ModalController,
-    private dailyService: DailyRecordService
-  ) {}
+  constructor(private modalCtrl: ModalController,
+    private dailyService: DailyRecordService,
+    private router: Router) { }
 
   ngOnInit() {
+    this.paciente = history.state.data;
     this.today = new Date().toISOString();
   }
 
   salirSinArgumentos() {
-    this.modalCtrl.dismiss();
+    this.router.navigateByUrl('/nursery/tab3')
   }
   salirConArgumentos() {
     if (this.togglePresion === true) this.getPresionValues();
@@ -50,14 +51,15 @@ export class NurseryModalPage implements OnInit {
       .subscribe(
         res => {
           // SweetAlert
-          this.disparaAlert("Signos vitales actualizados")
+          if(res.success === true) {
+            this.disparaAlert("Signos vitales actualizados")
+            this.router.navigateByUrl('/nursery/tab3')
+          }
         },
         err => {
           console.log("error", err);
         }
       );
-
-    this.modalCtrl.dismiss();
   }
   /* 
     Método que prepara los datos de Presion Arterial para 
@@ -128,4 +130,5 @@ export class NurseryModalPage implements OnInit {
       title
     });
   }
+
 }

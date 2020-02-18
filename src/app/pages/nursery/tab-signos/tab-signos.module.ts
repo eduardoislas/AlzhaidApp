@@ -8,12 +8,9 @@ import { TabSignosPageRoutingModule } from './tab-signos-routing.module';
 
 import { TabSignosPage } from './tab-signos.page';
 import { ComponentsModule } from 'src/app/components/components.module';
-import { NurseryModalPage } from '../nursery-modal/nursery-modal.page';
-import { NurseryModalPageModule } from '../nursery-modal/nursery-modal.module';
 
 @NgModule({
   entryComponents: [
-    NurseryModalPage
   ],
   imports: [
     CommonModule,
@@ -21,7 +18,6 @@ import { NurseryModalPageModule } from '../nursery-modal/nursery-modal.module';
     IonicModule,
     TabSignosPageRoutingModule,
     ComponentsModule,
-    NurseryModalPageModule
   ],
   declarations: [TabSignosPage]
 })

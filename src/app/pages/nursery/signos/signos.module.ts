@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { NurseryModalPageRoutingModule } from './nursery-modal-routing.module';
+import { SignosPageRoutingModule } from './signos-routing.module';
 
-import { NurseryModalPage } from './nursery-modal.page';
+import { SignosPage } from './signos.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    NurseryModalPageRoutingModule
+    SignosPageRoutingModule
   ],
-  declarations: [NurseryModalPage]
+  declarations: [SignosPage]
 })
-export class NurseryModalPageModule {}
+export class SignosPageModule {}

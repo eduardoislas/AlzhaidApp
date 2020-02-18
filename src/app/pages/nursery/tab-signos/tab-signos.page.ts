@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { DailyRecordService } from "src/app/services/daily-record.service";
-import { ModalController } from "@ionic/angular";
-import { NurseryModalPage } from "../nursery-modal/nursery-modal.page";
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-tab3",
@@ -9,6 +8,8 @@ import { NurseryModalPage } from "../nursery-modal/nursery-modal.page";
   styleUrls: ["./tab-signos.page.scss"]
 })
 export class TabSignosPage implements OnInit {
+  rutaActual = this.router.url;
+  
   busqueda;
   fase = "inicial";
 
@@ -16,11 +17,12 @@ export class TabSignosPage implements OnInit {
 
   constructor(
     private dailyService: DailyRecordService,
-    private modalCtrl: ModalController
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.patientsRole();
+    console.log(this.rutaActual);
   }
 
   /* 
@@ -51,17 +53,8 @@ export class TabSignosPage implements OnInit {
       });
     });
   }
-  async openModal(paciente) {
-    const modal = await this.modalCtrl.create({
-      component: NurseryModalPage,
-      componentProps: {
-        paciente
-      },
-      backdropDismiss: false
-    });
-    await modal.present();
-
-    const { data } = await modal.onDidDismiss();
+  openSignos(paciente) {
+    this.router.navigateByUrl( `${this.rutaActual}/signos`, {state: {data: paciente}} );
   }
   /* 
     Método que sirve para volver mayúscula la primera letra de una palabra
