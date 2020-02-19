@@ -65,7 +65,11 @@ export class LoginPage implements OnInit {
       }
 
     }, err => {
-      this.presentAlert( err.error.err.message );
+      if( err ) {
+        this.presentAlert( err.error.err.message );
+      } else {
+         this.presentAlert();
+      }
     });
   }
 
@@ -73,7 +77,7 @@ export class LoginPage implements OnInit {
     Método que despliega un mensaje de error, siendo este
     el que regresa el método de login()
   */
-  async presentAlert( message: string ) {
+  async presentAlert( message?: string ) {
     const alert = await this.alertCtrl.create({
       header: 'Error.',
       subHeader: 'No pudo iniciar sesión.',

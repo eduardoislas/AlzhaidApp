@@ -28,8 +28,7 @@ export class SignosPage implements OnInit {
 
   info = [];
 
-  constructor(private modalCtrl: ModalController,
-    private dailyService: DailyRecordService,
+  constructor(private dailyService: DailyRecordService,
     private router: Router) { }
 
   ngOnInit() {
@@ -52,8 +51,8 @@ export class SignosPage implements OnInit {
         res => {
           // SweetAlert
           if(res.success === true) {
-            this.disparaAlert("Signos vitales actualizados")
-            this.router.navigateByUrl('/nursery/tab3')
+            this.disparaAlert("Signos vitales actualizados");
+            this.router.navigateByUrl('/nursery/tab3');
           }
         },
         err => {

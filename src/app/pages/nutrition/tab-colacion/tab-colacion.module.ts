@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ComidaModalPageRoutingModule } from './comida-modal-routing.module';
+import { TabColacionPageRoutingModule } from './tab-colacion-routing.module';
 
-import { ComidaModalPage } from './comida-modal.page';
+import { TabColacionPage } from './tab-colacion.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ComidaModalPageRoutingModule
+    TabColacionPageRoutingModule,
   ],
-  declarations: [ComidaModalPage]
+  declarations: [TabColacionPage]
 })
-export class ComidaModalPageModule {}
+export class TabColacionPageModule {}

@@ -9,37 +9,34 @@ const routes: Routes = [
     component: NutritionPage,
     children: [
       {
-        path: 'tab1',
-        loadChildren: () => import('./tab1/tab1.module').then( m => m.Tab1PageModule)
+        path: 'tab-avisos',
+        loadChildren: () => import('./tab-avisos/tab-avisos.module').then( m => m.TabAvisosPageModule)
       },
       {
-        path: 'tab2',
-        loadChildren: () => import('./tab2/tab2.module').then( m => m.Tab2PageModule)
+        path: 'tab-colacion',
+        loadChildren: () => import('./tab-colacion/tab-colacion.module').then( m => m.TabColacionPageModule)
       },
       {
-        path: 'tab3',
-        loadChildren: () => import('./tab3/tab3.module').then( m => m.Tab3PageModule)
-      },
-      {
-        path: 'tab4',
-        loadChildren: () => import('./tab4/tab4.module').then( m => m.Tab4PageModule)
+        path: 'tab-comida',
+        loadChildren: () => import('./tab-comida/tab-comida.module').then( m => m.TabComidaPageModule)
       },
       {
         path: '',
-        redirectTo: '/nutrition/tab1',
+        redirectTo: '/nutrition/tab-avisos',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/nutrition/tab1',
+    redirectTo: '/nutrition/tab-avisos',
     pathMatch: 'full'
   },
   {
-    path: 'comida-modal',
-    loadChildren: () => import('./comida-modal/comida-modal.module').then( m => m.ComidaModalPageModule)
+    path: 'tab-comida/page-comida',
+    loadChildren: () => import('./page-comida/page-comida.module').then( m => m.PageComidaPageModule)
   },
+
 
 ];
 

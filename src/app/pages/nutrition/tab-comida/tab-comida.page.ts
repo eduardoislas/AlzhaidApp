@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
-import { ComidaModalPage } from '../comida-modal/comida-modal.page';
-import { ModalController } from '@ionic/angular';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab4',
-  templateUrl: './tab4.page.html',
-  styleUrls: ['./tab4.page.scss'],
+  templateUrl: './tab-comida.page.html',
+  styleUrls: ['./tab-comida.page.scss'],
 })
-export class Tab4Page implements OnInit {
+export class TabComidaPage implements OnInit {
+  rutaActual = this.router.url;
   pacientes = [];
 
   constructor(private dailyService: DailyRecordService,
-    private modalCtrl: ModalController) { }
+    private router: Router) { }
 
   ngOnInit() {
     this.getDailyRecords();
@@ -33,21 +33,12 @@ export class Tab4Page implements OnInit {
   }
 
   /**
-  *  Método que abre el modal de comidas, esto solo en caso que
+  *  Método que abre la pagina de comidas, esto solo en caso que
   *  haya sido seleccionada la opción de comida y reportar desempeño
   *  en la pantalla.
   */
-  async openModal(paciente) {
-    const modal = await this.modalCtrl.create({
-      component: ComidaModalPage,
-      componentProps: {
-        paciente
-      },
-      backdropDismiss: false
-    });
-    await modal.present();
-
-    const { data } = await modal.onDidDismiss();
+  openComida(paciente) {
+    this.router.navigateByUrl( `${this.rutaActual}/page-comida`, {state: {data: paciente}} );
   }
 
   /**

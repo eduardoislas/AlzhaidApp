@@ -1,15 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ModalController, ToastController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-comida-modal',
-  templateUrl: './comida-modal.page.html',
-  styleUrls: ['./comida-modal.page.scss'],
+  selector: 'app-page-comida',
+  templateUrl: './page-comida.page.html',
+  styleUrls: ['./page-comida.page.scss'],
 })
-export class ComidaModalPage implements OnInit {
-  @Input() paciente; // Paciente obtenido al abrir el modal.
+export class PageComidaPage implements OnInit {
+  paciente; // Paciente obtenido al hacer el navigateByUrl.
 
   rangeIndependencia = 0;
   rangeCubiertos = 0;
@@ -18,41 +19,41 @@ export class ComidaModalPage implements OnInit {
   cantidadComida;
   tipoComida;
 
-
-  constructor(private modalCtrl: ModalController,
-    private dailyService: DailyRecordService,
-    private toastCtrl: ToastController) { }
+  constructor( private dailyService: DailyRecordService,
+               private toastCtrl: ToastController,
+               private router: Router ) { }
 
   ngOnInit() {
+    this.paciente = history.state.data;
   }
 
   /**
   *  Método que obtiene la calificación de independencia que haya sido
-  *  asignada al paciente en el modal.
+  *  asignada al paciente.
   */
-  ionRangeIndependencia(event) {
+  ionRangeIndependencia( event ) {
     this.rangeIndependencia = event.detail.value;
   }
   /**
  *  Método que obtiene la calificación de cubiertos que haya sido
- *  asignada al paciente en el modal.
+ *  asignada al paciente.
  */
-  ionRangeCubiertos(event) {
+  ionRangeCubiertos( event ) {
     this.rangeCubiertos = event.detail.value;
   }
   /**
   *  Método que obtiene la calificación de disfagia que haya sido
-  *  asignada al paciente en el modal.
+  *  asignada al paciente.
   */
-  ionRangeDisfagia(event) {
+  ionRangeDisfagia( event ) {
     this.rangeDisfagia = event.detail.value;
   }
   /**
   * Este método se encarga de obtener del grupo de radio buttons
-  * cual fue el seleccionado, posteriormente realiza una conversión
-  * númerica según sea el caso.
+  * la cantidad de comida la cual fue el seleccionado, posteriormente 
+  * realiza una conversión númerica según sea el caso.
   */
-  radioCantidadComida(event) {
+  radioCantidadComida( event ) {
     this.cantidadComida = event.detail.value;
 
     switch (this.cantidadComida) {
@@ -68,16 +69,17 @@ export class ComidaModalPage implements OnInit {
     }
   }
   /**
-  * Método que obtiene el tipo de comida seleccionado en el modal.
+  * Método que obtiene el tipo de comida seleccionado.
+  * Pudiendo ser este: Papilla, Normal o Triturada.
   */
-  radioTipoComida(event) {
+  radioTipoComida( event ) {
     this.tipoComida = event.detail.value;
   }
   /**
-  *  Método que funciona para cerrar el modal.
+  *  Método que funciona para volver al tab4 (el anterior).
   */
   salirSinArgumentos() {
-    this.modalCtrl.dismiss();
+    this.router.navigateByUrl('nutrition/tab-comida');
   }
   /**
    * Método salirConArgumentos verifica que los datos a envíar no son vacíos,
@@ -105,14 +107,15 @@ export class ComidaModalPage implements OnInit {
     }
 
     // Envía al servicio el objeto data y el id del dailyRecord del paciente, si la
-    // respuesta es success, muestra el mensaje de sweetalert y cierra el modal.
-    this.dailyService.putDailyRecordsMeal(data, this.paciente._id).subscribe(res => {
-      if (res.success === true) {
-        this.disparaAlert('Datos enviados correctamente.')
-        this.modalCtrl.dismiss();
+    // respuesta es success, muestra el mensaje de sweetalert y se devuelve al tab de
+    // comidas.
+    this.dailyService.putDailyRecordsMeal( data, this.paciente._id ).subscribe(res => {
+      if ( res.success === true ) {
+        this.disparaAlert( 'Datos enviados correctamente.' );
+        this.router.navigateByUrl( 'nutrition/tab-comida' );
       }
     }, err => {
-      console.log(err);
+      console.log( err );
     });
   }
 
@@ -120,7 +123,7 @@ export class ComidaModalPage implements OnInit {
    * Muestra un mensaje de alerta con una confirmacion
    * @param title mensaje que mostrara la alerta
    */
-  disparaAlert(title: string) {
+  disparaAlert( title: string ) {
     // SweetAlert
     const Toast = Swal.mixin({
       toast: true,
@@ -128,9 +131,9 @@ export class ComidaModalPage implements OnInit {
       showConfirmButton: false,
       timer: 1500,
       timerProgressBar: true,
-      onOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer);
-        toast.addEventListener('mouseleave', Swal.resumeTimer);
+      onOpen: ( toast ) => {
+        toast.addEventListener( 'mouseenter', Swal.stopTimer );
+        toast.addEventListener( 'mouseleave', Swal.resumeTimer );
       }
     });
     Toast.fire({
@@ -141,10 +144,10 @@ export class ComidaModalPage implements OnInit {
 
   /**
   *  Muestra un mensaje de error cuando faltan datos por llenar
-  *  en el modal.
+  *  en la página.
   *  @param message mensaje que mostrará la alerta.
   */
-  async presentToast(message: string) {
+  async presentToast( message: string ) {
     const toast = await this.toastCtrl.create({
       message,
       duration: 1500
