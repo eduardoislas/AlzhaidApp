@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { Router } from '@angular/router';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
 import { VitalSign } from 'src/app/interfaces/daily-records';
 import Swal from 'sweetalert2';
@@ -37,7 +36,7 @@ export class SignosPage implements OnInit {
   }
 
   salirSinArgumentos() {
-    this.router.navigateByUrl('/nursery/tab3')
+    this.router.navigateByUrl('/nursery/tab-signos')
   }
   salirConArgumentos() {
     if (this.togglePresion === true) this.getPresionValues();
@@ -52,7 +51,7 @@ export class SignosPage implements OnInit {
           // SweetAlert
           if(res.success === true) {
             this.disparaAlert("Signos vitales actualizados");
-            this.router.navigateByUrl('/nursery/tab3');
+            this.router.navigateByUrl('/nursery/tab-signos');
           }
         },
         err => {

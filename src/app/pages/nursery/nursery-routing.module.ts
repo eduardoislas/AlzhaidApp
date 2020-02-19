@@ -9,35 +9,35 @@ const routes: Routes = [
     component: NurseryPage,
     children: [
       {
-        path: 'tab1',
+        path: 'tab-avisos',
         loadChildren: () => import('./tab-avisos/tab-avisos.module').then( m => m.TabAvisosPageModule)
       },
       {
-        path: 'tab2',
+        path: 'tab-asistencia',
         loadChildren: () => import('./tab-asistencia/tab-asistencia.module').then( m => m.TabAsistenciaPageModule)
       },
       {
-        path: 'tab3',
+        path: 'tab-signos',
         loadChildren: () => import('./tab-signos/tab-signos.module').then( m => m.TabSignosPageModule)
       },
       {
-        path: 'tab4',
+        path: 'tab-registros',
         loadChildren: () => import('./tab-registros/tab-registros.module').then( m => m.TabRegistrosPageModule)
       },
       {
         path: '',
-        redirectTo: '/nursery/tab1',
+        redirectTo: '/nursery/tab-avisos',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/nursery/tab1',
+    redirectTo: '/nursery/tab-avisos',
     pathMatch: 'full'
   },
   {
-    path: 'tab3/signos',
+    path: 'tab-signos/signos',
     loadChildren: () => import('./signos/signos.module').then( m => m.SignosPageModule)
   },
 
