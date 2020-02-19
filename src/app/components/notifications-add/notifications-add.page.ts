@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { UserListPage } from '../user-list/user-list.page';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
 import { Storage } from '@ionic/storage';
 import { NotificationsService } from 'src/app/services/notifications.service';
 import Swal from 'sweetalert2';
+import {Location} from '@angular/common';
 
 
 
@@ -29,7 +31,9 @@ export class NotificationsAddPage implements OnInit {
   constructor(private modalCtrl: ModalController,
               private dailyService: DailyRecordService,
               private storage: Storage,
-              private notificationsService: NotificationsService) { }
+              private notificationsService: NotificationsService,
+              private router: Router,
+              private localizacion: Location) { }
 
   ngOnInit() {
     this.patientsList();
@@ -38,18 +42,18 @@ export class NotificationsAddPage implements OnInit {
     });
   }
 
-  async openModal() {
-    const modal = await this.modalCtrl.create({
-      component: UserListPage,
-      componentProps: {
+  // async openModal() {
+  //   const modal = await this.modalCtrl.create({
+  //     component: UserListPage,
+  //     componentProps: {
 
-      },
-      backdropDismiss: false
-    });
-    await modal.present();
+  //     },
+  //     backdropDismiss: false
+  //   });
+  //   await modal.present();
 
-    const { data } = await modal.onDidDismiss();
-  }
+  //   const { data } = await modal.onDidDismiss();
+  // }
 
   /*
     Método que obtiene a los pacientes en el dailyrecord
@@ -71,7 +75,6 @@ export class NotificationsAddPage implements OnInit {
   */
   tipoAviso( event ) {
     this.tipoDeAviso = event.detail.value;
-    console.log(this.tipoDeAviso);
   }
 
   /*
@@ -79,7 +82,6 @@ export class NotificationsAddPage implements OnInit {
   */
   listenerArea( event) {
     let del;
-    console.log(event.detail.checked);
 
     if (event.detail.checked) {
       this.btnArea.push(event.detail.value);
@@ -87,7 +89,6 @@ export class NotificationsAddPage implements OnInit {
       del = this.btnArea.indexOf(event.detail.value);
       this.btnArea.splice(del, 1);
     }
-    console.log(this.btnArea);
   }
 
   /* Determina el id del paciente seleccionado */
@@ -100,29 +101,36 @@ export class NotificationsAddPage implements OnInit {
     */
   enviar() {
     let notification;
-    notification = {
-      expiration_date: this.ExpirationDate,
-      high_priority: this.tglPrioridad,
-      description: this.textDescripcion,
-      type: this.tipoDeAviso,
-      area: this.btnArea,
-      patient: this.paciente,
-      user: this.user
-    };
+    console.log(this.ExpirationDate + ', ' + this.textDescripcion + ', '
+              + this.tipoDeAviso + ', ' + this.btnArea + ', ' + this.paciente);
+    if (this.ExpirationDate !== undefined && this.textDescripcion !== undefined &&
+        this.tipoDeAviso !== '' &&  this.btnArea !== undefined  &&  this.paciente !== undefined ) {
+      notification = {
+        expiration_date: this.ExpirationDate,
+        high_priority: this.tglPrioridad,
+        description: this.textDescripcion,
+        type: this.tipoDeAviso,
+        area: this.btnArea,
+        patient: this.paciente,
+        user: this.user
+      };
 
-    console.log(notification);
-    this.modalCtrl.dismiss();
+      // Llamar el método del servicio
+      this.notificationsService.postNotifications(notification)
+      .subscribe(res => {
+        this.disparaAlert('Notificacion registrada');
+      });
 
-    // Llamar el método del servicio
-    this.notificationsService.postNotifications(notification)
-    .subscribe(res => {
-      this.disparaAlert('Notificacion registrada');
-      this.modalCtrl.dismiss();
-    });
+      this.salir();
+    } else {
+      Swal.fire('Faltan datos por rellenar');
+    }
   }
-
+  /**
+   * Regresa a la pagina anterior
+   */
   salir() {
-    this.modalCtrl.dismiss();
+    this.localizacion.back();
   }
 
   /**

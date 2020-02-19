@@ -7,7 +7,7 @@
         <ion-title>Agregar aviso de incidencia</ion-title>
     </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content >
     <ion-grid class="ion-padding" fixed="fixed">
         <!-- Boton prioridad y vigencia-->
         <ion-row>
@@ -71,26 +71,40 @@
 
         <!-- Botones "tipo" -->
         <ion-segment mode="ios" scrollable="false" name="btnTipo" (ionChange)="tipoAviso($event)">
-            <ion-segment-button value='Conducta'>
-                <ion-label>Conducta</ion-label>
-                <ion-icon name="clipboard"></ion-icon>
-            </ion-segment-button>
-            <ion-segment-button value='Salud'>
-                <ion-label>Salud</ion-label>
-                <ion-icon name="heart-empty"></ion-icon>
-            </ion-segment-button>
-            <ion-segment-button value='Higiene'>
-                <ion-label>Higiene</ion-label>
-                <ion-icon name="water"></ion-icon>
-            </ion-segment-button>
-            <ion-segment-button value='Fisica'>
-                <ion-label>Fisica</ion-label>
-                <ion-icon name="body"></ion-icon>
-            </ion-segment-button>
-            <ion-segment-button value='Sueño'>
-                <ion-label>Sueño</ion-label>
-                <ion-icon name="bed"></ion-icon>
-            </ion-segment-button>
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                        <ion-segment-button value='Conducta'>
+                            <ion-label>Conducta</ion-label>
+                            <ion-icon name="clipboard"></ion-icon>
+                        </ion-segment-button>
+                    </ion-col>
+                    <ion-col>
+                        <ion-segment-button value='Salud'>
+                            <ion-label>Salud</ion-label>
+                            <ion-icon name="heart-empty"></ion-icon>
+                        </ion-segment-button>
+                    </ion-col>
+                    <ion-col>
+                        <ion-segment-button value='Higiene'>
+                            <ion-label>Higiene</ion-label>
+                            <ion-icon name="water"></ion-icon>
+                        </ion-segment-button>
+                    </ion-col>
+                    <ion-col>
+                        <ion-segment-button value='Fisica'>
+                            <ion-label>Fisica</ion-label>
+                            <ion-icon name="body"></ion-icon>
+                        </ion-segment-button>
+                    </ion-col>
+                    <ion-col>
+                        <ion-segment-button value='Sueño'>
+                            <ion-label>Sueño</ion-label>
+                            <ion-icon name="bed"></ion-icon>
+                        </ion-segment-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
         </ion-segment>
 
         <br>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NotificationsService} from '../../services/notifications.service';
-import { ModalController } from '@ionic/angular';
-import { NotificationsAddPage } from '../notifications-add/notifications-add.page';
+import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -14,32 +13,24 @@ notifications: any = [];
 rol: string;
 filtradas: any = [];
 
-  constructor(private modalCtrl: ModalController, private NotificationsService: NotificationsService, private storage: Storage) {}
-  
+
+  constructor(private NotificationsService: NotificationsService,
+              private storage: Storage,
+              private router: Router) {}
+
   ngOnInit() {
-    this.cargarLista()
+    this.cargarLista();
     this.storage.get('Rol').then((val) => {
       this.rol = val;
     });
     // this.filtrarLista()
   }
 
-    async openModal() {
-      const modal = await this.modalCtrl.create({
-        component: NotificationsAddPage,
-        componentProps: {
-
-        },
-        backdropDismiss: false
-      });
-      await modal.present();
-
-      const { data } = await modal.onDidDismiss();
-      this.cargarLista()
-      
+    async openComponent() {
+      this.router.navigateByUrl(`notifications-add`, );
     }
-  
-    cargarLista(){
+
+    cargarLista() {
       this.NotificationsService.getNotifications().subscribe(res => {
         this.notifications.push(res.vigentes);
         this.notifications = res.vigentes;
