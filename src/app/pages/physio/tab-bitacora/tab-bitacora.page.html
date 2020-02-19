@@ -7,7 +7,7 @@
 <ion-content>
   <ion-list *ngIf="pacientes.length > 0">
     <ion-item *ngFor="let paciente of pacientes" 
-              (click)="openModal( paciente )">
+              (click)="openBitacora( paciente )">
       <ion-avatar slot="start">
         <img src="{{ paciente.patient.img }}" />
       </ion-avatar>

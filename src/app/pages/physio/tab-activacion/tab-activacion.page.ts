@@ -4,10 +4,10 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tab2',
-  templateUrl: './tab2.page.html',
-  styleUrls: ['./tab2.page.scss'],
+  templateUrl: './tab-activacion.page.html',
+  styleUrls: ['./tab-activacion.page.scss'],
 })
-export class Tab2Page implements OnInit {
+export class TabActivacionPage implements OnInit {
   sliderOpts = {
     allowSlidePrev: false,
     allowSlideNext: false,

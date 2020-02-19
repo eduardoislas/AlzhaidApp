@@ -1,18 +1,18 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { CatalogService } from 'src/app/services/catalog.service';
 import { Catalog } from 'src/app/interfaces/catalogs';
+import { CatalogService } from 'src/app/services/catalog.service';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-modal-bitacora',
-  templateUrl: './modal-bitacora.page.html',
-  styleUrls: ['./modal-bitacora.page.scss'],
+  selector: 'app-page-bitacora',
+  templateUrl: './page-bitacora.page.html',
+  styleUrls: ['./page-bitacora.page.scss'],
 })
-export class ModalBitacoraPage implements OnInit {
-  @Input() paciente;
-  
+export class PageBitacoraPage implements OnInit {
+  paciente;
+
   estadoAntes;
   estadoDespues;
 
@@ -26,11 +26,13 @@ export class ModalBitacoraPage implements OnInit {
   horaInicio = this.today;
   horaFin = this.today;
 
-  constructor( private modalCtrl: ModalController,
-               private catalogService: CatalogService,
-               private dailyService: DailyRecordService ) { }
+  constructor(
+    private catalogService: CatalogService,
+    private dailyService: DailyRecordService,
+    private router: Router) { }
 
   ngOnInit() {
+    this.paciente = history.state.data;
     this.getCatalogsType();
   }
 
@@ -41,11 +43,11 @@ export class ModalBitacoraPage implements OnInit {
   */
   getCatalogsType() {
     this.catalogService.getCatalogsType('actividad').subscribe(res => {
-      res.catalogs.forEach( element => {
-        if( element.classification === 'Fisioterapia' ) {
+      res.catalogs.forEach(element => {
+        if (element.classification === 'Fisioterapia') {
           element["selected"] = false;
           element["score"] = 0;
-          this.actividades.push( element );
+          this.actividades.push(element);
         }
       });
     });
@@ -55,14 +57,14 @@ export class ModalBitacoraPage implements OnInit {
     Método que obtiene el valor del humor antes de la sesión, esto
     según el botón clickeado en la interfaz.
   */
-  radioAntesComida( event ) {
+  radioAntesComida(event) {
     this.humorAntes = event.detail.value;
   }
   /*
     Método que obtiene el valor del humor después de la sesión, esto
     según el botón clickeado en la interfaz.
   */
- radioDespuesComida( event ) {
+  radioDespuesComida(event) {
     this.humorDespues = event.detail.value;
   }
 
@@ -70,7 +72,7 @@ export class ModalBitacoraPage implements OnInit {
     Método para salir sin argumentos del modal.
   */
   salirSinArgumentos() {
-    this.modalCtrl.dismiss();
+    this.router.navigateByUrl('physio/tab-bitacora');
   }
 
   /*
@@ -84,7 +86,7 @@ export class ModalBitacoraPage implements OnInit {
     let actividadesSeleccionadas = [];
 
     this.actividades.forEach(element => {
-      if(element.selected === true) {
+      if (element.selected === true) {
         actividadesSeleccionadas.push({
           name: element.name,
           classification: element.classification,
@@ -92,7 +94,7 @@ export class ModalBitacoraPage implements OnInit {
         });
       }
     });
-    switch( this.humorAntes ) {
+    switch (this.humorAntes) {
       case 'negativo':
         this.humorAntes = 1;
         break;
@@ -103,7 +105,7 @@ export class ModalBitacoraPage implements OnInit {
         this.humorAntes = 3;
         break;
     }
-    switch( this.humorDespues ) {
+    switch (this.humorDespues) {
       case 'negativo':
         this.humorDespues = 1;
         break;
@@ -123,22 +125,20 @@ export class ModalBitacoraPage implements OnInit {
     }
     console.log(data);
 
-    this.dailyService.putDailyRecordsPhysio( this.paciente._id, data ).subscribe( res => {
-      if(res.success === true) {
-        this.modalCtrl.dismiss();
+    this.dailyService.putDailyRecordsPhysio(this.paciente._id, data).subscribe(res => {
+      if (res.success === true) {
         this.disparaAlert('Datos enviados correctamente');
+        this.router.navigateByUrl('physio/tab-bitacora');
       }
     }, err => {
       console.log(err);
     });
-
-    
   }
 
-   /**
-   * Muestra un mensaje de alerta con una confirmacion
-   * @param title mensaje que mostrara la alerta
-   */
+  /**
+  * Muestra un mensaje de alerta con una confirmacion
+  * @param title mensaje que mostrara la alerta
+  */
   disparaAlert(title: string) {
     // SweetAlert
     const Toast = Swal.mixin({

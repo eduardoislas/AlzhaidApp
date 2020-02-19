@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ModalBitacoraPageRoutingModule } from './modal-bitacora-routing.module';
+import { TabActivacionPageRoutingModule } from './tab-activacion-routing.module';
 
-import { ModalBitacoraPage } from './modal-bitacora.page';
+import { TabActivacionPage } from './tab-activacion.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ModalBitacoraPageRoutingModule
+    TabActivacionPageRoutingModule
   ],
-  declarations: [ModalBitacoraPage]
+  declarations: [TabActivacionPage]
 })
-export class ModalBitacoraPageModule {}
+export class TabActivacionPageModule {}

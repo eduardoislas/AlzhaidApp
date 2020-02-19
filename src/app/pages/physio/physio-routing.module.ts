@@ -9,37 +9,34 @@ const routes: Routes = [
     component: PhysioPage,
     children: [
       {
-        path: 'tab1',
-        loadChildren: () => import('./tab1/tab1.module').then( m => m.Tab1PageModule)
+        path: 'tab-avisos',
+        loadChildren: () => import('./tab-avisos/tab-avisos.module').then( m => m.TabAvisosPageModule)
       },
       {
-        path: 'tab2',
-        loadChildren: () => import('./tab2/tab2.module').then( m => m.Tab2PageModule)
+        path: 'tab-activacion',
+        loadChildren: () => import('./tab-activacion/tab-activacion.module').then( m => m.TabActivacionPageModule)
       },
       {
-        path: 'tab3',
-        loadChildren: () => import('./tab3/tab3.module').then( m => m.Tab3PageModule)
-      },
-      {
-        path: 'tab4',
-        loadChildren: () => import('./tab4/tab4.module').then( m => m.Tab4PageModule)
+        path: 'tab-bitacora',
+        loadChildren: () => import('./tab-bitacora/tab-bitacora.module').then( m => m.TabBitacoraPageModule)
       },
       {
         path: '',
-        redirectTo: '/physio/tab1',
+        redirectTo: '/physio/tab-avisos',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/physio/tab1',
+    redirectTo: '/physio/tab-avisos',
     pathMatch: 'full'
   },
   {
-    path: 'modal-bitacora',
-    loadChildren: () => import('./modal-bitacora/modal-bitacora.module').then( m => m.ModalBitacoraPageModule)
+    path: 'tab-bitacora/page-bitacora',
+    loadChildren: () => import('./page-bitacora/page-bitacora.module').then( m => m.PageBitacoraPageModule)
   }
+
 ];
 
 @NgModule({

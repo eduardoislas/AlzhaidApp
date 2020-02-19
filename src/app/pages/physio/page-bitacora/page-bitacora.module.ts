@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { Tab2PageRoutingModule } from './tab2-routing.module';
+import { PageBitacoraPageRoutingModule } from './page-bitacora-routing.module';
 
-import { Tab2Page } from './tab2.page';
+import { PageBitacoraPage } from './page-bitacora.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    Tab2PageRoutingModule
+    PageBitacoraPageRoutingModule
   ],
-  declarations: [Tab2Page]
+  declarations: [PageBitacoraPage]
 })
-export class Tab2PageModule {}
+export class PageBitacoraPageModule {}

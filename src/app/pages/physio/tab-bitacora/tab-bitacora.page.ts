@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
-import { ModalBitacoraPageModule } from '../modal-bitacora/modal-bitacora.module';
-import { ModalController } from '@ionic/angular';
-import { ModalBitacoraPage } from '../modal-bitacora/modal-bitacora.page';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-tab3',
-  templateUrl: './tab3.page.html',
-  styleUrls: ['./tab3.page.scss'],
+  templateUrl: './tab-bitacora.page.html',
+  styleUrls: ['./tab-bitacora.page.scss'],
 })
-export class Tab3Page implements OnInit {
+export class TabBitacoraPage implements OnInit {
+  rutaActual = this.router.url;
   busqueda;
   fase = 'inicial';
 
   pacientes = [];
 
   constructor( private dailyService: DailyRecordService,
-               private modalCtrl: ModalController ) { }
+               private router: Router ) { }
 
   ngOnInit() {
     this.getPatients();
@@ -38,17 +38,8 @@ export class Tab3Page implements OnInit {
       });
     });
   }
-  async openModal(paciente) {
-    const modal = await this.modalCtrl.create({
-      component: ModalBitacoraPage,
-      componentProps: {
-        paciente
-      },
-      backdropDismiss: false
-    });
-    await modal.present();
-
-    const { data } = await modal.onDidDismiss();
+  openBitacora(paciente) {
+    this.router.navigateByUrl( `${this.rutaActual}/page-bitacora`, {state: {data: paciente}} );
   }
 
   /* 
