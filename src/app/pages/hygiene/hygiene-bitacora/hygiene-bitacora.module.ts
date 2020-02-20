@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { HygieneModalPageRoutingModule } from './hygiene-modal-routing.module';
+import { HygieneModalPageRoutingModule } from './hygiene-bitacora-routing.module';
 
-import { HygieneModalPage } from './hygiene-modal.page';
+import { HygieneModalPage } from './hygiene-bitacora.page';
 
 @NgModule({
   imports: [

@@ -1,13 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { PatientsService } from 'src/app/services/patients.service';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
 import Swal from 'sweetalert2';
+import {Location} from '@angular/common';
 
 @Component({
-  selector: 'app-hygiene-modal',
-  templateUrl: './hygiene-modal.page.html',
-  styleUrls: ['./hygiene-modal.page.scss'],
+  selector: 'app-hygiene-bitacora',
+  templateUrl: './hygiene-bitacora.page.html',
+  styleUrls: ['./hygiene-bitacora.page.scss'],
 })
 export class HygieneModalPage implements OnInit {
 
@@ -33,9 +35,12 @@ export class HygieneModalPage implements OnInit {
 
   constructor(private modalCtrl: ModalController,
               private patientService: PatientsService,
-              private dailyRecordService: DailyRecordService) {}
+              private dailyRecordService: DailyRecordService,
+              private localizacion: Location,
+              private router: Router) {}
 
   ngOnInit() {
+    this.paciente = history.state.data;
     const id = this.paciente.patient._id;
     this.patientService.getPatientId(id).subscribe(res => {
       res.patient.diagnosis.forEach(e => {
@@ -50,12 +55,12 @@ export class HygieneModalPage implements OnInit {
   }
 
   salirSinArgumentos() {
-    this.modalCtrl.dismiss();
+    this.localizacion.back();
   }
 
   /** Verifica que la opcion fue seleccionada, si lo fue a los datos (nombre, time,
    * observacion... ) de la opcion se agregan al arreglo. Envia un arreglos unicamente
-   * de objetos seleccionados en hygiene-modal.page
+   * de objetos seleccionados en hygiene-bitacora.page
    */
   salirConArgumentos() {
     let data;
@@ -113,7 +118,7 @@ export class HygieneModalPage implements OnInit {
     this.dailyRecordService.putDailyRecordsHygiene(this.paciente._id, higiene)
     .subscribe(res => {
       this.disparaAlert('Reporte de higiene registrado');
-      this.modalCtrl.dismiss();
+      this.localizacion.back();
     });
   }
 

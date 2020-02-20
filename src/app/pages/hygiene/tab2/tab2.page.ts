@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
-import { ModalController } from '@ionic/angular';
-import { HygieneModalPage } from '../hygiene-modal/hygiene-modal.page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab2',
@@ -12,9 +11,10 @@ export class Tab2Page implements OnInit {
   pacientes = [];
   busqueda;
   fase = 'inicial';
+  rutaActual = this.router.url;
 
   constructor(private dailyService: DailyRecordService,
-              private modalCtrl: ModalController ) { }
+              private router: Router ) { }
 
   ngOnInit() {
     this.getTodayDailyRecords();
@@ -44,17 +44,7 @@ export class Tab2Page implements OnInit {
       this.getTodayDailyRecords();
   }
 
-  async openModal( paciente ) {
-    const modal = await this.modalCtrl.create({
-      component: HygieneModalPage,
-      componentProps: {
-        paciente,
-      },
-      backdropDismiss: false
-    });
-    await modal.present();
-
-    const { data } = await modal.onDidDismiss();
+  async openPage( paciente ) {
+    this.router.navigateByUrl( `${this.rutaActual}/hygiene-bitacora`, {state: {data: paciente}} );
   }
-
 }

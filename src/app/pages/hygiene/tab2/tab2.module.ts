@@ -8,7 +8,7 @@ import { Tab2PageRoutingModule } from './tab2-routing.module';
 
 import { Tab2Page } from './tab2.page';
 import { ComponentsModule } from '../../../components/components.module';
-import { HygieneModalPageModule } from '../hygiene-modal/hygiene-modal.module';
+import { HygieneModalPageModule } from '../hygiene-bitacora/hygiene-bitacora.module';
 
 @NgModule({
   imports: [
