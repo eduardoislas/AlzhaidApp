@@ -2,17 +2,17 @@ import { Component, OnInit } from "@angular/core";
 import { Storage } from "@ionic/storage";
 import { CatalogService } from "src/app/services/catalog.service";
 import { DailyRecordService } from "src/app/services/daily-record.service";
-import { ModalController, ToastController } from "@ionic/angular";
+import { ModalController } from "@ionic/angular";
 import { PhaseModalActividadesPage } from "../phase-modal-actividades/phase-modal-actividades.page";
 import { Info } from "../../../interfaces/daily-records";
 import Swal from 'sweetalert2';
 
 @Component({
   selector: "app-tab2",
-  templateUrl: "./tab2.page.html",
-  styleUrls: ["./tab2.page.scss"]
+  templateUrl: "./tab-activacion.page.html",
+  styleUrls: ["./tab-activacion.page.scss"]
 })
-export class Tab2Page implements OnInit { 
+export class TabActivacionPage implements OnInit { 
   opcion;
 
   busqueda;

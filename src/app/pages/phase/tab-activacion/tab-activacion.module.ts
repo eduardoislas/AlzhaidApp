@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { Tab2PageRoutingModule } from './tab2-routing.module';
+import { TabActivacionPageRoutingModule } from './tab-activacion-routing.module';
 
-import { Tab2Page } from './tab2.page';
+import { TabActivacionPage } from './tab-activacion.page';
 import { PhaseModalActividadesPage } from '../phase-modal-actividades/phase-modal-actividades.page';
 import { PhaseModalActividadesPageModule } from '../phase-modal-actividades/phase-modal-actividades.module';
 
@@ -18,9 +18,9 @@ import { PhaseModalActividadesPageModule } from '../phase-modal-actividades/phas
     CommonModule,
     FormsModule,
     IonicModule,
-    Tab2PageRoutingModule,
+    TabActivacionPageRoutingModule,
     PhaseModalActividadesPageModule
   ],
-  declarations: [Tab2Page]
+  declarations: [TabActivacionPage]
 })
-export class Tab2PageModule {}
+export class TabActivacionPageModule {}

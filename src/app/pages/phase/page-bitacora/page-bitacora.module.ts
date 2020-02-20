@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { Tab4PageRoutingModule } from './tab4-routing.module';
+import { PageBitacoraPageRoutingModule } from './page-bitacora-routing.module';
 
-import { Tab4Page } from './tab4.page';
+import { PageBitacoraPage } from './page-bitacora.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    Tab4PageRoutingModule
+    PageBitacoraPageRoutingModule
   ],
-  declarations: [Tab4Page]
+  declarations: [PageBitacoraPage]
 })
-export class Tab4PageModule {}
+export class PageBitacoraPageModule {}

@@ -94,7 +94,7 @@ export class DailyRecordService {
   */
 
   putAttitudeDailyRecords(id: string, attitudes) {
-    return this.http.put(`${url}attitude/${id}`, {
+    return this.http.put<RootPhysio>(`${url}attitude/${id}`, {
       attitudes
     });
   }
