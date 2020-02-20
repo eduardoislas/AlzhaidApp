@@ -24,7 +24,7 @@ const routes: Routes = [
         path: '',
         redirectTo: '/hygiene/tab1',
         pathMatch: 'full'
-      } 
+      }
     ]
   },
   {
@@ -32,8 +32,8 @@ const routes: Routes = [
     redirectTo: '/hygiene/tab1',
     pathMatch: 'full'
   },   {
-    path: 'hygiene-modal',
-    loadChildren: () => import('./hygiene-modal/hygiene-modal.module').then( m => m.HygieneModalPageModule)
+    path: 'tab2/hygiene-bitacora',
+    loadChildren: () => import('./hygiene-bitacora/hygiene-bitacora.module').then( m => m.HygieneModalPageModule)
   }
 
 ];

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HygieneModalPage } from './hygiene-modal.page';
+import { HygieneModalPage } from './hygiene-bitacora.page';
 
 const routes: Routes = [
   {
