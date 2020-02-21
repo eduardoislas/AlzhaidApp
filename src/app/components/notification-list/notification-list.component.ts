@@ -14,7 +14,7 @@ rol: string;
 filtradas: any = [];
 
 
-  constructor(private NotificationsService: NotificationsService,
+  constructor(private notificationsService: NotificationsService,
               private storage: Storage,
               private router: Router) {}
 
@@ -31,9 +31,18 @@ filtradas: any = [];
     }
 
     cargarLista() {
-      this.NotificationsService.getNotifications().subscribe(res => {
-        this.notifications.push(res.vigentes);
-        this.notifications = res.vigentes;
+      const filtado = [];
+      this.notificationsService.getNotifications().subscribe(res => {
+        console.log(this.rol);
+        console.log(res);
+        res.vigentes.forEach( nota => {
+          if (nota.area.includes(this.rol)) {
+            filtado.push(nota);
+          }
+        });
+        this.notifications.push(filtado);
+        this.notifications = filtado;
+        console.log(filtado);
       });
     }
 
