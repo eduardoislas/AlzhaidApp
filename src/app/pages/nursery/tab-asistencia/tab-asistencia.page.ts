@@ -76,15 +76,17 @@ export class TabAsistenciaPage implements OnInit {
     // de dailyRecordsDate.
     this.dailyService.getDailyRecordsToday().subscribe(res => {
       res.drs.forEach(r => {
-        if (r.patient.phase === "Inicial") {
-          this.inicialesSalida.push(r);
-          return;
-        } else if (r.patient.phase === "Intermedia") {
-          this.intermediosSalida.push(r);
-          return;
-        } else {
-          this.avanzadosSalida.push(r);
-          return;
+        if(r.exit === false) {
+          if (r.patient.phase === "Inicial") {
+            this.inicialesSalida.push(r);
+            return;
+          } else if (r.patient.phase === "Intermedia") {
+            this.intermediosSalida.push(r);
+            return;
+          } else {
+            this.avanzadosSalida.push(r);
+            return;
+          }
         }
       });
     });
