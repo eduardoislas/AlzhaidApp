@@ -27,6 +27,7 @@ export interface Patient {
     allergies: Allergy[];
     medicines: any[];
     physicalLimitations: PhysicalLimitations[];
+    assistance: boolean;
 }
 
 export interface Allergy {

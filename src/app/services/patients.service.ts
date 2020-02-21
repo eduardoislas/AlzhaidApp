@@ -31,4 +31,14 @@ export class PatientsService {
   getPatientId(id: string) {
     return this.http.get<RPatient>(`${url}id/${id}`);
   }
+  /**
+   * 
+   * @param id 
+   * @param assistance 
+   */
+  putPatientAssistance(id: string, assistance: boolean) {
+    return this.http.put(`${url}assistance/${id}`, {
+      assistance
+    });
+  }
 }

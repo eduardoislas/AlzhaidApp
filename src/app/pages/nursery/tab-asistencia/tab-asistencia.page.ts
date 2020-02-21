@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { PatientsService } from "src/app/services/patients.service";
 import { AlertController, IonSegment } from "@ionic/angular";
 import { DailyRecordService } from "src/app/services/daily-record.service";
-import { element } from "protractor";
 import Swal from 'sweetalert2';
 
 @Component({
@@ -39,23 +38,25 @@ export class TabAsistenciaPage implements OnInit {
     private patientService: PatientsService,
     private alertCtrl: AlertController,
     private dailyService: DailyRecordService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.iSegmentRegistros.value = this.registro;
 
     this.patientService.getPatients().subscribe(resPatient => {
       resPatient.patients.forEach(patients => {
-        switch (patients.phase) {
-          case "Inicial":
-            this.inicialesEntrada.push(patients);
-            break;
-          case "Intermedia":
-            this.intermediosEntrada.push(patients);
-            break;
-          case "Avanzada":
-            this.avanzadosEntrada.push(patients);
-            break;
+        if (patients.assistance === false) {
+          switch (patients.phase) {
+            case "Inicial":
+              this.inicialesEntrada.push(patients);
+              break;
+            case "Intermedia":
+              this.intermediosEntrada.push(patients);
+              break;
+            case "Avanzada":
+              this.avanzadosEntrada.push(patients);
+              break;
+          }
         }
       });
     });
@@ -135,20 +136,14 @@ export class TabAsistenciaPage implements OnInit {
     if (this.fase === "inicial") {
       this.inicialesSalida.forEach(element => {
         if (data._id === element._id) {
-          this.inicialesSalida.splice(
-            this.intermediosSalida.indexOf(element),
-            1
-          );
+          this.inicialesSalida.splice(this.inicialesSalida.indexOf(element), 1);
           return;
         }
       });
     } else if (this.fase === "intermedia") {
       this.intermediosSalida.forEach(element => {
         if (data._id === element._id) {
-          this.intermediosSalida.splice(
-            this.intermediosSalida.indexOf(element),
-            1
-          );
+          this.intermediosSalida.splice(this.intermediosSalida.indexOf(element), 1);
           return;
         }
       });
@@ -191,6 +186,7 @@ export class TabAsistenciaPage implements OnInit {
         {
           text: "Aceptar",
           handler: blah => {
+            this.patientService.putPatientAssistance( id, true).subscribe();
             this.dailyService.postDailyRecords(id).subscribe();
             this.disparaAlert("Asistencia registrada");
             this.deleteOnAttendance(id);
@@ -205,6 +201,7 @@ export class TabAsistenciaPage implements OnInit {
     la salida de un paciente.
   */
   async departureAlert(data: any) {
+    console.log(data);
     const alert = await this.alertCtrl.create({
       header: "Registro de Salida",
       message: "¿Está seguro de querer registrar esta salida?",
@@ -220,15 +217,10 @@ export class TabAsistenciaPage implements OnInit {
         {
           text: "Aceptar",
           handler: () => {
-            this.dailyService.putExitDailyRecords(data._id).subscribe(
-              res => {
-                this.disparaAlert("Salida registrada");
-              },
-              err => {
-                console.error(err);
-              }
-            );
+            this.dailyService.putExitDailyRecords(data._id).subscribe();
+            this.patientService.putPatientAssistance( data.patient._id, false).subscribe();
             this.deleteOnDeparture(data);
+            this.disparaAlert("Salida registrada");
           }
         }
       ]
@@ -242,8 +234,7 @@ export class TabAsistenciaPage implements OnInit {
   segmentChangedRegistros(event) {
     this.registro = event.detail.value;
 
-    if(this.registro === 'salida') this.getDailyRecords();
-    console.log(this.registro);
+    if (this.registro === 'salida') this.getDailyRecords();
   }
   /* 
     Método encargado de escuchar el segundo dato del arreglo proviniente
@@ -255,24 +246,24 @@ export class TabAsistenciaPage implements OnInit {
     this.fase = data[1];
   }
 
-  disparaAlert(title: string){
+  disparaAlert(title: string) {
     // SweetAlert
     const Toast = Swal.mixin({
       toast: true,
       position: 'center',
       showConfirmButton: false,
-      timer: 1500,
+      timer: 1000,
       timerProgressBar: true,
       onOpen: (toast) => {
         toast.addEventListener('mouseenter', Swal.stopTimer)
         toast.addEventListener('mouseleave', Swal.resumeTimer)
       }
     })
-    
+
     Toast.fire({
       icon: 'success',
       title
-    })
+    });
   }
 
 }
