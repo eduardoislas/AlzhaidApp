@@ -86,7 +86,7 @@ export class PageBitacoraPage implements OnInit {
     });
 
     this.dailyService
-      .putAttitudeDailyRecords(this.paciente._id, conductasSeleccionadas)
+      .putBehaviorDailyRecords(this.paciente._id, conductasSeleccionadas)
       .subscribe(
         res => {
           if(res.success === true) {
