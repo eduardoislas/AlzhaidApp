@@ -3,7 +3,8 @@
         <ion-card fullscreen="fullscreen" *ngFor="let notificacion of notifications" onclick="">
             <ion-item>
                 <ion-avatar slot="start">
-                    <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+                    <img *ngIf="notificacion.high_priority" src="assets\img\notificaciones+P.png">
+                    <img *ngIf="!notificacion.high_priority" src="assets\img\notificaciones-P.png">
                 </ion-avatar>
 
                 <ion-card-title>

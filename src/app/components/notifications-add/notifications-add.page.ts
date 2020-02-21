@@ -20,7 +20,7 @@ export class NotificationsAddPage implements OnInit {
   tipo = '';
   area = '';
   tipoDeAviso = '';
-  tglPrioridad;
+  tglPrioridad = false;
   ExpirationDate;
   textDescripcion;
   btnArea = [];
@@ -41,19 +41,6 @@ export class NotificationsAddPage implements OnInit {
       this.user = val;
     });
   }
-
-  // async openModal() {
-  //   const modal = await this.modalCtrl.create({
-  //     component: UserListPage,
-  //     componentProps: {
-
-  //     },
-  //     backdropDismiss: false
-  //   });
-  //   await modal.present();
-
-  //   const { data } = await modal.onDidDismiss();
-  // }
 
   /*
     Método que obtiene a los pacientes en el dailyrecord
@@ -101,13 +88,11 @@ export class NotificationsAddPage implements OnInit {
     */
   enviar() {
     let notification;
-    console.log(this.ExpirationDate + ', ' + this.textDescripcion + ', '
-              + this.tipoDeAviso + ', ' + this.btnArea + ', ' + this.paciente);
     if (this.ExpirationDate !== undefined && this.textDescripcion !== undefined &&
         this.tipoDeAviso !== '' &&  this.btnArea !== undefined  &&  this.paciente !== undefined ) {
       notification = {
         expiration_date: this.ExpirationDate,
-        high_priority: this.tglPrioridad,
+        priority: this.tglPrioridad,
         description: this.textDescripcion,
         type: this.tipoDeAviso,
         area: this.btnArea,
@@ -119,6 +104,7 @@ export class NotificationsAddPage implements OnInit {
       this.notificationsService.postNotifications(notification)
       .subscribe(res => {
         this.disparaAlert('Notificacion registrada');
+        console.log(notification.priority);
       });
 
       this.salir();
