@@ -11,8 +11,6 @@ import { Location } from "@angular/common";
   styleUrls: ['./page-bitacora.page.scss'],
 })
 export class PageBitacoraPage implements OnInit {
-  @ViewChild(IonRange, { static: true }) iRange: IonRange;
-
   paciente;
 
   tiempoSeleccionado;

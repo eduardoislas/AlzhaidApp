@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
-import { UserListPage } from '../user-list/user-list.page';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
 import { Storage } from '@ionic/storage';
 import { NotificationsService } from 'src/app/services/notifications.service';

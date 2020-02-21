@@ -2,10 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { Storage } from "@ionic/storage";
 import { CatalogService } from "src/app/services/catalog.service";
 import { DailyRecordService } from "src/app/services/daily-record.service";
-import { ModalController } from "@ionic/angular";
-import { PhaseModalActividadesPage } from "../phase-modal-actividades/phase-modal-actividades.page";
 import { Info } from "../../../interfaces/daily-records";
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-tab2",
@@ -36,15 +35,17 @@ export class TabActivacionPage implements OnInit {
   lenguaje = [];
   memoria = [];
   reminiscencia = [];
+  rutaActual;
 
   constructor(
     private catalogService: CatalogService,
     private dailyService: DailyRecordService,
-    private modalCtrl: ModalController,
+    private router: Router,
     private storage: Storage 
     ) {}
 
   ngOnInit() {
+    this.rutaActual = this.router.url;
     this.storage.get("Rol").then(val => {
       this.getDailyProgramsPhase(val);
       this.rol = val;
@@ -104,17 +105,8 @@ export class TabActivacionPage implements OnInit {
   /* 
     Método encargado de abrir el modal de actividades.
   */
-  async openModal(paciente) {
-    const modal = await this.modalCtrl.create({
-      component: PhaseModalActividadesPage,
-      componentProps: {
-        paciente
-      },
-      backdropDismiss: false
-    });
-    await modal.present();
-
-    const { data } = await modal.onDidDismiss();
+  openActividades(paciente) {
+    this.router.navigateByUrl( `${this.rutaActual}/page-actividades`, {state: {data: paciente}} );
   }
   /*
     Método que sirve para volver mayúscula la primera letra de una palabra
