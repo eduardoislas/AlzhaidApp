@@ -1,58 +1,39 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { IonSegment, ModalController } from "@ionic/angular";
+import { IonSegment } from "@ionic/angular";
 import { DailyRecordService } from "src/app/services/daily-record.service";
-import { PhaseModalPage } from "../phase-modal/phase-modal.page";
 import { Storage } from "@ionic/storage";
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-tab3",
-  templateUrl: "./tab3.page.html",
-  styleUrls: ["./tab3.page.scss"]
+  templateUrl: "./tab-bitacora.page.html",
+  styleUrls: ["./tab-bitacora.page.scss"]
 })
-export class Tab3Page implements OnInit {
+export class TabBitacoraPage implements OnInit {
   @ViewChild(IonSegment, { static: true }) iSegment: IonSegment;
-
-  tipoBitacora = "conducta";
+  
   busqueda;
   fase = "inicial";
-
+  
   rol;
-
+  
   pacientes = [];
+  rutaActual = this.router.url;
 
   constructor(
     private dailyService: DailyRecordService,
-    private modalCtrl: ModalController,
     private storage: Storage,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.storage.get("Rol").then(val => {
       this.getTodayDailyRecords(val);
     });
-    this.iSegment.value = this.tipoBitacora;
-  }
-  /* 
-    Método que checa la opción seleccionada en el IonSegment 
-    (Conducta, Comportamiento o Crisis), lo iguala a tipoBitacora 
-    y nomas por ahora.
-  */
-  segmentChanged(event) {
-    this.tipoBitacora = event.detail.value;
   }
   
-  async openModal(paciente) {
-    const modal = await this.modalCtrl.create({
-      component: PhaseModalPage,
-      componentProps: {
-        paciente,
-        tipoBitacora: this.tipoBitacora
-      },
-      backdropDismiss: false
-    });
-    await modal.present();
-
-    const { data } = await modal.onDidDismiss();
+  openBitacora(paciente) {
+    this.router.navigateByUrl( `${this.rutaActual}/page-bitacora`, {state: {data: paciente}} );
   }
   getTodayDailyRecords(value: string) {
     // Se limpian los arreglos antes de agregar nuevos de distintas fases.

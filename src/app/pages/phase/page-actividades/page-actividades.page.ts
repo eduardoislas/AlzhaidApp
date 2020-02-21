@@ -1,17 +1,17 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { DailyRecordService } from "src/app/services/daily-record.service";
-import { ModalController } from "@ionic/angular";
+import { Component, OnInit } from '@angular/core';
 import { Storage } from "@ionic/storage";
-import { Activity } from "src/app/interfaces/daily-records";
-import Swal from "sweetalert2";
+import { Activity } from 'src/app/interfaces/daily-records';
+import { DailyRecordService } from 'src/app/services/daily-record.service';
+import Swal from 'sweetalert2';
+import {Location} from '@angular/common';
 
 @Component({
-  selector: "app-phase-modal-actividades",
-  templateUrl: "./phase-modal-actividades.page.html",
-  styleUrls: ["./phase-modal-actividades.page.scss"]
+  selector: 'app-page-actividades',
+  templateUrl: './page-actividades.page.html',
+  styleUrls: ['./page-actividades.page.scss'],
 })
-export class PhaseModalActividadesPage implements OnInit {
-  @Input() paciente;
+export class PageActividadesPage implements OnInit {
+  paciente;
 
   atencion = [];
   calculo = [];
@@ -28,13 +28,12 @@ export class PhaseModalActividadesPage implements OnInit {
   toggleFecha = false;
   observation;
 
-  constructor(
-    private dailyService: DailyRecordService,
-    private modalCtrl: ModalController,
-    private storage: Storage
-  ) {}
+  constructor( private dailyService: DailyRecordService,
+               private storage: Storage,
+               private location: Location ) { }
 
   ngOnInit() {
+    this.paciente = history.state.data;
     this.storage.get("Rol").then(val => {
       this.getDailyProgramPhase(val);
     });
@@ -186,19 +185,19 @@ export class PhaseModalActividadesPage implements OnInit {
 
 
     this.dailyService.putDailyRecordActivities(this.paciente._id, data).subscribe(res => {
-        this.disparaAlert("Actualizado con éxito");
+      this.disparaAlert("Actualizado con éxito");
 
     }, err => {
-        console.log(err);
-      }
+      console.log(err);
+    }
     );
-
-    this.modalCtrl.dismiss();
+    this.location.back();
+    
   }
 
 
   salirSinArgumentos() {
-    this.modalCtrl.dismiss();
+    this.location.back();
   }
 
   disparaAlert(title: string) {

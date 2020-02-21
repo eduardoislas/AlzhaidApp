@@ -11,30 +11,34 @@ const url = 'https://alzaid.herokuapp.com/catalog/';
 export class CatalogService {
   constructor( private http: HttpClient ) {}
 
-  /*
-    Método GET que obtiene todos los catálogos activos. 
-  */
+  /**
+   * Método GET que obtiene todos los catálogos activos. 
+   */
   getCatalogs() {
     return this.http.get<RootCatalog>(`${url}`);
   }
-  /* 
-    Método GET que obtiene todos los catálogos activos por tipo.
-  */
+  /**
+   * Método GET que obtiene todos los catálogos activos por tipo.
+   * @param type 
+   */
   getCatalogsType(type: string) {
     return this.http.get<RootCatalog>(`${url}${type}`);
   }
-  /* 
-    Método POST que agrega un nuevo catálogo a la base de datos.
-  */
+  /**
+   * Método POST que agrega un nuevo catálogo a la base de datos.
+   * @param name 
+   * @param type 
+   */
   postCatalog(name, type) {
     return this.http.post(`${url}`, {
       name,
       type
     });
   }
-  /* 
-    Método DELETE que inactiva un catálogo sin eliminarlo de la base de datos.
-  */
+  /**
+   * Método DELETE que inactiva un catálogo sin eliminarlo de la base de datos.
+   * @param id 
+   */
   deleteCatalog(id: string) {
     return this.http.delete(`${url}${id}`);
   }

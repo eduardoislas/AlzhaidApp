@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RootPatient, Patient, RPatient } from '../interfaces/patients';
+import { RootPatient, RPatient } from '../interfaces/patients';
 
 const url = 'https://alzaid.herokuapp.com/patient/';
 // const url = 'http://74.208.247.106:3000/patient/'
@@ -11,69 +11,24 @@ const url = 'https://alzaid.herokuapp.com/patient/';
 export class PatientsService {
   constructor(private http: HttpClient) {}
 
-  /*
-    Método GET que obtiene todos los pacientes activos.
-  */
+  /**
+   * Método GET que obtiene todos los pacientes activos.
+   */
   getPatients() {
     return this.http.get<RootPatient>(`${url}`);
   }
-  /*
-    Método GET que obtiene todos los pacientes activos por fase.
-  */
+  /**
+   * Método GET que obtiene todos los pacientes activos por fase.
+   * @param role 
+   */
   getPatientsRole(role: string) {
     return this.http.get<RootPatient>(`${url}${role}`);
   }
-  /*
-   Metodo GET que obtiene RPatient por id
-  */
+  /**
+   * Metodo GET que obtiene RPatient por id
+   * @param id 
+   */
   getPatientId(id: string) {
     return this.http.get<RPatient>(`${url}id/${id}`);
-  }
-  /*
-    Método POST que agrega un paciente nuevo a la base de datos.
-  */
-  postPatients(
-    name: string,
-    lastName: string,
-    birthdate: any,
-    lastNameSecond?: string,
-    registerDate?: any,
-    img?: any
-  ) {
-    return this.http.post<Patient>(`${url}`, {
-      name,
-      lastName,
-      lastNameSecond,
-      birthdate,
-      registerDate,
-      img
-    });
-  }
-  /*
-    Método PUT que actualiza un paciente de la base de datos.
-  */
-  putPatients(
-    id: string,
-    name: string,
-    lastName: string,
-    birthdate: any,
-    lastNameSecond?: string,
-    registerDate?: any,
-    img?: any
-  ) {
-    return this.http.put<Patient>(`${url}${id}`, {
-      name,
-      lastName,
-      lastNameSecond,
-      birthdate,
-      registerDate,
-      img
-    });
-  }
-  /*
-    Método DELETE que da de baja un paciente sin eliminarlo de la base de datos.
-  */
-  deletePatients(id) {
-    return this.http.delete(`${url}${id}`);
   }
 }
