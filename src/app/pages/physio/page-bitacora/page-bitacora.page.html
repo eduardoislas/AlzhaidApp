@@ -1,0 +1,118 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-title>Humor Terapia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="{{ paciente.patient.img }}" />
+      </ion-avatar>
+      <ion-label>{{ paciente.patient.name + ' ' + paciente.patient.lastName }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-radio-group name="cantidadComida" (ionChange)="radioAntesComida( $event )">
+      <ion-list-header>Humor antes de terapia</ion-list-header>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label>Negativo</ion-label>
+              <ion-radio value="negativo"></ion-radio>
+            </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label>Neutral</ion-label>
+              <ion-radio value="neutral"></ion-radio>
+            </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label>Positivo</ion-label>
+              <ion-radio value="positivo"></ion-radio>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-radio-group>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Hora Inicio</ion-label>
+      <ion-datetime display-format="HH:mm A" 
+                    picker-format="HH:mm A"
+                    [(ngModel)]="horaInicio"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Hora Fin</ion-label>
+      <ion-datetime display-format="HH:mm A" 
+                    picker-format="HH:mm A"
+                    [(ngModel)]="horaFin"></ion-datetime>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item *ngFor="let item of actividades">
+      <ion-label>{{ item.name }}</ion-label>
+      <ion-toggle [(ngModel)]="item.selected"></ion-toggle>
+      <ion-range *ngIf="item.selected"
+                  pin
+                  snaps
+                  min="0" max="5"
+                  [(ngModel)]="item.score">
+        <ion-icon size="small" slot="start" name="star" color="medium"></ion-icon>
+        <ion-icon slot="end" name="star" color="medium"></ion-icon>
+      </ion-range>
+    </ion-item>
+  </ion-list>
+
+
+  <ion-list>
+    <ion-radio-group name="cantidadComida" (ionChange)="radioDespuesComida( $event )">
+      <ion-list-header>Humor después de terapia</ion-list-header>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label>Negativo</ion-label>
+              <ion-radio value="negativo"></ion-radio>
+            </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label>Neutral</ion-label>
+              <ion-radio value="neutral"></ion-radio>
+            </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label>Positivo</ion-label>
+              <ion-radio value="positivo"></ion-radio>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-radio-group>
+  </ion-list>
+  
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button (click)="salirSinArgumentos()" expand="full" color="secondary">
+          Salir
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button (click)="salirConArgumentos()" expand="full">
+          Enviar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

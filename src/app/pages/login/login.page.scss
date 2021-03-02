@@ -1,0 +1,19 @@
+.image-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media(min-width: 768px) {
+    .image-content > .alzaid-logo {
+        width: 25%;
+    }
+}
+
+.form-content {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    bottom: 25%;
+    right: 25%;
+}

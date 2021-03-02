@@ -1,0 +1,87 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-title>Intervención Terapéutica</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item class="patient-item">
+    <ion-avatar slot="start">
+      <img src="{{ paciente.patient.img }}">
+    </ion-avatar>
+    <ion-label>{{ paciente.patient.name + ' ' + paciente.patient.lastName}}</ion-label>
+    <ion-label slot="end">{{ paciente.patient.phase }}</ion-label>
+  </ion-item>
+
+  <ion-list>
+    <ion-radio-group name="auto" (ionChange)="timeOfDay( $event )">
+      <ion-list-header>Tiempo del día</ion-list-header>
+      <ion-item>
+        <ion-label>Mañana</ion-label>
+        <ion-radio slot="end" value="Mañana"></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Tarde</ion-label>
+        <ion-radio slot="end" value="Tarde"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+  <!-- Lista de Conductas -->
+  <ion-list>
+    <ion-list-header>Conductas</ion-list-header>
+
+    <ion-item *ngFor="let item of catalogoConductas">
+      <ion-label>{{ item.name }}</ion-label>
+
+      <ion-toggle [(ngModel)]="item.selected"></ion-toggle>
+
+      <ion-range *ngIf="item.selected"
+                 pin
+                 snaps
+                 min="0" max="5"
+                 [(ngModel)]="item.score"
+                 (ionChange)="activityScore( $event )">
+
+        <ion-icon slot="start" size="small" color="medium" name="star"></ion-icon>
+        <ion-icon slot="end" color="medium" name="star"></ion-icon>
+      </ion-range>
+    </ion-item>
+  </ion-list>
+
+  <hr>
+
+  <!-- <div *ngIf="tipoBitacora === 'crisis'">
+    <ion-list-header>Detalles</ion-list-header>
+    <ion-card>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="stacked">Explicación del suceso</ion-label>
+          <ion-textarea [(ngModel)]="observation"></ion-textarea>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </div> -->
+
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button (click)="salirSinArgumentos()"
+                    expand="full"
+                    color="secondary">
+          Salir
+        </ion-button>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-button (click)="salirConArgumentos()"
+                    expand="full">
+          Enviar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

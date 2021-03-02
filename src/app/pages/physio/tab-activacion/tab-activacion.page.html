@@ -1,0 +1,87 @@
+<ion-header no-border>
+  <ion-toolbar>
+
+    <ion-segment #iSegmentRegistros (ionChange)="segmentChangedRegistros( $event )" mode="md">
+      <ion-segment-button value="orden">
+        <ion-label>Todo En orden</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="reporte">
+        <ion-label>Reportar Desempeño</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="slides" *ngIf="this.opcion === 'orden'">
+    <div *ngIf="infoEnviada === false">
+      <ion-slides [options]="sliderOpts">
+        <ion-slide>
+  
+          <ion-button (click)="sendData()">
+            Todo en orden
+          </ion-button>
+  
+        </ion-slide>
+      </ion-slides>
+    </div>
+
+    <div *ngIf="infoEnviada === true">
+      <ion-slides [options]="sliderOpts">
+        <ion-slide>
+  
+          <ion-list>
+            Activación física ya reportada.
+          </ion-list>
+  
+        </ion-slide>
+      </ion-slides>
+    </div>
+    
+  </div>
+
+  <div class="reporte" *ngIf="this.opcion === 'reporte'">
+    <div *ngIf="infoEnviada === false">
+      <ion-list>
+        <ion-list-header>
+          <ion-label>Pacientes del día</ion-label>
+        </ion-list-header>
+
+        <ion-item *ngFor="let paciente of pacientes">
+          <ion-avatar slot="start">
+            <img src="{{ paciente.patient.img }}" />
+          </ion-avatar>
+
+          <ion-label>{{ paciente.patient.name + ' ' + paciente.patient.lastName}}</ion-label>
+
+          <ion-toggle slot="end" [(ngModel)]="paciente.selected"></ion-toggle>
+
+          <ion-range *ngIf="paciente.selected" pin snaps min="0" max="5" [(ngModel)]="paciente.score"
+            (ionChange)="rangeChange($event)">
+            <ion-icon size="small" slot="start" name="star" color="medium"></ion-icon>
+            <ion-icon slot="end" name="star" color="medium"></ion-icon>
+          </ion-range>
+
+        </ion-item>
+      </ion-list>
+
+      <br><br>
+      <ion-button (click)="sendData()" expand="full">
+        Enviar
+      </ion-button>
+    </div>
+
+
+    <div class="slides" *ngIf="infoEnviada === true">
+      <ion-slides [options]="sliderOpts">
+        <ion-slide>
+          <ion-label>Activación física ya reportada.</ion-label>
+        </ion-slide>
+      </ion-slides>
+    </div>
+
+  </div>
+
+</ion-content>

@@ -1,0 +1,26 @@
+<ion-content>
+
+  <div class="form-content">
+
+    <div class="image-content">
+      <ion-img class="alzaid-logo" src="../../../assets/ic_launcher.png"></ion-img>
+    </div>
+
+    <form>
+      <ion-list>
+        <ion-item>
+          <ion-input placeholder="Usuario" type="text" #name required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="Contraseña" type="password" #password required></ion-input>
+        </ion-item>
+      </ion-list>
+
+      <ion-button type="submit" expand="block" (click)="login(name.value, password.value)">
+        Iniciar Sesión
+      </ion-button>
+    </form>
+  </div>
+
+
+</ion-content>

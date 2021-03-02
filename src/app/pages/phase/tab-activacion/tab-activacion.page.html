@@ -1,0 +1,134 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-segment #iSegmentRegistros (ionChange)="segmentChangedRegistros( $event )" mode="md">
+      <ion-segment-button value="programa">
+        <ion-label>Programa Diario</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="desempeno">
+        <ion-label>Desempeño</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <ion-searchbar *ngIf="opcion === 'desempeno'" 
+                   #iSearchbar 
+                   animated 
+                   (ionChange)="searchBar( $event )"
+                   placeholder="Buscar paciente...">
+    </ion-searchbar>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+
+  <div *ngIf="opcion === 'programa'">
+    <div class="daily-msg" *ngIf="emptyDailyRecords === false">
+      <ion-label>Ya existe un programa diario</ion-label>
+    </div>
+
+    <ion-list *ngIf="emptyDailyRecords === true">
+      <ion-list-header>
+        <ion-label>Tipo de Actividades</ion-label>
+      </ion-list-header>
+
+      <!-- Atención -->
+      <ion-item>
+        <ion-label>Atención</ion-label>
+        <ion-toggle [(ngModel)]="toggleAtencion" slot="end"></ion-toggle>
+      </ion-item>
+      <div *ngIf="toggleAtencion" class="ion-padding">
+        <ion-item *ngFor="let item of atencion">
+          <ion-label color="primary">{{ item.name }}</ion-label>
+          <ion-toggle color="secondary" [(ngModel)]="item.selected"></ion-toggle>
+        </ion-item>
+      </div>
+
+      <!-- Calculo -->
+      <ion-item>
+        <ion-label>Cálculo</ion-label>
+        <ion-toggle [(ngModel)]="toggleCalculo" slot="end"></ion-toggle>
+      </ion-item>
+      <div *ngIf="toggleCalculo" class="ion-padding">
+        <ion-item *ngFor="let item of calculo">
+          <ion-label color="primary">{{ item.name }}</ion-label>
+          <ion-toggle color="secondary" [(ngModel)]="item.selected"></ion-toggle>
+        </ion-item>
+      </div>
+
+      <!-- Estmimulación sensorial -->
+      <ion-item>
+        <ion-label>Estimulación Sensorial</ion-label>
+        <ion-toggle [(ngModel)]="toggleEstimulacion" slot="end"></ion-toggle>
+      </ion-item>
+      <div *ngIf="toggleEstimulacion" class="ion-padding">
+        <ion-item *ngFor="let item of estimulacion">
+          <ion-label color="primary">{{ item.name }}</ion-label>
+          <ion-toggle color="secondary" [(ngModel)]="item.selected"></ion-toggle>
+        </ion-item>
+      </div>
+
+      <!-- Lenguaje -->
+      <ion-item>
+        <ion-label>Lenguaje</ion-label>
+        <ion-toggle [(ngModel)]="toggleLenguaje" slot="end"></ion-toggle>
+      </ion-item>
+      <div *ngIf="toggleLenguaje" class="ion-padding">
+        <ion-item *ngFor="let item of lenguaje">
+          <ion-label color="primary">{{ item.name }}</ion-label>
+          <ion-toggle color="secondary" [(ngModel)]="item.selected"></ion-toggle>
+        </ion-item>
+      </div>
+
+      <!-- Memoria -->
+      <ion-item>
+        <ion-label>Memoria</ion-label>
+        <ion-toggle [(ngModel)]="toggleMemoria" slot="end"></ion-toggle>
+      </ion-item>
+      <div *ngIf="toggleMemoria" class="ion-padding">
+        <ion-item *ngFor="let item of memoria">
+          <ion-label color="primary">{{ item.name }}</ion-label>
+          <ion-toggle color="secondary" [(ngModel)]="item.selected"></ion-toggle>
+        </ion-item>
+      </div>
+
+      <!-- Reminiscencia -->
+      <ion-item>
+        <ion-label>Reminiscencia</ion-label>
+        <ion-toggle [(ngModel)]="toggleReminiscencia" slot="end"></ion-toggle>
+      </ion-item>
+      <div *ngIf="toggleReminiscencia" class="ion-padding">
+        <ion-item *ngFor="let item of reminiscencia">
+          <ion-label color="primary">{{ item.name }}</ion-label>
+          <ion-toggle color="secondary" [(ngModel)]="item.selected"></ion-toggle>
+        </ion-item>
+      </div>
+
+      <!-- Boton para enviar datos -->
+      <ion-button (click)="salirConArgumentos()" expand="full">
+        Enviar
+      </ion-button>
+    </ion-list>
+  </div>
+
+
+
+
+
+
+
+  <!-- Lista de desempeño -->
+  <ion-list *ngIf="opcion === 'desempeno'" class="ion-padding-top">
+    <ion-item *ngFor="let paciente of pacientes" (click)="openActividades( paciente )">
+      <ion-avatar slot="start">
+        <img src="{{ paciente.patient.img }}" />
+      </ion-avatar>
+      <ion-label class="ion-text-capitalize">
+        {{ paciente.patient.name + ' ' + paciente.patient.lastName }}
+      </ion-label>
+      <ion-icon slot="end" name="arrow-forward" mode="ios"></ion-icon>
+    </ion-item>
+  </ion-list>
+
+
+</ion-content>

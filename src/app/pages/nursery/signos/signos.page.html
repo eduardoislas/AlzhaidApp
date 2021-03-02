@@ -1,0 +1,138 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-title>Signos Vitales</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="{{ paciente.patient.img }}">
+      </ion-avatar>
+      <ion-label>{{ paciente.patient.name + ' ' + paciente.patient.lastName}}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Hora</ion-label>
+      <ion-datetime display-format="HH:mm A" 
+                    picker-format="HH:mm A"
+                    [(ngModel)]="today"></ion-datetime>
+    </ion-item>
+  </ion-list>
+
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6">
+
+        <!-- Presión arterial -->
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              <ion-toggle [(ngModel)]="togglePresion"></ion-toggle>
+              <ion-item>
+                <ion-input inputmode="number"
+                           pattern="^([1-9][0-9]{0,2}|1000)$" 
+                           placeholder="#"
+                           [(ngModel)]="presionA" 
+                           [disabled]="!togglePresion"></ion-input>
+
+                <ion-label>/</ion-label>
+
+                <ion-input inputmode="number" 
+                           placeholder="#"
+                           pattern="^([1-9][0-9]{0,2}|1000)$"
+                           [(ngModel)]="presionB" 
+                           [disabled]="!togglePresion"></ion-input>
+              </ion-item>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-label>Presión Arterial</ion-label>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Frecuencia Cardiaca -->
+      <ion-col size="6">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              <ion-toggle [(ngModel)]="toggleFrecuencia"></ion-toggle>
+              <ion-item>
+                <ion-input inputmode="number" 
+                           placeholder="#"
+                           [(ngModel)]="latidos"
+                           [disabled]="!toggleFrecuencia"></ion-input>
+              </ion-item>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-label>Frecuencia Cardíaca</ion-label>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6">
+
+        <!-- Saturación oxígeno -->
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              <ion-toggle [(ngModel)]="toggleSaturacion"></ion-toggle>
+              <ion-item>
+                <ion-input inputmode="number" 
+                           placeholder="#"
+                           [(ngModel)]="oxigeno"
+                           [disabled]="!toggleSaturacion"></ion-input>
+              </ion-item>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-label>Saturación oxígeno</ion-label>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Glucosa -->
+      <ion-col size="6">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              <ion-toggle [(ngModel)]="toggleGlucosa"></ion-toggle>
+              <ion-item>
+                <ion-input inputmode="number" 
+                           placeholder="#"
+                           [(ngModel)]="glucosa"
+                           [disabled]="!toggleGlucosa"></ion-input>
+              </ion-item>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-label>Glucosa</ion-label>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button color="primary" expand="full" (click)="salirSinArgumentos()">
+          Salir
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button color="secondary" expand="full" (click)="salirConArgumentos()">
+          Aceptar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

@@ -1,0 +1,23 @@
+<ion-tabs>
+    <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="tab-avisos">
+            <ion-icon name="notifications-outline"></ion-icon>
+            <ion-label>Avisos</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="tab-colacion">
+            <ion-icon name="logo-apple"></ion-icon>
+            <ion-label>Colación</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="tab-comida">
+            <ion-icon name="pizza"></ion-icon>
+            <ion-label>Comida</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button (click)="cerrarSesion()">
+            <ion-icon name="log-out"></ion-icon>
+            <ion-label>Cerrar sesión</ion-label>
+        </ion-tab-button>
+    </ion-tab-bar>
+</ion-tabs>

@@ -1,0 +1,8 @@
+{
+  "name": "AlzhaidApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular",
+  "id": "1d66df2a"
+}
