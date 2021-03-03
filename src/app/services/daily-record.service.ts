@@ -31,6 +31,13 @@ export class DailyRecordService {
     return this.http.get(`${url}patient/${id}`);
   }
   /**
+   * Método GET que obtiene el registro diario actual de un determinado paciente ------------------------------------------------
+   * @param id 
+   */
+  getCurrentDailyRecordPatient(id: any) {
+    return this.http.get(`${url}patient/today/${id}`);
+  }
+  /**
    * Método GET que obtiene todos los registros diarios del día.
    */
   getDailyRecordsToday() {
