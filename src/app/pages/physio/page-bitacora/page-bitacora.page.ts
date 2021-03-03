@@ -116,23 +116,64 @@ export class PageBitacoraPage implements OnInit {
         this.humorDespues = 3;
         break;
     }
-    let data = {
-      startMood: this.humorAntes,
-      endMood: this.humorDespues,
-      startTime: this.horaInicio,
-      endTime: this.horaFin,
-      activities: actividadesSeleccionadas
-    }
-    console.log(data);
 
-    this.dailyService.putDailyRecordsPhysio(this.paciente._id, data).subscribe(res => {
-      if (res.success === true) {
-        this.disparaAlert('Datos enviados correctamente');
-        this.router.navigateByUrl('physio/tab-bitacora');
+    if (actividadesSeleccionadas.length || this.humorAntes!=undefined || this.humorDespues!=undefined) { // Si el registro no es vacío guardalo
+      if(this.horaFin >= this.horaInicio){ // Si la hora fin es mayor o igual a la de entrada
+        let data = {
+          startMood: this.humorAntes,
+          endMood: this.humorDespues,
+          startTime: this.horaInicio,
+          endTime: this.horaFin,
+          activities: actividadesSeleccionadas
+        }
+        console.log(data);
+    
+        this.dailyService.putDailyRecordsPhysio(this.paciente._id, data).subscribe(res => {
+          if (res.success === true) {
+            this.disparaAlert('Datos enviados correctamente');
+            this.router.navigateByUrl('physio/tab-bitacora');
+          }
+        }, err => {
+          console.log(err);
+        });
+      } else { // Si la hora fin NO es mayor o igual a la de entrada
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'center',
+          showConfirmButton: false,
+          timer: 1500,
+          timerProgressBar: true,
+          onOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+  
+        Toast.fire({
+          icon: 'warning',
+          title: 'Horas no válidas'
+        })
       }
-    }, err => {
-      console.log(err);
-    });
+      
+    } else { // Si el registro es vacío no lo guardes y muestra un mensaje de error
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+        onOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+
+      Toast.fire({
+        icon: 'warning',
+        title: 'Bitácora vacía'
+      })
+    }
+    
   }
 
   /**
