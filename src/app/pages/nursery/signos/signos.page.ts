@@ -44,7 +44,25 @@ export class SignosPage implements OnInit {
     if (this.toggleGlucosa === true) this.getGlucosaValues();
     if (this.toggleSaturacion === true) this.getSaturacionValues();
 
-    this.dailyService
+    if(!this.info.length){ //Si NO hubo registros... error
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+        onOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+
+      Toast.fire({
+        icon: 'warning',
+        title: 'Todos los campos están vacíos'
+      })
+    } else { // Si hubo registros se guardan
+      this.dailyService
       .putVitalDailyRecords(this.paciente._id, this.info)
       .subscribe(
         res => {
@@ -58,6 +76,7 @@ export class SignosPage implements OnInit {
           console.log("error", err);
         }
       );
+    }
   }
   /* 
     Método que prepara los datos de Presion Arterial para 
@@ -70,7 +89,27 @@ export class SignosPage implements OnInit {
       value: this.presionA,
       valueB: this.presionB
     };
-    this.info.push(data);
+
+    if(data.value == undefined){ // Si se activaron los campos de presion arterial pero se dejaron vacíos
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+        onOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+
+      Toast.fire({
+        icon: 'warning',
+        title: 'Presión arterial no válida'
+      })
+    } else { // Si se activaron los campos de presion arterial y NO se dejaron vacíos
+      this.info.push(data);
+    }
   }
   /* 
     Método que prepara los datos de Frecuencia cardiaca para 
@@ -82,7 +121,27 @@ export class SignosPage implements OnInit {
       date: this.today,
       value: this.latidos
     };
-    this.info.push(data);
+
+    if(data.value == undefined){
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+        onOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+
+      Toast.fire({
+        icon: 'warning',
+        title: 'Frecuencia cardiaca no válida'
+      })
+    } else{
+      this.info.push(data);
+    }    
   }
   /* 
     Método que prepara los datos de saturación para posteriormente
@@ -94,7 +153,27 @@ export class SignosPage implements OnInit {
       date: this.today,
       value: this.oxigeno
     };
-    this.info.push(data);
+
+    if(data.value == undefined){
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+        onOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+
+      Toast.fire({
+        icon: 'warning',
+        title: 'Saturación de oxígeno no válida'
+      })
+    } else {
+      this.info.push(data);
+    }
   }
   /* 
     Método que prepara los datos de glucosa para posteriormente
@@ -106,7 +185,27 @@ export class SignosPage implements OnInit {
       date: this.today,
       value: this.glucosa
     };
-    this.info.push(data);
+
+    if(data.value == undefined){
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+        onOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+
+      Toast.fire({
+        icon: 'warning',
+        title: 'Nivel de glucosa no válido'
+      })
+    } else{
+      this.info.push(data);
+    }
   }
 
   disparaAlert(title: string){
