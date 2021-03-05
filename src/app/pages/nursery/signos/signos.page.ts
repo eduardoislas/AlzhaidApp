@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
 import { VitalSign } from 'src/app/interfaces/daily-records';
-import Swal from 'sweetalert2';
+import Swal, { SweetAlertIcon } from 'sweetalert2';
 
 @Component({
   selector: 'app-signos',
@@ -35,40 +35,53 @@ export class SignosPage implements OnInit {
     this.today = new Date().toISOString();
   }
 
-  salirSinArgumentos() {
-    this.router.navigateByUrl('/nursery/tab-signos')
+  mostrarAlerta(msg: String, icon: SweetAlertIcon){
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'center',
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+      onOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    });
+
+    Toast.fire({
+      icon: icon,
+      title: msg
+    });
   }
-  salirConArgumentos() {
-    if (this.togglePresion === true) this.getPresionValues();
-    if (this.toggleFrecuencia === true) this.getFrecuenciaValues();
-    if (this.toggleGlucosa === true) this.getGlucosaValues();
-    if (this.toggleSaturacion === true) this.getSaturacionValues();
+
+  salirSinArgumentos() {
+    this.router.navigateByUrl('/nursery/tab-signos');
+  }
+
+  salirConArgumentos(): Boolean {
+    if (this.togglePresion === true){
+      if(this.getPresionValues() == false) return false; // Para que no se guarde incompleto
+    }
+    if (this.toggleFrecuencia === true){
+      if(this.getFrecuenciaValues() == false) return false; // Para que no se guarde incompleto
+    }
+    if (this.toggleGlucosa === true) {
+      if(this.getGlucosaValues() == false) return false; // Para que no se guarde incompleto
+    }
+    if (this.toggleSaturacion === true){
+      if(this.getSaturacionValues() == false) return false; // Para que no se guarde incompleto
+    }  
 
     if(!this.info.length){ //Si NO hubo registros... error
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'center',
-        showConfirmButton: false,
-        timer: 1500,
-        timerProgressBar: true,
-        onOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-      })
-
-      Toast.fire({
-        icon: 'warning',
-        title: 'Todos los campos están vacíos'
-      })
+      this.mostrarAlerta('Todos los campos están vacíos','warning');
+      return false;
     } else { // Si hubo registros se guardan
       this.dailyService
       .putVitalDailyRecords(this.paciente._id, this.info)
       .subscribe(
         res => {
-          // SweetAlert
           if(res.success === true) {
-            this.disparaAlert("Signos vitales actualizados");
+            this.mostrarAlerta('Signos vitales actualizados','success');
             this.router.navigateByUrl('/nursery/tab-signos');
           }
         },
@@ -77,12 +90,15 @@ export class SignosPage implements OnInit {
         }
       );
     }
+
+    return true;
   }
+
   /* 
     Método que prepara los datos de Presion Arterial para 
     posteriormente agregarlos al arreglo de información.
   */
-  getPresionValues() {
+  getPresionValues(): Boolean {
     let data: VitalSign = {
       vitalSign: "Presion arterial",
       date: this.today,
@@ -90,59 +106,55 @@ export class SignosPage implements OnInit {
       valueB: this.presionB
     };
 
-    if(data.value == undefined){ // Si se activaron los campos de presion arterial pero se dejaron vacíos
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'center',
-        showConfirmButton: false,
-        timer: 1500,
-        timerProgressBar: true,
-        onOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
+    if(data.value == undefined || data.valueB == undefined){ // Si alguno es undefined
+      this.mostrarAlerta('Presión arterial no válida','warning');
+      return false;
+    } else{ // Si no es undefined
+      if(!isNaN(data.value) && !isNaN(data.valueB)){ //  Si ambos son numero
+        if(data.value == 0 || data.valueB == 0){
+          this.mostrarAlerta('Presión arterial no válida','warning');
+          return false;
+        }else{
+          this.info.push(data);
+          return true;
         }
-      })
-
-      Toast.fire({
-        icon: 'warning',
-        title: 'Presión arterial no válida'
-      })
-    } else { // Si se activaron los campos de presion arterial y NO se dejaron vacíos
-      this.info.push(data);
+      }else{ // Si alguno no es un numero
+        this.mostrarAlerta('Presión arterial no válida','warning');
+        return false;
+      }      
     }
   }
+
   /* 
     Método que prepara los datos de Frecuencia cardiaca para 
     posteriormente agregarlos al arreglo de información.
   */
-  getFrecuenciaValues() {
+  getFrecuenciaValues(): Boolean {
     let data: VitalSign = {
       vitalSign: "Frecuencia cardiaca",
       date: this.today,
       value: this.latidos
     };
 
-    if(data.value == undefined){
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'center',
-        showConfirmButton: false,
-        timer: 1500,
-        timerProgressBar: true,
-        onOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
+    if(data.value == undefined){ // Si es undefined
+      this.mostrarAlerta('Frecuencia cardiaca no válida','warning');
+      return false;
+    } else{ // Si no es undefined
+      if(!isNaN(data.value)){ //  Si es un numero
+        if(data.value == 0){
+          this.mostrarAlerta('Frecuencia cardiaca no válida','warning');
+          return false;
+        }else{
+          this.info.push(data);
+          return true;
         }
-      })
-
-      Toast.fire({
-        icon: 'warning',
-        title: 'Frecuencia cardiaca no válida'
-      })
-    } else{
-      this.info.push(data);
-    }    
+      }else{ // Si no es un numero
+        this.mostrarAlerta('Frecuencia cardiaca no válida','warning');
+        return false;
+      }      
+    }
   }
+
   /* 
     Método que prepara los datos de saturación para posteriormente
     agregarlos al arreglo de información.
@@ -154,27 +166,25 @@ export class SignosPage implements OnInit {
       value: this.oxigeno
     };
 
-    if(data.value == undefined){
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'center',
-        showConfirmButton: false,
-        timer: 1500,
-        timerProgressBar: true,
-        onOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
+    if(data.value == undefined){ // Si es undefined
+      this.mostrarAlerta('Saturación de oxígeno no válida','warning');
+      return false;
+    } else{ // Si no es undefined
+      if(!isNaN(data.value)){ //  Si es un numero
+        if(data.value == 0){
+          this.mostrarAlerta('Saturación de oxígeno no válida','warning');
+          return false;
+        }else{
+          this.info.push(data);
+          return true;
         }
-      })
-
-      Toast.fire({
-        icon: 'warning',
-        title: 'Saturación de oxígeno no válida'
-      })
-    } else {
-      this.info.push(data);
+      }else{ // Si no es un numero
+        this.mostrarAlerta('Saturación de oxígeno no válida','warning');
+        return false;
+      }      
     }
   }
+
   /* 
     Método que prepara los datos de glucosa para posteriormente
     agregarlos al arreglo de información.
@@ -186,46 +196,22 @@ export class SignosPage implements OnInit {
       value: this.glucosa
     };
 
-    if(data.value == undefined){
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'center',
-        showConfirmButton: false,
-        timer: 1500,
-        timerProgressBar: true,
-        onOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
+    if(data.value == undefined){ // Si es undefined
+      this.mostrarAlerta('Nivel de glucosa no válido','warning');
+      return false;
+    } else{ // Si no es undefined
+      if(!isNaN(data.value)){ //  Si es un numero
+        if(data.value == 0){
+          this.mostrarAlerta('Nivel de glucosa no válido','warning');
+          return false;
+        }else{
+          this.info.push(data);
+          return true;
         }
-      })
-
-      Toast.fire({
-        icon: 'warning',
-        title: 'Nivel de glucosa no válido'
-      })
-    } else{
-      this.info.push(data);
+      }else{ // Si no es un numero
+        this.mostrarAlerta('Nivel de glucosa no válido','warning');
+        return false;
+      }      
     }
   }
-
-  disparaAlert(title: string){
-    // SweetAlert
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'center',
-      showConfirmButton: false,
-      timer: 1500,
-      timerProgressBar: true,
-      onOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-      }
-    })
-    
-    Toast.fire({
-      icon: 'success',
-      title
-    });
-  }
-
 }
