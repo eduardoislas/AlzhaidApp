@@ -54,6 +54,22 @@ export class SignosPage implements OnInit {
     });
   }
 
+  numeroValido(valor): Boolean{
+    if(valor == undefined){ // Si es undefined
+      return false;
+    } else{ // Si no es undefined
+      if(!isNaN(valor)){ //  Si es un numero
+        if(valor == 0){
+          return false;
+        }else{
+          return true;
+        }
+      }else{ // Si no es un numero
+        return false;
+      }      
+    }
+  }
+
   salirSinArgumentos() {
     this.router.navigateByUrl('/nursery/tab-signos');
   }
@@ -106,22 +122,12 @@ export class SignosPage implements OnInit {
       valueB: this.presionB
     };
 
-    if(data.value == undefined || data.valueB == undefined){ // Si alguno es undefined
+    if(this.numeroValido(data.value) && this.numeroValido(data.valueB)){
+      this.info.push(data);
+      return true;
+    }else{
       this.mostrarAlerta('Presión arterial no válida','warning');
       return false;
-    } else{ // Si no es undefined
-      if(!isNaN(data.value) && !isNaN(data.valueB)){ //  Si ambos son numero
-        if(data.value == 0 || data.valueB == 0){
-          this.mostrarAlerta('Presión arterial no válida','warning');
-          return false;
-        }else{
-          this.info.push(data);
-          return true;
-        }
-      }else{ // Si alguno no es un numero
-        this.mostrarAlerta('Presión arterial no válida','warning');
-        return false;
-      }      
     }
   }
 
@@ -135,23 +141,13 @@ export class SignosPage implements OnInit {
       date: this.today,
       value: this.latidos
     };
-
-    if(data.value == undefined){ // Si es undefined
+    
+    if(this.numeroValido(data.value)){
+      this.info.push(data);
+      return true;
+    }else{
       this.mostrarAlerta('Frecuencia cardiaca no válida','warning');
       return false;
-    } else{ // Si no es undefined
-      if(!isNaN(data.value)){ //  Si es un numero
-        if(data.value == 0){
-          this.mostrarAlerta('Frecuencia cardiaca no válida','warning');
-          return false;
-        }else{
-          this.info.push(data);
-          return true;
-        }
-      }else{ // Si no es un numero
-        this.mostrarAlerta('Frecuencia cardiaca no válida','warning');
-        return false;
-      }      
     }
   }
 
@@ -166,22 +162,12 @@ export class SignosPage implements OnInit {
       value: this.oxigeno
     };
 
-    if(data.value == undefined){ // Si es undefined
+    if(this.numeroValido(data.value)){
+      this.info.push(data);
+      return true;
+    }else{
       this.mostrarAlerta('Saturación de oxígeno no válida','warning');
       return false;
-    } else{ // Si no es undefined
-      if(!isNaN(data.value)){ //  Si es un numero
-        if(data.value == 0){
-          this.mostrarAlerta('Saturación de oxígeno no válida','warning');
-          return false;
-        }else{
-          this.info.push(data);
-          return true;
-        }
-      }else{ // Si no es un numero
-        this.mostrarAlerta('Saturación de oxígeno no válida','warning');
-        return false;
-      }      
     }
   }
 
@@ -196,22 +182,12 @@ export class SignosPage implements OnInit {
       value: this.glucosa
     };
 
-    if(data.value == undefined){ // Si es undefined
+    if(this.numeroValido(data.value)){
+      this.info.push(data);
+      return true;
+    }else{
       this.mostrarAlerta('Nivel de glucosa no válido','warning');
       return false;
-    } else{ // Si no es undefined
-      if(!isNaN(data.value)){ //  Si es un numero
-        if(data.value == 0){
-          this.mostrarAlerta('Nivel de glucosa no válido','warning');
-          return false;
-        }else{
-          this.info.push(data);
-          return true;
-        }
-      }else{ // Si no es un numero
-        this.mostrarAlerta('Nivel de glucosa no válido','warning');
-        return false;
-      }      
     }
   }
 }
