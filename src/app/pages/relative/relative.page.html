@@ -1,0 +1,23 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="tab-avisos">
+          <ion-icon name="notifications"></ion-icon>
+          <ion-label>Avisos</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="tab-asistencia">
+          <ion-icon name="checkbox-outline"></ion-icon>
+          <ion-label>Asistencia</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="tab-signos">
+          <ion-icon name="heart-half"></ion-icon>
+          <ion-label>Signos</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button (click)="cerrarSesion()">
+          <ion-icon name="log-out"></ion-icon>
+          <ion-label>Cerrar sesión</ion-label>
+      </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

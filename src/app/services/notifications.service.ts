@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RootNotification } from '../interfaces/notifications';
 
-
-const url = 'https://alzaid.herokuapp.com/notification';
+const url = 'http://localhost:3000/notification/';
+//const url = 'https://alzaid.herokuapp.com/notification';
 // const url = 'http://74.208.247.106:3000/notification';
 
 @Injectable({

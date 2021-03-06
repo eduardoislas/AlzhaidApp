@@ -34,7 +34,11 @@ const routes: Routes = [
   {
     path: 'user-list',
     loadChildren: () => import('./components/user-list/user-list.module').then( m => m.UserListPageModule)
+  },  {
+    path: 'relative',
+    loadChildren: () => import('./pages/relative/relative.module').then( m => m.RelativePageModule)
   },
+
 
 
 ];
