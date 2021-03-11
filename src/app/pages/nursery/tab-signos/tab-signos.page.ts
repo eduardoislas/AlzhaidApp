@@ -9,16 +9,17 @@ import { Router } from '@angular/router';
 })
 export class TabSignosPage implements OnInit {
   rutaActual = this.router.url;
-  
+
   busqueda;
   fase = "inicial";
 
   pacientes = [];
+  pacientesStrings = []; // variable para guardar pacientes stringificados 
 
   constructor(
     private dailyService: DailyRecordService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.patientsRole();
@@ -33,9 +34,9 @@ export class TabSignosPage implements OnInit {
   eventListener(data: string) {
     this.busqueda = data[0];
     this.fase = data[1];
-
     this.patientsRole();
   }
+
   /* 
     Método que obtiene a los pacientes según su fase:
     Inicial, Intermedia o Avanzada.
@@ -44,17 +45,21 @@ export class TabSignosPage implements OnInit {
   patientsRole() {
     // Se limpian los arreglos para agregar los de distintas fases
     this.pacientes = [];
+    this.pacientesStrings = [];
 
     this.dailyService.getDailyRecordsToday().subscribe(res => {
       res.drs.forEach(r => {
         if (r.patient.phase === this.capitalize(this.fase)) {
-          this.pacientes.push(r);
+          if (!this.pacientesStrings.includes(JSON.stringify(r))) {//Condicional para verificar que si un paciente ya esta en el arreglo, no se vuelva a incluir
+            this.pacientesStrings.push(JSON.stringify(r));//Agregar paciente stringificado para poder verificar con el metodo includes
+            this.pacientes.push(r);
+          }
         }
       });
     });
   }
   openSignos(paciente) {
-    this.router.navigateByUrl( `${this.rutaActual}/signos`, {state: {data: paciente}} );
+    this.router.navigateByUrl(`${this.rutaActual}/signos`, { state: { data: paciente } });
   }
   /* 
     Método que sirve para volver mayúscula la primera letra de una palabra

@@ -5,13 +5,14 @@ import { DailyRecordService } from "src/app/services/daily-record.service";
 import { Info } from "../../../interfaces/daily-records";
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { calcPossibleSecurityContexts } from "@angular/compiler/src/template_parser/binding_parser";
 
 @Component({
   selector: "app-tab2",
   templateUrl: "./tab-activacion.page.html",
   styleUrls: ["./tab-activacion.page.scss"]
 })
-export class TabActivacionPage implements OnInit { 
+export class TabActivacionPage implements OnInit {
   opcion;
 
   busqueda;
@@ -41,8 +42,8 @@ export class TabActivacionPage implements OnInit {
     private catalogService: CatalogService,
     private dailyService: DailyRecordService,
     private router: Router,
-    private storage: Storage 
-    ) {}
+    private storage: Storage
+  ) { }
 
   ngOnInit() {
     this.rutaActual = this.router.url;
@@ -64,7 +65,7 @@ export class TabActivacionPage implements OnInit {
   */
   searchBar(event) {
     this.busqueda = event.detail.value;
-    
+
   }
 
   getDailyProgramsPhase(phase: string) {
@@ -106,7 +107,7 @@ export class TabActivacionPage implements OnInit {
     Método encargado de abrir el modal de actividades.
   */
   openActividades(paciente) {
-    this.router.navigateByUrl( `${this.rutaActual}/page-actividades`, {state: {data: paciente}} );
+    this.router.navigateByUrl(`${this.rutaActual}/page-actividades`, { state: { data: paciente } });
   }
   /*
     Método que sirve para volver mayúscula la primera letra de una palabra
@@ -233,52 +234,74 @@ export class TabActivacionPage implements OnInit {
       }
     });
 
-    let dailyProgram = {
-      phase: this.rol,
-      activities: {
-        attention,
-        calculus,
-        sensory,
-        language,
-        memory,
-        reminiscence
-      }
-    };
+    //Validar que el programa diario no se encuentre vacio
+    if (!attention.length && !calculus.length && !sensory.length && !language.length && !memory.length && !reminiscence.length) {
+      // SweetAlert
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+        onOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
 
-    this.dailyService.postDailyProgram(dailyProgram).subscribe(
-      res => {
+      Toast.fire({
+        icon: 'warning',
+        title: 'Programa diario vacío',
+      })
+      //End sweetalert
 
-        this.getDailyProgramsPhase(this.rol);
+    } else {
+      let dailyProgram = {
+        phase: this.rol,
+        activities: {
+          attention,
+          calculus,
+          sensory,
+          language,
+          memory,
+          reminiscence
+        }
+      };
 
-        this.toggleAtencion = false;
-        this.toggleCalculo = false;
-        this.toggleEstimulacion = false;
-        this.toggleLenguaje = false;
-        this.toggleMemoria = false;
-        this.toggleReminiscencia = false;
-        reminiscence      
-        // SweetAlert
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'center',
-          showConfirmButton: false,
-          timer: 1500,
-          timerProgressBar: true,
-          onOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        })
-        
-        Toast.fire({
-          icon: 'success',
-          title: 'El programa diario se actualizó con éxito'
-        })
-        //End sweetalert
-      },
-      err => {
-        console.log("Error servicio", err);
-      }
-    );
+      this.dailyService.postDailyProgram(dailyProgram).subscribe(
+        res => {
+          this.getDailyProgramsPhase(this.rol);
+
+          this.toggleAtencion = false;
+          this.toggleCalculo = false;
+          this.toggleEstimulacion = false;
+          this.toggleLenguaje = false;
+          this.toggleMemoria = false;
+          this.toggleReminiscencia = false;
+          reminiscence
+          // SweetAlert
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'center',
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            onOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+
+          Toast.fire({
+            icon: 'success',
+            title: 'El programa diario se actualizó con éxito'
+          })
+          //End sweetalert
+        },
+        err => {
+          console.log("Error servicio", err);
+        }
+      );
+    }
   }
 }

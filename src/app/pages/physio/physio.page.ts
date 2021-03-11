@@ -14,21 +14,24 @@ export class PhysioPage implements OnInit {
   ngOnInit() {
   }
 
-  cerrarSesion(){
-    Swal.fire({
-      title: '¿Cerrar sesión?',
-      text: "La sesión con este usuario se cerrará.",
-      icon: 'warning',
-      backdrop: false,
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, adelante!'
-    }).then((result) => {
-      if (result.value) {
-        this.router.navigateByUrl( '' );
-      }
-    })
+  cerrarSesion() {
+    //Validar que si ya hay una alerta abierta, no se cree de nuevo
+    if (!Swal.isVisible()) {
+      Swal.fire({
+        title: '¿Cerrar sesión?',
+        text: "La sesión con este usuario se cerrará.",
+        icon: 'warning',
+        backdrop: false,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, adelante!'
+      }).then((result) => {
+        if (result.value) {
+          this.router.navigateByUrl('');
+        }
+      })
+    }
   }
 
 }

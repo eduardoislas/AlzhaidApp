@@ -8,14 +8,15 @@ import {
   RootPhysio
 } from "../interfaces/daily-records";
 
-const url = 'https://alzaid.herokuapp.com/dailyRecord/';
+const url = 'http://localhost:3000/dailyRecord/';
+//const url = 'https://alzaid.herokuapp.com/dailyRecord/';
 // const url = 'http://74.208.247.106:3000/dailyRecord/';
 
 @Injectable({
   providedIn: "root"
 })
 export class DailyRecordService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    * Método GET que obtiene todos los registros diarios.
@@ -35,6 +36,13 @@ export class DailyRecordService {
    */
   getDailyRecordsToday() {
     return this.http.get<RootDaily>(`${url}today`);
+  }
+  /**
+   * Método GET que obtiene todos los registros diarios del día de un paciente 
+   * @param id
+   */
+  getDailyRecordTodayPatient(id: any) {
+    return this.http.get<RootDaily>(`${url}today/id/${id}`);
   }
   /**
    * Método GET que obtiene todos los registros diarios por fecha.
@@ -134,7 +142,7 @@ export class DailyRecordService {
    * @param id 
    * @param hygiene 
    */
-  putDailyRecordsHygiene(id: string, hygiene){
+  putDailyRecordsHygiene(id: string, hygiene) {
     return this.http.put(`${url}hygiene/${id}`, {
       hygiene
     });
@@ -143,7 +151,7 @@ export class DailyRecordService {
    * Método PUT que agrega el arreglo de activación física al DR.
    * @param activation 
    */
- putDailyRecordsPhysicalActivation(activation){
+  putDailyRecordsPhysicalActivation(activation) {
     return this.http.put<RootPhysio>(`${url}physio/activation/todos`, {
       activation
     });
@@ -153,7 +161,7 @@ export class DailyRecordService {
    * @param meal arreglo de comidas.
    * @param id ID del daily Record del paciente.
    */
-  putDailyRecordsMeal( meal, id ) {
+  putDailyRecordsMeal(meal, id) {
     return this.http.put<RootPhysio>(`${url}meal/${id}`, {
       meal
     });
@@ -169,3 +177,4 @@ export class DailyRecordService {
   }
 
 }
+

@@ -7,8 +7,8 @@ import { IonSegment, IonSearchbar } from '@ionic/angular';
   styleUrls: ['./searchbar.component.scss'],
 })
 export class SearchbarComponent implements OnInit {
-  @ViewChild('iSegmentFase', {static: true}) iSegmentFase: IonSegment;
-  @ViewChild('iSearchbar', {static: true}) iSearchbar: IonSearchbar;
+  @ViewChild('iSegmentFase', { static: true }) iSegmentFase: IonSegment;
+  @ViewChild('iSearchbar', { static: true }) iSearchbar: IonSearchbar;
 
   @Output() post = new EventEmitter<string[]>();
 
@@ -20,14 +20,15 @@ export class SearchbarComponent implements OnInit {
     this.iSegmentFase.value = this.data[1];
   }
 
-  searchBar( event ) {
+  searchBar(event) {
     this.data[0] = event.detail.value;
     this.post.emit(this.data);
   }
-  segmentChangedFase( event ) {
+
+  segmentChangedFase(event) {
     this.data[1] = event.detail.value;
     this.post.emit(this.data);
   }
-  
+
 
 }

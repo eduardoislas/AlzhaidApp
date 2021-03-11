@@ -14,38 +14,42 @@ export class TabBitacoraPage implements OnInit {
   fase = 'inicial';
 
   pacientes = [];
+  pacientesStrings = []; // variable para guardar pacientes stringificados 
 
-  constructor( private dailyService: DailyRecordService,
-               private router: Router ) { }
+  constructor(private dailyService: DailyRecordService,
+    private router: Router) { }
 
   ngOnInit() {
     this.getPatients();
   }
-  eventListener( data: string ) {
+  eventListener(data: string) {
     this.busqueda = data[0];
     this.fase = data[1];
-
     this.getPatients();
   }
   getPatients() {
     this.pacientes = [];
+    this.pacientesStrings = [];
 
     this.dailyService.getDailyRecordsToday().subscribe(res => {
       res.drs.forEach(r => {
         if (r.patient.phase === this.capitalize(this.fase)) {
-          this.pacientes.push(r);
+          if (!this.pacientesStrings.includes(JSON.stringify(r))) {//Condicional para verificar que si un paciente ya esta en el arreglo, no se vuelva a incluir
+            this.pacientesStrings.push(JSON.stringify(r));//Agregar paciente stringificado para poder verificar con el metodo includes
+            this.pacientes.push(r);
+          }
         }
       });
     });
   }
   openBitacora(paciente) {
-    this.router.navigateByUrl( `${this.rutaActual}/page-bitacora`, {state: {data: paciente}} );
+    this.router.navigateByUrl(`${this.rutaActual}/page-bitacora`, { state: { data: paciente } });
   }
 
   /* 
     Método que sirve para volver mayúscula la primera letra de una palabra
     */
-   capitalize(word: string) {
+  capitalize(word: string) {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
 
