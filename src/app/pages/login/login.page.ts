@@ -61,6 +61,9 @@ export class LoginPage implements OnInit {
         case 'ENFERMERIA':
           this.router.navigateByUrl( '/nursery' );
           break;
+        case 'FAMILIAR':
+          this.router.navigateByUrl( '/relative' );
+          break;
       }
 
     }, err => {
