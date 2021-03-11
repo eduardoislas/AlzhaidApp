@@ -62,9 +62,13 @@ export class TabRegistrosPage implements OnInit {
         this.fecha = fechaAux.getUTCDay()+'/'+fechaAux.getUTCMonth()+'/'+fechaAux.getUTCFullYear();
         //this.horaEntrada = this.dailyRecordSeleccionado.enterHour.substring(15,20);
         
+        if(!this.dailyRecordSeleccionado.enterHour == undefined){
+          this.horaEntrada = this.dailyRecordSeleccionado.enterHour.substring(15,20);
+        }
+
         if(!this.dailyRecordSeleccionado.exitHour == undefined){
           this.horaSalida = this.dailyRecordSeleccionado.exitHour.substring(15,20);
-        }        
+        }
       }
     }
   }

@@ -49,22 +49,21 @@
         <table class="default">
           <tr>
             <td>Fecha</td>
-            <td colspan=2>{{ fecha }}</td>
+            <td colspan="3">{{ fecha }}</td>
           </tr>
           <tr>
-          <!--<td colspan=2>Hora entrada</td>
-
-            <td>{{ horaEntrada }}</td>-->
+          <td colspan="3">Hora entrada</td>
+            <td>{{ horaEntrada }}</td>
           </tr>
           <tr>
-          <td *ngIf = 'horaSalida != undefined'>Hora salida</td>
-            <td colspan=2>{{ horaSalida }}</td>
+          <td>Hora salida</td>
+            <td colspan="3">{{ horaSalida }}</td>
           </tr>
         </table>
       </div>
     </div>
     <div *ngSwitchCase="'vitalSigns'">
-      Signos vitales
+      <p></p>
     </div>
     <div *ngSwitchCase="'hygiene'">
       Higiene
