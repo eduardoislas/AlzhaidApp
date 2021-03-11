@@ -65,7 +65,6 @@ export class TabActivacionPage implements OnInit {
   */
   searchBar(event) {
     this.busqueda = event.detail.value;
-
   }
 
   getDailyProgramsPhase(phase: string) {

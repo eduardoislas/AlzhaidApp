@@ -24,7 +24,6 @@ export class SearchbarComponent implements OnInit {
     this.data[0] = event.detail.value;
     this.post.emit(this.data);
   }
-
   segmentChangedFase(event) {
     this.data[1] = event.detail.value;
     this.post.emit(this.data);

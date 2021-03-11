@@ -5,6 +5,7 @@
 </ion-header>
 
 <ion-content>
+
   <ion-list *ngIf="pacientes.length > 0">
     <ion-item *ngFor="let paciente of pacientes" (click)="openSignos( paciente )">
       <ion-avatar slot="start">

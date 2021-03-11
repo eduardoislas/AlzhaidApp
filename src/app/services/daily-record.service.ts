@@ -32,17 +32,17 @@ export class DailyRecordService {
     return this.http.get(`${url}patient/${id}`);
   }
   /**
+   * Método GET que obtiene todos los registros diarios del día de un paciente 
+   * @param id
+  */
+  getDailyRecordTodayPatient(id: any) {
+    return this.http.get<RootDaily>(`${url}today/id/${id}`);
+  }
+  /**
    * Método GET que obtiene todos los registros diarios del día.
    */
   getDailyRecordsToday() {
     return this.http.get<RootDaily>(`${url}today`);
-  }
-  /**
-   * Método GET que obtiene todos los registros diarios del día de un paciente 
-   * @param id
-   */
-  getDailyRecordTodayPatient(id: any) {
-    return this.http.get<RootDaily>(`${url}today/id/${id}`);
   }
   /**
    * Método GET que obtiene todos los registros diarios por fecha.
@@ -177,4 +177,3 @@ export class DailyRecordService {
   }
 
 }
-

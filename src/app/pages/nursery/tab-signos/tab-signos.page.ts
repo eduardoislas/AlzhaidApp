@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 })
 export class TabSignosPage implements OnInit {
   rutaActual = this.router.url;
-
   busqueda;
   fase = "inicial";
 

@@ -5,7 +5,6 @@ import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { User } from 'src/app/interfaces/users';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -19,10 +18,10 @@ export class LoginPage implements OnInit {
     userService: Servicio que funciona para mantener la sesión del usuario
     abierta.
   */
-  constructor( private loginService: LoginService,
-               private router: Router,
-               private alertCtrl: AlertController,
-               private storage: Storage ) { }
+  constructor(private loginService: LoginService,
+    private router: Router,
+    private alertCtrl: AlertController,
+    private storage: Storage) { }
 
   ngOnInit() { }
 
@@ -33,42 +32,45 @@ export class LoginPage implements OnInit {
     Dentro del switch se agarra el nombre del rol y se hace un switch para, 
     según el nombre que llega, construir los tabs.
   */
-  login( username: string, password: string ) {
-    this.loginService.login( username, password ).subscribe(( res: any ) => {
+  login(username: string, password: string) {
+    this.loginService.login(username, password).subscribe((res: any) => {
       let user: User = res.user;
 
       this.storage.set('Rol', user.role);
       this.storage.set('username', user.name);
-      switch ( user.role ) {
+      switch (user.role) {
 
         case 'FASE_INICIAL':
-          this.router.navigateByUrl( '/phase' );
+          this.router.navigateByUrl('/phase');
           break;
         case 'FASE_INTERMEDIA':
-          this.router.navigateByUrl( '/phase' );
+          this.router.navigateByUrl('/phase');
           break;
         case 'FASE_AVANZADA':
-          this.router.navigateByUrl( '/phase' );
+          this.router.navigateByUrl('/phase');
           break;
         case 'FISIOTERAPIA':
-          this.router.navigateByUrl( '/physio' );
+          this.router.navigateByUrl('/physio');
           break;
         case 'HIGIENE':
-          this.router.navigateByUrl( '/hygiene' );
+          this.router.navigateByUrl('/hygiene');
           break;
         case 'NUTRICION':
-          this.router.navigateByUrl( '/nutrition' );
+          this.router.navigateByUrl('/nutrition');
           break;
         case 'ENFERMERIA':
-          this.router.navigateByUrl( '/nursery' );
+          this.router.navigateByUrl('/nursery');
+          break;
+        case 'FAMILIAR':
+          this.router.navigateByUrl('/relative');
           break;
       }
 
     }, err => {
-      if( err ) {
-        this.presentAlert( err.error.err.message );
+      if (err) {
+        this.presentAlert(err.error.err.message);
       } else {
-         this.presentAlert();
+        this.presentAlert();
       }
     });
   }
@@ -77,16 +79,16 @@ export class LoginPage implements OnInit {
     Método que despliega un mensaje de error, siendo este
     el que regresa el método de login()
   */
-  async presentAlert( message?: string ) {
+  async presentAlert(message?: string) {
     const alert = await this.alertCtrl.create({
       header: 'Error.',
       subHeader: 'No pudo iniciar sesión.',
       message,
       buttons: [
         {
-            text: 'Aceptar',
-            handler: () => {
-              return;
+          text: 'Aceptar',
+          handler: () => {
+            return;
           }
         }
       ]
