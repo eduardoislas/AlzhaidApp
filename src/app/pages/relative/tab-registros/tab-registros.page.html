@@ -10,45 +10,61 @@
       <ion-avatar slot="start">
         <img src="{{ paciente.img }}" />
       </ion-avatar>
-      <ion-label class="ion-text-capitalize">{{ paciente.name + ' ' + paciente.lastName }}</ion-label>
+      <ion-label class="pacienteSeleccionado">{{ paciente.name + ' ' + paciente.lastName }}</ion-label>
       <div *ngIf="paciente === pacienteSeleccionado">
         <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>
       </div>
     </ion-item>
   </div>
+</ion-content>
 
+<div class="contenedorPostPacientes">
   <ion-item>
     <ion-icon name="calendar"></ion-icon>
-    <ion-datetime displayFormat="DD/MM/YYYY" placeholder="Selecione fecha" (ionChange)="dateChanged( $event )">
+    <ion-datetime displayFormat="DD/MM/YYYY" placeholder="{{fechaSeleccionadaISOString}}"
+      (ionChange)="dateChanged( $event.detail.value )">
     </ion-datetime>
   </ion-item>
 
-  <ion-grid fixed>
-    <ion-row>
+  <ion-grid>
+
+    <ion-row class="contenedorTabs">
       <ion-col>
         <ion-segment #iSegmentRegistros (ionChange)="segmentChangedRegistros( $event )" mode="md">
           <ion-segment-button value="general">
             <ion-label>General</ion-label>
           </ion-segment-button>
           <ion-segment-button value="vitalSigns">
-            <ion-label>Signos vitales</ion-label>
+            <ion-label>Signos <br> vitales</ion-label>
           </ion-segment-button>
           <ion-segment-button value="hygiene">
             <ion-label>Higiene</ion-label>
           </ion-segment-button>
+          <ion-segment-button value="meal">
+            <ion-label>Comida</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="behavior">
+            <ion-label>Conducta</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="phaseBinnacle">
+            <ion-label>Fase</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="physioBinnacle">
+            <ion-label>Fisioterapia</ion-label>
+          </ion-segment-button>
         </ion-segment>
       </ion-col>
     </ion-row>
+
   </ion-grid>
 
   <div [ngSwitch]="selectedInfo">
     <div *ngSwitchCase="'general'">
-      <h3>Información general</h3>
       <div *ngIf='dailyRecordSeleccionado != undefined'>
-        <table class="default">
+        <table class="ion-padding">
           <tr>
             <td>Fecha</td>
-            <td colspan="3">{{ fecha }}</td>
+            <td colspan="3">{{ fechaSeleccionadaISOString }}</td>
           </tr>
           <tr>
             <td colspan="3">Hora entrada</td>
@@ -62,11 +78,161 @@
       </div>
     </div>
     <div *ngSwitchCase="'vitalSigns'">
-      <p></p>
+      <div *ngIf='dailyRecordSeleccionado != undefined'>
+        <table class="ion-padding">
+          <tr>
+            <th>Signo </th>
+            <th>Valor capturado </th>
+          </tr>
+          <tr *ngFor="let registro of dailyRecordSeleccionado.vitalSigns">
+            <td>{{registro.vitalSign}}</td>
+            <td>{{registro.value + "/" +registro.valueB}} </td>
+          </tr>
+        </table>
+      </div>
     </div>
     <div *ngSwitchCase="'hygiene'">
-      Higiene
+      <div *ngIf='dailyRecordSeleccionado != undefined'>
+        <table class="ion-padding">
+          <tr>
+            <th>Registro </th>
+            <th>Observaciones </th>
+            <th>Momento </th>
+          </tr>
+          <tr *ngFor="let registro of dailyRecordSeleccionado.hygiene">
+            <td>{{registro.name}}</td>
+            <td>{{registro.observation}}</td>
+            <td>{{registro.time}}</td>
+          </tr>
+        </table>
+      </div>
     </div>
-  </div>
 
-</ion-content>
+    <div *ngSwitchCase="'meal'">
+      <div *ngIf='dailyRecordSeleccionado != undefined'>
+        <table class="tablaDatos">
+          <tr>
+            <th>Indicador </th>
+            <th>Observaciones </th>
+          </tr>
+          <tr>
+            <td>Tipo de comida</td>
+            <td>{{dailyRecordSeleccionado.meal.foodType}}</td>
+          </tr>
+          <tr>
+            <td>Masticado</td>
+            <td>{{dailyRecordSeleccionado.meal.chewingPerformance + "/5"}}</td>
+          </tr>
+          <tr>
+            <td>Independencia</td>
+            <td>{{dailyRecordSeleccionado.meal.independence + "/5"}}</td>
+          </tr>
+          <tr>
+            <td>Cantidad</td>
+            <td>{{dailyRecordSeleccionado.meal.quantity + "/5"}}</td>
+          </tr>
+          <tr>
+            <td>Funcional</td>
+            <td>{{dailyRecordSeleccionado.meal.functional + "/5"}}</td>
+          </tr>
+          <tr>
+            <td>Colación</td>
+            <td>{{dailyRecordSeleccionado.collation + "/5"}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div *ngSwitchCase="'behavior'">
+      <div *ngIf='dailyRecordSeleccionado != undefined'>
+        <table class="tablaDatos">
+          <tr>
+            <th>Actitud </th>
+            <th>Calificación </th>
+            <th>Momento </th>
+          </tr>
+          <tr *ngFor="let registro of dailyRecordSeleccionado.behavior">
+            <td>{{registro.name}}</td>
+            <td>{{registro.score + "/5"}}</td>
+            <td>{{registro.time}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div *ngSwitchCase="'phaseBinnacle'">
+      <div *ngIf='dailyRecordSeleccionado != undefined'>
+        <table class="tablaDatos">
+          <tr>
+            <th colspan="2">Identifica la fecha </th>
+            <td>{{dailyRecordSeleccionado.phaseBinnacle.date}} </td>
+          </tr>
+          <tr>
+            <th colspan="2">Se orienta correctamente </th>
+            <td>{{dailyRecordSeleccionado.phaseBinnacle.orientation}} </td>
+          </tr>
+          <tr>
+            <th colspan="2">Observaciones </th>
+            <td>{{dailyRecordSeleccionado.phaseBinnacle.observation}} </td>
+          </tr>
+
+          <tr>
+            <th>Actividad </th>
+            <th>Desempeño </th>
+            <th>Clasificación </th>
+          </tr>
+          <tr *ngFor="let registro of dailyRecordSeleccionado.phaseBinnacle.activities">
+            <td>{{registro.name}}</td>
+            <td>{{registro.performance + "/5"}}</td>
+            <td>{{registro.classification}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div *ngSwitchCase="'physioBinnacle'">
+      <div *ngIf='dailyRecordSeleccionado != undefined'>
+        <table class="tablaDatos">
+          <tr>
+            <th colspan="2">Fecha Inicio </th>
+            <td>{{formatearHora(dailyRecordSeleccionado.physioBinnacle.startTime)}} </td>
+          </tr>
+          <tr>
+            <th colspan="2">Fecha Fin </th>
+            <td>{{formatearHora(dailyRecordSeleccionado.physioBinnacle.endTime)}} </td>
+          </tr>
+
+          <tr>
+            <th colspan="2">Humor Inicial </th>
+            <td>{{dailyRecordSeleccionado.physioBinnacle.startMood}} </td>
+          </tr>
+          <tr>
+            <th colspan="2">Humor Final </th>
+            <td>{{dailyRecordSeleccionado.physioBinnacle.endMood}} </td>
+          </tr>
+
+          <tr>
+            <th colspan="2">Activación física</th>
+            <td>{{ dailyRecordSeleccionado.physicalActivation + "/5"}}</td>
+          </tr>
+
+          <tr>
+            <th>Actividad </th>
+            <th>Desempeño </th>
+            <th>Clasificación </th>
+          </tr>
+          <tr *ngFor="let registro of dailyRecordSeleccionado.phaseBinnacle.activities">
+            <td>{{registro.name}}</td>
+            <td>{{registro.performance + "/5"}}</td>
+            <td>{{registro.classification}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <h5 *ngIf='dailyRecordSeleccionado == undefined'>No hay registro del paciente para el día seleccionado</h5>
+
+  </div>
+</div>
+
+<!-- </ion-content> -->

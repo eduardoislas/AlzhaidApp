@@ -14,6 +14,7 @@ export class TabRegistrosPage implements OnInit {
   patients = [];
   selectedInfo = 'general';
   fechaSeleccionada;
+  fechaSeleccionadaISOString;
   pacienteSeleccionado;
   dailyRecordsPaciente: Dr[] = [];
   dailyRecordSeleccionado;
@@ -25,13 +26,19 @@ export class TabRegistrosPage implements OnInit {
     private patientService: PatientsService,
     private alertCtrl: AlertController,
     private dailyService: DailyRecordService,
-  ) { }
+  ) {
+
+  }
 
   ngOnInit() {
     this.cargarPacientes();
   }
 
-  cargarPacientes(){
+  ngAfterViewInit() {
+    this.dateChanged(new Date());
+  }
+
+  cargarPacientes() {
     let patientsArray = [];
 
     this.patientService.getPatients().subscribe(resPatient => {
@@ -43,45 +50,65 @@ export class TabRegistrosPage implements OnInit {
     });
   }
 
-  segmentChangedRegistros( event ){
+  segmentChangedRegistros(event) {
     this.selectedInfo = event.detail.value;
   }
 
-  dateChanged( event ){
-    let fechaAux = new Date(Date.parse(event.detail.value));
+  dateChanged(event) {
+    let fechaAux = new Date(Date.parse(event));
     let horasRestar = 1000 * 60 * 60 * 7;
     let nuevaFecha = fechaAux.getTime() - horasRestar;
     fechaAux = new Date(nuevaFecha);
-    fechaAux.setUTCHours(0,0,0,0);  
+    fechaAux.setUTCHours(0, 0, 0, 0);
+    this.fechaSeleccionada = fechaAux;
+    this.fechaSeleccionadaISOString = this.formatearFecha(fechaAux.toISOString());
+    console.log(this.fechaSeleccionada);
 
-    for(let i=0; i< this.dailyRecordsPaciente.length; i++){
-      if(JSON.stringify(this.dailyRecordsPaciente[i].date) == JSON.stringify(fechaAux)){
-        this.dailyRecordSeleccionado = this.dailyRecordsPaciente[i];
+    this.buscarDailyRecord();
+  }
 
-        console.log(fechaAux);
-        this.fecha = fechaAux.getUTCDay()+'/'+fechaAux.getUTCMonth()+'/'+fechaAux.getUTCFullYear();
-        //this.horaEntrada = this.dailyRecordSeleccionado.enterHour.substring(15,20);
-        
-        if(!this.dailyRecordSeleccionado.enterHour == undefined){
-          this.horaEntrada = this.dailyRecordSeleccionado.enterHour.substring(15,20);
-        }
+  seleccionarPaciente(event) {
+    this.pacienteSeleccionado = event;
 
-        if(!this.dailyRecordSeleccionado.exitHour == undefined){
-          this.horaSalida = this.dailyRecordSeleccionado.exitHour.substring(15,20);
+    this.dailyService.getDailyRercodsPatient(this.pacienteSeleccionado._id).subscribe(resDRs => {
+      let dailyRecords = (resDRs as RootDaily).drs;
+      this.dailyRecordsPaciente = dailyRecords;
+      this.buscarDailyRecord();
+    });
+  }
+
+  buscarDailyRecord() {
+    this.dailyRecordSeleccionado = undefined;
+
+    if (this.dailyRecordsPaciente != undefined && this.fechaSeleccionada != undefined) {
+      for (let i = 0; i < this.dailyRecordsPaciente.length; i++) {
+        if (JSON.stringify(this.dailyRecordsPaciente[i].date) == JSON.stringify(this.fechaSeleccionada)) {
+          this.dailyRecordSeleccionado = this.dailyRecordsPaciente[i];
+
+          this.fecha = this.fechaSeleccionada.getUTCDay() + '/' + this.fechaSeleccionada.getUTCMonth() + '/' + this.fechaSeleccionada.getUTCFullYear();
+
+          if (this.dailyRecordSeleccionado.enterHour != undefined) {
+            this.horaEntrada = this.dailyRecordSeleccionado.enterHour.substring(11, 16);
+          }
+
+          if (this.dailyRecordSeleccionado.exitHour != undefined) {
+            this.horaSalida = this.dailyRecordSeleccionado.exitHour.substring(11, 16);
+          }
         }
       }
     }
   }
 
-  seleccionarPaciente( event ){
-    this.pacienteSeleccionado = event;
-    console.log(this.pacienteSeleccionado.name);
+  formatearFecha(fechaSinFormatear: String) {
+    let anio = fechaSinFormatear.substring(0, 4);
+    let mes = fechaSinFormatear.substring(5, 7);
+    let dia = fechaSinFormatear.substring(8, 10);
 
-    this.dailyService.getDailyRercodsPatient(this.pacienteSeleccionado._id).subscribe(resDRs => {
-      let dailyRecords = (resDRs as RootDaily).drs;
-      this.dailyRecordsPaciente = dailyRecords;
-      console.log(this.dailyRecordsPaciente);
-    });
+    return dia + "/" + mes + "/" + anio;
+  }
+
+  formatearHora(horaSinFormatear: String) {
+    return horaSinFormatear.substring(11, 16);
   }
 
 }

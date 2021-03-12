@@ -1,5 +1,27 @@
 .contenedorPacientes {
-    background-color: blue;
-    font-weight: bold;
-    height: 30%;
+    height: 40%;
+    max-height: 40%;
+}
+
+.contenedorPostPacientes{
+    height: 60%;
+    max-height: 60%;
+}
+
+.pacienteSeleccionado {
+    //background-color: lightblue;
+}
+
+ion-segment {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-left: 90%;
+}
+
+ion-label {
+    font-size: 80%;
+}
+
+ion-segment-button {
+    max-width: 40%;
 }
