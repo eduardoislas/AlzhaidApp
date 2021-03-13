@@ -6,7 +6,7 @@
 
 <ion-content>
   <div class="contenedorPacientes">
-    <ion-item *ngFor="let paciente of patients" (click)="seleccionarPaciente( paciente )">
+    <ion-item *ngFor="let paciente of patients">
       <ion-avatar slot="start">
         <img src="{{ paciente.img }}" />
       </ion-avatar>

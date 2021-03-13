@@ -38,8 +38,9 @@ export class LoginPage implements OnInit {
 
       this.storage.set('Rol', user.role);
       this.storage.set('username', user.name);
+      this.storage.set('id',user._id);
+      
       switch (user.role) {
-
         case 'FASE_INICIAL':
           this.router.navigateByUrl('/phase');
           break;
