@@ -19,6 +19,16 @@ export interface Dr {
   crisis: any[];
   hygiene: any[];
   meal: any[];
+  physioBinnacle: PhysioBinnacle;
+}
+
+export interface PhysioBinnacle{
+  status: boolean;
+  startMood: number;
+  endMood: number;
+  startTime: number;
+  endTime: number;
+  activities: Info[];
 }
 
 export interface VitalSign {
@@ -70,6 +80,7 @@ export interface Info {
   _id?: string;
   name: string;
   classification: string;
+  performance: number; // not sure
 }
 
 export interface InfoHygiene {

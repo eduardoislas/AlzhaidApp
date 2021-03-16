@@ -4,7 +4,7 @@ import { CatalogService } from "src/app/services/catalog.service";
 import { DailyRecordService } from "src/app/services/daily-record.service";
 import Swal from "sweetalert2";
 import { Router } from "@angular/router";
-import { RootDaily } from '../../../interfaces/daily-records';
+import { RootDaily, PhysioBinnacle, Patient } from '../../../interfaces/daily-records';
 
 @Component({
   selector: "app-page-bitacora",
@@ -36,10 +36,40 @@ export class PageBitacoraPage implements OnInit {
 
   ngOnInit() {
     this.dailyRecord = history.state.data;
+    /*console.log('PhysioBinnacle:');
+    console.log(this.dailyRecord);
+    console.log(this.dailyRecord._id);
+    console.log(this.dailyRecord.physioBinnacle);*/
+
     this.getCatalogsType();
     //this.getDailyRecord();
 
+    this.verificarSobreescribirBitacora();
+  }
 
+  verificarSobreescribirBitacora(){
+    if(this.dailyRecord.physioBinnacle.status){ // Si ya tiene un registro en la bitacora de fisioterapia
+      console.log("Ya hay Bitácora de fisio");
+
+      if (!Swal.isVisible()) {
+        Swal.fire({
+          title: 'Ya hay una bitácora',
+          text: "¿Desea sobreescribirla?",
+          icon: 'warning',
+          backdrop: false,
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, adelante!'
+        }).then((result) => {
+          if (!result.value) {
+            this.router.navigateByUrl('/physio');
+          }
+        })
+      }
+    }else{ 
+      console.log("No hay bitacora de fisio");
+    }
   }
 
   getDailyRecord() {
