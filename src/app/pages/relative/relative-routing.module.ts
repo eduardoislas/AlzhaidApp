@@ -10,7 +10,12 @@ const routes: Routes = [
     children: [
       {
         path: 'tab-registros',
-        loadChildren: () => import('./tab-registros/tab-registros.module').then( m => m.TabRegistrosPageModule)
+        loadChildren: () => import('./tab-registros/tab-registros.module').then(m => m.TabRegistrosPageModule)
+      },
+      {
+        path: '',
+        redirectTo: '/relative/tab-registros',
+        pathMatch: 'full'
       }
     ]
   },
@@ -29,4 +34,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class RelativePageRoutingModule {}
+export class RelativePageRoutingModule { }

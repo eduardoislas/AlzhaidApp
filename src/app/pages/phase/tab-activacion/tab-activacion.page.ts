@@ -51,13 +51,14 @@ export class TabActivacionPage implements OnInit {
       this.getDailyProgramsPhase(val);
       this.rol = val;
     });
+    this.opcion = 'programa';
+    this.getCatalogosTipo("actividad");
   }
 
   segmentChangedRegistros(event) {
     this.opcion = event.detail.value;
-    this.opcion === "programa"
-      ? this.getCatalogosTipo("actividad")
-      : this.getTodayDailyRecords();
+    if (this.opcion === "desempeno") this.getTodayDailyRecords();
+    //this.opcion === "programa" ? this.getCatalogosTipo("actividad") : this.getTodayDailyRecords();
   }
   /* 
     Método que obtiene el arreglo enviado por el componente

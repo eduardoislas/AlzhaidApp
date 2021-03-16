@@ -7,7 +7,7 @@
         <ion-title>Agregar aviso de incidencia</ion-title>
     </ion-toolbar>
 </ion-header>
-<ion-content >
+<ion-content>
     <ion-grid class="ion-padding" fixed="fixed">
         <!-- Boton prioridad y vigencia-->
         <ion-row>
@@ -17,12 +17,11 @@
             </ion-item>
             <ion-col>
                 <ion-item>
-                    <ion-datetime displayFormat="DDDD, DD/MMMM/YYYY" 
-                                  dayNames="Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado" 
-                                  monthNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre" min="2020" max="2090-10-31"
-                                  cancelText="Cancelar" doneText="Listo" 
-                                  placeholder="Vigencia" 
-                                  [(ngModel)]="ExpirationDate"></ion-datetime>
+                    <ion-datetime displayFormat="DDDD, DD/MMMM/YYYY"
+                        dayNames="Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado"
+                        monthNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
+                        min="2020" max="2090-10-31" cancelText="Cancelar" doneText="Listo" placeholder="Vigencia"
+                        [(ngModel)]="ExpirationDate"></ion-datetime>
                 </ion-item>
             </ion-col>
         </ion-row>
@@ -33,7 +32,8 @@
         <!-- Cuadro de texto "Descripcion" -->
         <ion-row>
             <ion-col>
-                <ion-input autoGrow="autoGrow" placeholder="Descripción" [(ngModel)]="textDescripcion" type="text"></ion-input>
+                <ion-input autoGrow="autoGrow" placeholder="Descripción" [(ngModel)]="textDescripcion" type="text">
+                </ion-input>
                 <!-- <ion-textarea style="border-style: groove;" spellcheck="true" autoGrow="autoGrow" placeholder="Descripción" [(ngModel)]="textDescripcion"></ion-textarea> -->
             </ion-col>
         </ion-row>
@@ -45,11 +45,11 @@
         <ion-item>
             <ion-label>Paciente</ion-label>
             <ion-select (ionChange)="selecionarPaciente($event)">
-                <ion-select-option *ngFor="let paciente of pacientes" [value]="paciente.patient._id">
+                <ion-select-option *ngFor="let paciente of pacientes" [value]="paciente._id">
                     <ion-avatar slot="start">
-                        <img src="{{ paciente.patient.img }}" />
+                        <img src="{{ paciente.img }}" />
                         <ion-label class="ion-text-capitalize">
-                            {{ paciente.patient.lastName + ', ' + paciente.patient.name }}
+                            {{ paciente.lastName + ', ' + paciente.name }}
                         </ion-label>
                     </ion-avatar>
                 </ion-select-option>
@@ -167,6 +167,6 @@
                     <ion-button type="button" color="primary" expand="block" (click)="enviar()">Enviar</ion-button>
                 </ion-col>
             </ion-row>
-</ion-grid>
+        </ion-grid>
     </ion-grid>
 </ion-content>

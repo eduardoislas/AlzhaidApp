@@ -2,9 +2,9 @@
   <ion-toolbar>
 
     <ion-segment #iSegmentRegistros (ionChange)="segmentChangedRegistros( $event )" mode="md">
-      <ion-segment-button value="orden">
+      <!-- <ion-segment-button value="orden">
         <ion-label>Todo En orden</ion-label>
-      </ion-segment-button>
+      </ion-segment-button> -->
       <ion-segment-button value="reporte">
         <ion-label>Reportar Desempeño</ion-label>
       </ion-segment-button>
@@ -15,34 +15,34 @@
 
 <ion-content>
 
-  <div class="slides" *ngIf="this.opcion === 'orden'">
+  <!-- <div class="slides" *ngIf="this.opcion === 'orden'">
     <div *ngIf="infoEnviada === false">
       <ion-slides [options]="sliderOpts">
         <ion-slide>
-  
+
           <ion-button (click)="sendData()">
             Todo en orden
           </ion-button>
-  
+
         </ion-slide>
       </ion-slides>
-    </div>
+    </div> -->
 
-    <div *ngIf="infoEnviada === true">
+  <!-- <div *ngIf="infoEnviada === true">
       <ion-slides [options]="sliderOpts">
         <ion-slide>
-  
+
           <ion-list>
             Activación física ya reportada.
           </ion-list>
-  
+
         </ion-slide>
       </ion-slides>
-    </div>
-    
-  </div>
+    </div> -->
 
-  <div class="reporte" *ngIf="this.opcion === 'reporte'">
+  <!-- </div> -->
+
+  <div class="reporte" *ngIf="opcion === 'reporte'">
     <div *ngIf="infoEnviada === false">
       <ion-list>
         <ion-list-header>
@@ -66,11 +66,24 @@
 
         </ion-item>
       </ion-list>
-
-      <br><br>
       <ion-button (click)="sendData()" expand="full">
-        Enviar
+        Enviar desempeño
       </ion-button>
+
+      <p>ó </p>
+
+      <div *ngIf="infoEnviada === false">
+        <ion-slides [options]="sliderOpts">
+          <ion-slide>
+
+            <ion-button (click)="sendMassiveData()">
+              Todo en orden
+            </ion-button>
+
+          </ion-slide>
+        </ion-slides>
+      </div>
+
     </div>
 
 

@@ -21,6 +21,8 @@ export class TabColacionPage implements OnInit {
   constructor(private dailyService: DailyRecordService) { }
 
   ngOnInit() {
+    this.opcionDesempeno = 'reporte';
+    this.getDailyRecords();
   }
 
   /**
@@ -32,7 +34,7 @@ export class TabColacionPage implements OnInit {
     // Asigna a la variable opcionDesempeno el valor del ionSegment
     this.opcionDesempeno = event.detail.value;
     // Si la variable opcionDesempeno es reporte, busca los dailyRecords del día.
-    if(this.opcionDesempeno === 'reporte')  this.getDailyRecords();
+    // if(this.opcionDesempeno === 'reporte')  this.getDailyRecords();
   }
 
   /**
@@ -63,7 +65,7 @@ export class TabColacionPage implements OnInit {
     // de dailyRecords
     this.pacientes.forEach(element => {
       // Si no se asignó valor, queda en 0
-      if(element.score === undefined) element.score = 0;
+      if (element.score === undefined) element.score = 0;
       // Si el paciente ha sido seleccionado
       if (element.selected === true) {
         activation.push({

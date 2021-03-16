@@ -5,6 +5,7 @@ import { AlertController } from "@ionic/angular";
 import { DailyRecordService } from "../../../services/daily-record.service";
 import { RootDaily, Dr } from "../../../interfaces/daily-records";
 import { Storage } from "@ionic/storage";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-tab-registros",
@@ -28,15 +29,24 @@ export class TabRegistrosPage implements OnInit {
     private alertCtrl: AlertController,
     private dailyService: DailyRecordService,
     private caregiverService: CaregiverService,
-    private storage: Storage
-  ) {}
+    private storage: Storage,
+    private router: Router,
+  ) { }
 
   ngOnInit() {
     this.cargarPacientes();
+
+
   }
 
   ngAfterViewInit() {
     this.dateChanged(new Date());
+  }
+
+
+  //METODO PARA ACTIVAR EL FAB DE NOTIFICACIONES, MOVER A UNA TAB MAS APROPIADA EN EL FUTURO
+  async openComponent() {
+    this.router.navigateByUrl(`notifications-add`,);
   }
 
   /*cargarPacientes() {

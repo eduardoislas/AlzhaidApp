@@ -19,14 +19,16 @@ export class TabActivacionPage implements OnInit {
 
   opcion;
 
-  constructor( private dailyService: DailyRecordService ) { }
+  constructor(private dailyService: DailyRecordService) { }
 
   ngOnInit() {
+    this.opcion = 'reporte';
+    this.getDailyRecords();
   }
 
   segmentChangedRegistros(event) {
     this.opcion = event.detail.value;
-    this.getDailyRecords();
+
   }
 
   getDailyRecords() {
@@ -45,8 +47,8 @@ export class TabActivacionPage implements OnInit {
     let activation = [];
 
     this.pacientes.forEach(element => {
-      if(element.score === undefined) element.score = 0;
-      
+      if (element.score === undefined) element.score = 0;
+
       if (element.selected === true) {
         activation.push({
           id: element._id,
@@ -76,6 +78,34 @@ export class TabActivacionPage implements OnInit {
     });
   }
 
+  sendMassiveData() {
+    // arreglo a ser llenado.
+    let activation = [];
+
+    // Por cada paciente, prepara el objeto con su ID de dailyRecord y un performance 5.
+    this.pacientes.forEach(element => {
+      activation.push({
+        id: element._id,
+        performance: 5
+      });
+    });
+
+    console.log(activation);
+
+    // Envía a través del servicio el arreglo activation, el cual fue llenado previamente.
+    this.dailyService.putDailyRecordsPhysicalActivation(activation).subscribe(res => {
+      // Si la respuesta del servicio es true, dispara el sweetAlert y cambia la variable
+      // infoEnviada a true.
+      if (res.success === true) {
+        this.disparaAlert('Datos enviados correctamente.');
+        this.infoEnviada = true;
+      }
+    }, err => {
+      console.log(err);
+    });
+
+  }
+
   disparaAlert(title: string) {
     // SweetAlert
     const Toast = Swal.mixin({
@@ -95,6 +125,6 @@ export class TabActivacionPage implements OnInit {
       title
     });
   }
-  
+
 
 }

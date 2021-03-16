@@ -4,9 +4,9 @@
       <ion-item>
 
         <ion-segment #iSegmentDesempeno (ionChange)="segmentChangedDesempeno( $event )" mode="md">
-          <ion-segment-button value="orden">
+          <!-- <ion-segment-button value="orden">
             <ion-label>Todo En orden</ion-label>
-          </ion-segment-button>
+          </ion-segment-button> -->
           <ion-segment-button value="reporte">
             <ion-label>Reportar Desempeño</ion-label>
           </ion-segment-button>
@@ -19,7 +19,7 @@
 
 <ion-content>
   <!-- Opción desempeño es todo en orden -->
-  <div class="slides" *ngIf="this.opcionDesempeno === 'orden'">
+  <!-- <div class="slides" *ngIf="this.opcionDesempeno === 'orden'">
     <div *ngIf="infoEnviada === false">
       <ion-slides [options]="sliderOpts">
         <ion-slide>
@@ -28,9 +28,9 @@
           </ion-button>
         </ion-slide>
       </ion-slides>
-    </div>
-    <!-- Si la información ha sido enviada -->
-    <div *ngIf="infoEnviada === true">
+    </div> -->
+  <!-- Si la información ha sido enviada -->
+  <!-- <div *ngIf="infoEnviada === true">
       <ion-slides [options]="sliderOpts">
         <ion-slide>
           <ion-list>
@@ -38,8 +38,8 @@
           </ion-list>
         </ion-slide>
       </ion-slides>
-    </div>
-  </div>
+    </div> -->
+  <!-- </div> -->
 
   <!-- si Opción desempeño es reportar desempeño -->
   <div class="reporte" *ngIf="this.opcionDesempeno === 'reporte'">
@@ -65,10 +65,22 @@
         </ion-item>
       </ion-list>
 
-      <br><br>
       <ion-button (click)="sendDataDesempeno()" expand="full">
-        Enviar
+        Enviar desempeño
       </ion-button>
+
+      <p>ó </p>
+
+      <div *ngIf="infoEnviada === false">
+        <ion-slides [options]="sliderOpts">
+          <ion-slide>
+            <ion-button (click)="sendMassiveData()">
+              Todo en orden
+            </ion-button>
+          </ion-slide>
+        </ion-slides>
+      </div>
+
     </div>
 
     <!-- Información enviada es true -->
