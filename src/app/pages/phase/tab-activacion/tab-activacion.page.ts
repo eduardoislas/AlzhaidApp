@@ -50,14 +50,60 @@ export class TabActivacionPage implements OnInit {
     this.storage.get("Rol").then(val => {
       this.getDailyProgramsPhase(val);
       this.rol = val;
+
+      this.validarSobreescrituraDePrograma();
     });
+
     this.opcion = 'programa';
     this.getCatalogosTipo("actividad");
+  }
+
+  validarSobreescrituraDePrograma(){
+    if(this.emptyDailyRecords === false){
+      if (!Swal.isVisible()) {
+        Swal.fire({
+          title: 'Ya hay un programa diario',
+          text: "¿Desea sobreescribirlo?",
+          icon: 'warning',
+          backdrop: false,
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Sí'
+        }).then((result) => {
+          if (!result.value) {
+            this.router.navigateByUrl('/phase');
+          }
+        })
+      }
+      console.log('NO ES EMPTY');
+    }else{
+      console.log('SI ES EMPTY');
+    }
   }
 
   segmentChangedRegistros(event) {
     this.opcion = event.detail.value;
     if (this.opcion === "desempeno") this.getTodayDailyRecords();
+
+    if(this.opcion === "programa"){
+      if (!Swal.isVisible()) {
+        Swal.fire({
+          title: 'Ya hay un programa diario',
+          text: "¿Desea sobreescribirlo?",
+          icon: 'warning',
+          backdrop: false,
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Sí'
+        }).then((result) => {
+          if (!result.value) {
+            this.router.navigateByUrl('/phase');
+          }
+        })
+      }
+    }
     //this.opcion === "programa" ? this.getCatalogosTipo("actividad") : this.getTodayDailyRecords();
   }
   /* 
@@ -71,6 +117,26 @@ export class TabActivacionPage implements OnInit {
   getDailyProgramsPhase(phase: string) {
     this.dailyService.getDailyProgramPhase(phase).subscribe(res => {
       res.cuantos === 0 ? this.emptyDailyRecords = true : this.emptyDailyRecords = false;
+
+      if(this.emptyDailyRecords == false){
+        if (!Swal.isVisible()) {
+          Swal.fire({
+            title: 'Ya hay un programa diario',
+            text: "¿Desea sobreescribirlo?",
+            icon: 'warning',
+            backdrop: false,
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí'
+          }).then((result) => {
+            if (!result.value) {
+              this.router.navigateByUrl('/phase');
+            }
+          })
+        }
+      }
+      console.log("Ya actualicé si es o no empty");
     });
   }
   /* 
@@ -297,6 +363,8 @@ export class TabActivacionPage implements OnInit {
             title: 'El programa diario se actualizó con éxito'
           })
           //End sweetalert
+
+          this.router.navigateByUrl('/phase');
         },
         err => {
           console.log("Error servicio", err);
