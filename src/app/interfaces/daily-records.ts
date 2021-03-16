@@ -18,8 +18,16 @@ export interface Dr {
   behavior: any[];
   crisis: any[];
   hygiene: any[];
-  meal: any[];
+  meal: Meal;
   physioBinnacle: PhysioBinnacle;
+}
+
+export interface Meal{
+  quantity: number;
+  foodType: string;
+  independence: number;
+  functional: number;
+  chewingPerfomance: number;
 }
 
 export interface PhysioBinnacle{
@@ -80,7 +88,7 @@ export interface Info {
   _id?: string;
   name: string;
   classification: string;
-  performance: number; // not sure
+  performance: number; 
 }
 
 export interface InfoHygiene {
