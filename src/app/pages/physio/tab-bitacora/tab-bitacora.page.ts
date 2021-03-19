@@ -1,23 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { DailyRecordService } from 'src/app/services/daily-record.service';
-import { Router } from '@angular/router';
-
+import { Component, OnInit } from "@angular/core";
+import { DailyRecordService } from "src/app/services/daily-record.service";
+import { Router } from "@angular/router";
+import { Subscription } from "rxjs";
+import { PhysioService } from "../../../services/physio/physio.service";
 
 @Component({
-  selector: 'app-tab3',
-  templateUrl: './tab-bitacora.page.html',
-  styleUrls: ['./tab-bitacora.page.scss'],
+  selector: "app-tab3",
+  templateUrl: "./tab-bitacora.page.html",
+  styleUrls: ["./tab-bitacora.page.scss"],
 })
 export class TabBitacoraPage implements OnInit {
+  clickEventsubscription: Subscription;
   rutaActual = this.router.url;
   busqueda;
-  fase = 'inicial';
+  fase = "inicial";
 
   pacientes = [];
-  pacientesStrings = []; // variable para guardar pacientes stringificados 
+  pacientesStrings = []; // variable para guardar pacientes stringificados
 
-  constructor(private dailyService: DailyRecordService,
-    private router: Router) { }
+  constructor(
+    private physioService: PhysioService,
+    private dailyService: DailyRecordService,
+    private router: Router
+  ) {
+    this.clickEventsubscription = this.physioService
+      .getClickEvent()
+      .subscribe(() => {
+        this.getPatients();
+      });
+  }
 
   ngOnInit() {
     this.getPatients();
@@ -31,11 +42,12 @@ export class TabBitacoraPage implements OnInit {
     this.pacientes = [];
     this.pacientesStrings = [];
 
-    this.dailyService.getDailyRecordsToday().subscribe(res => {
-      res.drs.forEach(r => {
+    this.dailyService.getDailyRecordsToday().subscribe((res) => {
+      res.drs.forEach((r) => {
         if (r.patient.phase === this.capitalize(this.fase)) {
-          if (!this.pacientesStrings.includes(JSON.stringify(r))) {//Condicional para verificar que si un paciente ya esta en el arreglo, no se vuelva a incluir
-            this.pacientesStrings.push(JSON.stringify(r));//Agregar paciente stringificado para poder verificar con el metodo includes
+          if (!this.pacientesStrings.includes(JSON.stringify(r))) {
+            //Condicional para verificar que si un paciente ya esta en el arreglo, no se vuelva a incluir
+            this.pacientesStrings.push(JSON.stringify(r)); //Agregar paciente stringificado para poder verificar con el metodo includes
             this.pacientes.push(r);
           }
         }
@@ -43,7 +55,9 @@ export class TabBitacoraPage implements OnInit {
     });
   }
   openBitacora(paciente) {
-    this.router.navigateByUrl(`${this.rutaActual}/page-bitacora`, { state: { data: paciente } });
+    this.router.navigateByUrl(`${this.rutaActual}/page-bitacora`, {
+      state: { data: paciente },
+    });
   }
 
   /* 
@@ -52,5 +66,4 @@ export class TabBitacoraPage implements OnInit {
   capitalize(word: string) {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
-
 }

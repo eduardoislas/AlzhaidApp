@@ -5,6 +5,7 @@ import { DailyRecordService } from "src/app/services/daily-record.service";
 import Swal from "sweetalert2";
 import { Router } from "@angular/router";
 import { RootDaily, PhysioBinnacle, Patient } from '../../../interfaces/daily-records';
+import { PhysioService } from '../../../services/physio/physio.service';
 
 @Component({
   selector: "app-page-bitacora",
@@ -22,29 +23,32 @@ export class PageBitacoraPage implements OnInit {
   humorAntes;
   humorDespues;
 
-  today = new Date().toISOString();
+  today;
 
   //dailyRecord;
-  horaInicio = this.today;
-  horaFin = this.today;
+  horaInicio;
+  horaFin;
 
   constructor(
     private catalogService: CatalogService,
     private dailyService: DailyRecordService,
-    private router: Router
+    private router: Router,
+    private physioService:PhysioService
   ) { }
 
   ngOnInit() {
+    this.today = new Date();
+    this.ajustarHora(this.today);
+    this.horaInicio = this.today.toISOString();
+    this.horaFin = this.today.toISOString();
+
     this.dailyRecord = history.state.data;
-    /*console.log('PhysioBinnacle:');
-    console.log(this.dailyRecord);
-    console.log(this.dailyRecord._id);
-    console.log(this.dailyRecord.physioBinnacle);*/
-
     this.getCatalogsType();
-    //this.getDailyRecord();
-
     this.verificarSobreescribirBitacora();
+  }
+
+  ajustarHora(fecha: Date){
+    fecha.setHours(fecha.getHours() - 7);
   }
 
   verificarSobreescribirBitacora(){
@@ -132,6 +136,9 @@ export class PageBitacoraPage implements OnInit {
     fue seleccionado, prepara la información y la envía en el servicio.
   */
   salirConArgumentos() {
+    console.log('HORAS:');
+    console.log(this.horaInicio);
+    console.log(this.horaFin);
     let actividadesSeleccionadas = [];
 
     this.actividades.forEach((element) => {
@@ -167,8 +174,8 @@ export class PageBitacoraPage implements OnInit {
     }
 
     if (
-      actividadesSeleccionadas.length ||
-      this.humorAntes != undefined ||
+      actividadesSeleccionadas.length &&
+      this.humorAntes != undefined &&
       this.humorDespues != undefined
     ) {
       // Si el registro no es vacío guardalo
@@ -190,6 +197,11 @@ export class PageBitacoraPage implements OnInit {
               if (res.success === true) {
                 this.disparaAlert("Datos enviados correctamente");
                 this.router.navigateByUrl("physio/tab-bitacora");
+                this.physioService.sendClickEvent();
+
+                console.log('HORAS:');
+                console.log(this.horaInicio);
+                console.log(this.horaFin);
               }
             },
             (err) => {

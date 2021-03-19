@@ -88,7 +88,7 @@ export interface Info {
   _id?: string;
   name: string;
   classification: string;
-  performance: number; 
+  performance?: number; 
 }
 
 export interface InfoHygiene {
