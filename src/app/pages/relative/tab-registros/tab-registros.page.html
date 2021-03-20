@@ -21,7 +21,7 @@
 <div class="contenedorPostPacientes">
   <ion-item>
     <ion-icon name="calendar"></ion-icon>
-    <ion-datetime displayFormat="DD/MM/YYYY" placeholder="{{fechaSeleccionadaISOString}}"
+    <ion-datetime displayFormat="DD/MM/YYYY" cancel-text = "Cancelar" done-text = "Aceptar" placeholder="{{fechaSeleccionadaISOString}}"
       (ionChange)="dateChanged( $event.detail.value )">
     </ion-datetime>
   </ion-item>

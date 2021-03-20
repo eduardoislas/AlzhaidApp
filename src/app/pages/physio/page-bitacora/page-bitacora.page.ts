@@ -28,7 +28,7 @@ export class PageBitacoraPage implements OnInit {
   //dailyRecord;
   horaInicio;
   horaFin;
-
+  
   constructor(
     private catalogService: CatalogService,
     private dailyService: DailyRecordService,
