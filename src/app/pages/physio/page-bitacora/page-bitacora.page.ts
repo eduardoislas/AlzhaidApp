@@ -28,17 +28,17 @@ export class PageBitacoraPage implements OnInit {
   //dailyRecord;
   horaInicio;
   horaFin;
-  
+
   constructor(
     private catalogService: CatalogService,
     private dailyService: DailyRecordService,
     private router: Router,
-    private physioService:PhysioService
+    private physioService: PhysioService
   ) { }
 
   ngOnInit() {
     this.today = new Date();
-    this.ajustarHora(this.today);
+
     this.horaInicio = this.today.toISOString();
     this.horaFin = this.today.toISOString();
 
@@ -47,12 +47,8 @@ export class PageBitacoraPage implements OnInit {
     this.verificarSobreescribirBitacora();
   }
 
-  ajustarHora(fecha: Date){
-    fecha.setHours(fecha.getHours() - 7);
-  }
-
-  verificarSobreescribirBitacora(){
-    if(this.dailyRecord.physioBinnacle.status){ // Si ya tiene un registro en la bitacora de fisioterapia
+  verificarSobreescribirBitacora() {
+    if (this.dailyRecord.physioBinnacle.status) { // Si ya tiene un registro en la bitacora de fisioterapia
       console.log("Ya hay Bitácora de fisio");
 
       if (!Swal.isVisible()) {
@@ -71,7 +67,7 @@ export class PageBitacoraPage implements OnInit {
           }
         })
       }
-    }else{ 
+    } else {
       console.log("No hay bitacora de fisio");
     }
   }
@@ -136,9 +132,6 @@ export class PageBitacoraPage implements OnInit {
     fue seleccionado, prepara la información y la envía en el servicio.
   */
   salirConArgumentos() {
-    console.log('HORAS:');
-    console.log(this.horaInicio);
-    console.log(this.horaFin);
     let actividadesSeleccionadas = [];
 
     this.actividades.forEach((element) => {
@@ -179,13 +172,17 @@ export class PageBitacoraPage implements OnInit {
       this.humorDespues != undefined
     ) {
       // Si el registro no es vacío guardalo
-      if (this.horaFin >= this.horaInicio) {
+
+      let auxHoraInicio = new Date(this.horaInicio);
+      let auxHoraFin = new Date(this.horaFin);
+
+      if (auxHoraFin >= auxHoraInicio) {
         // Si la hora fin es mayor o igual a la de entrada
         let data = {
           startMood: this.humorAntes,
           endMood: this.humorDespues,
-          startTime: this.horaInicio,
-          endTime: this.horaFin,
+          startTime: auxHoraInicio.toISOString(),
+          endTime: auxHoraFin.toISOString(),
           activities: actividadesSeleccionadas,
         };
         console.log(data);

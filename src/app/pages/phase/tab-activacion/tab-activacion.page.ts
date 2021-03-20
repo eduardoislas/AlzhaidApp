@@ -5,7 +5,6 @@ import { DailyRecordService } from "src/app/services/daily-record.service";
 import { Info } from "../../../interfaces/daily-records";
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { calcPossibleSecurityContexts } from "@angular/compiler/src/template_parser/binding_parser";
 
 @Component({
   selector: "app-tab2",
@@ -50,16 +49,14 @@ export class TabActivacionPage implements OnInit {
     this.storage.get("Rol").then(val => {
       this.getDailyProgramsPhase(val);
       this.rol = val;
-
-      this.validarSobreescrituraDePrograma();
     });
 
     this.opcion = 'programa';
     this.getCatalogosTipo("actividad");
   }
 
-  validarSobreescrituraDePrograma(){
-    if(this.emptyDailyRecords === false){
+  validarSobreescrituraDePrograma() {
+    if (this.emptyDailyRecords === false) {
       if (!Swal.isVisible()) {
         Swal.fire({
           title: 'Ya hay un programa diario',
@@ -77,7 +74,7 @@ export class TabActivacionPage implements OnInit {
         })
       }
       console.log('NO ES EMPTY');
-    }else{
+    } else {
       console.log('SI ES EMPTY');
     }
   }
@@ -86,24 +83,7 @@ export class TabActivacionPage implements OnInit {
     this.opcion = event.detail.value;
     if (this.opcion === "desempeno") this.getTodayDailyRecords();
 
-    if(this.opcion === "programa"){
-      if (!Swal.isVisible()) {
-        Swal.fire({
-          title: 'Ya hay un programa diario',
-          text: "¿Desea sobreescribirlo?",
-          icon: 'warning',
-          backdrop: false,
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Sí'
-        }).then((result) => {
-          if (!result.value) {
-            this.router.navigateByUrl('/phase');
-          }
-        })
-      }
-    }
+    if (this.opcion === "programa") this.validarSobreescrituraDePrograma();
     //this.opcion === "programa" ? this.getCatalogosTipo("actividad") : this.getTodayDailyRecords();
   }
   /* 
@@ -117,25 +97,7 @@ export class TabActivacionPage implements OnInit {
   getDailyProgramsPhase(phase: string) {
     this.dailyService.getDailyProgramPhase(phase).subscribe(res => {
       res.cuantos === 0 ? this.emptyDailyRecords = true : this.emptyDailyRecords = false;
-
-      if(this.emptyDailyRecords == false){
-        if (!Swal.isVisible()) {
-          Swal.fire({
-            title: 'Ya hay un programa diario',
-            text: "¿Desea sobreescribirlo?",
-            icon: 'warning',
-            backdrop: false,
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí'
-          }).then((result) => {
-            if (!result.value) {
-              this.router.navigateByUrl('/phase');
-            }
-          })
-        }
-      }
+      this.validarSobreescrituraDePrograma();
       console.log("Ya actualicé si es o no empty");
     });
   }
