@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { Subscription } from "rxjs";
+import { NutritionService } from 'src/app/services/nutrition/nutrition.service';
 
 @Component({
   selector: 'app-tab4',
@@ -9,11 +11,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./tab-comida.page.scss'],
 })
 export class TabComidaPage implements OnInit {
+  clickEventsubscription: Subscription;
   rutaActual = this.router.url;
   pacientes = [];
 
-  constructor(private dailyService: DailyRecordService,
-    private router: Router) { }
+  constructor(
+    private dailyService: DailyRecordService,
+    private router: Router,
+    private nutritionService: NutritionService,
+  ) {
+    this.clickEventsubscription = this.nutritionService
+      .getClickEvent()
+      .subscribe(() => {
+        this.getDailyRecords();
+      });
+  }
 
   ngOnInit() {
     this.getDailyRecords();
@@ -38,7 +50,7 @@ export class TabComidaPage implements OnInit {
   *  en la pantalla.
   */
   openComida(paciente) {
-    this.router.navigateByUrl( `${this.rutaActual}/page-comida`, {state: {data: paciente}} );
+    this.router.navigateByUrl(`${this.rutaActual}/page-comida`, { state: { data: paciente } });
   }
 
   /**

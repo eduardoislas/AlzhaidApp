@@ -51,22 +51,21 @@ export class PageBitacoraPage implements OnInit {
     if (this.dailyRecord.physioBinnacle.status) { // Si ya tiene un registro en la bitacora de fisioterapia
       console.log("Ya hay Bitácora de fisio");
 
-      if (!Swal.isVisible()) {
-        Swal.fire({
-          title: 'Ya hay una bitácora',
-          text: "¿Desea sobreescribirla?",
-          icon: 'warning',
-          backdrop: false,
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Si, adelante!'
-        }).then((result) => {
-          if (!result.value) {
-            this.router.navigateByUrl('/physio');
-          }
-        })
-      }
+      Swal.fire({
+        title: 'Ya hay una bitácora',
+        text: "¿Desea sobreescribirla?",
+        icon: 'warning',
+        backdrop: false,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, adelante!'
+      }).then((result) => {
+        if (!result.value) {
+          this.router.navigateByUrl('/physio');
+        }
+      })
+
     } else {
       console.log("No hay bitacora de fisio");
     }

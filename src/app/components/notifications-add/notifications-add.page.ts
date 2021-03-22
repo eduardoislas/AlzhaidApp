@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { Location } from '@angular/common';
 import { PatientsService } from 'src/app/services/patients.service';
 import { CaregiverService } from 'src/app/services/caregiver.service';
+import { NotificationsListenerService } from 'src/app/services/notifications/notificationsListener.service';
 
 
 
@@ -36,7 +37,9 @@ export class NotificationsAddPage implements OnInit {
     private storage: Storage,
     private notificationsService: NotificationsService,
     private router: Router,
-    private localizacion: Location) { }
+    private localizacion: Location,
+    private notificationsListenerService: NotificationsListenerService,
+  ) { }
 
   ngOnInit() {
     this.patientsList();
@@ -145,6 +148,7 @@ export class NotificationsAddPage implements OnInit {
       this.notificationsService.postNotifications(notification)
         .subscribe(res => {
           this.disparaAlert('Notificacion registrada');
+          this.notificationsListenerService.sendClickEvent();
           console.log(notification.priority);
         });
 

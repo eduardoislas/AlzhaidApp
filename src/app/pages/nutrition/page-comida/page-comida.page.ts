@@ -3,7 +3,8 @@ import { ToastController } from "@ionic/angular";
 import { DailyRecordService } from "src/app/services/daily-record.service";
 import Swal from "sweetalert2";
 import { Router } from "@angular/router";
-import { Meal,Dr } from '../../../interfaces/daily-records';
+import { Meal, Dr } from '../../../interfaces/daily-records';
+import { NutritionService } from "src/app/services/nutrition/nutrition.service";
 
 @Component({
   selector: "app-page-comida",
@@ -25,35 +26,38 @@ export class PageComidaPage implements OnInit {
   constructor(
     private dailyService: DailyRecordService,
     private toastCtrl: ToastController,
-    private router: Router
-  ) {}
+    private router: Router,
+    private nutritionService: NutritionService,
+  ) { }
 
   ngOnInit() {
     this.paciente = history.state.data;
-    console.log(this.paciente);
+    this.verificarSobreescribirComida();
+  }
 
-    if(this.paciente.meal){
-      console.log('YA HAY');
+  verificarSobreescribirComida() {
+    if (this.paciente.meal) {
+      console.log('Ya hay comida registrada');
 
-      if (!Swal.isVisible()) {
-        Swal.fire({
-          title: 'Ya hay una bitácora',
-          text: "¿Desea sobreescribirla?",
-          icon: 'warning',
-          backdrop: false,
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Si, adelante!'
-        }).then((result) => {
-          if (!result.value) {
-            this.router.navigateByUrl('/nutrition');
-          }
-        })
-      }
-    }else{
-      console.log('NO HAY AUN');
+      Swal.fire({
+        title: 'Ya hay una comida registrada',
+        text: "¿Desea sobreescribirla?",
+        icon: 'warning',
+        backdrop: false,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, adelante!'
+      }).then((result) => {
+        if (!result.value) {
+          this.router.navigateByUrl('/nutrition');
+        }
+      })
+
+    } else {
+      console.log('No hay comida registrada');
     }
+
   }
 
   /**
@@ -143,6 +147,7 @@ export class PageComidaPage implements OnInit {
         if (res.success === true) {
           this.disparaAlert("Datos enviados correctamente.");
           this.router.navigateByUrl("nutrition/tab-comida");
+          this.nutritionService.sendClickEvent();
         }
       },
       (err) => {
