@@ -2,12 +2,13 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { PatientsService } from "src/app/services/patients.service";
 import { AlertController, IonSegment } from "@ionic/angular";
 import { DailyRecordService } from "src/app/services/daily-record.service";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
+import { element } from "protractor";
 
 @Component({
   selector: "app-tab2",
   templateUrl: "./tab-asistencia.page.html",
-  styleUrls: ["./tab-asistencia.page.scss"]
+  styleUrls: ["./tab-asistencia.page.scss"],
 })
 export class TabAsistenciaPage implements OnInit {
   @ViewChild("iSegmentRegistros", { static: true })
@@ -17,6 +18,7 @@ export class TabAsistenciaPage implements OnInit {
   busqueda;
   fase = "inicial";
 
+  // Pacientes de cada etapa
   inicialesEntrada = [];
   intermediosEntrada = [];
   avanzadosEntrada = [];
@@ -24,6 +26,15 @@ export class TabAsistenciaPage implements OnInit {
   inicialesSalida = [];
   intermediosSalida = [];
   avanzadosSalida = [];
+
+  // Coincidencias de pacientes de cada etapa
+  cinicialesEntrada = [];
+  cintermediosEntrada = [];
+  cavanzadosEntrada = [];
+
+  cinicialesSalida = [];
+  cintermediosSalida = [];
+  cavanzadosSalida = [];
 
   date = new Date();
   today =
@@ -38,13 +49,13 @@ export class TabAsistenciaPage implements OnInit {
     private patientService: PatientsService,
     private alertCtrl: AlertController,
     private dailyService: DailyRecordService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.iSegmentRegistros.value = this.registro;
 
-    this.patientService.getPatients().subscribe(resPatient => {
-      resPatient.patients.forEach(patients => {
+    this.patientService.getPatients().subscribe((resPatient) => {
+      resPatient.patients.forEach((patients) => {
         if (patients.assistance === false) {
           switch (patients.phase) {
             case "Inicial":
@@ -58,7 +69,18 @@ export class TabAsistenciaPage implements OnInit {
               break;
           }
         }
+        console.log('uno mas');
       });
+      console.log('termine');
+
+      this.cinicialesEntrada = this.inicialesEntrada;
+      this.cintermediosEntrada = this.intermediosEntrada;
+      this.cavanzadosEntrada = this.avanzadosEntrada;
+      console.log('los copie');
+
+      /*console.log(this.cinicialesEntrada);
+      console.log(this.cintermediosEntrada);
+      console.log(this.cavanzadosEntrada);*/
     });
   }
   /* 
@@ -74,9 +96,9 @@ export class TabAsistenciaPage implements OnInit {
     // Si registro es igual a salida, se agregan los pacientes a los
     // cuales se les agregó asistencia en el día actual, esto del servicio
     // de dailyRecordsDate.
-    this.dailyService.getDailyRecordsToday().subscribe(res => {
-      res.drs.forEach(r => {
-        if(r.exit === false) {
+    this.dailyService.getDailyRecordsToday().subscribe((res) => {
+      res.drs.forEach((r) => {
+        if (r.exit === false) {
           if (r.patient.phase === "Inicial") {
             this.inicialesSalida.push(r);
             return;
@@ -88,7 +110,14 @@ export class TabAsistenciaPage implements OnInit {
             return;
           }
         }
+        console.log('uno mas');
       });
+      console.log('termine');
+
+      this.cinicialesSalida = this.inicialesSalida;
+      this.cintermediosSalida = this.intermediosSalida;
+      this.cavanzadosSalida = this.avanzadosSalida;
+      console.log('los copie');
     });
   }
   /*
@@ -98,7 +127,7 @@ export class TabAsistenciaPage implements OnInit {
   */
   deleteOnAttendance(id) {
     if (this.fase === "inicial") {
-      this.inicialesEntrada.forEach(element => {
+      this.inicialesEntrada.forEach((element) => {
         if (element._id === id) {
           this.inicialesEntrada.splice(
             this.inicialesEntrada.indexOf(element),
@@ -108,7 +137,7 @@ export class TabAsistenciaPage implements OnInit {
         }
       });
     } else if (this.fase === "intermedia") {
-      this.intermediosEntrada.forEach(element => {
+      this.intermediosEntrada.forEach((element) => {
         if (element._id === id) {
           this.intermediosEntrada.splice(
             this.intermediosEntrada.indexOf(element),
@@ -118,7 +147,7 @@ export class TabAsistenciaPage implements OnInit {
         }
       });
     } else {
-      this.avanzadosEntrada.forEach(element => {
+      this.avanzadosEntrada.forEach((element) => {
         if (element._id === id) {
           this.avanzadosEntrada.splice(
             this.avanzadosEntrada.indexOf(element),
@@ -136,21 +165,24 @@ export class TabAsistenciaPage implements OnInit {
   */
   deleteOnDeparture(data) {
     if (this.fase === "inicial") {
-      this.inicialesSalida.forEach(element => {
+      this.inicialesSalida.forEach((element) => {
         if (data._id === element._id) {
           this.inicialesSalida.splice(this.inicialesSalida.indexOf(element), 1);
           return;
         }
       });
     } else if (this.fase === "intermedia") {
-      this.intermediosSalida.forEach(element => {
+      this.intermediosSalida.forEach((element) => {
         if (data._id === element._id) {
-          this.intermediosSalida.splice(this.intermediosSalida.indexOf(element), 1);
+          this.intermediosSalida.splice(
+            this.intermediosSalida.indexOf(element),
+            1
+          );
           return;
         }
       });
     } else {
-      this.avanzadosSalida.forEach(element => {
+      this.avanzadosSalida.forEach((element) => {
         if (data._id === element._id) {
           this.avanzadosSalida.splice(this.avanzadosSalida.indexOf(element), 1);
           return;
@@ -183,18 +215,18 @@ export class TabAsistenciaPage implements OnInit {
           cssClass: "secondary",
           handler: () => {
             return;
-          }
+          },
         },
         {
           text: "Aceptar",
-          handler: blah => {
-            this.patientService.putPatientAssistance( id, true).subscribe();
+          handler: (blah) => {
+            this.patientService.putPatientAssistance(id, true).subscribe();
             this.dailyService.postDailyRecords(id).subscribe();
             this.disparaAlert("Asistencia registrada");
             this.deleteOnAttendance(id);
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
     await alert.present();
   }
@@ -214,18 +246,20 @@ export class TabAsistenciaPage implements OnInit {
           cssClass: "secondary",
           handler: () => {
             return;
-          }
+          },
         },
         {
           text: "Aceptar",
           handler: () => {
             this.dailyService.putExitDailyRecords(data._id).subscribe();
-            this.patientService.putPatientAssistance( data.patient._id, false).subscribe();
+            this.patientService
+              .putPatientAssistance(data.patient._id, false)
+              .subscribe();
             this.deleteOnDeparture(data);
             this.disparaAlert("Salida registrada");
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
     await alert.present();
   }
@@ -236,7 +270,7 @@ export class TabAsistenciaPage implements OnInit {
   segmentChangedRegistros(event) {
     this.registro = event.detail.value;
 
-    if (this.registro === 'salida') this.getDailyRecords();
+    if (this.registro === "salida") this.getDailyRecords();
   }
   /* 
     Método encargado de escuchar el segundo dato del arreglo proviniente
@@ -246,26 +280,188 @@ export class TabAsistenciaPage implements OnInit {
   eventListener(data: string) {
     this.busqueda = data[0];
     this.fase = data[1];
+
+    this.busqueda.toLowerCase();
+    this.buscarCoincidencias();
+  }
+
+  buscarCoincidencias() {
+    if (this.registro == "entrada") {
+      // Pacientes de entrada
+      switch (this.fase) {
+        case "inicial":
+          if (this.inicialesEntrada != undefined) {
+            if (this.inicialesEntrada.length != 0) {
+
+              this.cinicialesEntrada = [];
+              this.inicialesEntrada.forEach((elemento, indice) => {
+                
+                if (elemento.patient != undefined) {
+                  let nombre: String =
+                    elemento.patient.name +
+                    " " +
+                    elemento.patient.lastName +
+                    " " +
+                    elemento.patient.lastNameSecond;
+                  nombre = nombre.toLowerCase();
+
+                  if (nombre.includes(this.busqueda)) {
+                    this.cinicialesEntrada.push(elemento);
+                  }
+                }
+              });
+            }
+          }
+          break;
+
+        case "intermedia":
+          if (this.intermediosEntrada != undefined) {
+            if (this.intermediosEntrada.length != 0) {
+              
+              this.cintermediosEntrada = [];
+              this.intermediosEntrada.forEach((elemento, indice) => {
+                
+                if (elemento.patient != undefined) {
+                  let nombre: String =
+                    elemento.patient.name +
+                    " " +
+                    elemento.patient.lastName +
+                    " " +
+                    elemento.patient.lastNameSecond;
+                  nombre = nombre.toLowerCase();
+
+                  if (nombre.includes(this.busqueda)) {
+                    this.cintermediosEntrada.push(elemento);
+                  }
+                }
+              });
+            }
+          }
+          break;
+
+        case "avanzada":
+          if (this.avanzadosEntrada != undefined) {
+            if (this.avanzadosEntrada.length != 0) {
+              
+              this.cavanzadosEntrada = [];
+              this.avanzadosEntrada.forEach((elemento, indice) => {
+                
+                if (elemento.patient != undefined) {
+                  let nombre: String =
+                    elemento.patient.name +
+                    " " +
+                    elemento.patient.lastName +
+                    " " +
+                    elemento.patient.lastNameSecond;
+                  nombre = nombre.toLowerCase();
+
+                  if (nombre.includes(this.busqueda)) {
+                    this.cavanzadosEntrada.push(elemento);
+                  }
+                }
+              });
+            }
+          }
+          break;
+      }
+    } else {
+      // Pacientes de salida
+      switch (this.fase) {
+        case "inicial":
+          if (this.inicialesSalida != undefined) {
+            if (this.inicialesSalida.length != 0) {
+
+              this.cinicialesSalida = [];
+              this.inicialesSalida.forEach((elemento, indice) => {
+
+                if (elemento.patient != undefined) {
+                  let nombre: String =
+                    elemento.patient.name +
+                    " " +
+                    elemento.patient.lastName +
+                    " " +
+                    elemento.patient.lastNameSecond;
+                  nombre = nombre.toLowerCase();
+
+                  if (nombre.includes(this.busqueda)) {
+                    this.cinicialesSalida.push(elemento);
+                  }
+                }
+              });
+            }
+          }
+          break;
+
+        case "intermedia":
+          if (this.intermediosSalida != undefined) {
+            if (this.intermediosSalida.length != 0) {
+              
+              this.cintermediosSalida = [];
+              this.intermediosSalida.forEach((elemento, indice) => {
+                
+                if (elemento.patient != undefined) {
+                  let nombre: String =
+                    elemento.patient.name +
+                    " " +
+                    elemento.patient.lastName +
+                    " " +
+                    elemento.patient.lastNameSecond;
+                  nombre = nombre.toLowerCase();
+
+                  if (nombre.includes(this.busqueda)) {
+                    this.cintermediosSalida.push(elemento);
+                  }
+                }
+              });
+            }
+          }
+          break;
+
+        case "avanzada":
+          if (this.avanzadosSalida != undefined) {
+            if (this.avanzadosSalida.length != 0) {
+              
+              this.cavanzadosSalida = [];
+              this.avanzadosSalida.forEach((elemento, indice) => {
+                
+                if (elemento.patient != undefined) {
+                  let nombre: String =
+                    elemento.patient.name +
+                    " " +
+                    elemento.patient.lastName +
+                    " " +
+                    elemento.patient.lastNameSecond;
+                  nombre = nombre.toLowerCase();
+
+                  if (nombre.includes(this.busqueda)) {
+                    this.cavanzadosSalida.push(elemento);
+                  }
+                }
+              });
+            }
+          }
+          break;
+      }
+    }
   }
 
   disparaAlert(title: string) {
     // SweetAlert
     const Toast = Swal.mixin({
       toast: true,
-      position: 'center',
+      position: "center",
       showConfirmButton: false,
       timer: 1000,
       timerProgressBar: true,
       onOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-      }
-    })
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
 
     Toast.fire({
-      icon: 'success',
-      title
+      icon: "success",
+      title,
     });
   }
-
 }

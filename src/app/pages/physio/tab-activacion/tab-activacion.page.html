@@ -43,7 +43,7 @@
   <!-- </div> -->
 
   <div class="reporte" *ngIf="opcion === 'reporte'">
-    <div *ngIf="infoEnviada === false">
+    <div>
       <ion-list>
         <ion-list-header>
           <ion-label>Pacientes del día</ion-label>
@@ -56,7 +56,7 @@
 
           <ion-label>{{ paciente.patient.name + ' ' + paciente.patient.lastName}}</ion-label>
 
-          <ion-toggle slot="end" [(ngModel)]="paciente.selected"></ion-toggle>
+          <ion-toggle slot="end" [(ngModel)]="paciente.selected" (click)="validarSobreescritura(paciente)"></ion-toggle>
 
           <ion-range *ngIf="paciente.selected" pin snaps min="0" max="5" [(ngModel)]="paciente.score"
             (ionChange)="rangeChange($event)">
@@ -72,7 +72,7 @@
 
       <p>ó </p>
 
-      <div *ngIf="infoEnviada === false">
+      <div>
         <ion-slides [options]="sliderOpts">
           <ion-slide>
 
@@ -87,13 +87,13 @@
     </div>
 
 
-    <div class="slides" *ngIf="infoEnviada === true">
+    <!--<div class="slides" *ngIf="infoEnviada === true">
       <ion-slides [options]="sliderOpts">
         <ion-slide>
           <ion-label>Activación física ya reportada.</ion-label>
         </ion-slide>
       </ion-slides>
-    </div>
+    </div>-->
 
   </div>
 

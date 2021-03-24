@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
 import Swal from 'sweetalert2';
+import { element } from 'protractor';
+import { PageComidaPageRoutingModule } from '../../nutrition/page-comida/page-comida-routing.module';
 
 @Component({
   selector: 'app-tab2',
@@ -13,7 +15,7 @@ export class TabActivacionPage implements OnInit {
     allowSlideNext: false,
   }
 
-  infoEnviada = false; // true o false
+  //infoEnviada = false; // true o false
 
   pacientes = [];
 
@@ -43,6 +45,16 @@ export class TabActivacionPage implements OnInit {
   rangeChange(event) {
   }
 
+  validarSobreescritura(paciente){
+    console.log(paciente.selected);
+
+    if(paciente.selected === false || paciente.selected === undefined){
+      if(paciente.physicalActivation != undefined){
+        this.mostrarAlerta("Ya existe registro del paciente");
+      }
+    }
+  }
+
   sendData() {
     let activation = [];
 
@@ -54,12 +66,12 @@ export class TabActivacionPage implements OnInit {
           id: element._id,
           performance: element.score
         });
-      } else {
+      } /*else {
         activation.push({
           id: element._id,
           performance: 5
         });
-      }
+      }*/
     });
 
     console.log(activation);
@@ -67,8 +79,9 @@ export class TabActivacionPage implements OnInit {
     // Por hacer: Enviar notificación de confirmación y deshabilitar el envío de otra actualización de datos de activación
     this.dailyService.putDailyRecordsPhysicalActivation(activation).subscribe(res => {
       if (res.success === true) {
-        this.infoEnviada = true;
-        this.disparaAlert('Datos enviados correctamente.')
+        //this.infoEnviada = true;
+        this.disparaAlert('Datos enviados correctamente.');
+        this.getDailyRecords();
 
         console.log('respuesta', res);
 
@@ -98,7 +111,8 @@ export class TabActivacionPage implements OnInit {
       // infoEnviada a true.
       if (res.success === true) {
         this.disparaAlert('Datos enviados correctamente.');
-        this.infoEnviada = true;
+        this.getDailyRecords();
+        //this.infoEnviada = true;
       }
     }, err => {
       console.log(err);
@@ -122,6 +136,26 @@ export class TabActivacionPage implements OnInit {
 
     Toast.fire({
       icon: 'success',
+      title
+    });
+  }
+
+  mostrarAlerta(title: string) {
+    // SweetAlert
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'center',
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+      onOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+
+    Toast.fire({
+      icon: 'warning',
       title
     });
   }
