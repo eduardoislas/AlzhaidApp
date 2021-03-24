@@ -60,29 +60,30 @@ export class TabAsistenciaPage implements OnInit {
           switch (patients.phase) {
             case "Inicial":
               this.inicialesEntrada.push(patients);
+              this.cinicialesEntrada.push(patients);
               break;
             case "Intermedia":
               this.intermediosEntrada.push(patients);
+              this.cintermediosEntrada.push(patients);
               break;
             case "Avanzada":
               this.avanzadosEntrada.push(patients);
+              this.cavanzadosEntrada.push(patients);
               break;
           }
         }
-        console.log('uno mas');
       });
-      console.log('termine');
 
-      this.cinicialesEntrada = this.inicialesEntrada;
-      this.cintermediosEntrada = this.intermediosEntrada;
-      this.cavanzadosEntrada = this.avanzadosEntrada;
-      console.log('los copie');
+      /*this.cinicialesEntrada = [...this.inicialesEntrada];
+      this.cintermediosEntrada = [...this.intermediosEntrada];
+      this.cavanzadosEntrada = [...this.avanzadosEntrada];*/
 
-      /*console.log(this.cinicialesEntrada);
+      console.log(this.cinicialesEntrada);
       console.log(this.cintermediosEntrada);
-      console.log(this.cavanzadosEntrada);*/
+      console.log(this.cavanzadosEntrada);
     });
   }
+
   /* 
     Método que obtiene los dailyRecords del día llamando al servicio de
     getDailyRecordsToday() y los guarda en el arreglo de pacientesSalida.
@@ -120,6 +121,7 @@ export class TabAsistenciaPage implements OnInit {
       console.log('los copie');
     });
   }
+
   /*
     Método que elimina de la lista de asistencia (InicialEntrada,
     IntermediosEntrada o AvanzadosEntrada según sea el caso) el paciente
@@ -271,6 +273,7 @@ export class TabAsistenciaPage implements OnInit {
     this.registro = event.detail.value;
 
     if (this.registro === "salida") this.getDailyRecords();
+    //this.getDailyRecords();
   }
   /* 
     Método encargado de escuchar el segundo dato del arreglo proviniente
@@ -281,12 +284,13 @@ export class TabAsistenciaPage implements OnInit {
     this.busqueda = data[0];
     this.fase = data[1];
 
-    this.busqueda.toLowerCase();
+    this.busqueda = this.busqueda.toLowerCase();
     this.buscarCoincidencias();
   }
 
   buscarCoincidencias() {
-    if (this.registro == "entrada") {
+    console.log(this.registro);
+    if (this.registro == 'entrada') {
       // Pacientes de entrada
       switch (this.fase) {
         case "inicial":
