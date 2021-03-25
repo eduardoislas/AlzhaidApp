@@ -4,6 +4,7 @@ import { AlertController, IonSegment } from "@ionic/angular";
 import { DailyRecordService } from "src/app/services/daily-record.service";
 import Swal from "sweetalert2";
 import { element } from "protractor";
+import { Patient } from "../../../interfaces/caregiver";
 
 @Component({
   selector: "app-tab2",
@@ -60,27 +61,20 @@ export class TabAsistenciaPage implements OnInit {
           switch (patients.phase) {
             case "Inicial":
               this.inicialesEntrada.push(patients);
-              this.cinicialesEntrada.push(patients);
               break;
             case "Intermedia":
               this.intermediosEntrada.push(patients);
-              this.cintermediosEntrada.push(patients);
               break;
             case "Avanzada":
               this.avanzadosEntrada.push(patients);
-              this.cavanzadosEntrada.push(patients);
               break;
           }
         }
       });
 
-      /*this.cinicialesEntrada = [...this.inicialesEntrada];
+      this.cinicialesEntrada = [...this.inicialesEntrada];
       this.cintermediosEntrada = [...this.intermediosEntrada];
-      this.cavanzadosEntrada = [...this.avanzadosEntrada];*/
-
-      console.log(this.cinicialesEntrada);
-      console.log(this.cintermediosEntrada);
-      console.log(this.cavanzadosEntrada);
+      this.cavanzadosEntrada = [...this.avanzadosEntrada];
     });
   }
 
@@ -111,14 +105,11 @@ export class TabAsistenciaPage implements OnInit {
             return;
           }
         }
-        console.log("uno mas");
       });
-      console.log("termine");
 
-      this.cinicialesSalida = this.inicialesSalida;
-      this.cintermediosSalida = this.intermediosSalida;
-      this.cavanzadosSalida = this.avanzadosSalida;
-      console.log("los copie");
+      this.cinicialesSalida = [...this.inicialesSalida];
+      this.cintermediosSalida = [...this.intermediosSalida];
+      this.cavanzadosSalida = [...this.avanzadosSalida];
     });
   }
 
@@ -237,7 +228,6 @@ export class TabAsistenciaPage implements OnInit {
     la salida de un paciente.
   */
   async departureAlert(data: any) {
-    console.log(data);
     const alert = await this.alertCtrl.create({
       header: "Registro de Salida",
       message: "¿Está seguro de querer registrar esta salida?",
@@ -284,195 +274,67 @@ export class TabAsistenciaPage implements OnInit {
   eventListener(data: string) {
     this.busqueda = data[0];
     this.fase = data[1];
-    console.log(this.fase);
-    console.log(this.cinicialesEntrada);
-    console.log(this.cintermediosEntrada);
-    console.log(this.cavanzadosEntrada);
 
     this.busqueda = this.busqueda.toLowerCase();
     this.buscarCoincidencias();
   }
 
   buscarCoincidencias() {
-    console.log(this.registro);
     if (this.registro == "entrada") {
       // Pacientes de entrada
       switch (this.fase) {
         case "inicial":
-          if (this.busqueda.length == 0) {
-            this.cinicialesEntrada = [...this.inicialesEntrada];
-          } else {
-            if (this.inicialesEntrada != undefined) {
-              if (this.inicialesEntrada.length != 0) {
-                console.log('ENTRADA INICIAL');
-                this.cinicialesEntrada = [];
-                this.inicialesEntrada.forEach((elemento, indice) => {
-                  if (elemento != undefined) {
-                    let nombre: String =
-                      elemento.name +
-                      " " +
-                      elemento.lastName +
-                      " " +
-                      elemento.lastNameSecond;
-                    nombre = nombre.toLowerCase();
-
-                    if (nombre.includes(this.busqueda)) {
-                      this.cinicialesEntrada.push(elemento);
-                    }else{
-                      console.log(nombre);
-                      console.log(this.busqueda);
-                    }
-                  }
-                });
-              }
-            }
-          }
+          this.cinicialesEntrada = this.coincidenciasLista(this.inicialesEntrada);
           break;
-
         case "intermedia":
-          if (this.busqueda.length == 0) {
-            this.cintermediosEntrada = [...this.intermediosEntrada];
-          } else {
-            if (this.intermediosEntrada != undefined) {
-              if (this.intermediosEntrada.length != 0) {
-                console.log('ENTRADA INTERMEDIA');
-                this.cintermediosEntrada = [];
-                this.intermediosEntrada.forEach((elemento, indice) => {
-                  if (elemento != undefined) {
-                    let nombre: String =
-                      elemento.name +
-                      " " +
-                      elemento.lastName +
-                      " " +
-                      elemento.lastNameSecond;
-                    nombre = nombre.toLowerCase();
-
-                    if (nombre.includes(this.busqueda)) {
-                      this.cintermediosEntrada.push(elemento);
-                    }
-                  }
-                });
-              }
-            }
-          }
+          this.cintermediosEntrada = this.coincidenciasLista(this.intermediosEntrada);
           break;
-
         case "avanzada":
-          if (this.busqueda.length == 0) {
-            this.cavanzadosEntrada = [...this.avanzadosEntrada];
-          } else {
-            if (this.avanzadosEntrada != undefined) {
-              if (this.avanzadosEntrada.length != 0) {
-                console.log('ENTRADA AVANZADA');
-                this.cavanzadosEntrada = [];
-                this.avanzadosEntrada.forEach((elemento, indice) => {
-                  if (elemento != undefined) {
-                    let nombre: String =
-                      elemento.name +
-                      " " +
-                      elemento.lastName +
-                      " " +
-                      elemento.lastNameSecond;
-                    nombre = nombre.toLowerCase();
-
-                    if (nombre.includes(this.busqueda)) {
-                      this.cavanzadosEntrada.push(elemento);
-                    }
-                  }
-                });
-              }
-            }
-          }
+          this.cavanzadosEntrada = this.coincidenciasLista(this.avanzadosEntrada);
           break;
       }
     } else {
       // Pacientes de salida
       switch (this.fase) {
         case "inicial":
-          if (this.busqueda.length == 0) {
-            this.cinicialesSalida = [...this.inicialesSalida];
-          } else {
-            if (this.inicialesSalida != undefined) {
-              if (this.inicialesSalida.length != 0) {
-                console.log('SALIDA INICIAL');
-                this.cinicialesSalida = [];
-                this.inicialesSalida.forEach((elemento, indice) => {
-                  if (elemento.patient != undefined) {
-                    let nombre: String =
-                      elemento.patient.name +
-                      " " +
-                      elemento.patient.lastName +
-                      " " +
-                      elemento.patient.lastNameSecond;
-                    nombre = nombre.toLowerCase();
-
-                    if (nombre.includes(this.busqueda)) {
-                      this.cinicialesSalida.push(elemento);
-                    }
-                  }
-                });
-              }
-            }
-          }
+          this.cinicialesSalida = this.coincidenciasLista(this.inicialesSalida);
           break;
-
         case "intermedia":
-          if (this.busqueda.length == 0) {
-            this.cintermediosSalida = [...this.intermediosSalida];
-          } else {
-            if (this.intermediosSalida != undefined) {
-              if (this.intermediosSalida.length != 0) {
-                console.log('SALIDA INTERMEDIO');
-                this.cintermediosSalida = [];
-                this.intermediosSalida.forEach((elemento, indice) => {
-                  if (elemento.patient != undefined) {
-                    let nombre: String =
-                      elemento.patient.name +
-                      " " +
-                      elemento.patient.lastName +
-                      " " +
-                      elemento.patient.lastNameSecond;
-                    nombre = nombre.toLowerCase();
-
-                    if (nombre.includes(this.busqueda)) {
-                      this.cintermediosSalida.push(elemento);
-                    }
-                  }
-                });
-              }
-            }
-          }
+          this.cintermediosSalida = this.coincidenciasLista(this.intermediosSalida);
           break;
-
         case "avanzada":
-          if (this.busqueda.length == 0) {
-            this.cavanzadosSalida = [...this.avanzadosSalida];
-          } else {
-            if (this.avanzadosSalida != undefined) {
-              if (this.avanzadosSalida.length != 0) {
-                console.log('SALIDA AVANZADO');
-                this.cavanzadosSalida = [];
-                this.avanzadosSalida.forEach((elemento, indice) => {
-                  if (elemento.patient != undefined) {
-                    let nombre: String =
-                      elemento.patient.name +
-                      " " +
-                      elemento.patient.lastName +
-                      " " +
-                      elemento.patient.lastNameSecond;
-                    nombre = nombre.toLowerCase();
-
-                    if (nombre.includes(this.busqueda)) {
-                      this.cavanzadosSalida.push(elemento);
-                    }
-                  }
-                });
-              }
-            }
-          }
+          this.cavanzadosSalida = this.coincidenciasLista(this.avanzadosSalida);
           break;
       }
     }
+  }
+
+  coincidenciasLista(listaBase) {
+    let listaCoincidencias = [...listaBase];
+
+    if (this.busqueda.length > 0) {
+      if (listaBase.length != 0) {
+        listaCoincidencias = [];
+        listaBase.forEach((elemento, indice) => {
+          let paciente = elemento;
+          if (paciente.patient != undefined) {
+            paciente = paciente.patient;
+          }
+          let nombre: String =
+            paciente.name +
+            " " +
+            paciente.lastName +
+            " " +
+            paciente.lastNameSecond;
+          nombre = nombre.toLowerCase();
+
+          if (nombre.includes(this.busqueda)) {
+            listaCoincidencias.push(elemento);
+          }
+        });
+      }
+    }
+    return listaCoincidencias;
   }
 
   disparaAlert(title: string) {
