@@ -3,6 +3,7 @@ import { IonSegment } from "@ionic/angular";
 import { DailyRecordService } from "src/app/services/daily-record.service";
 import { Storage } from "@ionic/storage";
 import { Router } from '@angular/router';
+import { coincidenciasLista } from '../../../helpers/searchbar-helper';
 
 @Component({
   selector: "app-tab3",
@@ -12,12 +13,13 @@ import { Router } from '@angular/router';
 export class TabBitacoraPage implements OnInit {
   @ViewChild(IonSegment, { static: true }) iSegment: IonSegment;
   
-  busqueda;
+  busqueda = '';
   fase = "inicial";
   
   rol;
   
   pacientes = [];
+  coincidencias = [];
   rutaActual = this.router.url;
 
   constructor(
@@ -30,6 +32,11 @@ export class TabBitacoraPage implements OnInit {
     this.storage.get("Rol").then(val => {
       this.getTodayDailyRecords(val);
     });
+  }
+
+  onSearchChange(event){
+    this.busqueda = event.detail.value;
+    this.coincidencias = coincidenciasLista(this.pacientes,this.busqueda);
   }
   
   openBitacora(paciente) {
@@ -57,6 +64,8 @@ export class TabBitacoraPage implements OnInit {
           this.pacientes.push(r);
         }
       });
+
+      this.coincidencias = this.pacientes;
     });
   }
   /* 

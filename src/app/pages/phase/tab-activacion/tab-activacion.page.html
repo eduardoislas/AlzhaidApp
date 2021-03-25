@@ -120,7 +120,7 @@
 
   <!-- Lista de desempeño -->
   <ion-list *ngIf="opcion === 'desempeno'" class="ion-padding-top">
-    <ion-item *ngFor="let paciente of pacientes" (click)="openActividades( paciente )">
+    <ion-item *ngFor="let paciente of coincidencias" (click)="openActividades( paciente )">
       <ion-avatar slot="start">
         <img src="{{ paciente.patient.img }}" />
       </ion-avatar>

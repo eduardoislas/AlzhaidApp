@@ -5,6 +5,7 @@ import { DailyRecordService } from "src/app/services/daily-record.service";
 import { Info } from "../../../interfaces/daily-records";
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { coincidenciasLista } from '../../../helpers/searchbar-helper';
 
 @Component({
   selector: "app-tab2",
@@ -14,7 +15,7 @@ import { Router } from '@angular/router';
 export class TabActivacionPage implements OnInit {
   opcion;
 
-  busqueda;
+  busqueda = '';
   fase;
   rol;
 
@@ -28,6 +29,7 @@ export class TabActivacionPage implements OnInit {
   emptyDailyRecords;
 
   pacientes = [];
+  coincidencias = [];
 
   atencion = [];
   calculo = [];
@@ -92,6 +94,7 @@ export class TabActivacionPage implements OnInit {
   */
   searchBar(event) {
     this.busqueda = event.detail.value;
+    this.coincidencias = coincidenciasLista(this.pacientes,this.busqueda);
   }
 
   getDailyProgramsPhase(phase: string) {
@@ -129,6 +132,8 @@ export class TabActivacionPage implements OnInit {
           this.pacientes.push(r);
         }
       });
+
+      this.coincidencias = this.pacientes;
     });
   }
   /* 

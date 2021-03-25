@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
 import { Router } from '@angular/router';
+import { coincidenciasLista } from '../../../helpers/searchbar-helper';
 
 @Component({
   selector: 'app-tab2',
@@ -9,7 +10,8 @@ import { Router } from '@angular/router';
 })
 export class Tab2Page implements OnInit {
   pacientes = [];
-  busqueda;
+  coincidencias = [];
+  busqueda = '';
   fase = 'inicial';
   rutaActual = this.router.url;
 
@@ -31,6 +33,8 @@ export class Tab2Page implements OnInit {
             this.pacientes.push( r );
           }
         });
+
+        this.coincidencias = this.pacientes;
       });
   }
 
@@ -39,9 +43,15 @@ export class Tab2Page implements OnInit {
   }
 
   eventListener( data: string ) {
+    if(data[0] != this.busqueda){
       this.busqueda = data[0];
+      this.coincidencias = coincidenciasLista(this.pacientes, this.busqueda);
+    }
+
+    if (data[1] != this.fase) {
       this.fase = data[1];
-      this.getTodayDailyRecords();
+      this.getTodayDailyRecords();;
+    }
   }
 
   async openPage( paciente ) {

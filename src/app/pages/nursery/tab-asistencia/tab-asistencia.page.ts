@@ -5,6 +5,7 @@ import { DailyRecordService } from "src/app/services/daily-record.service";
 import Swal from "sweetalert2";
 import { element } from "protractor";
 import { Patient } from "../../../interfaces/caregiver";
+import { coincidenciasLista } from '../../../helpers/searchbar-helper';
 
 @Component({
   selector: "app-tab2",
@@ -117,6 +118,7 @@ export class TabAsistenciaPage implements OnInit {
             this.inicialesEntrada.indexOf(element),
             1
           );
+          this.buscarCoincidencias();
           return;
         }
       });
@@ -127,6 +129,7 @@ export class TabAsistenciaPage implements OnInit {
             this.intermediosEntrada.indexOf(element),
             1
           );
+          this.buscarCoincidencias();
           return;
         }
       });
@@ -137,11 +140,13 @@ export class TabAsistenciaPage implements OnInit {
             this.avanzadosEntrada.indexOf(element),
             1
           );
+          this.buscarCoincidencias();
           return;
         }
       });
     }
   }
+  
   /*
     Método que elimina de la lista de salida (InicialEntrada,
     IntermediosEntrada o AvanzadosEntrada según sea el caso) el paciente
@@ -152,6 +157,7 @@ export class TabAsistenciaPage implements OnInit {
       this.inicialesSalida.forEach((element) => {
         if (data._id === element._id) {
           this.inicialesSalida.splice(this.inicialesSalida.indexOf(element), 1);
+          this.buscarCoincidencias();
           return;
         }
       });
@@ -162,6 +168,7 @@ export class TabAsistenciaPage implements OnInit {
             this.intermediosSalida.indexOf(element),
             1
           );
+          this.buscarCoincidencias();
           return;
         }
       });
@@ -169,6 +176,7 @@ export class TabAsistenciaPage implements OnInit {
       this.avanzadosSalida.forEach((element) => {
         if (data._id === element._id) {
           this.avanzadosSalida.splice(this.avanzadosSalida.indexOf(element), 1);
+          this.buscarCoincidencias();
           return;
         }
       });
@@ -279,57 +287,29 @@ export class TabAsistenciaPage implements OnInit {
       // Pacientes de entrada
       switch (this.fase) {
         case "inicial":
-          this.listaCoincidenciasEntrada = this.coincidenciasLista(this.inicialesEntrada);
+          this.listaCoincidenciasEntrada = coincidenciasLista(this.inicialesEntrada,this.busqueda);
           break;
         case "intermedia":
-          this.listaCoincidenciasEntrada = this.coincidenciasLista(this.intermediosEntrada);
+          this.listaCoincidenciasEntrada = coincidenciasLista(this.intermediosEntrada,this.busqueda);
           break;
         case "avanzada":
-          this.listaCoincidenciasEntrada = this.coincidenciasLista(this.avanzadosEntrada);
+          this.listaCoincidenciasEntrada = coincidenciasLista(this.avanzadosEntrada,this.busqueda);
           break;
       }
     } else {
       // Pacientes de salida
       switch (this.fase) {
         case "inicial":
-          this.listaCoincidenciasSalida = this.coincidenciasLista(this.inicialesSalida);
+          this.listaCoincidenciasSalida = coincidenciasLista(this.inicialesSalida,this.busqueda);
           break;
         case "intermedia":
-          this.listaCoincidenciasSalida = this.coincidenciasLista(this.intermediosSalida);
+          this.listaCoincidenciasSalida = coincidenciasLista(this.intermediosSalida,this.busqueda);
           break;
         case "avanzada":
-          this.listaCoincidenciasSalida = this.coincidenciasLista(this.avanzadosSalida);
+          this.listaCoincidenciasSalida = coincidenciasLista(this.avanzadosSalida,this.busqueda);
           break;
       }
     }
-  }
-
-  coincidenciasLista(listaBase) {
-    let listaCoincidencias = [...listaBase];
-
-    if (this.busqueda.length > 0) {
-      if (listaBase.length != 0) {
-        listaCoincidencias = [];
-        listaBase.forEach((elemento, indice) => {
-          let paciente = elemento;
-          if (paciente.patient != undefined) {
-            paciente = paciente.patient;
-          }
-          let nombre: String =
-            paciente.name +
-            " " +
-            paciente.lastName +
-            " " +
-            paciente.lastNameSecond;
-          nombre = nombre.toLowerCase();
-
-          if (nombre.includes(this.busqueda)) {
-            listaCoincidencias.push(elemento);
-          }
-        });
-      }
-    }
-    return listaCoincidencias;
   }
 
   disparaAlert(title: string) {

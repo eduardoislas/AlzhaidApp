@@ -3,6 +3,7 @@ import { DailyRecordService } from "src/app/services/daily-record.service";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { PhysioService } from "../../../services/physio/physio.service";
+import { coincidenciasLista } from '../../../helpers/searchbar-helper';
 
 @Component({
   selector: "app-tab3",
@@ -12,10 +13,11 @@ import { PhysioService } from "../../../services/physio/physio.service";
 export class TabBitacoraPage implements OnInit {
   clickEventsubscription: Subscription;
   rutaActual = this.router.url;
-  busqueda;
+  busqueda = '';
   fase = "inicial";
 
   pacientes = [];
+  coincidencias = [];
   pacientesStrings = []; // variable para guardar pacientes stringificados
 
   constructor(
@@ -34,9 +36,15 @@ export class TabBitacoraPage implements OnInit {
     this.getPatients();
   }
   eventListener(data: string) {
-    this.busqueda = data[0];
-    this.fase = data[1];
-    this.getPatients();
+    if(data[0] != this.busqueda){
+      this.busqueda = data[0];
+      this.coincidencias = coincidenciasLista(this.pacientes, this.busqueda);
+    }
+
+    if (data[1] != this.fase) {
+      this.fase = data[1];
+      this.getPatients();
+    }
   }
   getPatients() {
     this.pacientes = [];
@@ -52,6 +60,8 @@ export class TabBitacoraPage implements OnInit {
           }
         }
       });
+
+      this.coincidencias = this.pacientes;
     });
   }
   openBitacora(paciente) {

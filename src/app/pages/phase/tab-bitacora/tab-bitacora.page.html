@@ -12,7 +12,7 @@
     <ion-list-header>
       <ion-label>Pacientes del día</ion-label>
     </ion-list-header>
-    <ion-item *ngFor="let paciente of pacientes" (click)="openBitacora( paciente )">
+    <ion-item *ngFor="let paciente of coincidencias" (click)="openBitacora( paciente )">
       <ion-avatar slot="start">
         <img src="{{ paciente.patient.img }}" />
       </ion-avatar>

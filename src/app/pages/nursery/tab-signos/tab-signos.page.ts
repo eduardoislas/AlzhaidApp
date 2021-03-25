@@ -1,24 +1,26 @@
 import { Component, OnInit } from "@angular/core";
 import { DailyRecordService } from "src/app/services/daily-record.service";
-import { Router } from '@angular/router';
+import { Router } from "@angular/router";
+import { coincidenciasLista } from "src/app/helpers/searchbar-helper";
 
 @Component({
   selector: "app-tab3",
   templateUrl: "./tab-signos.page.html",
-  styleUrls: ["./tab-signos.page.scss"]
+  styleUrls: ["./tab-signos.page.scss"],
 })
 export class TabSignosPage implements OnInit {
   rutaActual = this.router.url;
-  busqueda;
+  busqueda = "";
   fase = "inicial";
 
   pacientes = [];
-  pacientesStrings = []; // variable para guardar pacientes stringificados 
+  coincidencias = [];
+  pacientesStrings = []; // variable para guardar pacientes stringificados
 
   constructor(
     private dailyService: DailyRecordService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.patientsRole();
@@ -31,9 +33,15 @@ export class TabSignosPage implements OnInit {
     vabiables y llamar al método patientsRole.
   */
   eventListener(data: string) {
-    this.busqueda = data[0];
-    this.fase = data[1];
-    this.patientsRole();
+    if(data[0] != this.busqueda){
+      this.busqueda = data[0];
+      this.coincidencias = coincidenciasLista(this.pacientes, this.busqueda);
+    }
+
+    if (data[1] != this.fase) {
+      this.fase = data[1];
+      this.patientsRole();
+    }
   }
 
   /* 
@@ -46,19 +54,24 @@ export class TabSignosPage implements OnInit {
     this.pacientes = [];
     this.pacientesStrings = [];
 
-    this.dailyService.getDailyRecordsToday().subscribe(res => {
-      res.drs.forEach(r => {
+    this.dailyService.getDailyRecordsToday().subscribe((res) => {
+      res.drs.forEach((r) => {
         if (r.patient.phase === this.capitalize(this.fase)) {
-          if (!this.pacientesStrings.includes(JSON.stringify(r))) {//Condicional para verificar que si un paciente ya esta en el arreglo, no se vuelva a incluir
-            this.pacientesStrings.push(JSON.stringify(r));//Agregar paciente stringificado para poder verificar con el metodo includes
+          if (!this.pacientesStrings.includes(JSON.stringify(r))) {
+            //Condicional para verificar que si un paciente ya esta en el arreglo, no se vuelva a incluir
+            this.pacientesStrings.push(JSON.stringify(r)); //Agregar paciente stringificado para poder verificar con el metodo includes
             this.pacientes.push(r);
           }
         }
       });
+
+      this.coincidencias = coincidenciasLista(this.pacientes, this.busqueda);
     });
   }
   openSignos(paciente) {
-    this.router.navigateByUrl(`${this.rutaActual}/signos`, { state: { data: paciente } });
+    this.router.navigateByUrl(`${this.rutaActual}/signos`, {
+      state: { data: paciente },
+    });
   }
   /* 
     Método que sirve para volver mayúscula la primera letra de una palabra
