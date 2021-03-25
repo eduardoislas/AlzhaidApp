@@ -111,14 +111,14 @@ export class TabAsistenciaPage implements OnInit {
             return;
           }
         }
-        console.log('uno mas');
+        console.log("uno mas");
       });
-      console.log('termine');
+      console.log("termine");
 
       this.cinicialesSalida = this.inicialesSalida;
       this.cintermediosSalida = this.intermediosSalida;
       this.cavanzadosSalida = this.avanzadosSalida;
-      console.log('los copie');
+      console.log("los copie");
     });
   }
 
@@ -265,6 +265,7 @@ export class TabAsistenciaPage implements OnInit {
     });
     await alert.present();
   }
+
   /* 
     Método que checa la opción seleccionada en el IonSegment de la entrada 
     y salida, lo iguala a registro.
@@ -273,8 +274,8 @@ export class TabAsistenciaPage implements OnInit {
     this.registro = event.detail.value;
 
     if (this.registro === "salida") this.getDailyRecords();
-    //this.getDailyRecords();
   }
+
   /* 
     Método encargado de escuchar el segundo dato del arreglo proviniente
     del componente de searchbar ( el cual es la fase del paciente) y 
@@ -283,6 +284,10 @@ export class TabAsistenciaPage implements OnInit {
   eventListener(data: string) {
     this.busqueda = data[0];
     this.fase = data[1];
+    console.log(this.fase);
+    console.log(this.cinicialesEntrada);
+    console.log(this.cintermediosEntrada);
+    console.log(this.cavanzadosEntrada);
 
     this.busqueda = this.busqueda.toLowerCase();
     this.buscarCoincidencias();
@@ -290,80 +295,92 @@ export class TabAsistenciaPage implements OnInit {
 
   buscarCoincidencias() {
     console.log(this.registro);
-    if (this.registro == 'entrada') {
+    if (this.registro == "entrada") {
       // Pacientes de entrada
       switch (this.fase) {
         case "inicial":
-          if (this.inicialesEntrada != undefined) {
-            if (this.inicialesEntrada.length != 0) {
+          if (this.busqueda.length == 0) {
+            this.cinicialesEntrada = [...this.inicialesEntrada];
+          } else {
+            if (this.inicialesEntrada != undefined) {
+              if (this.inicialesEntrada.length != 0) {
+                console.log('ENTRADA INICIAL');
+                this.cinicialesEntrada = [];
+                this.inicialesEntrada.forEach((elemento, indice) => {
+                  if (elemento != undefined) {
+                    let nombre: String =
+                      elemento.name +
+                      " " +
+                      elemento.lastName +
+                      " " +
+                      elemento.lastNameSecond;
+                    nombre = nombre.toLowerCase();
 
-              this.cinicialesEntrada = [];
-              this.inicialesEntrada.forEach((elemento, indice) => {
-                
-                if (elemento.patient != undefined) {
-                  let nombre: String =
-                    elemento.patient.name +
-                    " " +
-                    elemento.patient.lastName +
-                    " " +
-                    elemento.patient.lastNameSecond;
-                  nombre = nombre.toLowerCase();
-
-                  if (nombre.includes(this.busqueda)) {
-                    this.cinicialesEntrada.push(elemento);
+                    if (nombre.includes(this.busqueda)) {
+                      this.cinicialesEntrada.push(elemento);
+                    }else{
+                      console.log(nombre);
+                      console.log(this.busqueda);
+                    }
                   }
-                }
-              });
+                });
+              }
             }
           }
           break;
 
         case "intermedia":
-          if (this.intermediosEntrada != undefined) {
-            if (this.intermediosEntrada.length != 0) {
-              
-              this.cintermediosEntrada = [];
-              this.intermediosEntrada.forEach((elemento, indice) => {
-                
-                if (elemento.patient != undefined) {
-                  let nombre: String =
-                    elemento.patient.name +
-                    " " +
-                    elemento.patient.lastName +
-                    " " +
-                    elemento.patient.lastNameSecond;
-                  nombre = nombre.toLowerCase();
+          if (this.busqueda.length == 0) {
+            this.cintermediosEntrada = [...this.intermediosEntrada];
+          } else {
+            if (this.intermediosEntrada != undefined) {
+              if (this.intermediosEntrada.length != 0) {
+                console.log('ENTRADA INTERMEDIA');
+                this.cintermediosEntrada = [];
+                this.intermediosEntrada.forEach((elemento, indice) => {
+                  if (elemento != undefined) {
+                    let nombre: String =
+                      elemento.name +
+                      " " +
+                      elemento.lastName +
+                      " " +
+                      elemento.lastNameSecond;
+                    nombre = nombre.toLowerCase();
 
-                  if (nombre.includes(this.busqueda)) {
-                    this.cintermediosEntrada.push(elemento);
+                    if (nombre.includes(this.busqueda)) {
+                      this.cintermediosEntrada.push(elemento);
+                    }
                   }
-                }
-              });
+                });
+              }
             }
           }
           break;
 
         case "avanzada":
-          if (this.avanzadosEntrada != undefined) {
-            if (this.avanzadosEntrada.length != 0) {
-              
-              this.cavanzadosEntrada = [];
-              this.avanzadosEntrada.forEach((elemento, indice) => {
-                
-                if (elemento.patient != undefined) {
-                  let nombre: String =
-                    elemento.patient.name +
-                    " " +
-                    elemento.patient.lastName +
-                    " " +
-                    elemento.patient.lastNameSecond;
-                  nombre = nombre.toLowerCase();
+          if (this.busqueda.length == 0) {
+            this.cavanzadosEntrada = [...this.avanzadosEntrada];
+          } else {
+            if (this.avanzadosEntrada != undefined) {
+              if (this.avanzadosEntrada.length != 0) {
+                console.log('ENTRADA AVANZADA');
+                this.cavanzadosEntrada = [];
+                this.avanzadosEntrada.forEach((elemento, indice) => {
+                  if (elemento != undefined) {
+                    let nombre: String =
+                      elemento.name +
+                      " " +
+                      elemento.lastName +
+                      " " +
+                      elemento.lastNameSecond;
+                    nombre = nombre.toLowerCase();
 
-                  if (nombre.includes(this.busqueda)) {
-                    this.cavanzadosEntrada.push(elemento);
+                    if (nombre.includes(this.busqueda)) {
+                      this.cavanzadosEntrada.push(elemento);
+                    }
                   }
-                }
-              });
+                });
+              }
             }
           }
           break;
@@ -372,76 +389,85 @@ export class TabAsistenciaPage implements OnInit {
       // Pacientes de salida
       switch (this.fase) {
         case "inicial":
-          if (this.inicialesSalida != undefined) {
-            if (this.inicialesSalida.length != 0) {
+          if (this.busqueda.length == 0) {
+            this.cinicialesSalida = [...this.inicialesSalida];
+          } else {
+            if (this.inicialesSalida != undefined) {
+              if (this.inicialesSalida.length != 0) {
+                console.log('SALIDA INICIAL');
+                this.cinicialesSalida = [];
+                this.inicialesSalida.forEach((elemento, indice) => {
+                  if (elemento.patient != undefined) {
+                    let nombre: String =
+                      elemento.patient.name +
+                      " " +
+                      elemento.patient.lastName +
+                      " " +
+                      elemento.patient.lastNameSecond;
+                    nombre = nombre.toLowerCase();
 
-              this.cinicialesSalida = [];
-              this.inicialesSalida.forEach((elemento, indice) => {
-
-                if (elemento.patient != undefined) {
-                  let nombre: String =
-                    elemento.patient.name +
-                    " " +
-                    elemento.patient.lastName +
-                    " " +
-                    elemento.patient.lastNameSecond;
-                  nombre = nombre.toLowerCase();
-
-                  if (nombre.includes(this.busqueda)) {
-                    this.cinicialesSalida.push(elemento);
+                    if (nombre.includes(this.busqueda)) {
+                      this.cinicialesSalida.push(elemento);
+                    }
                   }
-                }
-              });
+                });
+              }
             }
           }
           break;
 
         case "intermedia":
-          if (this.intermediosSalida != undefined) {
-            if (this.intermediosSalida.length != 0) {
-              
-              this.cintermediosSalida = [];
-              this.intermediosSalida.forEach((elemento, indice) => {
-                
-                if (elemento.patient != undefined) {
-                  let nombre: String =
-                    elemento.patient.name +
-                    " " +
-                    elemento.patient.lastName +
-                    " " +
-                    elemento.patient.lastNameSecond;
-                  nombre = nombre.toLowerCase();
+          if (this.busqueda.length == 0) {
+            this.cintermediosSalida = [...this.intermediosSalida];
+          } else {
+            if (this.intermediosSalida != undefined) {
+              if (this.intermediosSalida.length != 0) {
+                console.log('SALIDA INTERMEDIO');
+                this.cintermediosSalida = [];
+                this.intermediosSalida.forEach((elemento, indice) => {
+                  if (elemento.patient != undefined) {
+                    let nombre: String =
+                      elemento.patient.name +
+                      " " +
+                      elemento.patient.lastName +
+                      " " +
+                      elemento.patient.lastNameSecond;
+                    nombre = nombre.toLowerCase();
 
-                  if (nombre.includes(this.busqueda)) {
-                    this.cintermediosSalida.push(elemento);
+                    if (nombre.includes(this.busqueda)) {
+                      this.cintermediosSalida.push(elemento);
+                    }
                   }
-                }
-              });
+                });
+              }
             }
           }
           break;
 
         case "avanzada":
-          if (this.avanzadosSalida != undefined) {
-            if (this.avanzadosSalida.length != 0) {
-              
-              this.cavanzadosSalida = [];
-              this.avanzadosSalida.forEach((elemento, indice) => {
-                
-                if (elemento.patient != undefined) {
-                  let nombre: String =
-                    elemento.patient.name +
-                    " " +
-                    elemento.patient.lastName +
-                    " " +
-                    elemento.patient.lastNameSecond;
-                  nombre = nombre.toLowerCase();
+          if (this.busqueda.length == 0) {
+            this.cavanzadosSalida = [...this.avanzadosSalida];
+          } else {
+            if (this.avanzadosSalida != undefined) {
+              if (this.avanzadosSalida.length != 0) {
+                console.log('SALIDA AVANZADO');
+                this.cavanzadosSalida = [];
+                this.avanzadosSalida.forEach((elemento, indice) => {
+                  if (elemento.patient != undefined) {
+                    let nombre: String =
+                      elemento.patient.name +
+                      " " +
+                      elemento.patient.lastName +
+                      " " +
+                      elemento.patient.lastNameSecond;
+                    nombre = nombre.toLowerCase();
 
-                  if (nombre.includes(this.busqueda)) {
-                    this.cavanzadosSalida.push(elemento);
+                    if (nombre.includes(this.busqueda)) {
+                      this.cavanzadosSalida.push(elemento);
+                    }
                   }
-                }
-              });
+                });
+              }
             }
           }
           break;
