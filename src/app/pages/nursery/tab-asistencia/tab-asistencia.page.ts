@@ -16,7 +16,7 @@ export class TabAsistenciaPage implements OnInit {
   iSegmentRegistros: IonSegment;
 
   registro = "entrada";
-  busqueda;
+  busqueda='';
   fase = "inicial";
 
   // Pacientes de cada etapa
@@ -29,13 +29,8 @@ export class TabAsistenciaPage implements OnInit {
   avanzadosSalida = [];
 
   // Coincidencias de pacientes de cada etapa
-  cinicialesEntrada = [];
-  cintermediosEntrada = [];
-  cavanzadosEntrada = [];
-
-  cinicialesSalida = [];
-  cintermediosSalida = [];
-  cavanzadosSalida = [];
+  listaCoincidenciasEntrada = [];
+  listaCoincidenciasSalida = [];
 
   date = new Date();
   today =
@@ -72,9 +67,7 @@ export class TabAsistenciaPage implements OnInit {
         }
       });
 
-      this.cinicialesEntrada = [...this.inicialesEntrada];
-      this.cintermediosEntrada = [...this.intermediosEntrada];
-      this.cavanzadosEntrada = [...this.avanzadosEntrada];
+      this.listaCoincidenciasEntrada = [...this.inicialesEntrada];
     });
   }
 
@@ -107,9 +100,17 @@ export class TabAsistenciaPage implements OnInit {
         }
       });
 
-      this.cinicialesSalida = [...this.inicialesSalida];
-      this.cintermediosSalida = [...this.intermediosSalida];
-      this.cavanzadosSalida = [...this.avanzadosSalida];
+      switch(this.fase){
+        case 'inicial': 
+          this.listaCoincidenciasSalida = [...this.inicialesSalida];
+          break;
+          case 'intermedia': 
+          this.listaCoincidenciasSalida = [...this.intermediosSalida];
+          break;
+          case 'avanzada': 
+          this.listaCoincidenciasSalida = [...this.avanzadosSalida];
+          break;
+      }
     });
   }
 
@@ -263,7 +264,21 @@ export class TabAsistenciaPage implements OnInit {
   segmentChangedRegistros(event) {
     this.registro = event.detail.value;
 
-    if (this.registro === "salida") this.getDailyRecords();
+    if (this.registro === "salida"){
+      this.getDailyRecords();
+    } else {
+      switch(this.fase){
+        case 'inicial': 
+          this.listaCoincidenciasEntrada = this.coincidenciasLista(this.inicialesEntrada);//[...this.inicialesEntrada];
+          break;
+          case 'intermedia': 
+          this.listaCoincidenciasEntrada = this.coincidenciasLista(this.intermediosEntrada);//[...this.intermediosEntrada];
+          break;
+          case 'avanzada': 
+          this.listaCoincidenciasEntrada = this.coincidenciasLista(this.avanzadosEntrada);//[...this.avanzadosEntrada];
+          break;
+      }
+    }
   }
 
   /* 
@@ -284,26 +299,26 @@ export class TabAsistenciaPage implements OnInit {
       // Pacientes de entrada
       switch (this.fase) {
         case "inicial":
-          this.cinicialesEntrada = this.coincidenciasLista(this.inicialesEntrada);
+          this.listaCoincidenciasEntrada = this.coincidenciasLista(this.inicialesEntrada);
           break;
         case "intermedia":
-          this.cintermediosEntrada = this.coincidenciasLista(this.intermediosEntrada);
+          this.listaCoincidenciasEntrada = this.coincidenciasLista(this.intermediosEntrada);
           break;
         case "avanzada":
-          this.cavanzadosEntrada = this.coincidenciasLista(this.avanzadosEntrada);
+          this.listaCoincidenciasEntrada = this.coincidenciasLista(this.avanzadosEntrada);
           break;
       }
     } else {
       // Pacientes de salida
       switch (this.fase) {
         case "inicial":
-          this.cinicialesSalida = this.coincidenciasLista(this.inicialesSalida);
+          this.listaCoincidenciasSalida = this.coincidenciasLista(this.inicialesSalida);
           break;
         case "intermedia":
-          this.cintermediosSalida = this.coincidenciasLista(this.intermediosSalida);
+          this.listaCoincidenciasSalida = this.coincidenciasLista(this.intermediosSalida);
           break;
         case "avanzada":
-          this.cavanzadosSalida = this.coincidenciasLista(this.avanzadosSalida);
+          this.listaCoincidenciasSalida = this.coincidenciasLista(this.avanzadosSalida);
           break;
       }
     }
