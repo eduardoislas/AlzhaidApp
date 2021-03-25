@@ -67,7 +67,7 @@ export class TabAsistenciaPage implements OnInit {
         }
       });
 
-      this.listaCoincidenciasEntrada = [...this.inicialesEntrada];
+      this.buscarCoincidencias();
     });
   }
 
@@ -100,17 +100,7 @@ export class TabAsistenciaPage implements OnInit {
         }
       });
 
-      switch(this.fase){
-        case 'inicial': 
-          this.listaCoincidenciasSalida = [...this.inicialesSalida];
-          break;
-          case 'intermedia': 
-          this.listaCoincidenciasSalida = [...this.intermediosSalida];
-          break;
-          case 'avanzada': 
-          this.listaCoincidenciasSalida = [...this.avanzadosSalida];
-          break;
-      }
+      this.buscarCoincidencias();
     });
   }
 
@@ -267,17 +257,7 @@ export class TabAsistenciaPage implements OnInit {
     if (this.registro === "salida"){
       this.getDailyRecords();
     } else {
-      switch(this.fase){
-        case 'inicial': 
-          this.listaCoincidenciasEntrada = this.coincidenciasLista(this.inicialesEntrada);//[...this.inicialesEntrada];
-          break;
-          case 'intermedia': 
-          this.listaCoincidenciasEntrada = this.coincidenciasLista(this.intermediosEntrada);//[...this.intermediosEntrada];
-          break;
-          case 'avanzada': 
-          this.listaCoincidenciasEntrada = this.coincidenciasLista(this.avanzadosEntrada);//[...this.avanzadosEntrada];
-          break;
-      }
+      this.buscarCoincidencias();
     }
   }
 
