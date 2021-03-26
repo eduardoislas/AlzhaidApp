@@ -2,10 +2,8 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { PatientsService } from "src/app/services/patients.service";
 import { AlertController, IonSegment } from "@ionic/angular";
 import { DailyRecordService } from "src/app/services/daily-record.service";
-import Swal from "sweetalert2";
-import { element } from "protractor";
-import { Patient } from "../../../interfaces/caregiver";
 import { coincidenciasLista } from '../../../helpers/searchbar-helper';
+import { mostrarAlertaConfirmacion } from '../../../helpers/alert-helper';
 
 @Component({
   selector: "app-tab2",
@@ -214,7 +212,7 @@ export class TabAsistenciaPage implements OnInit {
           handler: (blah) => {
             this.patientService.putPatientAssistance(id, true).subscribe();
             this.dailyService.postDailyRecords(id).subscribe();
-            this.disparaAlert("Asistencia registrada");
+            mostrarAlertaConfirmacion("Asistencia registrada");
             this.deleteOnAttendance(id);
           },
         },
@@ -247,7 +245,7 @@ export class TabAsistenciaPage implements OnInit {
               .putPatientAssistance(data.patient._id, false)
               .subscribe();
             this.deleteOnDeparture(data);
-            this.disparaAlert("Salida registrada");
+            mostrarAlertaConfirmacion("Salida registrada");
           },
         },
       ],
@@ -310,25 +308,5 @@ export class TabAsistenciaPage implements OnInit {
           break;
       }
     }
-  }
-
-  disparaAlert(title: string) {
-    // SweetAlert
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "center",
-      showConfirmButton: false,
-      timer: 1000,
-      timerProgressBar: true,
-      onOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
-
-    Toast.fire({
-      icon: "success",
-      title,
-    });
   }
 }

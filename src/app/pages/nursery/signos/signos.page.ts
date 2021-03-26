@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
 import { VitalSign } from 'src/app/interfaces/daily-records';
-import Swal, { SweetAlertIcon } from 'sweetalert2';
+import { mostrarAlertaConfirmacion, mostrarAlertaAdvertencia } from '../../../helpers/alert-helper';
 
 @Component({
   selector: 'app-signos',
@@ -33,25 +33,6 @@ export class SignosPage implements OnInit {
   ngOnInit() {
     this.paciente = history.state.data;
     this.today = new Date().toISOString();
-  }
-
-  mostrarAlerta(msg: String, icon: SweetAlertIcon) {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'center',
-      showConfirmButton: false,
-      timer: 1500,
-      timerProgressBar: true,
-      onOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-      }
-    });
-
-    Toast.fire({
-      icon: icon,
-      title: msg
-    });
   }
 
   numeroValido(valor): Boolean {
@@ -89,7 +70,7 @@ export class SignosPage implements OnInit {
     }
 
     if (!this.info.length) { //Si NO hubo registros... error
-      this.mostrarAlerta('Todos los campos están vacíos', 'warning');
+      mostrarAlertaAdvertencia('Todos los campos están vacíos');
       return false;
     } else { // Si hubo registros se guardan
       this.dailyService
@@ -97,7 +78,7 @@ export class SignosPage implements OnInit {
         .subscribe(
           res => {
             if (res.success === true) {
-              this.mostrarAlerta('Signos vitales actualizados', 'success');
+              mostrarAlertaConfirmacion('Signos vitales actualizados');
               this.router.navigateByUrl('/nursery/tab-signos');
             }
           },
@@ -126,7 +107,7 @@ export class SignosPage implements OnInit {
       this.info.push(data);
       return true;
     } else {
-      this.mostrarAlerta('Presión arterial no válida', 'warning');
+      mostrarAlertaAdvertencia('Presión arterial no válida');
       return false;
     }
   }
@@ -146,7 +127,7 @@ export class SignosPage implements OnInit {
       this.info.push(data);
       return true;
     } else {
-      this.mostrarAlerta('Frecuencia cardiaca no válida', 'warning');
+      mostrarAlertaAdvertencia('Frecuencia cardiaca no válida');
       return false;
     }
   }
@@ -166,7 +147,7 @@ export class SignosPage implements OnInit {
       this.info.push(data);
       return true;
     } else {
-      this.mostrarAlerta('Saturación de oxígeno no válida', 'warning');
+      mostrarAlertaAdvertencia('Saturación de oxígeno no válida');
       return false;
     }
   }
@@ -185,29 +166,9 @@ export class SignosPage implements OnInit {
       this.info.push(data);
       return true;
     } else {
-      this.mostrarAlerta('Nivel de glucosa no válido', 'warning');
+      mostrarAlertaAdvertencia('Nivel de glucosa no válido');
       return false;
     }
-  }
-
-  disparaAlert(title: string) {
-    // SweetAlert
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'center',
-      showConfirmButton: false,
-      timer: 1500,
-      timerProgressBar: true,
-      onOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-      }
-    })
-
-    Toast.fire({
-      icon: 'success',
-      title
-    });
   }
 
 }

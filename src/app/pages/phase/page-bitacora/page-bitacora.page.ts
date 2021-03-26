@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CatalogService } from 'src/app/services/catalog.service';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
-import Swal from 'sweetalert2';
-import { IonRange } from '@ionic/angular';
 import { Location } from "@angular/common";
+import { mostrarAlertaConfirmacion, mostrarAlertaError } from '../../../helpers/alert-helper';
 
 @Component({
   selector: 'app-page-bitacora',
@@ -90,62 +89,13 @@ export class PageBitacoraPage implements OnInit {
       .subscribe(
         res => {
           if(res.success === true) {
-            this.disparaAlertSuccess("Conductas actualizadas exitosamente");
+            mostrarAlertaConfirmacion("Conductas actualizadas exitosamente");
             this.location.back();
           }
         },
         err => {
-          this.disparaAlertError(err);
+          mostrarAlertaError(err);
         }
       );
-
-  }
-
-  /**
-   * 
-   * @param title 
-   */
-  disparaAlertSuccess(title: string) {
-    // SweetAlert
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'center',
-      showConfirmButton: false,
-      timer: 1500,
-      timerProgressBar: true,
-      onOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-      }
-    })
-
-    Toast.fire({
-      icon: 'success',
-      title
-    });
-  }
-
-  /**
-   * 
-   * @param title 
-   */
-  disparaAlertError(title: string) {
-    // SweetAlert
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'center',
-      showConfirmButton: false,
-      timer: 1500,
-      timerProgressBar: true,
-      onOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-      }
-    })
-
-    Toast.fire({
-      icon: 'error',
-      title
-    });
   }
 }

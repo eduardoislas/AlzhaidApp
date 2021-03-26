@@ -3,9 +3,9 @@ import { Storage } from "@ionic/storage";
 import { CatalogService } from "src/app/services/catalog.service";
 import { DailyRecordService } from "src/app/services/daily-record.service";
 import { Info } from "../../../interfaces/daily-records";
-import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { coincidenciasLista } from '../../../helpers/searchbar-helper';
+import { mostrarAlertaAdvertencia, mostrarAlertaGrande, mostrarAlertaConfirmacion } from '../../../helpers/alert-helper';
 
 @Component({
   selector: "app-tab2",
@@ -59,26 +59,8 @@ export class TabActivacionPage implements OnInit {
 
   validarSobreescrituraDePrograma() {
     if (this.emptyDailyRecords === false) {
-      if (!Swal.isVisible()) {
-        Swal.fire({
-          title: 'Ya hay un programa diario',
-          text: "¿Desea sobreescribirlo?",
-          icon: 'warning',
-          backdrop: false,
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Sí'
-        }).then((result) => {
-          if (!result.value) {
-            this.router.navigateByUrl('/phase');
-          }
-        })
-      }
-      console.log('NO ES EMPTY');
-    } else {
-      console.log('SI ES EMPTY');
-    }
+      mostrarAlertaGrande('Ya hay un programa diario',"¿Desea sobreescribirlo?",'warning','/phase');
+    } 
   }
 
   segmentChangedRegistros(event) {
@@ -269,25 +251,7 @@ export class TabActivacionPage implements OnInit {
 
     //Validar que el programa diario no se encuentre vacio
     if (!attention.length && !calculus.length && !sensory.length && !language.length && !memory.length && !reminiscence.length) {
-      // SweetAlert
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'center',
-        showConfirmButton: false,
-        timer: 1500,
-        timerProgressBar: true,
-        onOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-      })
-
-      Toast.fire({
-        icon: 'warning',
-        title: 'Programa diario vacío',
-      })
-      //End sweetalert
-
+      mostrarAlertaAdvertencia('Programa diario vacío');
     } else {
       let dailyProgram = {
         phase: this.rol,
@@ -312,25 +276,8 @@ export class TabActivacionPage implements OnInit {
           this.toggleMemoria = false;
           this.toggleReminiscencia = false;
           reminiscence
-          // SweetAlert
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'center',
-            showConfirmButton: false,
-            timer: 1500,
-            timerProgressBar: true,
-            onOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
 
-          Toast.fire({
-            icon: 'success',
-            title: 'El programa diario se actualizó con éxito'
-          })
-          //End sweetalert
-
+          mostrarAlertaConfirmacion('El programa diario se actualizó con éxito');
           this.router.navigateByUrl('/phase');
         },
         err => {

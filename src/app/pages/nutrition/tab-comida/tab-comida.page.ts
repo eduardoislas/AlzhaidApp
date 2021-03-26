@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
-import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { Subscription } from "rxjs";
 import { NutritionService } from 'src/app/services/nutrition/nutrition.service';
@@ -51,30 +50,6 @@ export class TabComidaPage implements OnInit {
   */
   openComida(paciente) {
     this.router.navigateByUrl(`${this.rutaActual}/page-comida`, { state: { data: paciente } });
-  }
-
-  /**
-  * Muestra un mensaje de alerta con una confirmacion
-  * @param title mensaje que mostrara la alerta
-  */
-  disparaAlert(title: string) {
-    // SweetAlert
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'center',
-      showConfirmButton: false,
-      timer: 1500,
-      timerProgressBar: true,
-      onOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-      }
-    })
-
-    Toast.fire({
-      icon: 'success',
-      title
-    });
   }
 
 }

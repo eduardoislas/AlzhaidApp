@@ -4,13 +4,11 @@ import { ModalController } from '@ionic/angular';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
 import { Storage } from '@ionic/storage';
 import { NotificationsService } from 'src/app/services/notifications.service';
-import Swal from 'sweetalert2';
 import { Location } from '@angular/common';
 import { PatientsService } from 'src/app/services/patients.service';
 import { CaregiverService } from 'src/app/services/caregiver.service';
 import { NotificationsListenerService } from 'src/app/services/notifications/notificationsListener.service';
-
-
+import { mostrarAlertaConfirmacion, mostrarAlertaAdvertencia } from '../../helpers/alert-helper';
 
 @Component({
   selector: 'app-notifications-add',
@@ -147,14 +145,14 @@ export class NotificationsAddPage implements OnInit {
       // Llamar el método del servicio
       this.notificationsService.postNotifications(notification)
         .subscribe(res => {
-          this.disparaAlert('Notificacion registrada');
+          mostrarAlertaConfirmacion('Notificacion registrada');
           this.notificationsListenerService.sendClickEvent();
           console.log(notification.priority);
         });
 
       this.salir();
     } else {
-      Swal.fire('Faltan datos por rellenar');
+      mostrarAlertaAdvertencia('Faltan datos por rellenar');
     }
   }
   /**
@@ -164,26 +162,4 @@ export class NotificationsAddPage implements OnInit {
     this.localizacion.back();
   }
 
-  /**
-   * Muestra un mensaje de alerta con una confirmacion
-   * @param title mensaje que mostrara la alerta
-   */
-  disparaAlert(title: string) {
-    // SweetAlert
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'center',
-      showConfirmButton: false,
-      timer: 1500,
-      timerProgressBar: true,
-      onOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer);
-        toast.addEventListener('mouseleave', Swal.resumeTimer);
-      }
-    });
-    Toast.fire({
-      icon: 'success',
-      title
-    });
-  }
 }

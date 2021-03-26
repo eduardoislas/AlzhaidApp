@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Storage } from "@ionic/storage";
 import { Activity } from 'src/app/interfaces/daily-records';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
-import Swal from 'sweetalert2';
 import {Location} from '@angular/common';
+import { mostrarAlertaConfirmacion } from '../../../helpers/alert-helper';
 
 @Component({
   selector: 'app-page-actividades',
@@ -185,7 +185,7 @@ export class PageActividadesPage implements OnInit {
 
 
     this.dailyService.putDailyRecordActivities(this.paciente._id, data).subscribe(res => {
-      this.disparaAlert("Actualizado con éxito");
+      mostrarAlertaConfirmacion("Actualizado con éxito");
 
     }, err => {
       console.log(err);
@@ -200,23 +200,4 @@ export class PageActividadesPage implements OnInit {
     this.location.back();
   }
 
-  disparaAlert(title: string) {
-    // SweetAlert
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "center",
-      showConfirmButton: false,
-      timer: 1500,
-      timerProgressBar: true,
-      onOpen: toast => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      }
-    });
-
-    Toast.fire({
-      icon: "success",
-      title
-    });
-  }
 }

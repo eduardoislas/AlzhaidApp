@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { mostrarAlertaConfirmacion } from 'src/app/helpers/alert-helper';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
-import Swal from 'sweetalert2';
-
 
 @Component({
   selector: 'app-tab2',
@@ -83,10 +82,10 @@ export class TabColacionPage implements OnInit {
 
     // Envía al servicio el arreglo de activación con los objetos previamente llenados.
     this.dailyService.putDailyRecordsCollation(activation).subscribe(res => {
-      // Si la respuesta es true, despliega el sweetAlert y convierte la variable
+      // Si la respuesta es true, despliega el alerta y convierte la variable
       // infoEnviada en true.
       if (res.success === true) {
-        this.disparaAlert('Datos enviados correctamente.');
+        mostrarAlertaConfirmacion('Datos enviados correctamente.');
         this.infoEnviada = true;
       }
     }, err => {
@@ -114,40 +113,16 @@ export class TabColacionPage implements OnInit {
 
     // Envía a través del servicio el arreglo activation, el cual fue llenado previamente.
     this.dailyService.putDailyRecordsCollation(activation).subscribe(res => {
-      // Si la respuesta del servicio es true, dispara el sweetAlert y cambia la variable
+      // Si la respuesta del servicio es true, dispara el alerta y cambia la variable
       // infoEnviada a true.
       if (res.success === true) {
-        this.disparaAlert('Datos enviados correctamente.');
+        mostrarAlertaConfirmacion('Datos enviados correctamente.');
         this.infoEnviada = true;
       }
     }, err => {
       console.log(err);
     });
 
-  }
-
-  /**
-  * Muestra un mensaje de alerta con una confirmacion
-  * @param title mensaje que mostrara la alerta
-  */
-  disparaAlert(title: string) {
-    // SweetAlert
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'center',
-      showConfirmButton: false,
-      timer: 1500,
-      timerProgressBar: true,
-      onOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-      }
-    })
-
-    Toast.fire({
-      icon: 'success',
-      title
-    });
   }
 
 }

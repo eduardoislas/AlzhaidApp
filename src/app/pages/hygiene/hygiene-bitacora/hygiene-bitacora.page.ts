@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { PatientsService } from 'src/app/services/patients.service';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
-import Swal from 'sweetalert2';
 import {Location} from '@angular/common';
+import { mostrarAlertaConfirmacion } from '../../../helpers/alert-helper';
 
 @Component({
   selector: 'app-hygiene-bitacora',
@@ -117,7 +117,7 @@ export class HygieneModalPage implements OnInit {
     // Llamar el método del servicio
     this.dailyRecordService.putDailyRecordsHygiene(this.paciente._id, higiene)
     .subscribe(res => {
-      this.disparaAlert('Reporte de higiene registrado');
+      mostrarAlertaConfirmacion('Reporte de higiene registrado');
       this.localizacion.back();
     });
   }
@@ -152,26 +152,4 @@ export class HygieneModalPage implements OnInit {
     this.observacionProtector = event.target.value;
   }
 
-  /**
-   * Muestra un mensaje de alerta con una confirmacion
-   * @param title mensaje que mostrara la alerta
-   */
-  disparaAlert(title: string) {
-    // SweetAlert
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'center',
-      showConfirmButton: false,
-      timer: 1500,
-      timerProgressBar: true,
-      onOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer);
-        toast.addEventListener('mouseleave', Swal.resumeTimer);
-      }
-    });
-    Toast.fire({
-      icon: 'success',
-      title
-    });
-  }
 }

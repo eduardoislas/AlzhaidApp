@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { ToastController } from "@ionic/angular";
 import { DailyRecordService } from "src/app/services/daily-record.service";
-import Swal from "sweetalert2";
 import { Router } from "@angular/router";
-import { Meal, Dr } from '../../../interfaces/daily-records';
+import { Dr } from '../../../interfaces/daily-records';
 import { NutritionService } from "src/app/services/nutrition/nutrition.service";
+import { mostrarAlertaGrande, mostrarAlertaConfirmacion } from '../../../helpers/alert-helper';
 
 @Component({
   selector: "app-page-comida",
@@ -37,27 +37,8 @@ export class PageComidaPage implements OnInit {
 
   verificarSobreescribirComida() {
     if (this.paciente.meal) {
-      console.log('Ya hay comida registrada');
-
-      Swal.fire({
-        title: 'Ya hay una comida registrada',
-        text: "¿Desea sobreescribirla?",
-        icon: 'warning',
-        backdrop: false,
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, adelante!'
-      }).then((result) => {
-        if (!result.value) {
-          this.router.navigateByUrl('/nutrition');
-        }
-      })
-
-    } else {
-      console.log('No hay comida registrada');
+      mostrarAlertaGrande('Ya hay una comida registrada','¿Desea sobreescribirla?','warning','/nutrition');
     }
-
   }
 
   /**
@@ -140,12 +121,12 @@ export class PageComidaPage implements OnInit {
     };
 
     // Envía al servicio el objeto data y el id del dailyRecord del paciente, si la
-    // respuesta es success, muestra el mensaje de sweetalert y se devuelve al tab de
+    // respuesta es success, muestra el mensaje de alerta y se devuelve al tab de
     // comidas.
     this.dailyService.putDailyRecordsMeal(data, this.paciente._id).subscribe(
       (res) => {
         if (res.success === true) {
-          this.disparaAlert("Datos enviados correctamente.");
+          mostrarAlertaConfirmacion("Datos enviados correctamente.");
           this.router.navigateByUrl("nutrition/tab-comida");
           this.nutritionService.sendClickEvent();
         }
@@ -154,29 +135,6 @@ export class PageComidaPage implements OnInit {
         console.log(err);
       }
     );
-  }
-
-  /**
-   * Muestra un mensaje de alerta con una confirmacion
-   * @param title mensaje que mostrara la alerta
-   */
-  disparaAlert(title: string) {
-    // SweetAlert
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "center",
-      showConfirmButton: false,
-      timer: 1500,
-      timerProgressBar: true,
-      onOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
-    Toast.fire({
-      icon: "success",
-      title,
-    });
   }
 
   /**

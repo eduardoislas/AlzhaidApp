@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
-import Swal from 'sweetalert2';
-import { element } from 'protractor';
-import { PageComidaPageRoutingModule } from '../../nutrition/page-comida/page-comida-routing.module';
+import { mostrarAlertaConfirmacion } from 'src/app/helpers/alert-helper';
+import { mostrarAlertaAdvertencia } from '../../../helpers/alert-helper';
 
 @Component({
   selector: 'app-tab2',
@@ -42,15 +41,12 @@ export class TabActivacionPage implements OnInit {
     });
   }
 
-  rangeChange(event) {
-  }
-
   validarSobreescritura(paciente){
     console.log(paciente.selected);
 
     if(paciente.selected === false || paciente.selected === undefined){
       if(paciente.physicalActivation != undefined){
-        this.mostrarAlerta("Ya existe registro del paciente");
+        mostrarAlertaAdvertencia("Ya existe registro del paciente");
       }
     }
   }
@@ -80,7 +76,7 @@ export class TabActivacionPage implements OnInit {
     this.dailyService.putDailyRecordsPhysicalActivation(activation).subscribe(res => {
       if (res.success === true) {
         //this.infoEnviada = true;
-        this.disparaAlert('Datos enviados correctamente.');
+        mostrarAlertaConfirmacion('Datos enviados correctamente.');
         this.getDailyRecords();
 
         console.log('respuesta', res);
@@ -107,10 +103,10 @@ export class TabActivacionPage implements OnInit {
 
     // Envía a través del servicio el arreglo activation, el cual fue llenado previamente.
     this.dailyService.putDailyRecordsPhysicalActivation(activation).subscribe(res => {
-      // Si la respuesta del servicio es true, dispara el sweetAlert y cambia la variable
+      // Si la respuesta del servicio es true, dispara el alerta y cambia la variable
       // infoEnviada a true.
       if (res.success === true) {
-        this.disparaAlert('Datos enviados correctamente.');
+        mostrarAlertaConfirmacion('Datos enviados correctamente.');
         this.getDailyRecords();
         //this.infoEnviada = true;
       }
@@ -119,46 +115,5 @@ export class TabActivacionPage implements OnInit {
     });
 
   }
-
-  disparaAlert(title: string) {
-    // SweetAlert
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'center',
-      showConfirmButton: false,
-      timer: 1500,
-      timerProgressBar: true,
-      onOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-      }
-    })
-
-    Toast.fire({
-      icon: 'success',
-      title
-    });
-  }
-
-  mostrarAlerta(title: string) {
-    // SweetAlert
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'center',
-      showConfirmButton: false,
-      timer: 1500,
-      timerProgressBar: true,
-      onOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-      }
-    })
-
-    Toast.fire({
-      icon: 'warning',
-      title
-    });
-  }
-
 
 }
