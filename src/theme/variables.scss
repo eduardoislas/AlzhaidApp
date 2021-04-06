@@ -1,16 +1,17 @@
 /** Ionic CSS Variables **/
 :root {
+  --ion-background-color: #E8F7F9;
   /** primary **/
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #3171e0;
+  --ion-color-primary-shade:#3171e0;
   --ion-color-primary-tint: #4c8dff;
   /** secondary **/
   --ion-color-secondary: #0cd1e8;
   --ion-color-secondary-rgb: 12, 209, 232;
-  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast:#ffffff;
   --ion-color-secondary-contrast-rgb: 255, 255, 255;
   --ion-color-secondary-shade: #0bb8cc;
   --ion-color-secondary-tint: #24d6ea;
@@ -63,8 +64,37 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  /* Colores botones */
+  --color-boton-aceptar:'#62b269';
+  --color-boton-cancelar:'#d84557';
+
+
 }
 
 ion-button {
-  --color-checked: #004ccf
+  --color-checked: #0088cc;
 }
+
+ion-tab-button{
+  --background: #0088cc;
+  --color: #E8F7F9;
+  --color-selected: #C1C1C1;
+}
+
+ion-toolbar{
+  --background: #0088cc;
+  --color:#E8F7F9;
+}
+
+ion-segment-button{
+  --color: white;
+  --color-checked: #C1C1C1;
+}
+
+ion-content{
+  //--background: linear-gradient(0.25turn, #fae8e8, #d8e9f0);
+  --background: #E8F7F9;
+}
+
+

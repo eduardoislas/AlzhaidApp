@@ -37,7 +37,7 @@ export class PageComidaPage implements OnInit {
 
   verificarSobreescribirComida() {
     if (this.paciente.meal) {
-      mostrarAlertaGrande('Ya hay una comida registrada','¿Desea sobreescribirla?','warning','/nutrition');
+      mostrarAlertaGrande('Ya hay una comida registrada', '¿Desea sobreescribirla?', 'warning', '/nutrition', this.router);
     }
   }
 

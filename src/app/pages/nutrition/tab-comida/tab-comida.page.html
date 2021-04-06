@@ -1,10 +1,9 @@
-
 <ion-content>
+  <ion-toolbar>
+    <ion-title>Registro de comida</ion-title>
+  </ion-toolbar>
   <ion-list>
-    <ion-list-header>
-      <ion-label>Pacientes del día</ion-label>
-    </ion-list-header>
-    
+
     <ion-item *ngFor="let paciente of pacientes" (click)="openComida( paciente )">
       <ion-avatar slot="start">
         <img src="{{ paciente.patient.img }}" />

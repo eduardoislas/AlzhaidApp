@@ -38,12 +38,8 @@
 
       <ion-toggle [(ngModel)]="item.selected"></ion-toggle>
 
-      <ion-range *ngIf="item.selected"
-                 pin
-                 snaps
-                 min="0" max="5"
-                 [(ngModel)]="item.score"
-                 (ionChange)="activityScore( $event )">
+      <ion-range *ngIf="item.selected" pin snaps min="0" max="5" [(ngModel)]="item.score"
+        (ionChange)="activityScore( $event )">
 
         <ion-icon slot="start" size="small" color="medium" name="star"></ion-icon>
         <ion-icon slot="end" color="medium" name="star"></ion-icon>
@@ -68,16 +64,13 @@
   <ion-grid fixed>
     <ion-row>
       <ion-col size="6">
-        <ion-button (click)="salirSinArgumentos()"
-                    expand="full"
-                    color="secondary">
+        <ion-button (click)="salirSinArgumentos()" expand="full" class="botonSalir">
           Salir
         </ion-button>
       </ion-col>
 
       <ion-col size="6">
-        <ion-button (click)="salirConArgumentos()"
-                    expand="full">
+        <ion-button (click)="salirConArgumentos()" expand="full" class="botonAceptar">
           Enviar
         </ion-button>
       </ion-col>

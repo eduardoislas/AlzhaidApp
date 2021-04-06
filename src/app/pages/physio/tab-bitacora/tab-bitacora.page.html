@@ -1,13 +1,13 @@
-<ion-header no-border>
+<ion-header>
   <ion-toolbar>
+    <ion-title class="tituloBitacora">Bitácora de fisioterapia</ion-title>
     <app-searchbar (post)="eventListener( $event )"></app-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list *ngIf="pacientes.length > 0">
-    <ion-item *ngFor="let paciente of coincidencias" 
-              (click)="openBitacora( paciente )">
+    <ion-item *ngFor="let paciente of coincidencias" (click)="openBitacora( paciente )">
       <ion-avatar slot="start">
         <img src="{{ paciente.patient.img }}" />
       </ion-avatar>

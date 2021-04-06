@@ -21,15 +21,14 @@
 <div class="contenedorPostPacientes">
   <ion-item>
     <ion-icon name="calendar"></ion-icon>
-    <ion-datetime displayFormat="DD/MM/YYYY" cancel-text = "Cancelar" done-text = "Aceptar" placeholder="{{fechaSeleccionadaISOString}}"
-      (ionChange)="dateChanged( $event.detail.value )">
+    <ion-datetime displayFormat="DD/MM/YYYY" cancel-text="Cancelar" done-text="Aceptar"
+      placeholder="{{fechaSeleccionadaISOString}}" (ionChange)="dateChanged( $event.detail.value )">
     </ion-datetime>
   </ion-item>
 
-  <ion-grid>
-
-    <ion-row class="contenedorTabs">
-      <ion-col>
+  <ion-grid class="contenedorGrid">
+    <ion-row>
+      <ion-col class="contenedorCol">
         <ion-segment #iSegmentRegistros (ionChange)="segmentChangedRegistros( $event )" mode="md">
           <ion-segment-button value="general">
             <ion-label>General</ion-label>
@@ -195,25 +194,30 @@
         <table class="tablaDatos">
           <tr>
             <th colspan="2">Fecha Inicio </th>
-            <td>{{formatearHora(dailyRecordSeleccionado.physioBinnacle.startTime)}} </td>
+            <td *ngIf='dailyRecordSeleccionado.physioBinnacle.status != false'>
+              {{formatearHora(dailyRecordSeleccionado.physioBinnacle.startTime)}} </td>
           </tr>
           <tr>
             <th colspan="2">Fecha Fin </th>
-            <td>{{formatearHora(dailyRecordSeleccionado.physioBinnacle.endTime)}} </td>
+            <td *ngIf='dailyRecordSeleccionado.physioBinnacle.status != false'>
+              {{formatearHora(dailyRecordSeleccionado.physioBinnacle.endTime)}} </td>
           </tr>
 
           <tr>
             <th colspan="2">Humor Inicial </th>
-            <td>{{dailyRecordSeleccionado.physioBinnacle.startMood}} </td>
+            <td *ngIf='dailyRecordSeleccionado.physioBinnacle.status != false'>
+              {{dailyRecordSeleccionado.physioBinnacle.startMood}} </td>
           </tr>
           <tr>
             <th colspan="2">Humor Final </th>
-            <td>{{dailyRecordSeleccionado.physioBinnacle.endMood}} </td>
+            <td *ngIf='dailyRecordSeleccionado.physioBinnacle.status != false'>
+              {{dailyRecordSeleccionado.physioBinnacle.endMood}} </td>
           </tr>
 
           <tr>
             <th colspan="2">Activación física</th>
-            <td>{{ dailyRecordSeleccionado.physicalActivation + "/5"}}</td>
+            <td *ngIf='dailyRecordSeleccionado.physioBinnacle.status != false'>{{
+              dailyRecordSeleccionado.physicalActivation + "/5"}}</td>
           </tr>
 
           <tr>
@@ -221,11 +225,14 @@
             <th>Desempeño </th>
             <th>Clasificación </th>
           </tr>
-          <tr *ngFor="let registro of dailyRecordSeleccionado.phaseBinnacle.activities">
-            <td>{{registro.name}}</td>
-            <td>{{registro.performance + "/5"}}</td>
-            <td>{{registro.classification}}</td>
-          </tr>
+          <div *ngIf='dailyRecordSeleccionado.physioBinnacle.status != false'>
+            <tr *ngFor="let registro of dailyRecordSeleccionado.phaseBinnacle.activities">
+              <td>{{registro.name}}</td>
+              <td>{{registro.performance + "/5"}}</td>
+              <td>{{registro.classification}}</td>
+            </tr>
+          </div>
+
         </table>
       </div>
     </div>
@@ -236,10 +243,10 @@
 </div>
 
 <!-- FAB para probar la ventana de notificaciones, mover a una ventana distinta donde se mas apropiada -->
-<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
   <ion-fab-button (click)="openComponent()">
     <ion-icon name="add"></ion-icon>
   </ion-fab-button>
-</ion-fab>
+</ion-fab> -->
 
 <!-- </ion-content> -->

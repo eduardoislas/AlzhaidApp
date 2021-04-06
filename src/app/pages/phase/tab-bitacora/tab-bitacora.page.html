@@ -1,11 +1,14 @@
-<ion-header no-border>
-  <ion-toolbar>
-    <ion-searchbar placeholder="Search"
-                   (ionChange)="onSearchChange($event)" 
-                   animated
-                   placeholder="Buscar paciente..."></ion-searchbar>
-  </ion-toolbar>
-</ion-header>
+<ion-toolbar>
+  <ion-title class="tituloBitacora">Bitácora de fase</ion-title>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-searchbar placeholder="Search" (ionChange)="onSearchChange($event)" animated
+          placeholder="Buscar paciente..."></ion-searchbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-toolbar>
 
 <ion-content>
   <ion-list>

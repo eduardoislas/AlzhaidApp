@@ -1,27 +1,31 @@
-<ion-header no-border>
-  <ion-toolbar>
-    <ion-segment #iSegmentRegistros (ionChange)="segmentChangedRegistros( $event )" mode="md">
-      <ion-segment-button value="programa">
-        <ion-label>Programa Diario</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="desempeno">
-        <ion-label>Desempeño</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-    <ion-searchbar *ngIf="opcion === 'desempeno'" 
-                   #iSearchbar 
-                   animated 
-                   (ionChange)="searchBar( $event )"
-                   placeholder="Buscar paciente...">
-    </ion-searchbar>
+<!-- <ion-header no-border> -->
+<ion-toolbar>
+  <ion-segment #iSegmentRegistros (ionChange)="segmentChangedRegistros( $event )" mode="md">
+    <ion-segment-button value="programa">
+      <ion-label>Programa Diario</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="desempeno">
+      <ion-label>Desempeño</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <!-- <ion-searchbar *ngIf="opcion === 'desempeno'" #iSearchbar animated (ionChange)="searchBar( $event )"
+    placeholder="Buscar paciente...">
+  </ion-searchbar> -->
 
-  </ion-toolbar>
-</ion-header>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-searchbar *ngIf="opcion === 'desempeno'" #iSearchbar animated (ionChange)="searchBar( $event )"
+          placeholder="Buscar paciente...">
+        </ion-searchbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-toolbar>
+<!-- </ion-header> -->
 
 <ion-content>
-
-
-
   <div *ngIf="opcion === 'programa'">
     <!--<div class="daily-msg" *ngIf="emptyDailyRecords === false">
       <ion-label>Ya existe un programa diario</ion-label>

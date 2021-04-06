@@ -1,19 +1,17 @@
 <ion-header no-border>
   <ion-toolbar>
-    <ion-list>
+    <ion-title>Reportar desempeño</ion-title>
+
+    <!-- <ion-list>
       <ion-item>
 
         <ion-segment #iSegmentDesempeno (ionChange)="segmentChangedDesempeno( $event )" mode="md">
-          <!-- <ion-segment-button value="orden">
-            <ion-label>Todo En orden</ion-label>
-          </ion-segment-button> -->
           <ion-segment-button value="reporte">
             <ion-label>Reportar Desempeño</ion-label>
           </ion-segment-button>
         </ion-segment>
-
       </ion-item>
-    </ion-list>
+    </ion-list> -->
   </ion-toolbar>
 </ion-header>
 
@@ -65,9 +63,12 @@
         </ion-item>
       </ion-list>
 
-      <ion-button (click)="sendDataDesempeno()" expand="full">
-        Enviar desempeño
-      </ion-button>
+      <div class="contenedor">
+        <ion-button (click)="sendDataDesempeno()">
+          Enviar desempeño
+        </ion-button>
+      </div>
+
 
       <p>ó </p>
 

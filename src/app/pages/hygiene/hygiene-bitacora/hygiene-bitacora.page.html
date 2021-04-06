@@ -1,3 +1,9 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-title>Bitácora de higiene</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
   <ion-item class="patient-item">
     <ion-avatar slot="start">
@@ -9,52 +15,53 @@
     </ion-label>
   </ion-item>
 
-  
+
   <ion-grid fixed>
     <ion-row>
-      <ion-col pullXs  *ngFor="let diagnosis of diagnosticoPaciente">
-        <ion-label >{{ diagnosis.name }}</ion-label>
+      <ion-col pullXs *ngFor="let diagnosis of diagnosticoPaciente">
+        <ion-label>{{ diagnosis.name }}</ion-label>
       </ion-col>
-      
+
     </ion-row>
   </ion-grid>
 
   <ion-grid fixed>
     <ion-row>
-      <ion-col pullXs  *ngFor="let limitaciones of limitacionesFisicas">
-        <ion-label >{{ limitaciones.name }}</ion-label>
+      <ion-col pullXs *ngFor="let limitaciones of limitacionesFisicas">
+        <ion-label>{{ limitaciones.name }}</ion-label>
       </ion-col>
-      
+
     </ion-row>
   </ion-grid>
 
-  <ion-item>
+  <!-- <ion-item>
     <ion-label>Hora</ion-label>
 
-    <!--
+    
     <ion-datetime
       displayFormat="HH:MM"
       placeholder="horas:minutos"
-    ></ion-datetime>
-    -->
-    <ion-segment (ionChange)="timeChanged($event)">
-      <ion-segment-button value="Mañana" checked >Mañana</ion-segment-button>
-      <ion-segment-button value="Tarde"checked>Tarde</ion-segment-button>
-    </ion-segment>
-  </ion-item>
-  
+    ></ion-datetime> 
+  </ion-item> -->
 
-  <hr>
+  <ion-segment (ionChange)="timeChanged($event)" mode="md">
+    <ion-segment-button value="Mañana" checked>
+      <ion-label>Mañana</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Tarde" checked>
+      <ion-label>Tarde</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 
   <ion-list>
-    <ion-item >
+    <ion-item>
       <ion-avatar slot="start">
         <img src="assets\img\miccion.jpg">
       </ion-avatar>
       <ion-label>Micción</ion-label>
       <ion-toggle [(ngModel)]="toggleMiccion" slot="end"></ion-toggle>
-    </ion-item >
-        
+    </ion-item>
+
     <div *ngIf=toggleMiccion>
       <ion-radio-group (ionChange)="observationMiccion($event)">
         <ion-item>
@@ -103,10 +110,10 @@
   <ion-list>
     <ion-item>
       <ion-avatar slot="start">
-      <img src="assets\img\cambioRopa.png">
-    </ion-avatar>
+        <img src="assets\img\cambioRopa.png">
+      </ion-avatar>
 
-    <ion-label>Cambio de ropa</ion-label>
+      <ion-label>Cambio de ropa</ion-label>
 
       <ion-toggle [(ngModel)]="toggleCambio" slot="end"></ion-toggle>
     </ion-item>
@@ -137,8 +144,8 @@
       <ion-avatar slot="start">
         <img src="assets\img\estrenimiento.jpg">
       </ion-avatar>
-  
-      <ion-label>Estreñimiento</ion-label>  
+
+      <ion-label>Estreñimiento</ion-label>
 
       <ion-toggle [(ngModel)]="toggleEstrenimiento" slot="end"></ion-toggle>
     </ion-item>
@@ -161,8 +168,8 @@
       <ion-avatar slot="start">
         <img src="assets\img\bano.png">
       </ion-avatar>
-  
-      <ion-label>Baño</ion-label>  
+
+      <ion-label>Baño</ion-label>
 
       <ion-toggle [(ngModel)]="toggleBano" slot="end"></ion-toggle>
     </ion-item>
@@ -189,7 +196,7 @@
       <ion-avatar slot="start">
         <img src="assets\img\protector.png">
       </ion-avatar>
-  
+
       <ion-label>Cambio de protectores</ion-label>
 
       <ion-toggle [(ngModel)]="toggleProtector" slot="end"></ion-toggle>
@@ -207,18 +214,18 @@
       </ion-radio-group>
     </div>
   </ion-list>
-  
+
   <hr>
 
   <ion-grid fixed>
     <ion-row>
       <ion-col size="6">
-        <ion-button (click)="salirSinArgumentos()" expand="full">
-            Regresar
+        <ion-button class="botonSalir" (click)="salirSinArgumentos()" expand="full">
+          Regresar
         </ion-button>
       </ion-col>
       <ion-col>
-        <ion-button color="primary" (click)="salirConArgumentos()"expand="full">
+        <ion-button class="botonAceptar" (click)="salirConArgumentos()" expand="full">
           Enviar
         </ion-button>
       </ion-col>

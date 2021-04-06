@@ -8,20 +8,26 @@
     max-height: 80%;
 }
 
-.pacienteSeleccionado {
-    //background-color: lightblue;
+.contenedorGrid {
+    margin: 0%;
+    padding: 0%;
+    padding-bottom: 1%;
+    background-color: #0088cc;
+}
+
+.contenedorCol {
+    margin: 0%;
+    padding: 0%;
 }
 
 ion-segment {
     overflow-x: auto;
     flex-wrap: nowrap;
     padding-left: 90%;
+    background-color: #0088cc;
+    color:#E8F7F9;
 }
 
 ion-label {
     font-size: 80%;
-}
-
-ion-segment-button {
-    max-width: 40%;
 }

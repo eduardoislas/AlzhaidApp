@@ -16,11 +16,8 @@
 
     <ion-item>
       <ion-label>Hora</ion-label>
-      <ion-datetime display-format="HH:mm A" 
-                    picker-format="HH:mm A"
-                    [(ngModel)]="today"
-                    cancel-text = "Cancelar" 
-                    done-text = "Aceptar"></ion-datetime>
+      <ion-datetime display-format="HH:mm A" picker-format="HH:mm A" [(ngModel)]="today" cancel-text="Cancelar"
+        done-text="Aceptar"></ion-datetime>
     </ion-item>
   </ion-list>
 
@@ -34,19 +31,13 @@
             <ion-card-title>
               <ion-toggle [(ngModel)]="togglePresion"></ion-toggle>
               <ion-item>
-                <ion-input inputmode="number"
-                           pattern="^([1-9][0-9]{0,2}|1000)$" 
-                           placeholder="#"
-                           [(ngModel)]="presionA" 
-                           [disabled]="!togglePresion"></ion-input>
+                <ion-input inputmode="number" pattern="^([1-9][0-9]{0,2}|1000)$" placeholder="#" [(ngModel)]="presionA"
+                  [disabled]="!togglePresion"></ion-input>
 
                 <ion-label>/</ion-label>
 
-                <ion-input inputmode="number" 
-                           placeholder="#"
-                           pattern="^([1-9][0-9]{0,2}|1000)$"
-                           [(ngModel)]="presionB" 
-                           [disabled]="!togglePresion"></ion-input>
+                <ion-input inputmode="number" placeholder="#" pattern="^([1-9][0-9]{0,2}|1000)$" [(ngModel)]="presionB"
+                  [disabled]="!togglePresion"></ion-input>
               </ion-item>
             </ion-card-title>
           </ion-card-header>
@@ -63,10 +54,8 @@
             <ion-card-title>
               <ion-toggle [(ngModel)]="toggleFrecuencia"></ion-toggle>
               <ion-item>
-                <ion-input inputmode="number" 
-                           placeholder="#"
-                           [(ngModel)]="latidos"
-                           [disabled]="!toggleFrecuencia"></ion-input>
+                <ion-input inputmode="number" placeholder="#" [(ngModel)]="latidos" [disabled]="!toggleFrecuencia">
+                </ion-input>
               </ion-item>
             </ion-card-title>
           </ion-card-header>
@@ -87,10 +76,8 @@
             <ion-card-title>
               <ion-toggle [(ngModel)]="toggleSaturacion"></ion-toggle>
               <ion-item>
-                <ion-input inputmode="number" 
-                           placeholder="#"
-                           [(ngModel)]="oxigeno"
-                           [disabled]="!toggleSaturacion"></ion-input>
+                <ion-input inputmode="number" placeholder="#" [(ngModel)]="oxigeno" [disabled]="!toggleSaturacion">
+                </ion-input>
               </ion-item>
             </ion-card-title>
           </ion-card-header>
@@ -107,10 +94,8 @@
             <ion-card-title>
               <ion-toggle [(ngModel)]="toggleGlucosa"></ion-toggle>
               <ion-item>
-                <ion-input inputmode="number" 
-                           placeholder="#"
-                           [(ngModel)]="glucosa"
-                           [disabled]="!toggleGlucosa"></ion-input>
+                <ion-input inputmode="number" placeholder="#" [(ngModel)]="glucosa" [disabled]="!toggleGlucosa">
+                </ion-input>
               </ion-item>
             </ion-card-title>
           </ion-card-header>
@@ -125,12 +110,12 @@
   <ion-grid fixed>
     <ion-row>
       <ion-col size="6">
-        <ion-button color="primary" expand="full" (click)="salirSinArgumentos()">
+        <ion-button class="botonSalir" expand="full" (click)="salirSinArgumentos()">
           Salir
         </ion-button>
       </ion-col>
       <ion-col size="6">
-        <ion-button color="secondary" expand="full" (click)="salirConArgumentos()">
+        <ion-button class="botonAceptar" expand="full" (click)="salirConArgumentos()">
           Aceptar
         </ion-button>
       </ion-col>

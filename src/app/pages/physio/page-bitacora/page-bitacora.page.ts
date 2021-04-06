@@ -50,7 +50,7 @@ export class PageBitacoraPage implements OnInit {
 
   verificarSobreescribirBitacora() {
     if (this.dailyRecord.physioBinnacle.status) { // Si ya tiene un registro en la bitacora de fisioterapia
-      mostrarAlertaGrande('Ya hay una bitácora', "¿Desea sobreescribirla?", 'warning','/physio');
+      mostrarAlertaGrande('Ya hay una bitácora', "¿Desea sobreescribirla?", 'warning', '/physio', this.router);
     }
   }
 

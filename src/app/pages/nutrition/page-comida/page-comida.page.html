@@ -75,7 +75,7 @@
       <ion-label>Independencia de asistencia</ion-label>
     </ion-list-header>
     <ion-item>
-      <ion-range  pin snaps min="0" max="5" (ionChange)="ionRangeIndependencia($event)">
+      <ion-range pin snaps min="0" max="5" (ionChange)="ionRangeIndependencia($event)">
         <ion-icon size="small" slot="start" name="star" color="medium"></ion-icon>
         <ion-icon slot="end" name="star" color="medium"></ion-icon>
       </ion-range>
@@ -87,7 +87,7 @@
       <ion-label>Uso adecuado de cubiertos</ion-label>
     </ion-list-header>
     <ion-item>
-      <ion-range  pin snaps min="0" max="5" (ionChange)="ionRangeCubiertos($event)">
+      <ion-range pin snaps min="0" max="5" (ionChange)="ionRangeCubiertos($event)">
         <ion-icon size="small" slot="start" name="star" color="medium"></ion-icon>
         <ion-icon slot="end" name="star" color="medium"></ion-icon>
       </ion-range>
@@ -99,7 +99,7 @@
       <ion-label>Capacidad de masticación sin disfagia</ion-label>
     </ion-list-header>
     <ion-item>
-      <ion-range  pin snaps min="0" max="5" (ionChange)="ionRangeDisfagia($event)">
+      <ion-range pin snaps min="0" max="5" (ionChange)="ionRangeDisfagia($event)">
         <ion-icon size="small" slot="start" name="star" color="medium"></ion-icon>
         <ion-icon slot="end" name="star" color="medium"></ion-icon>
       </ion-range>
@@ -109,12 +109,12 @@
   <ion-grid fixed>
     <ion-row>
       <ion-col size="6">
-        <ion-button (click)="salirSinArgumentos()" expand="full" color="secondary">
+        <ion-button class="botonSalir" (click)="salirSinArgumentos()" expand="full">
           Salir
         </ion-button>
       </ion-col>
       <ion-col size="6">
-        <ion-button (click)="salirConArgumentos()" expand="full">
+        <ion-button class="botonAceptar" (click)="salirConArgumentos()" expand="full">
           Enviar
         </ion-button>
       </ion-col>

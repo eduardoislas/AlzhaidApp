@@ -21,7 +21,7 @@
                         dayNames="Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado"
                         monthNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
                         min="2020" max="2090-10-31" cancelText="Cancelar" doneText="Listo" placeholder="Vigencia"
-                        [(ngModel)]="ExpirationDate" cancel-text = "Cancelar" done-text = "Aceptar"></ion-datetime>
+                        [(ngModel)]="ExpirationDate" cancel-text="Cancelar" done-text="Aceptar"></ion-datetime>
                 </ion-item>
             </ion-col>
         </ion-row>
@@ -63,41 +63,39 @@
       </ion-select>
   -->
 
-        <hr>
-
         <ion-item-divider>
             <ion-label>Tipo</ion-label>
         </ion-item-divider>
 
         <!-- Botones "tipo" -->
         <ion-segment mode="ios" scrollable="false" name="btnTipo" (ionChange)="tipoAviso($event)">
-            <ion-grid>
+            <ion-grid class="contenedorGrid">
                 <ion-row>
-                    <ion-col>
+                    <ion-col class="contenedorCol">
                         <ion-segment-button value='Conducta'>
                             <ion-label>Conducta</ion-label>
                             <ion-icon name="clipboard"></ion-icon>
                         </ion-segment-button>
                     </ion-col>
-                    <ion-col>
+                    <ion-col class="contenedorCol">
                         <ion-segment-button value='Salud'>
                             <ion-label>Salud</ion-label>
                             <ion-icon name="heart-empty"></ion-icon>
                         </ion-segment-button>
                     </ion-col>
-                    <ion-col>
+                    <ion-col class="contenedorCol">
                         <ion-segment-button value='Higiene'>
                             <ion-label>Higiene</ion-label>
                             <ion-icon name="water"></ion-icon>
                         </ion-segment-button>
                     </ion-col>
-                    <ion-col>
+                    <ion-col class="contenedorCol">
                         <ion-segment-button value='Fisica'>
                             <ion-label>Fisica</ion-label>
                             <ion-icon name="body"></ion-icon>
                         </ion-segment-button>
                     </ion-col>
-                    <ion-col>
+                    <ion-col class="contenedorCol">
                         <ion-segment-button value='Sueño'>
                             <ion-label>Sueño</ion-label>
                             <ion-icon name="bed"></ion-icon>
@@ -106,8 +104,6 @@
                 </ion-row>
             </ion-grid>
         </ion-segment>
-
-        <br>
 
         <ion-item-divider>
             <ion-label>Area de notificación</ion-label>
@@ -155,16 +151,12 @@
         <ion-grid fixed>
             <ion-row>
                 <ion-col>
-                    <br>
-                    <br>
-
-                    <ion-button type="button" color="secondary" expand="block" (click)="salir()">Salir</ion-button>
+                    <ion-button class="botonSalir" type="button" expand="block" (click)="salir()">
+                        Salir</ion-button>
                 </ion-col>
                 <ion-col>
-                    <br>
-                    <br>
-
-                    <ion-button type="button" color="primary" expand="block" (click)="enviar()">Enviar</ion-button>
+                    <ion-button class="botonAceptar" type="button" expand="block" (click)="enviar()">
+                        Enviar</ion-button>
                 </ion-col>
             </ion-row>
         </ion-grid>

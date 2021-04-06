@@ -59,8 +59,8 @@ export class TabActivacionPage implements OnInit {
 
   validarSobreescrituraDePrograma() {
     if (this.emptyDailyRecords === false) {
-      mostrarAlertaGrande('Ya hay un programa diario',"¿Desea sobreescribirlo?",'warning','/phase');
-    } 
+      mostrarAlertaGrande('Ya hay un programa diario', "¿Desea sobreescribirlo?", 'warning', '/phase', this.router);
+    }
   }
 
   segmentChangedRegistros(event) {
@@ -76,7 +76,7 @@ export class TabActivacionPage implements OnInit {
   */
   searchBar(event) {
     this.busqueda = event.detail.value;
-    this.coincidencias = coincidenciasLista(this.pacientes,this.busqueda);
+    this.coincidencias = coincidenciasLista(this.pacientes, this.busqueda);
   }
 
   getDailyProgramsPhase(phase: string) {
