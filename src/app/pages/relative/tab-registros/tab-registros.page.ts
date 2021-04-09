@@ -35,8 +35,6 @@ export class TabRegistrosPage implements OnInit {
 
   ngOnInit() {
     this.cargarPacientes();
-
-
   }
 
   ngAfterViewInit() {
@@ -66,7 +64,6 @@ export class TabRegistrosPage implements OnInit {
 
     this.storage.get("id").then((res) => {
       userID = res;
-      console.log(userID);
       let patientsArray = [];
 
       this.caregiverService
@@ -94,7 +91,6 @@ export class TabRegistrosPage implements OnInit {
     this.fechaSeleccionadaISOString = this.formatearFecha(
       fechaAux.toISOString()
     );
-    console.log(this.fechaSeleccionada);
 
     this.buscarDailyRecord();
   }
@@ -119,14 +115,11 @@ export class TabRegistrosPage implements OnInit {
       this.fechaSeleccionada != undefined
     ) {
       for (let i = 0; i < this.dailyRecordsPaciente.length; i++) {
-        console.log(JSON.stringify(this.dailyRecordsPaciente[i].date));
-        console.log(JSON.stringify(this.fechaSeleccionada));
         if (
           JSON.stringify(this.dailyRecordsPaciente[i].date) ==
           JSON.stringify(this.fechaSeleccionada)
         ) {
           this.dailyRecordSeleccionado = this.dailyRecordsPaciente[i];
-          console.log(this.dailyRecordSeleccionado.behavior);
 
           this.fecha =
             this.fechaSeleccionada.getUTCDay() +

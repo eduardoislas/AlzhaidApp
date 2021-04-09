@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { TabRegistrosPageRoutingModule } from './tab-registros-routing.module';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 import { TabRegistrosPage } from './tab-registros.page';
 
@@ -13,7 +14,8 @@ import { TabRegistrosPage } from './tab-registros.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    TabRegistrosPageRoutingModule
+    TabRegistrosPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [TabRegistrosPage]
 })

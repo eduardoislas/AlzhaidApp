@@ -29,6 +29,8 @@ ion-segment {
 }
 
 ion-label {
+    margin: 0%;
+    padding: 0%;
     font-size: 80%;
 }
 
@@ -38,4 +40,32 @@ ion-label {
 
 *{
     font-size: small;
+}
+
+.ajuste-tamaño{
+    margin-top: 10%;
+    width: 30%;
+    align-self: center;
+}
+
+.margen{
+    display: flex;
+    flex-direction: column;
+    margin: 15%;
+    align-items: center;
+}
+
+ion-datetime{
+    margin: 0px; 
+    padding: 0px; 
+    padding-left: 5%;
+}
+
+.texto-regular{
+    font-weight: normal;
+}
+
+.ajuste-tamaño-datetime{
+    width: 6%;
+    margin-left: 3%;
 }

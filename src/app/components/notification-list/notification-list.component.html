@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content *ngIf="notifications.length > 0">
     <ion-list>
         <ion-card fullscreen="fullscreen" *ngFor="let notificacion of notifications" onclick="">
             <ion-item>
@@ -26,3 +26,10 @@
         <ion-icon name="add"></ion-icon>
     </ion-fab-button>
 </ion-fab>
+
+<ion-content *ngIf="notifications.length == 0">
+    <div class="margen contenedor">
+        No hay avisos
+        <img src="assets\img\folder.png" class = "ajuste-tamaño">
+    </div>
+</ion-content>
