@@ -48,7 +48,7 @@
           <ion-label>Pacientes del día</ion-label>
         </ion-list-header>
 
-        <ion-item *ngFor="let paciente of pacientes">
+        <ion-item *ngFor="let paciente of pacientes" lines="none">
 
           <ion-avatar slot="start">
             <img src="{{ paciente.patient.img }}" />
