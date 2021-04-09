@@ -127,4 +127,57 @@
     -webkit-animation-name: fadeOut;
     animation-name: fadeOut;
   }
+
+  ion-button {
+    --color-checked: #0088cc;
+  }
+  
+  ion-tab-button{
+    --background: #0088cc;
+    --color: #E8F7F9;
+    --color-selected: #C1C1C1;
+  }
+  
+  ion-toolbar{
+    --background: #0088cc;
+    --color:#E8F7F9;
+  }
+  
+  ion-segment-button{
+    --color: white;
+    --color-checked: #C1C1C1;
+  }
+  
+  ion-content{
+    --background: #E8F7F9;
+  }
+
+  ion-title {
+    font-weight: bold;
+    overflow: auto;
+  }
+
+  ion-list-header {
+    font-weight: bold;
+    font-size: medium;
+  }
+
+  ion-item-divider{
+    color: black;
+    font-size: medium;
+  }
+
+  .subtitulo {
+    font-weight: bold;
+  }
+
+  .botonSalir {
+    --background:#d84557;
+  }
+
+  .botonAceptar {
+    --background:#62b269;
+  }
+
+
   

@@ -153,10 +153,13 @@
   <div class="slide" *ngIf="emptyDailyRecords === true">
     <div>
       <ion-label>No existe un programa diario.</ion-label>
-      <br><br><br>
-      <ion-button (click)="salirSinArgumentos()" expand="block">
-        Salir
-      </ion-button>
+
+      <div class="contenedor">
+        <ion-button (click)="salirSinArgumentos()">
+          Salir
+        </ion-button>
+      </div>
+
     </div>
   </div>
 

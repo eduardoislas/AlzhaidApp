@@ -51,22 +51,29 @@
           <ion-label>Pacientes del día</ion-label>
         </ion-list-header>
 
-        <ion-item *ngFor="let paciente of pacientes">
-          <ion-avatar slot="start">
-            <img src="{{ paciente.patient.img }}" />
-          </ion-avatar>
+        <div *ngFor="let paciente of pacientes">
+          <ion-item>
+            <ion-avatar slot="start">
+              <img src="{{ paciente.patient.img }}" />
+            </ion-avatar>
 
-          <ion-label>{{ paciente.patient.name + ' ' + paciente.patient.lastName}}</ion-label>
+            <ion-label>{{ paciente.patient.name + ' ' + paciente.patient.lastName}}</ion-label>
 
-          <ion-toggle slot="end" [(ngModel)]="paciente.selected" (click)="validarSobreescritura(paciente)"></ion-toggle>
+            <ion-toggle slot="end" [(ngModel)]="paciente.selected" (click)="validarSobreescritura(paciente)">
+            </ion-toggle>
 
-          <ion-range *ngIf="paciente.selected" pin snaps min="0" max="5" [(ngModel)]="paciente.score"
-            (ionChange)="rangeChange($event)">
-            <ion-icon size="small" slot="start" name="star" color="medium"></ion-icon>
-            <ion-icon slot="end" name="star" color="medium"></ion-icon>
-          </ion-range>
+          </ion-item>
 
-        </ion-item>
+          <div class="contenedorRange">
+            <ion-range *ngIf="paciente.selected" pin snaps min="0" max="5" [(ngModel)]="paciente.score"
+              (ionChange)="rangeChange($event)">
+              <ion-icon size="small" slot="start" name="star" color="medium"></ion-icon>
+              <ion-icon slot="end" name="star" color="medium"></ion-icon>
+            </ion-range>
+          </div>
+
+        </div>
+
       </ion-list>
 
       <div class="contenedor">

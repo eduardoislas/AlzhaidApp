@@ -1,34 +1,31 @@
 ion-segment-button{
-    //--background: #0088cc;
     --background: #3880ff;
     --color: #E8F7F9;
     --background-checked:#18485e;
     --color-checked: white;
 }
-
-.botonSalir {
-    --background:#d84557;
+.contenedorSelect {
+    padding: 0%;
+    margin: 0%;
 }
 
-.botonAceptar {
-    --background:#62b269;
+ion-segment-button.botonPrioridad {
+    height: 5%;
+    max-height: 5% !important;
 }
 
+ion-select {
+    min-width: 100% !important; 
+    margin: 0%;
+    padding: 0%;
+}
 
+ion-select-option {
+    margin: 0%;
+    padding: 0%;
+}
 
-
-// ion-content {
-//     --background: red;
-// }
-
-// .contenedorGrid {
-//     margin: 0%;
-//     padding: 0%;
-//     // padding-bottom: 1%;
-//     // background-color: #0088cc;
-// }
-
-// .contenedorCol {
-//     margin: 0%;
-//     padding: 0%;
-// }
+ion-datetime {
+    margin: 0%;
+    padding: 0%;
+}

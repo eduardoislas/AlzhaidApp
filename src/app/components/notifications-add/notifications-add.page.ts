@@ -125,6 +125,11 @@ export class NotificationsAddPage implements OnInit {
     this.paciente = event.detail.value;
   }
 
+  cambioPrioridad(event) {
+    if (event.detail.value == 'Alta') this.tglPrioridad = true;
+    else this.tglPrioridad = false;
+  }
+
   /*
     Envia a la base de datos la notificación
     */

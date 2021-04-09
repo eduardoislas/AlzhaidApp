@@ -13,7 +13,16 @@ p {
 }
 
 .contenedor {
-    margin-top: 10%;
+    margin-top: 5%;
     display: flex;
     justify-content: center;
+}
+.contenedorRange {
+    display: flex;
+    justify-content: center;
+}
+
+ion-range {
+    padding: 0%;
+    margin-inline: 20%;
 }

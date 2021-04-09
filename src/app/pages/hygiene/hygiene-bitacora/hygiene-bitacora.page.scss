@@ -1,15 +1,11 @@
 ion-segment-button{
-    margin-inline:3%;
+    margin-inline:1%;
     --background: #3880ff;
     --color: #E8F7F9;
     --background-checked:#18485e;
     --color-checked: white;
 }
 
-.botonSalir {
-    --background:#d84557;
-}
-
-.botonAceptar {
-    --background:#62b269;
+ion-segment {
+    margin-top: 1%;
 }

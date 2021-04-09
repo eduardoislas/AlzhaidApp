@@ -1,21 +1,46 @@
 <ion-header>
     <ion-toolbar>
-        <ion-buttons slot="start">
+        <!-- <ion-buttons slot="start">
             <ion-back-button text="" icon="arrow-back"></ion-back-button>
-        </ion-buttons>
+        </ion-buttons> -->
 
         <ion-title>Agregar aviso de incidencia</ion-title>
     </ion-toolbar>
 </ion-header>
 <ion-content>
     <ion-grid class="ion-padding" fixed="fixed">
+
+        <ion-item-divider class="subtitulo">
+            <ion-label>Prioridad</ion-label>
+        </ion-item-divider>
+
+        <!-- Botones "prioridad" -->
+        <ion-segment mode="ios" scrollable="false" name="btnPrioridad" (ionChange)="cambioPrioridad($event)">
+            <ion-grid class="contenedorGrid">
+                <ion-row>
+                    <ion-col class="contenedorCol">
+                        <ion-segment-button checked class="botonPrioridad" value='Normal'>
+                            <ion-label>Normal</ion-label>
+                        </ion-segment-button>
+                    </ion-col>
+                    <ion-col class="contenedorCol">
+                        <ion-segment-button class="botonPrioridad" value='Alta'>
+                            <ion-label>Alta</ion-label>
+                        </ion-segment-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-segment>
+
+
         <!-- Boton prioridad y vigencia-->
-        <ion-row>
-            <ion-item>
-                <ion-label position="stacked">Prioridad:</ion-label>
-                <ion-toggle [(ngModel)]="tglPrioridad" color="danger" slot="end"></ion-toggle>
-            </ion-item>
-            <ion-col>
+        <!-- <ion-row> -->
+        <!-- <ion-item>
+                <ion-label>Prioridad:</ion-label>
+                <ion-toggle [(ngModel)]=" tglPrioridad" color="danger" slot="end">
+                                </ion-toggle>
+                                </ion-item> -->
+        <!-- <ion-col>
                 <ion-item>
                     <ion-datetime displayFormat="DDDD, DD/MMMM/YYYY"
                         dayNames="Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado"
@@ -23,28 +48,50 @@
                         min="2020" max="2090-10-31" cancelText="Cancelar" doneText="Listo" placeholder="Vigencia"
                         [(ngModel)]="ExpirationDate" cancel-text="Cancelar" done-text="Aceptar"></ion-datetime>
                 </ion-item>
-            </ion-col>
-        </ion-row>
-        <ion-item-divider>
-            <ion-label>Descripción</ion-label>
+            </ion-col> -->
+        <!-- </ion-row> -->
+
+        <ion-item-divider class="subtitulo">
+            <ion-label>Vigencia</ion-label>
         </ion-item-divider>
 
-        <!-- Cuadro de texto "Descripcion" -->
-        <ion-row>
-            <ion-col>
-                <ion-input autoGrow="autoGrow" placeholder="Descripción" [(ngModel)]="textDescripcion" type="text">
-                </ion-input>
-                <!-- <ion-textarea style="border-style: groove;" spellcheck="true" autoGrow="autoGrow" placeholder="Descripción" [(ngModel)]="textDescripcion"></ion-textarea> -->
-            </ion-col>
-        </ion-row>
+        <ion-item class="contenedorSelect">
+            <ion-datetime displayFormat="DDDD, DD/MMMM/YYYY"
+                dayNames="Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado"
+                monthNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
+                min="2020" max="2090-10-31" cancelText="Cancelar" doneText="Listo" placeholder="Seleccione una vigencia"
+                [(ngModel)]="ExpirationDate" cancel-text="Cancelar" done-text="Aceptar"></ion-datetime>
+        </ion-item>
 
-        <hr>
+        <!-- Cuadro de texto "Descripcion" -->
+        <ion-item-divider class="subtitulo">
+            <ion-label>Descripción</ion-label>
+        </ion-item-divider>
+        <ion-item>
+            <ion-input autoGrow="autoGrow" placeholder="Ingrese una descripción" [(ngModel)]="textDescripcion"
+                type="text">
+            </ion-input>
+        </ion-item>
+
+        <!-- <ion-row>
+            <ion-col>
+                <ion-input autoGrow="autoGrow" placeholder="Ingrese una descripción" [(ngModel)]="textDescripcion"
+                    type="text">
+                </ion-input>                
+            </ion-col>
+        </ion-row> -->
+
+
+
 
         <!-- Selector paciente -->
 
-        <ion-item>
+        <ion-item-divider class="subtitulo">
             <ion-label>Paciente</ion-label>
-            <ion-select (ionChange)="selecionarPaciente($event)">
+        </ion-item-divider>
+        <ion-item class="contenedorSelect">
+            <ion-select (ionChange)="selecionarPaciente($event)" placeholder="Seleccione un paciente" okText="LISTO"
+                cancelText="CANCELAR">
                 <ion-select-option *ngFor="let paciente of pacientes" [value]="paciente._id">
                     <ion-avatar slot="start">
                         <img src="{{ paciente.img }}" />
@@ -63,8 +110,8 @@
       </ion-select>
   -->
 
-        <ion-item-divider>
-            <ion-label>Tipo</ion-label>
+        <ion-item-divider class="subtitulo">
+            <ion-label>Tipo de aviso</ion-label>
         </ion-item-divider>
 
         <!-- Botones "tipo" -->
@@ -105,8 +152,8 @@
             </ion-grid>
         </ion-segment>
 
-        <ion-item-divider>
-            <ion-label>Area de notificación</ion-label>
+        <ion-item-divider class="subtitulo">
+            <ion-label>Áreas de notificación</ion-label>
         </ion-item-divider>
 
         <!-- Botones "Area de notificacion" -->

@@ -119,6 +119,8 @@ export class TabRegistrosPage implements OnInit {
       this.fechaSeleccionada != undefined
     ) {
       for (let i = 0; i < this.dailyRecordsPaciente.length; i++) {
+        console.log(JSON.stringify(this.dailyRecordsPaciente[i].date));
+        console.log(JSON.stringify(this.fechaSeleccionada));
         if (
           JSON.stringify(this.dailyRecordsPaciente[i].date) ==
           JSON.stringify(this.fechaSeleccionada)
