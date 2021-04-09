@@ -126,6 +126,7 @@ export class TabRegistrosPage implements OnInit {
           JSON.stringify(this.fechaSeleccionada)
         ) {
           this.dailyRecordSeleccionado = this.dailyRecordsPaciente[i];
+          console.log(this.dailyRecordSeleccionado.behavior);
 
           this.fecha =
             this.fechaSeleccionada.getUTCDay() +

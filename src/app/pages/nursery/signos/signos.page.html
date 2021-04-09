@@ -14,23 +14,22 @@
       <ion-label>{{ paciente.patient.name + ' ' + paciente.patient.lastName}}</ion-label>
     </ion-item>
 
-    <ion-item>
-      <ion-label class="subtitulo">Hora</ion-label>
+    <div class="orientacion">
+      <ion-label>Hora</ion-label>
       <ion-datetime display-format="HH:mm A" picker-format="HH:mm A" [(ngModel)]="today" cancel-text="Cancelar"
         done-text="Aceptar"></ion-datetime>
-    </ion-item>
+    </div>
   </ion-list>
 
   <ion-grid fixed>
     <ion-row>
       <ion-col size="6">
-
         <!-- Presión arterial -->
         <ion-card>
           <ion-card-header>
             <ion-card-title>
               <ion-toggle [(ngModel)]="togglePresion"></ion-toggle>
-              <ion-item>
+              <ion-item class="ion-item-background">
                 <ion-input inputmode="number" pattern="^([1-9][0-9]{0,2}|1000)$" placeholder="#" [(ngModel)]="presionA"
                   [disabled]="!togglePresion"></ion-input>
 
@@ -42,7 +41,7 @@
             </ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            <ion-label>Presión Arterial</ion-label>
+            <ion-label>Presión arterial</ion-label>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -53,14 +52,14 @@
           <ion-card-header>
             <ion-card-title>
               <ion-toggle [(ngModel)]="toggleFrecuencia"></ion-toggle>
-              <ion-item>
+              <ion-item class="ion-item-background">
                 <ion-input inputmode="number" placeholder="#" [(ngModel)]="latidos" [disabled]="!toggleFrecuencia">
                 </ion-input>
               </ion-item>
             </ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            <ion-label>Frecuencia Cardíaca</ion-label>
+            <ion-label>Frecuencia cardíaca</ion-label>
           </ion-card-content>
         </ion-card>
 
@@ -75,14 +74,14 @@
           <ion-card-header>
             <ion-card-title>
               <ion-toggle [(ngModel)]="toggleSaturacion"></ion-toggle>
-              <ion-item>
+              <ion-item class="ion-item-background">
                 <ion-input inputmode="number" placeholder="#" [(ngModel)]="oxigeno" [disabled]="!toggleSaturacion">
                 </ion-input>
               </ion-item>
             </ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            <ion-label>Saturación oxígeno</ion-label>
+            <ion-label style="text-size-adjust: 40%;">Saturación oxígeno</ion-label>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -93,7 +92,7 @@
           <ion-card-header>
             <ion-card-title>
               <ion-toggle [(ngModel)]="toggleGlucosa"></ion-toggle>
-              <ion-item>
+              <ion-item class="ion-item-background">
                 <ion-input inputmode="number" placeholder="#" [(ngModel)]="glucosa" [disabled]="!toggleGlucosa">
                 </ion-input>
               </ion-item>

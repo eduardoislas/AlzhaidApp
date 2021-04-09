@@ -24,36 +24,37 @@
       <!-- Inicial -->
       <div *ngSwitchCase="'inicial'">
         <ion-list>
-          <ion-item *ngFor="let paciente of listaCoincidenciasEntrada" (click)="chooseAlert( paciente._id )">
+          <ion-item *ngFor="let paciente of listaCoincidenciasEntrada" (click)="chooseAlert( paciente._id )" lines="none">
             <ion-avatar slot="start">
               <img src="{{ paciente.img }}" />
             </ion-avatar>
             <ion-label class="ion-text-capitalize">{{ paciente.name + ' ' + paciente.lastName }}</ion-label>
-            <ion-icon slot="end" name="arrow-forward" mode="ios"></ion-icon>
+            <img src="../../../assets/img/approve.png" style="width: 10%;"/>
+            <!--<ion-icon slot="end" name="arrow-forward" mode="ios"></ion-icon>-->
           </ion-item>
         </ion-list>
       </div>
       <!-- Intermedia -->
       <div *ngSwitchCase="'intermedia'">
         <ion-list>
-          <ion-item *ngFor="let paciente of listaCoincidenciasEntrada" (click)="chooseAlert( paciente._id )">
+          <ion-item *ngFor="let paciente of listaCoincidenciasEntrada" (click)="chooseAlert( paciente._id )" lines="none">
             <ion-avatar slot="start">
               <img src="{{ paciente.img }}" />
             </ion-avatar>
             <ion-label class="ion-text-capitalize">{{ paciente.name + ' ' + paciente.lastName }}</ion-label>
-            <ion-icon slot="end" name="arrow-forward" mode="ios"></ion-icon>
+            <img src="../../../assets/img/approve.png" style="width: 10%;"/>
           </ion-item>
         </ion-list>
       </div>
       <!-- Avanzada -->
       <div *ngSwitchCase="'avanzada'">
         <ion-list>
-          <ion-item *ngFor="let paciente of listaCoincidenciasEntrada" (click)="chooseAlert( paciente._id )">
+          <ion-item *ngFor="let paciente of listaCoincidenciasEntrada" (click)="chooseAlert( paciente._id )" lines="none">
             <ion-avatar slot="start">
               <img src="{{ paciente.img }}" />
             </ion-avatar>
             <ion-label class="ion-text-capitalize">{{ paciente.name + ' ' + paciente.lastName }}</ion-label>
-            <ion-icon slot="end" name="arrow-forward" mode="ios"></ion-icon>
+            <img src="../../../assets/img/approve.png" style="width: 10%;"/>
           </ion-item>
         </ion-list>
       </div>
@@ -65,7 +66,7 @@
     <div [ngSwitch]="fase">
       <!-- Inicial -->
       <div *ngSwitchCase="'inicial'">
-        <ion-item *ngFor="let paciente of listaCoincidenciasSalida" (click)="chooseAlert( paciente )">
+        <ion-item *ngFor="let paciente of listaCoincidenciasSalida" (click)="chooseAlert( paciente )"  lines="none">
           <ion-avatar slot="start">
             <img src="{{ paciente.patient.img }}" />
           </ion-avatar>
@@ -77,7 +78,7 @@
       <!-- Intermedia -->
       <div *ngSwitchCase="'intermedia'">
         <ion-list>
-          <ion-item *ngFor="let paciente of listaCoincidenciasSalida" (click)="chooseAlert( paciente )">
+          <ion-item *ngFor="let paciente of listaCoincidenciasSalida" (click)="chooseAlert( paciente )"  lines="none">
             <ion-avatar slot="start">
               <img src="{{ paciente.patient.img }}" />
             </ion-avatar>
@@ -90,7 +91,7 @@
       <!-- Avanzada -->
       <div *ngSwitchCase="'avanzada'">
         <ion-list>
-          <ion-item *ngFor="let paciente of listaCoincidenciasSalida" (click)="chooseAlert( paciente )">
+          <ion-item *ngFor="let paciente of listaCoincidenciasSalida" (click)="chooseAlert( paciente )"  lines="none">
             <ion-avatar slot="start">
               <img src="{{ paciente.patient.img }}" />
             </ion-avatar>

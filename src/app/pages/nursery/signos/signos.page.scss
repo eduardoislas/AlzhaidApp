@@ -1,0 +1,25 @@
+ion-card{
+    --background: white;
+}
+
+ion-input{
+    --background: white;
+}
+
+.ion-item-background{
+    --background: white;
+}
+
+.orientacion{
+    display: flex;
+    flex-direction: row;
+    margin-left: 5%;
+    margin-top: 5%;
+    font-weight: bold;
+}
+
+ion-datetime{
+    margin: 0px; 
+    padding: 0px; 
+    padding-left: 5%;
+}

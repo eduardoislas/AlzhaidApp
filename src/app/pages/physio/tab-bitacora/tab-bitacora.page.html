@@ -6,7 +6,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-list *ngIf="pacientes.length > 0">
+  <ion-list *ngIf="pacientes.length > 0" lines="none">
     <ion-item *ngFor="let paciente of coincidencias" (click)="openBitacora( paciente )">
       <ion-avatar slot="start">
         <img src="{{ paciente.patient.img }}" />

@@ -4,7 +4,7 @@
   </ion-toolbar>
   <ion-list>
 
-    <ion-item *ngFor="let paciente of pacientes" (click)="openComida( paciente )">
+    <ion-item *ngFor="let paciente of pacientes" (click)="openComida( paciente )" lines="none">
       <ion-avatar slot="start">
         <img src="{{ paciente.patient.img }}" />
       </ion-avatar>
