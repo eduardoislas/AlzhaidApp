@@ -43,8 +43,8 @@
         <ion-toggle [(ngModel)]="toggleAtencion" slot="end"></ion-toggle>
       </ion-item>
       <div *ngIf="toggleAtencion" class="ion-padding">
-        <ion-item *ngFor="let item of atencion">
-          <ion-label color="primary">{{ item.name }}</ion-label>
+        <ion-item *ngFor="let item of atencion" lines="none">
+          <ion-label>{{ item.name }}</ion-label>
           <ion-toggle color="secondary" [(ngModel)]="item.selected"></ion-toggle>
         </ion-item>
       </div>
@@ -55,8 +55,8 @@
         <ion-toggle [(ngModel)]="toggleCalculo" slot="end"></ion-toggle>
       </ion-item>
       <div *ngIf="toggleCalculo" class="ion-padding">
-        <ion-item *ngFor="let item of calculo">
-          <ion-label color="primary">{{ item.name }}</ion-label>
+        <ion-item *ngFor="let item of calculo" lines="none">
+          <ion-label>{{ item.name }}</ion-label>
           <ion-toggle color="secondary" [(ngModel)]="item.selected"></ion-toggle>
         </ion-item>
       </div>
@@ -67,8 +67,8 @@
         <ion-toggle [(ngModel)]="toggleEstimulacion" slot="end"></ion-toggle>
       </ion-item>
       <div *ngIf="toggleEstimulacion" class="ion-padding">
-        <ion-item *ngFor="let item of estimulacion">
-          <ion-label color="primary">{{ item.name }}</ion-label>
+        <ion-item *ngFor="let item of estimulacion" lines="none">
+          <ion-label>{{ item.name }}</ion-label>
           <ion-toggle color="secondary" [(ngModel)]="item.selected"></ion-toggle>
         </ion-item>
       </div>
@@ -79,8 +79,8 @@
         <ion-toggle [(ngModel)]="toggleLenguaje" slot="end"></ion-toggle>
       </ion-item>
       <div *ngIf="toggleLenguaje" class="ion-padding">
-        <ion-item *ngFor="let item of lenguaje">
-          <ion-label color="primary">{{ item.name }}</ion-label>
+        <ion-item *ngFor="let item of lenguaje" lines="none">
+          <ion-label>{{ item.name }}</ion-label>
           <ion-toggle color="secondary" [(ngModel)]="item.selected"></ion-toggle>
         </ion-item>
       </div>
@@ -91,8 +91,8 @@
         <ion-toggle [(ngModel)]="toggleMemoria" slot="end"></ion-toggle>
       </ion-item>
       <div *ngIf="toggleMemoria" class="ion-padding">
-        <ion-item *ngFor="let item of memoria">
-          <ion-label color="primary">{{ item.name }}</ion-label>
+        <ion-item *ngFor="let item of memoria" lines="none">
+          <ion-label>{{ item.name }}</ion-label>
           <ion-toggle color="secondary" [(ngModel)]="item.selected"></ion-toggle>
         </ion-item>
       </div>
@@ -103,8 +103,8 @@
         <ion-toggle [(ngModel)]="toggleReminiscencia" slot="end"></ion-toggle>
       </ion-item>
       <div *ngIf="toggleReminiscencia" class="ion-padding">
-        <ion-item *ngFor="let item of reminiscencia">
-          <ion-label color="primary">{{ item.name }}</ion-label>
+        <ion-item *ngFor="let item of reminiscencia" lines="none">
+          <ion-label>{{ item.name }}</ion-label>
           <ion-toggle color="secondary" [(ngModel)]="item.selected"></ion-toggle>
         </ion-item>
       </div>

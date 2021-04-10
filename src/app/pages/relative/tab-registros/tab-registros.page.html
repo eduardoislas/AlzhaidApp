@@ -20,11 +20,12 @@
 
   <div class="contenedorPostPacientes">
     <ion-item>
-      <ion-label>Fecha seleccionada: </ion-label>
-      <ion-icon name="calendar"></ion-icon>
+      <ion-label class="subtitulo">Fecha:</ion-label>
       <ion-datetime displayFormat="DD/MM/YYYY" cancel-text="Cancelar" done-text="Aceptar"
-        placeholder="{{fechaSeleccionadaISOString}}" (ionChange)="dateChanged( $event.detail.value )">
+        placeholder="{{fechaSeleccionadaISOString}}" (ionChange)="dateChanged( $event.detail.value )"
+        class="texto-regular">
       </ion-datetime>
+      <img src="assets\img\calendario.png" class="ajuste-tamaño-datetime" />
     </ion-item>
 
     <ion-grid class="contenedorGrid">
@@ -59,7 +60,7 @@
     </ion-grid>
 
     <!-- General -->
-    <div [ngSwitch]="selectedInfo" style="margin-left: 5%">
+    <div [ngSwitch]="selectedInfo" class="margen-izquierdo">
       <div *ngSwitchCase="'general'">
         <div *ngIf="dailyRecordSeleccionado != undefined">
           <ion-list>
@@ -79,48 +80,73 @@
             </ion-item>
           </ion-list>
         </div>
+        <div *ngIf="dailyRecordSeleccionado == undefined">
+          <app-not-found-message></app-not-found-message>
+        </div>
       </div>
 
       <!-- Signos vitales -->
       <div *ngSwitchCase="'vitalSigns'">
         <div *ngIf="dailyRecordSeleccionado != undefined">
-          <ion-list *ngFor="let registro of dailyRecordSeleccionado.vitalSigns">
-            <ion-item lines="none" *ngIf="registro.valueB != undefined">
-              <ion-label class="subtitulo"> {{registro.vitalSign}} </ion-label>
-              <ion-label style="margin-left: 5%">
-                {{registro.value + "/" +registro.valueB}}
-              </ion-label>
-            </ion-item>
-            <ion-item lines="none" *ngIf="registro.valueB == undefined">
-              <ion-label class="subtitulo"> {{registro.vitalSign}} </ion-label>
-              <ion-label style="margin-left: 5%"> {{registro.value}} </ion-label>
-            </ion-item>
-          </ion-list>
+          <div *ngIf="dailyRecordSeleccionado.vitalSigns.length >0">
+            <ion-list *ngFor="let registro of dailyRecordSeleccionado.vitalSigns">
+              <ion-item lines="none" *ngIf="registro.valueB != undefined">
+                <ion-label class="subtitulo"> {{registro.vitalSign}} </ion-label>
+                <ion-label class="margen-izquierdo">
+                  {{registro.value + "/" +registro.valueB}}
+                </ion-label>
+              </ion-item>
+              <ion-item lines="none" *ngIf="registro.valueB == undefined">
+                <ion-label class="subtitulo"> {{registro.vitalSign}} </ion-label>
+                <ion-label class="margen-izquierdo">
+                  {{registro.value}}
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </div>
+
+          <div *ngIf="dailyRecordSeleccionado.vitalSigns.length == 0">
+            <app-not-found-message></app-not-found-message>
+          </div>
+        </div>
+
+        <div *ngIf="dailyRecordSeleccionado == undefined">
+          <app-not-found-message></app-not-found-message>
         </div>
       </div>
 
       <!-- Higiene -->
       <div *ngSwitchCase="'hygiene'">
         <div *ngIf="dailyRecordSeleccionado != undefined">
-          <ion-list>
-            <ion-item lines="none">
-              <ion-label class="subtitulo"> </ion-label>
-              <ion-label class="subtitulo" style="margin-left: 2%">
-                Observaciones
-              </ion-label>
-              <ion-label class="subtitulo" style="margin-left: 2%">
-                Horario
-              </ion-label>
-            </ion-item>
+          <div *ngIf="dailyRecordSeleccionado.hygiene.length >0">
+            <ion-list>
+              <ion-item lines="none">
+                <ion-label class="subtitulo"> </ion-label>
+                <ion-label class="subtitulo" class="margen-izquierdo-chico">
+                  Observaciones
+                </ion-label>
+                <ion-label class="subtitulo" class="margen-izquierdo-chico">
+                  Horario
+                </ion-label>
+              </ion-item>
 
-            <ion-item lines="none" *ngFor="let registro of dailyRecordSeleccionado.hygiene">
-              <ion-label class="subtitulo"> {{registro.name}} </ion-label>
-              <ion-label style="margin-left: 2%">
-                {{registro.observation}}
-              </ion-label>
-              <ion-label style="margin-left: 2%"> {{registro.time}} </ion-label>
-            </ion-item>
-          </ion-list>
+              <ion-item lines="none" *ngFor="let registro of dailyRecordSeleccionado.hygiene">
+                <ion-label class="subtitulo"> {{registro.name}} </ion-label>
+                <ion-label class="margen-izquierdo-chico">
+                  {{registro.observation}}
+                </ion-label>
+                <ion-label class="margen-izquierdo-chico"> {{registro.time}} </ion-label>
+              </ion-item>
+            </ion-list>
+          </div>
+
+          <div *ngIf="dailyRecordSeleccionado.hygiene.length == 0">
+            <app-not-found-message></app-not-found-message>
+          </div>
+        </div>
+
+        <div *ngIf="dailyRecordSeleccionado == undefined">
+          <app-not-found-message></app-not-found-message>
         </div>
       </div>
 
@@ -131,54 +157,61 @@
             <ion-list>
               <ion-item lines="none">
                 <ion-label class="subtitulo"> </ion-label>
-                <ion-label class="subtitulo" style="margin-left: 2%">
+                <ion-label class="subtitulo" class="margen-izquierdo-chico">
                   Observaciones
                 </ion-label>
               </ion-item>
 
               <ion-item lines="none" *ngIf="dailyRecordSeleccionado.meal.foodType != undefined">
                 <ion-label class="subtitulo"> Tipo de comida </ion-label>
-                <ion-label style="margin-left: 2%">
+                <ion-label class="margen-izquierdo-chico">
                   {{dailyRecordSeleccionado.meal.foodType}}
                 </ion-label>
               </ion-item>
 
               <ion-item lines="none" *ngIf="dailyRecordSeleccionado.meal.chewingPerformance != undefined">
                 <ion-label class="subtitulo"> Masticado </ion-label>
-                <ion-label style="margin-left: 2%">
+                <ion-label class="margen-izquierdo-chico">
                   {{dailyRecordSeleccionado.meal.chewingPerformance + "/5"}}
                 </ion-label>
               </ion-item>
 
               <ion-item lines="none" *ngIf="dailyRecordSeleccionado.meal.independence != undefined">
                 <ion-label class="subtitulo"> Independencia </ion-label>
-                <ion-label style="margin-left: 2%">
+                <ion-label class="margen-izquierdo-chico">
                   {{dailyRecordSeleccionado.meal.independence + "/5"}}
                 </ion-label>
               </ion-item>
 
               <ion-item lines="none" *ngIf="dailyRecordSeleccionado.meal.quantity != undefined">
                 <ion-label class="subtitulo"> Cantidad </ion-label>
-                <ion-label style="margin-left: 2%">
+                <ion-label class="margen-izquierdo-chico">
                   {{dailyRecordSeleccionado.meal.quantity + "/5"}}
                 </ion-label>
               </ion-item>
 
               <ion-item lines="none" *ngIf="dailyRecordSeleccionado.meal.functional != undefined">
                 <ion-label class="subtitulo"> Funcional </ion-label>
-                <ion-label style="margin-left: 2%">
+                <ion-label class="margen-izquierdo-chico">
                   {{dailyRecordSeleccionado.meal.functional + "/5"}}
                 </ion-label>
               </ion-item>
 
               <ion-item lines="none" *ngIf="dailyRecordSeleccionado.collation != undefined">
                 <ion-label class="subtitulo"> Colación </ion-label>
-                <ion-label style="margin-left: 2%">
+                <ion-label class="margen-izquierdo-chico">
                   {{dailyRecordSeleccionado.collation + "/5"}}
                 </ion-label>
               </ion-item>
             </ion-list>
           </div>
+          <div *ngIf="dailyRecordSeleccionado.meal == undefined">
+            <app-not-found-message></app-not-found-message>
+          </div>
+        </div>
+
+        <div *ngIf="dailyRecordSeleccionado == undefined">
+          <app-not-found-message></app-not-found-message>
         </div>
       </div>
 
@@ -188,103 +221,113 @@
           <ion-list *ngIf="dailyRecordSeleccionado.behavior.length > 0">
             <ion-item lines="none">
               <ion-label class="subtitulo"> Actitud </ion-label>
-              <ion-label class="subtitulo" style="margin-left: 2%">
+              <ion-label class="subtitulo" class="margen-izquierdo-chico">
                 Calificación
               </ion-label>
-              <ion-label class="subtitulo" style="margin-left: 2%">
+              <ion-label class="subtitulo" class="margen-izquierdo-chico">
                 Horario
               </ion-label>
             </ion-item>
             <ion-item *ngFor="let registro of dailyRecordSeleccionado.behavior" lines="none">
               <ion-label> {{registro.name}} </ion-label>
-              <ion-label style="margin-left: 2%">
+              <ion-label class="margen-izquierdo-chico">
                 {{registro.score + "/5"}}
               </ion-label>
-              <ion-label style="margin-left: 2%"> {{registro.time}} </ion-label>
+              <ion-label class="margen-izquierdo-chico"> {{registro.time}} </ion-label>
             </ion-item>
           </ion-list>
+          <div *ngIf="dailyRecordSeleccionado.behavior.length == 0">
+            <app-not-found-message></app-not-found-message>
+          </div>
+        </div>
+        <div *ngIf="dailyRecordSeleccionado == undefined">
+          <app-not-found-message></app-not-found-message>
         </div>
       </div>
 
       <!-- Fase -->
       <div *ngSwitchCase="'phaseBinnacle'">
         <div *ngIf="dailyRecordSeleccionado != undefined">
-          <ion-list *ngIf="dailyRecordSeleccionado.phaseBinnacle != undefined">
+          <ion-list *ngIf="dailyRecordSeleccionado.phaseBinnacle.status == true">
             <ion-item lines="none">
               <ion-label class="subtitulo"> Identifica la fecha </ion-label>
-              <ion-label style="margin-left: 2%">
+              <ion-label class="margen-izquierdo-chico">
                 {{dailyRecordSeleccionado.phaseBinnacle.date}}
               </ion-label>
             </ion-item>
             <ion-item lines="none">
               <ion-label> Se orienta correctamente </ion-label>
-              <ion-label style="margin-left: 2%">
+              <ion-label class="margen-izquierdo-chico">
                 {{dailyRecordSeleccionado.phaseBinnacle.orientation}}
               </ion-label>
             </ion-item>
             <ion-item>
               <ion-label> Observaciones </ion-label>
-              <ion-label style="margin-top: 2%">
+              <ion-label class="margen-izquierdo-chico">
                 {{dailyRecordSeleccionado.phaseBinnacle.observation}}
               </ion-label>
             </ion-item>
-            <div style="margin-top: 10%">
-              <ion-label class="subtitulo" style="margin-left: 5%; margin-top: 10%; font-size: small">Actividades
-              </ion-label>
+            <div class="margen-superior">
+              <ion-label class="subtitulo margen-izquierdo margen-superior">Actividades</ion-label>
               <ion-item *ngFor="let registro of dailyRecordSeleccionado.phaseBinnacle.activities" lines="none">
                 <ion-item lines="none">
-                  <div style="width: 35%">{{registro.name}}</div>
-                  <ion-label style="margin-left: 5%">
+                  <div class="ajustar-ancho">{{registro.name}}</div>
+                  <ion-label class="margen-izquierdo">
                     {{registro.performance + "/5"}}
                   </ion-label>
-                  <ion-label style="margin-left: 5%">
+                  <ion-label class="margen-izquierdo">
                     {{registro.classification}}
                   </ion-label>
                 </ion-item>
               </ion-item>
             </div>
           </ion-list>
+          <div *ngIf="dailyRecordSeleccionado.phaseBinnacle.status == false">
+            <app-not-found-message></app-not-found-message>
+          </div>
+        </div>
+        <div *ngIf="dailyRecordSeleccionado == undefined">
+          <app-not-found-message></app-not-found-message>
         </div>
       </div>
 
       <!-- Fisioterapia -->
-      <div class="divFisio" *ngSwitchCase="'physioBinnacle'">
-        <div class="divFisio" *ngIf="dailyRecordSeleccionado != undefined">
-          <ion-list class="divFisio" *ngIf="dailyRecordSeleccionado.physioBinnacle != undefined">
+      <div *ngSwitchCase="'physioBinnacle'">
+        <div *ngIf="dailyRecordSeleccionado != undefined">
+          <ion-list *ngIf="dailyRecordSeleccionado.physioBinnacle != undefined">
             <div *ngIf="dailyRecordSeleccionado.physioBinnacle.status != false">
               <ion-item lines="none">
                 <ion-label class="subtitulo"> Fecha inicio </ion-label>
-                <ion-label style="margin-left: 5%">
+                <ion-label class="margen-izquierdo">
                   {{formatearHora(dailyRecordSeleccionado.physioBinnacle.startTime)}}
                 </ion-label>
               </ion-item>
               <ion-item lines="none">
                 <ion-label class="subtitulo"> Fecha fin </ion-label>
-                <ion-label style="margin-left: 5%">
+                <ion-label class="margen-izquierdo">
                   {{formatearHora(dailyRecordSeleccionado.physioBinnacle.endTime)}}
                 </ion-label>
               </ion-item>
               <ion-item lines="none">
                 <ion-label class="subtitulo"> Humor inicial </ion-label>
-                <ion-label style="margin-left: 5%">
+                <ion-label class="margen-izquierdo">
                   {{dailyRecordSeleccionado.physioBinnacle.startMood}}
                 </ion-label>
               </ion-item>
               <ion-item lines="none">
                 <ion-label class="subtitulo"> Humor final </ion-label>
-                <ion-label style="margin-left: 5%">
+                <ion-label class="margen-izquierdo">
                   {{dailyRecordSeleccionado.physioBinnacle.endMood}}
                 </ion-label>
               </ion-item>
               <ion-item>
                 <ion-label class="subtitulo"> Activación física </ion-label>
-                <ion-label style="margin-left: 5%">
+                <ion-label class="margen-izquierdo">
                   {{ dailyRecordSeleccionado.physicalActivation + "/5"}}
                 </ion-label>
               </ion-item>
 
-              <div class="divFisio" *ngIf="dailyRecordSeleccionado.phaseBinnacle.activities.length>0"
-                style="margin-top: 10%;">
+              <div *ngIf="dailyRecordSeleccionado.phaseBinnacle.activities.length>0" class="margen-superior">
                 <ion-item lines="none">
                   <ion-label class="subtitulo">Actividad</ion-label>
                   <ion-label class="subtitulo">Desempeño</ion-label>
@@ -300,20 +343,18 @@
               </div>
             </div>
           </ion-list>
+          <div *ngIf="dailyRecordSeleccionado.physioBinnacle.status != true">
+            <app-not-found-message></app-not-found-message>
+          </div>
+          <div *ngIf="dailyRecordSeleccionado.physioBinnacle == undefined">
+            <app-not-found-message></app-not-found-message>
+          </div>
+        </div>
+        <div *ngIf="dailyRecordSeleccionado == undefined">
+          <app-not-found-message></app-not-found-message>
         </div>
       </div>
 
-      <h5 *ngIf="dailyRecordSeleccionado == undefined">
-        No hay registro del paciente para el día seleccionado
-      </h5>
     </div>
   </div>
-
-  <!-- FAB para probar la ventana de notificaciones, mover a una ventana distinta donde se mas apropiada -->
-  <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-  <ion-fab-button (click)="openComponent()">
-    <ion-icon name="add"></ion-icon>
-  </ion-fab-button>
-</ion-fab> -->
-
 </ion-content>

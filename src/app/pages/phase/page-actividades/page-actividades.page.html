@@ -19,18 +19,18 @@
     <ion-grid fixed>
       <ion-row>
         <ion-col size="6">
-          <ion-card>
-            <ion-item>
-              <ion-label>Ubicación</ion-label>
+          <ion-card  class="fondo-blanco">
+            <ion-item  class="fondo-blanco">
+              <ion-label class="fondo-blanco">Ubicación</ion-label>
               <ion-toggle slot="end" [(ngModel)]="toggleUbicacion"></ion-toggle>
             </ion-item>
           </ion-card>
         </ion-col>
 
         <ion-col size="6">
-          <ion-card>
-            <ion-item>
-              <ion-label>Fecha</ion-label>
+          <ion-card class="fondo-blanco">
+            <ion-item class="fondo-blanco">
+              <ion-label class="fondo-blanco">Fecha</ion-label>
               <ion-toggle slot="end" [(ngModel)]="toggleFecha"></ion-toggle>
             </ion-item>
           </ion-card>
@@ -44,26 +44,26 @@
       </ion-list-header>
 
       <!-- Atención -->
-      <ion-item *ngIf="atencion.length > 0">
+      <ion-item *ngIf="atencion.length > 0" lines="none">
         <ion-label>Atención</ion-label>
         <ion-toggle [(ngModel)]="toggleAtencion" slot="end"></ion-toggle>
       </ion-item>
       <div *ngIf="toggleAtencion" class="ion-padding">
-        <ion-item *ngFor="let item of atencion">
-          <ion-label color="primary">{{ item.name }}</ion-label>
+        <ion-item *ngFor="let item of atencion" lines="none">
+          <ion-label>{{ item.name }}</ion-label>
           <ion-toggle [(ngModel)]="item.selected"></ion-toggle>
           <ion-range *ngIf="item.selected" pin snaps min="0" max="5" [(ngModel)]="item.score"></ion-range>
         </ion-item>
       </div>
 
       <!-- Calculo -->
-      <ion-item *ngIf="calculo.length > 0">
+      <ion-item *ngIf="calculo.length > 0" lines="none">
         <ion-label>Cálculo</ion-label>
         <ion-toggle [(ngModel)]="toggleCalculo" slot="end"></ion-toggle>
       </ion-item>
       <div *ngIf="toggleCalculo" class="ion-padding">
-        <ion-item *ngFor="let item of calculo">
-          <ion-label color="primary">{{ item.name }}</ion-label>
+        <ion-item *ngFor="let item of calculo"  lines="none">
+          <ion-label>{{ item.name }}</ion-label>
           <ion-toggle [(ngModel)]="item.selected"></ion-toggle>
           <ion-range *ngIf="item.selected" pin snaps min="0" max="5" [(ngModel)]="item.score"></ion-range>
         </ion-item>
@@ -75,8 +75,8 @@
         <ion-toggle [(ngModel)]="toggleEstimulacion" slot="end"></ion-toggle>
       </ion-item>
       <div *ngIf="toggleEstimulacion" class="ion-padding">
-        <ion-item *ngFor="let item of estimulacion">
-          <ion-label color="primary">{{ item.name }}</ion-label>
+        <ion-item *ngFor="let item of estimulacion"  lines="none">
+          <ion-label>{{ item.name }}</ion-label>
           <ion-toggle [(ngModel)]="item.selected"></ion-toggle>
           <ion-range *ngIf="item.selected" pin snaps min="0" max="5" [(ngModel)]="item.score"></ion-range>
         </ion-item>
@@ -88,8 +88,8 @@
         <ion-toggle [(ngModel)]="toggleLenguaje" slot="end"></ion-toggle>
       </ion-item>
       <div *ngIf="toggleLenguaje" class="ion-padding">
-        <ion-item *ngFor="let item of lenguaje">
-          <ion-label color="primary">{{ item.name }}</ion-label>
+        <ion-item *ngFor="let item of lenguaje" lines="none">
+          <ion-label>{{ item.name }}</ion-label>
           <ion-toggle [(ngModel)]="item.selected"></ion-toggle>
           <ion-range *ngIf="item.selected" pin snaps min="0" max="5" [(ngModel)]="item.score"></ion-range>
         </ion-item>
@@ -101,8 +101,8 @@
         <ion-toggle [(ngModel)]="toggleMemoria" slot="end"></ion-toggle>
       </ion-item>
       <div *ngIf="toggleMemoria" class="ion-padding">
-        <ion-item *ngFor="let item of memoria">
-          <ion-label color="primary">{{ item.name }}</ion-label>
+        <ion-item *ngFor="let item of memoria"  lines="none">
+          <ion-label>{{ item.name }}</ion-label>
           <ion-toggle [(ngModel)]="item.selected"></ion-toggle>
           <ion-range *ngIf="item.selected" pin snaps min="0" max="5" [(ngModel)]="item.score"></ion-range>
         </ion-item>
@@ -114,21 +114,21 @@
         <ion-toggle [(ngModel)]="toggleReminiscencia" slot="end"></ion-toggle>
       </ion-item>
       <div *ngIf="toggleReminiscencia" class="ion-padding">
-        <ion-item *ngFor="let item of reminiscencia">
-          <ion-label color="primary">{{ item.name }}</ion-label>
+        <ion-item *ngFor="let item of reminiscencia" lines="none">
+          <ion-label>{{ item.name }}</ion-label>
           <ion-toggle [(ngModel)]="item.selected"></ion-toggle>
           <ion-range *ngIf="item.selected" pin snaps min="0" max="5" [(ngModel)]="item.score"></ion-range>
         </ion-item>
       </div>
     </ion-list>
 
-    <div>
+    <div class="margen-superior">
       <ion-list-header>Detalles</ion-list-header>
-      <ion-card>
-        <ion-card-content>
-          <ion-item>
-            <ion-label position="stacked">Observaciones</ion-label>
-            <ion-textarea [(ngModel)]="observation"></ion-textarea>
+      <ion-card class="fondo-blanco">
+        <ion-card-content class="fondo-blanco">
+          <ion-item class="fondo-blanco">
+            <ion-label class="fondo-blanco" position="stacked">Observaciones</ion-label>
+            <ion-textarea class="fondo-blanco" [(ngModel)]="observation"></ion-textarea>
           </ion-item>
         </ion-card-content>
       </ion-card>
@@ -150,11 +150,11 @@
     </ion-grid>
   </div>
 
-  <div class="slide" *ngIf="emptyDailyRecords === true">
-    <div>
-      <ion-label>No existe un programa diario.</ion-label>
-
-      <div class="contenedor">
+  <div  *ngIf="emptyDailyRecords === true">
+    <div class="margen">
+      <ion-label>No existe un programa diario</ion-label>
+      <img src="assets\img\folder.png" class = "ajuste-tamaño">
+      <div class="contenedor margen">
         <ion-button (click)="salirSinArgumentos()">
           Salir
         </ion-button>

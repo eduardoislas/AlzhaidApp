@@ -4,17 +4,20 @@ import { SearchbarComponent } from './searchbar/searchbar.component';
 import { NotificationListComponent } from './notification-list/notification-list.component';
 import { IonicModule } from '@ionic/angular';
 import { ModalComponent } from './modal/modal.component';
+import { NotFoundMessageComponent } from './not-found-message/not-found-message.component';
 
 @NgModule({
   declarations: [
     SearchbarComponent,
     NotificationListComponent,
-    ModalComponent
+    ModalComponent,
+    NotFoundMessageComponent
   ],
   exports: [
     SearchbarComponent,
     NotificationListComponent,
-    ModalComponent
+    ModalComponent,
+    NotFoundMessageComponent
   ],
   imports: [
     CommonModule,

@@ -1,4 +1,4 @@
-.slides, ion-slides, ion-slide {
+/*.slides, ion-slides, ion-slide {
     width: 100%;
     height: 100%;
 }
@@ -6,14 +6,35 @@
 .slides, ion-slides, ion-slide {
     width: 100%;
     height: 100%;
-}
+}*/
 
 p {
     text-align: center;
 }
 
 .contenedor {
-    margin-top: 5%;
+    margin-bottom: 10%;
+    margin-top: 10%;
+    width: 40%;
+}
+
+.letra-mediana{
+    font-size: 65%;
+    width: 90%;
+}
+
+.contenedorRange {
     display: flex;
+    justify-content: center;
+}
+
+ion-range {
+    padding: 0%;
+    margin-inline: 20%;
+}
+
+.orientacion-fila{
+    display: flex;
+    flex-direction: row;
     justify-content: center;
 }

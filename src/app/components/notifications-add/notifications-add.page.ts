@@ -21,7 +21,7 @@ export class NotificationsAddPage implements OnInit {
   area = '';
   tipoDeAviso = '';
   tglPrioridad = false;
-  ExpirationDate;
+  ExpirationDate = new Date().toString(); // --- NUEVO
   textDescripcion;
   btnArea = [];
   paciente;

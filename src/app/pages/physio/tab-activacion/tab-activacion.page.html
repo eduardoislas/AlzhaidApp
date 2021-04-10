@@ -71,31 +71,27 @@
               <ion-icon slot="end" name="star" color="medium"></ion-icon>
             </ion-range>
           </div>
-
         </div>
-
       </ion-list>
 
-      <div class="contenedor">
-        <ion-button (click)="sendData()">
-          Enviar desempeño
-        </ion-button>
+      <!-- Botones -->
+      <div class="orientacion-fila">
+        <div class="contenedor">
+          <ion-button (click)="sendData()" class="letra-mediana">
+            Enviar desempeño
+          </ion-button>
+        </div>
+  
+        <div class="contenedor">
+          <!--<ion-slides [options]="sliderOpts">
+            <ion-slide>-->
+              <ion-button (click)="sendMassiveData()" class="letra-mediana">
+                Todo en orden
+              </ion-button>
+          <!--</ion-slide>
+          </ion-slides>-->
+        </div>
       </div>
-
-      <p>ó </p>
-
-      <div>
-        <ion-slides [options]="sliderOpts">
-          <ion-slide>
-
-            <ion-button (click)="sendMassiveData()">
-              Todo en orden
-            </ion-button>
-
-          </ion-slide>
-        </ion-slides>
-      </div>
-
     </div>
 
 

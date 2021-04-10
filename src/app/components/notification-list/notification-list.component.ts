@@ -33,6 +33,7 @@ export class NotificationListComponent implements OnInit {
     this.cargarLista();
     this.storage.get('Rol').then((val) => {
       this.rol = val;
+      console.log(this.rol);
     });
     // this.filtrarLista()
   }
@@ -45,10 +46,19 @@ export class NotificationListComponent implements OnInit {
     const filtado = [];
     this.notificationsService.getNotifications().subscribe(res => {
       console.log(this.rol);
-      console.log(res);
+      if(res == undefined){
+        console.log('no hubo notifiaciones');
+      }else{
+        console.log("'Sí hubo: ")
+        console.log(res);
+      }
+
       res.vigentes.forEach(nota => {
         if (nota.area.includes(this.rol)) {
           filtado.push(nota);
+          console.log('Sí estuvo vigente');
+        }else{
+          console.log('No estuvo vigente');
         }
       });
       this.notifications.push(filtado);
