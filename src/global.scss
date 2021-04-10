@@ -167,6 +167,16 @@
     font-size: medium;
   }
 
+  ion-range {
+    padding: 0%;
+    margin-inline: 20%;
+  }
+
+  .contenedorRange {
+    display: flex;
+    justify-content: center;
+  }
+
   .subtitulo {
     font-weight: bold;
   }

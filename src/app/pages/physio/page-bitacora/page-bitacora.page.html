@@ -10,18 +10,13 @@
       <ion-avatar slot="start">
         <img src="{{ dailyRecord.patient.img }}" />
       </ion-avatar>
-      <ion-label
-        >{{ dailyRecord.patient.name + ' ' + dailyRecord.patient.lastName
-        }}</ion-label
-      >
+      <ion-label>{{ dailyRecord.patient.name + ' ' + dailyRecord.patient.lastName
+        }}</ion-label>
     </ion-item>
   </ion-list>
 
   <ion-list>
-    <ion-radio-group
-      name="cantidadComida"
-      (ionChange)="radioAntesComida( $event )"
-    >
+    <ion-radio-group name="cantidadComida" (ionChange)="radioAntesComida( $event )">
       <ion-list-header>Humor antes de terapia</ion-list-header>
       <ion-grid fixed>
         <ion-row>
@@ -51,56 +46,42 @@
   <ion-list>
     <ion-item lines="none">
       <ion-label>Hora Inicio</ion-label>
-      <ion-datetime
-        display-format="HH:mm A"
-        picker-format="HH:mm A"
-        cancel-text="Cancelar"
-        done-text="Aceptar"
-        [(ngModel)]="horaInicio"
-        display-timezone="Asia/Shanghai"
-      ></ion-datetime>
+      <ion-datetime display-format="HH:mm A" picker-format="HH:mm A" cancel-text="Cancelar" done-text="Aceptar"
+        [(ngModel)]="horaInicio"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label>Hora Fin</ion-label>
-      <ion-datetime
-        display-format="HH:mm A"
-        picker-format="HH:mm A"
-        cancel-text="Cancelar"
-        done-text="Aceptar"
-        [(ngModel)]="horaFin"
-        display-timezone="Asia/Shanghai"
-      ></ion-datetime>
+      <ion-datetime display-format="HH:mm A" picker-format="HH:mm A" cancel-text="Cancelar" done-text="Aceptar"
+        [(ngModel)]="horaFin" display-timezone="Asia/Shanghai"></ion-datetime>
     </ion-item>
   </ion-list>
 
   <ion-list>
-    <ion-item *ngFor="let item of actividades" lines="none">
+    <div *ngFor="let item of actividades">
+      <ion-item lines="none">
+        <ion-label>{{ item.name }}</ion-label>
+        <ion-toggle slot="end" [(ngModel)]="item.selected"></ion-toggle>
+      </ion-item>
+
+      <div class="contenedorRange">
+        <ion-range *ngIf="item.selected" pin snaps min="0" max="5" [(ngModel)]="item.score">
+          <ion-icon size="small" slot="start" name="star" color="medium"></ion-icon>
+          <ion-icon slot="end" name="star" color="medium"></ion-icon>
+        </ion-range>
+      </div>
+    </div>
+    <!-- <ion-item *ngFor="let item of actividades" lines="none">
       <ion-label>{{ item.name }}</ion-label>
-      <ion-toggle [(ngModel)]="item.selected"></ion-toggle>
-      <ion-range
-        *ngIf="item.selected"
-        pin
-        snaps
-        min="0"
-        max="5"
-        [(ngModel)]="item.score"
-      >
-        <ion-icon
-          size="small"
-          slot="start"
-          name="star"
-          color="medium"
-        ></ion-icon>
-        <ion-icon slot="end" name="star" color="medium"></ion-icon>
+      <ion-toggle slot="end" [(ngModel)]="item.selected"></ion-toggle>
+      <ion-range *ngIf="item.selected" pin snaps min="0" max="5" [(ngModel)]="item.score">
+        <ion-icon size="small" slot="start" name="star" color="medium"></ion-icon>
+        <ion-icon name="star" color="medium"></ion-icon>
       </ion-range>
-    </ion-item>
+    </ion-item> -->
   </ion-list>
 
   <ion-list>
-    <ion-radio-group
-      name="cantidadComida"
-      (ionChange)="radioDespuesComida( $event )"
-    >
+    <ion-radio-group name="cantidadComida" (ionChange)="radioDespuesComida( $event )">
       <ion-list-header>Humor después de terapia</ion-list-header>
       <ion-grid fixed>
         <ion-row>
@@ -130,20 +111,12 @@
   <ion-grid fixed>
     <ion-row>
       <ion-col size="6">
-        <ion-button
-          (click)="salirSinArgumentos()"
-          expand="full"
-          class="botonSalir"
-        >
+        <ion-button (click)="salirSinArgumentos()" expand="full" class="botonSalir">
           Salir
         </ion-button>
       </ion-col>
       <ion-col size="6">
-        <ion-button
-          (click)="salirConArgumentos()"
-          expand="full"
-          class="botonAceptar"
-        >
+        <ion-button (click)="salirConArgumentos()" expand="full" class="botonAceptar">
           Enviar
         </ion-button>
       </ion-col>

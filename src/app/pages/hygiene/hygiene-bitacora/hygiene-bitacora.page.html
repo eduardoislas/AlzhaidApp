@@ -62,17 +62,17 @@
       <ion-toggle [(ngModel)]="toggleMiccion" slot="end"></ion-toggle>
     </ion-item>
 
-    <div *ngIf=toggleMiccion>
+    <div *ngIf=toggleMiccion class="ion-padding">
       <ion-radio-group (ionChange)="observationMiccion($event)">
-        <ion-item>
+        <ion-item lines="none">
           <ion-label>Normal</ion-label>
           <ion-radio slot="start" value="Normal" checked></ion-radio>
         </ion-item>
-        <ion-item>
+        <ion-item lines="none">
           <ion-label>Anormal</ion-label>
           <ion-radio slot="start" value="Anormal" checked></ion-radio>
         </ion-item>
-        <ion-item>
+        <ion-item lines="none">
           <ion-label>Asistido</ion-label>
           <ion-radio slot="start" value="Asistido" checked></ion-radio>
         </ion-item>
@@ -89,17 +89,17 @@
       <ion-label>Evacuación</ion-label>
       <ion-toggle [(ngModel)]="toggleEvacuacion" slot="end"></ion-toggle>
     </ion-item>
-    <div *ngIf=toggleEvacuacion>
+    <div *ngIf=toggleEvacuacion class="ion-padding">
       <ion-radio-group (ionChange)="observationEvacuacion($event)">
-        <ion-item>
+        <ion-item lines="none">
           <ion-label>Normal</ion-label>
           <ion-radio slot="start" value="Normal" checked></ion-radio>
         </ion-item>
-        <ion-item>
+        <ion-item lines="none">
           <ion-label>Anormal</ion-label>
           <ion-radio slot="start" value="Anormal" checked></ion-radio>
         </ion-item>
-        <ion-item>
+        <ion-item lines="none">
           <ion-label>Asistido</ion-label>
           <ion-radio slot="start" value="Asistido" checked></ion-radio>
         </ion-item>
@@ -117,21 +117,21 @@
 
       <ion-toggle [(ngModel)]="toggleCambio" slot="end"></ion-toggle>
     </ion-item>
-    <div *ngIf=toggleCambio>
+    <div *ngIf=toggleCambio class="ion-padding">
       <ion-radio-group (ionChange)="observationIncontinencia($event)">
-        <ion-item>
+        <ion-item lines="none">
           <ion-label>Incontinencia</ion-label>
           <ion-radio slot="start" value="Incontinencia" checked></ion-radio>
         </ion-item>
-        <ion-item>
-          <ion-label>Derrame ...</ion-label>
+        <ion-item lines="none">
+          <ion-label>Derrame</ion-label>
           <ion-radio slot="start" value="Derrame" checked></ion-radio>
         </ion-item>
-        <ion-item>
+        <ion-item lines="none">
           <ion-label>Incomodidad</ion-label>
           <ion-radio slot="start" value="Incomodidad" checked></ion-radio>
         </ion-item>
-        <ion-item>
+        <ion-item lines="none">
           <ion-label>Mal olor</ion-label>
           <ion-radio slot="start" value="Mal olor" checked></ion-radio>
         </ion-item>
@@ -149,13 +149,13 @@
 
       <ion-toggle [(ngModel)]="toggleEstrenimiento" slot="end"></ion-toggle>
     </ion-item>
-    <div *ngIf=toggleEstrenimiento>
+    <div *ngIf=toggleEstrenimiento class="ion-padding">
       <ion-radio-group (ionChange)="observationEstrenimiento($event)">
-        <ion-item>
+        <ion-item lines="none">
           <ion-label>Dieta</ion-label>
           <ion-radio slot="start" value="Dieta" checked></ion-radio>
         </ion-item>
-        <ion-item>
+        <ion-item lines="none">
           <ion-label>Enfermedad</ion-label>
           <ion-radio slot="start" value="Enfermedad" checked></ion-radio>
         </ion-item>
@@ -173,17 +173,17 @@
 
       <ion-toggle [(ngModel)]="toggleBano" slot="end"></ion-toggle>
     </ion-item>
-    <div *ngIf=toggleBano>
+    <div *ngIf=toggleBano class="ion-padding">
       <ion-radio-group (ionChange)="observationBano($event)">
-        <ion-item>
+        <ion-item lines="none">
           <ion-label>Incontinencia</ion-label>
           <ion-radio slot="start" value="Incontinencia" checked></ion-radio>
         </ion-item>
-        <ion-item>
+        <ion-item lines="none">
           <ion-label>Derrame ...</ion-label>
           <ion-radio slot="start" value="Derrame" checked></ion-radio>
         </ion-item>
-        <ion-item>
+        <ion-item lines="none">
           <ion-label>Mal olor</ion-label>
           <ion-radio slot="start" value="Mal olor" checked></ion-radio>
         </ion-item>
@@ -201,13 +201,13 @@
 
       <ion-toggle [(ngModel)]="toggleProtector" slot="end"></ion-toggle>
     </ion-item>
-    <div *ngIf=toggleProtector>
+    <div *ngIf=toggleProtector class="ion-padding">
       <ion-radio-group (ionChange)="observationProtector($event)">
-        <ion-item>
+        <ion-item lines="none">
           <ion-label>Incontinencia</ion-label>
           <ion-radio slot="start" value="incontinencia" checked></ion-radio>
         </ion-item>
-        <ion-item>
+        <ion-item lines="none">
           <ion-label>Incapacidad</ion-label>
           <ion-radio slot="start" value="Incapacidad" checked></ion-radio>
         </ion-item>

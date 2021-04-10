@@ -1,11 +1,6 @@
 .contenedorPacientes {
-    height: 20%;
-    max-height: 20%;
-}
-
-.contenedorPostPacientes{
-    height: 80%;
-    max-height: 80%;
+    height: 12%;
+    max-height: 12%;
 }
 
 .contenedorGrid {
@@ -20,6 +15,10 @@
     padding: 0%;
 }
 
+.subtitulo{
+    font-weight: bold;
+}
+
 ion-segment {
     overflow-x: auto;
     flex-wrap: nowrap;
@@ -32,9 +31,6 @@ ion-label {
     font-size: 80%;
 }
 
-.subtitulo{
-    font-weight: bold;
-}
 
 *{
     font-size: small;

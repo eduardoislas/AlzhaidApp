@@ -1,5 +1,15 @@
 ion-card{
     --background: white;
+    min-height: 90%;
+}
+
+ion-card-content {
+    display: flex;
+    justify-content: center;
+}
+
+ion-label { 
+    text-align: center;
 }
 
 ion-input{

@@ -41,14 +41,17 @@ export class TabActivacionPage implements OnInit {
     });
   }
 
-  validarSobreescritura(paciente){
+  validarSobreescritura(paciente) {
     console.log(paciente.selected);
 
-    if(paciente.selected === false || paciente.selected === undefined){
-      if(paciente.physicalActivation != undefined){
+    if (paciente.selected === false || paciente.selected === undefined) {
+      if (paciente.physicalActivation != undefined) {
         mostrarAlertaAdvertencia("Ya existe registro del paciente");
       }
     }
+  }
+
+  rangeChange(event) {
   }
 
   sendData() {

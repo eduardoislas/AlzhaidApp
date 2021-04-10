@@ -10,353 +10,310 @@
       <ion-avatar slot="start">
         <img src="{{ paciente.img }}" />
       </ion-avatar>
-      <ion-label class="pacienteSeleccionado"
-        >{{ paciente.name + ' ' + paciente.lastName }}</ion-label
-      >
+      <ion-label class="pacienteSeleccionado">{{ paciente.name + ' ' + paciente.lastName }}</ion-label>
       <div *ngIf="paciente === pacienteSeleccionado">
         <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>
       </div>
     </ion-item>
   </div>
-</ion-content>
+  <!-- </ion-content> -->
 
-<div class="contenedorPostPacientes">
-  <ion-item>
-    <ion-icon name="calendar"></ion-icon>
-    <ion-datetime
-      displayFormat="DD/MM/YYYY"
-      cancel-text="Cancelar"
-      done-text="Aceptar"
-      placeholder="{{fechaSeleccionadaISOString}}"
-      (ionChange)="dateChanged( $event.detail.value )"
-    >
-    </ion-datetime>
-  </ion-item>
+  <div class="contenedorPostPacientes">
+    <ion-item>
+      <ion-label>Fecha seleccionada: </ion-label>
+      <ion-icon name="calendar"></ion-icon>
+      <ion-datetime displayFormat="DD/MM/YYYY" cancel-text="Cancelar" done-text="Aceptar"
+        placeholder="{{fechaSeleccionadaISOString}}" (ionChange)="dateChanged( $event.detail.value )">
+      </ion-datetime>
+    </ion-item>
 
-  <ion-grid class="contenedorGrid">
-    <ion-row>
-      <ion-col class="contenedorCol">
-        <ion-segment
-          #iSegmentRegistros
-          (ionChange)="segmentChangedRegistros( $event )"
-          mode="md"
-        >
-          <ion-segment-button value="general">
-            <ion-label>General</ion-label>
-          </ion-segment-button>
-          <ion-segment-button value="vitalSigns">
-            <ion-label
-              >Signos <br />
-              vitales</ion-label
-            >
-          </ion-segment-button>
-          <ion-segment-button value="hygiene">
-            <ion-label>Higiene</ion-label>
-          </ion-segment-button>
-          <ion-segment-button value="meal">
-            <ion-label>Comida</ion-label>
-          </ion-segment-button>
-          <ion-segment-button value="behavior">
-            <ion-label>Humor</ion-label>
-          </ion-segment-button>
-          <ion-segment-button value="phaseBinnacle">
-            <ion-label>Fase</ion-label>
-          </ion-segment-button>
-          <ion-segment-button value="physioBinnacle">
-            <ion-label>Fisioterapia</ion-label>
-          </ion-segment-button>
-        </ion-segment>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-grid class="contenedorGrid">
+      <ion-row>
+        <ion-col class="contenedorCol">
+          <ion-segment #iSegmentRegistros (ionChange)="segmentChangedRegistros( $event )" mode="md">
+            <ion-segment-button checked value="general">
+              <ion-label>General</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="vitalSigns">
+              <ion-label>Signos <br />
+                vitales</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="hygiene">
+              <ion-label>Higiene</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="meal">
+              <ion-label>Comida</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="behavior">
+              <ion-label>Humor</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="phaseBinnacle">
+              <ion-label>Fase</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="physioBinnacle">
+              <ion-label>Fisioterapia</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
-  <!-- General -->
-  <div [ngSwitch]="selectedInfo" style="margin-left: 5%">
-    <div *ngSwitchCase="'general'">
-      <div *ngIf="dailyRecordSeleccionado != undefined">
-        <ion-list>
-          <ion-item lines="none">
-            <ion-label class="subtitulo"> Fecha: </ion-label>
-            <ion-label> {{ fechaSeleccionadaISOString }} </ion-label>
-          </ion-item>
+    <!-- General -->
+    <div [ngSwitch]="selectedInfo" style="margin-left: 5%">
+      <div *ngSwitchCase="'general'">
+        <div *ngIf="dailyRecordSeleccionado != undefined">
+          <ion-list>
+            <ion-item lines="none">
+              <ion-label class="subtitulo"> Fecha: </ion-label>
+              <ion-label> {{ fechaSeleccionadaISOString }} </ion-label>
+            </ion-item>
 
-          <ion-item lines="none">
-            <ion-label class="subtitulo"> Hora entrada: </ion-label>
-            <ion-label> {{ horaEntrada }} </ion-label>
-          </ion-item>
+            <ion-item lines="none">
+              <ion-label class="subtitulo"> Hora entrada: </ion-label>
+              <ion-label> {{ horaEntrada }} </ion-label>
+            </ion-item>
 
-          <ion-item lines="none" *ngIf="horaSalida != undefined">
-            <ion-label class="subtitulo"> Hora salida: </ion-label>
-            <ion-label> {{ horaSalida }} </ion-label>
-          </ion-item>
-        </ion-list>
+            <ion-item lines="none" *ngIf="horaSalida != undefined">
+              <ion-label class="subtitulo"> Hora salida: </ion-label>
+              <ion-label> {{ horaSalida }} </ion-label>
+            </ion-item>
+          </ion-list>
+        </div>
       </div>
-    </div>
 
-    <!-- Signos vitales -->
-    <div *ngSwitchCase="'vitalSigns'">
-      <div *ngIf="dailyRecordSeleccionado != undefined">
-        <ion-list *ngFor="let registro of dailyRecordSeleccionado.vitalSigns">
-          <ion-item lines="none" *ngIf="registro.valueB != undefined">
-            <ion-label class="subtitulo"> {{registro.vitalSign}} </ion-label>
-            <ion-label style="margin-left: 5%">
-              {{registro.value + "/" +registro.valueB}}
-            </ion-label>
-          </ion-item>
-          <ion-item lines="none" *ngIf="registro.valueB == undefined">
-            <ion-label class="subtitulo"> {{registro.vitalSign}} </ion-label>
-            <ion-label style="margin-left: 5%"> {{registro.value}} </ion-label>
-          </ion-item>
-        </ion-list>
+      <!-- Signos vitales -->
+      <div *ngSwitchCase="'vitalSigns'">
+        <div *ngIf="dailyRecordSeleccionado != undefined">
+          <ion-list *ngFor="let registro of dailyRecordSeleccionado.vitalSigns">
+            <ion-item lines="none" *ngIf="registro.valueB != undefined">
+              <ion-label class="subtitulo"> {{registro.vitalSign}} </ion-label>
+              <ion-label style="margin-left: 5%">
+                {{registro.value + "/" +registro.valueB}}
+              </ion-label>
+            </ion-item>
+            <ion-item lines="none" *ngIf="registro.valueB == undefined">
+              <ion-label class="subtitulo"> {{registro.vitalSign}} </ion-label>
+              <ion-label style="margin-left: 5%"> {{registro.value}} </ion-label>
+            </ion-item>
+          </ion-list>
+        </div>
       </div>
-    </div>
 
-    <!-- Higiene -->
-    <div *ngSwitchCase="'hygiene'">
-      <div *ngIf="dailyRecordSeleccionado != undefined">
-        <ion-list>
-          <ion-item lines="none">
-            <ion-label class="subtitulo"> </ion-label>
-            <ion-label class="subtitulo" style="margin-left: 2%">
-              Observaciones
-            </ion-label>
-            <ion-label class="subtitulo" style="margin-left: 2%">
-              Horario
-            </ion-label>
-          </ion-item>
-
-          <ion-item
-            lines="none"
-            *ngFor="let registro of dailyRecordSeleccionado.hygiene"
-          >
-            <ion-label class="subtitulo"> {{registro.name}} </ion-label>
-            <ion-label style="margin-left: 2%">
-              {{registro.observation}}
-            </ion-label>
-            <ion-label style="margin-left: 2%"> {{registro.time}} </ion-label>
-          </ion-item>
-        </ion-list>
-      </div>
-    </div>
-
-    <!-- Comida -->
-    <div *ngSwitchCase="'meal'">
-      <div *ngIf="dailyRecordSeleccionado != undefined">
-        <div *ngIf="dailyRecordSeleccionado.meal != undefined">
+      <!-- Higiene -->
+      <div *ngSwitchCase="'hygiene'">
+        <div *ngIf="dailyRecordSeleccionado != undefined">
           <ion-list>
             <ion-item lines="none">
               <ion-label class="subtitulo"> </ion-label>
               <ion-label class="subtitulo" style="margin-left: 2%">
                 Observaciones
               </ion-label>
-            </ion-item>
-
-            <ion-item
-              lines="none"
-              *ngIf="dailyRecordSeleccionado.meal.foodType != undefined"
-            >
-              <ion-label class="subtitulo"> Tipo de comida </ion-label>
-              <ion-label style="margin-left: 2%">
-                {{dailyRecordSeleccionado.meal.foodType}}
+              <ion-label class="subtitulo" style="margin-left: 2%">
+                Horario
               </ion-label>
             </ion-item>
 
-            <ion-item
-              lines="none"
-              *ngIf="dailyRecordSeleccionado.meal.chewingPerformance != undefined"
-            >
-              <ion-label class="subtitulo"> Masticado </ion-label>
+            <ion-item lines="none" *ngFor="let registro of dailyRecordSeleccionado.hygiene">
+              <ion-label class="subtitulo"> {{registro.name}} </ion-label>
               <ion-label style="margin-left: 2%">
-                {{dailyRecordSeleccionado.meal.chewingPerformance + "/5"}}
+                {{registro.observation}}
               </ion-label>
-            </ion-item>
-
-            <ion-item
-              lines="none"
-              *ngIf="dailyRecordSeleccionado.meal.independence != undefined"
-            >
-              <ion-label class="subtitulo"> Independencia </ion-label>
-              <ion-label style="margin-left: 2%">
-                {{dailyRecordSeleccionado.meal.independence + "/5"}}
-              </ion-label>
-            </ion-item>
-
-            <ion-item
-              lines="none"
-              *ngIf="dailyRecordSeleccionado.meal.quantity != undefined"
-            >
-              <ion-label class="subtitulo"> Cantidad </ion-label>
-              <ion-label style="margin-left: 2%">
-                {{dailyRecordSeleccionado.meal.quantity + "/5"}}
-              </ion-label>
-            </ion-item>
-
-            <ion-item
-              lines="none"
-              *ngIf="dailyRecordSeleccionado.meal.functional != undefined"
-            >
-              <ion-label class="subtitulo"> Funcional </ion-label>
-              <ion-label style="margin-left: 2%">
-                {{dailyRecordSeleccionado.meal.functional + "/5"}}
-              </ion-label>
-            </ion-item>
-
-            <ion-item
-              lines="none"
-              *ngIf="dailyRecordSeleccionado.collation != undefined"
-            >
-              <ion-label class="subtitulo"> Colación </ion-label>
-              <ion-label style="margin-left: 2%">
-                {{dailyRecordSeleccionado.collation + "/5"}}
-              </ion-label>
+              <ion-label style="margin-left: 2%"> {{registro.time}} </ion-label>
             </ion-item>
           </ion-list>
         </div>
       </div>
-    </div>
 
-    <!-- Humor -->
-    <div *ngSwitchCase="'behavior'">
-      <div *ngIf="dailyRecordSeleccionado != undefined">
-        <ion-list *ngIf="dailyRecordSeleccionado.behavior.length > 0">
-          <ion-item lines="none">
-            <ion-label class="subtitulo"> Actitud </ion-label>
-            <ion-label class="subtitulo" style="margin-left: 2%">
-              Calificación
-            </ion-label>
-            <ion-label class="subtitulo" style="margin-left: 2%">
-              Horario
-            </ion-label>
-          </ion-item>
-          <ion-item *ngFor="let registro of dailyRecordSeleccionado.behavior" lines="none">
-            <ion-label> {{registro.name}} </ion-label>
-            <ion-label style="margin-left: 2%">
-              {{registro.score + "/5"}}
-            </ion-label>
-            <ion-label style="margin-left: 2%"> {{registro.time}} </ion-label>
-          </ion-item>
-        </ion-list>
-      </div>
-    </div>
-
-    <!-- Fase -->
-    <div *ngSwitchCase="'phaseBinnacle'">
-      <div *ngIf="dailyRecordSeleccionado != undefined">
-        <ion-list *ngIf="dailyRecordSeleccionado.phaseBinnacle != undefined">
-          <ion-item lines="none">
-            <ion-label class="subtitulo"> Identifica la fecha </ion-label>
-            <ion-label style="margin-left: 2%">
-              {{dailyRecordSeleccionado.phaseBinnacle.date}}
-            </ion-label>
-          </ion-item>
-          <ion-item lines="none">
-            <ion-label> Se orienta correctamente </ion-label>
-            <ion-label style="margin-left: 2%">
-              {{dailyRecordSeleccionado.phaseBinnacle.orientation}}
-            </ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-label> Observaciones </ion-label>
-            <ion-label style="margin-top: 2%">
-              {{dailyRecordSeleccionado.phaseBinnacle.observation}}
-            </ion-label>
-          </ion-item>
-          <div style="margin-top: 10%">
-            <ion-label
-              class="subtitulo"
-              style="margin-left: 5%; margin-top: 10%; font-size: small"
-              >Actividades</ion-label
-            >
-            <ion-item
-              *ngFor="let registro of dailyRecordSeleccionado.phaseBinnacle.activities"
-              lines="none"
-            >
+      <!-- Comida -->
+      <div *ngSwitchCase="'meal'">
+        <div *ngIf="dailyRecordSeleccionado != undefined">
+          <div *ngIf="dailyRecordSeleccionado.meal != undefined">
+            <ion-list>
               <ion-item lines="none">
-                <div style="width: 35%">{{registro.name}}</div>
-                <ion-label style="margin-left: 5%">
-                  {{registro.performance + "/5"}}
-                </ion-label>
-                <ion-label style="margin-left: 5%">
-                  {{registro.classification}}
+                <ion-label class="subtitulo"> </ion-label>
+                <ion-label class="subtitulo" style="margin-left: 2%">
+                  Observaciones
                 </ion-label>
               </ion-item>
-            </ion-item>
-          </div>
-        </ion-list>
-      </div>
-    </div>
 
-    <!-- Fisioterapia -->
-    <div *ngSwitchCase="'physioBinnacle'">
-      <div *ngIf="dailyRecordSeleccionado != undefined">
-        <ion-list *ngIf="dailyRecordSeleccionado.physioBinnacle != undefined">
-          <div *ngIf="dailyRecordSeleccionado.physioBinnacle.status != false">
+              <ion-item lines="none" *ngIf="dailyRecordSeleccionado.meal.foodType != undefined">
+                <ion-label class="subtitulo"> Tipo de comida </ion-label>
+                <ion-label style="margin-left: 2%">
+                  {{dailyRecordSeleccionado.meal.foodType}}
+                </ion-label>
+              </ion-item>
+
+              <ion-item lines="none" *ngIf="dailyRecordSeleccionado.meal.chewingPerformance != undefined">
+                <ion-label class="subtitulo"> Masticado </ion-label>
+                <ion-label style="margin-left: 2%">
+                  {{dailyRecordSeleccionado.meal.chewingPerformance + "/5"}}
+                </ion-label>
+              </ion-item>
+
+              <ion-item lines="none" *ngIf="dailyRecordSeleccionado.meal.independence != undefined">
+                <ion-label class="subtitulo"> Independencia </ion-label>
+                <ion-label style="margin-left: 2%">
+                  {{dailyRecordSeleccionado.meal.independence + "/5"}}
+                </ion-label>
+              </ion-item>
+
+              <ion-item lines="none" *ngIf="dailyRecordSeleccionado.meal.quantity != undefined">
+                <ion-label class="subtitulo"> Cantidad </ion-label>
+                <ion-label style="margin-left: 2%">
+                  {{dailyRecordSeleccionado.meal.quantity + "/5"}}
+                </ion-label>
+              </ion-item>
+
+              <ion-item lines="none" *ngIf="dailyRecordSeleccionado.meal.functional != undefined">
+                <ion-label class="subtitulo"> Funcional </ion-label>
+                <ion-label style="margin-left: 2%">
+                  {{dailyRecordSeleccionado.meal.functional + "/5"}}
+                </ion-label>
+              </ion-item>
+
+              <ion-item lines="none" *ngIf="dailyRecordSeleccionado.collation != undefined">
+                <ion-label class="subtitulo"> Colación </ion-label>
+                <ion-label style="margin-left: 2%">
+                  {{dailyRecordSeleccionado.collation + "/5"}}
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </div>
+        </div>
+      </div>
+
+      <!-- Humor -->
+      <div *ngSwitchCase="'behavior'">
+        <div *ngIf="dailyRecordSeleccionado != undefined">
+          <ion-list *ngIf="dailyRecordSeleccionado.behavior.length > 0">
             <ion-item lines="none">
-              <ion-label class="subtitulo"> Fecha inicio </ion-label>
-              <ion-label style="margin-left: 5%">
-                {{formatearHora(dailyRecordSeleccionado.physioBinnacle.startTime)}}
+              <ion-label class="subtitulo"> Actitud </ion-label>
+              <ion-label class="subtitulo" style="margin-left: 2%">
+                Calificación
+              </ion-label>
+              <ion-label class="subtitulo" style="margin-left: 2%">
+                Horario
+              </ion-label>
+            </ion-item>
+            <ion-item *ngFor="let registro of dailyRecordSeleccionado.behavior" lines="none">
+              <ion-label> {{registro.name}} </ion-label>
+              <ion-label style="margin-left: 2%">
+                {{registro.score + "/5"}}
+              </ion-label>
+              <ion-label style="margin-left: 2%"> {{registro.time}} </ion-label>
+            </ion-item>
+          </ion-list>
+        </div>
+      </div>
+
+      <!-- Fase -->
+      <div *ngSwitchCase="'phaseBinnacle'">
+        <div *ngIf="dailyRecordSeleccionado != undefined">
+          <ion-list *ngIf="dailyRecordSeleccionado.phaseBinnacle != undefined">
+            <ion-item lines="none">
+              <ion-label class="subtitulo"> Identifica la fecha </ion-label>
+              <ion-label style="margin-left: 2%">
+                {{dailyRecordSeleccionado.phaseBinnacle.date}}
               </ion-label>
             </ion-item>
             <ion-item lines="none">
-              <ion-label class="subtitulo"> Fecha fin </ion-label>
-              <ion-label style="margin-left: 5%">
-                {{formatearHora(dailyRecordSeleccionado.physioBinnacle.endTime)}}
-              </ion-label>
-            </ion-item>
-            <ion-item lines="none">
-              <ion-label class="subtitulo"> Humor inicial </ion-label>
-              <ion-label style="margin-left: 5%">
-                {{dailyRecordSeleccionado.physioBinnacle.startMood}}
-              </ion-label>
-            </ion-item>
-            <ion-item lines="none">
-              <ion-label class="subtitulo"> Humor final </ion-label>
-              <ion-label style="margin-left: 5%">
-                {{dailyRecordSeleccionado.physioBinnacle.endMood}}
+              <ion-label> Se orienta correctamente </ion-label>
+              <ion-label style="margin-left: 2%">
+                {{dailyRecordSeleccionado.phaseBinnacle.orientation}}
               </ion-label>
             </ion-item>
             <ion-item>
-              <ion-label class="subtitulo"> Activación física </ion-label>
-              <ion-label style="margin-left: 5%">
-                {{ dailyRecordSeleccionado.physicalActivation + "/5"}}
+              <ion-label> Observaciones </ion-label>
+              <ion-label style="margin-top: 2%">
+                {{dailyRecordSeleccionado.phaseBinnacle.observation}}
               </ion-label>
             </ion-item>
-
-            <div
-              *ngIf="dailyRecordSeleccionado.phaseBinnacle.activities.length>0"
-              style="margin-top: 10%;"
-            >
-              <ion-item lines="none">
-                <ion-label class="subtitulo">Actividad</ion-label>
-                <ion-label class="subtitulo">Desempeño</ion-label>
-                <ion-label class="subtitulo">Clasificación</ion-label>
-              </ion-item>
-              <ion-list
-                *ngFor="let registro of dailyRecordSeleccionado.physioBinnacle.activities"
-              >
-                <ion-item>
-                  <ion-label>{{registro.name}}</ion-label>
-                  <ion-label>{{registro.performance + "/5"}}</ion-label>
-                  <ion-label>{{registro.classification}}</ion-label>
+            <div style="margin-top: 10%">
+              <ion-label class="subtitulo" style="margin-left: 5%; margin-top: 10%; font-size: small">Actividades
+              </ion-label>
+              <ion-item *ngFor="let registro of dailyRecordSeleccionado.phaseBinnacle.activities" lines="none">
+                <ion-item lines="none">
+                  <div style="width: 35%">{{registro.name}}</div>
+                  <ion-label style="margin-left: 5%">
+                    {{registro.performance + "/5"}}
+                  </ion-label>
+                  <ion-label style="margin-left: 5%">
+                    {{registro.classification}}
+                  </ion-label>
                 </ion-item>
-              </ion-list>
+              </ion-item>
             </div>
-          </div>
-        </ion-list>
+          </ion-list>
+        </div>
       </div>
+
+      <!-- Fisioterapia -->
+      <div class="divFisio" *ngSwitchCase="'physioBinnacle'">
+        <div class="divFisio" *ngIf="dailyRecordSeleccionado != undefined">
+          <ion-list class="divFisio" *ngIf="dailyRecordSeleccionado.physioBinnacle != undefined">
+            <div *ngIf="dailyRecordSeleccionado.physioBinnacle.status != false">
+              <ion-item lines="none">
+                <ion-label class="subtitulo"> Fecha inicio </ion-label>
+                <ion-label style="margin-left: 5%">
+                  {{formatearHora(dailyRecordSeleccionado.physioBinnacle.startTime)}}
+                </ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label class="subtitulo"> Fecha fin </ion-label>
+                <ion-label style="margin-left: 5%">
+                  {{formatearHora(dailyRecordSeleccionado.physioBinnacle.endTime)}}
+                </ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label class="subtitulo"> Humor inicial </ion-label>
+                <ion-label style="margin-left: 5%">
+                  {{dailyRecordSeleccionado.physioBinnacle.startMood}}
+                </ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label class="subtitulo"> Humor final </ion-label>
+                <ion-label style="margin-left: 5%">
+                  {{dailyRecordSeleccionado.physioBinnacle.endMood}}
+                </ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-label class="subtitulo"> Activación física </ion-label>
+                <ion-label style="margin-left: 5%">
+                  {{ dailyRecordSeleccionado.physicalActivation + "/5"}}
+                </ion-label>
+              </ion-item>
+
+              <div class="divFisio" *ngIf="dailyRecordSeleccionado.phaseBinnacle.activities.length>0"
+                style="margin-top: 10%;">
+                <ion-item lines="none">
+                  <ion-label class="subtitulo">Actividad</ion-label>
+                  <ion-label class="subtitulo">Desempeño</ion-label>
+                  <ion-label class="subtitulo">Clasificación</ion-label>
+                </ion-item>
+                <ion-list *ngFor="let registro of dailyRecordSeleccionado.physioBinnacle.activities">
+                  <ion-item>
+                    <ion-label>{{registro.name}}</ion-label>
+                    <ion-label>{{registro.performance + "/5"}}</ion-label>
+                    <ion-label>{{registro.classification}}</ion-label>
+                  </ion-item>
+                </ion-list>
+              </div>
+            </div>
+          </ion-list>
+        </div>
+      </div>
+
+      <h5 *ngIf="dailyRecordSeleccionado == undefined">
+        No hay registro del paciente para el día seleccionado
+      </h5>
     </div>
-
-    <h5 *ngIf="dailyRecordSeleccionado == undefined">
-      No hay registro del paciente para el día seleccionado
-    </h5>
   </div>
-</div>
 
-<!-- FAB para probar la ventana de notificaciones, mover a una ventana distinta donde se mas apropiada -->
-<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <!-- FAB para probar la ventana de notificaciones, mover a una ventana distinta donde se mas apropiada -->
+  <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
   <ion-fab-button (click)="openComponent()">
     <ion-icon name="add"></ion-icon>
   </ion-fab-button>
 </ion-fab> -->
 
-<!-- </ion-content> -->
+</ion-content>
