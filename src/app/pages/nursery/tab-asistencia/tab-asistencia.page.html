@@ -24,39 +24,51 @@
       <!-- Inicial -->
       <div *ngSwitchCase="'inicial'">
         <ion-list>
-          <ion-item *ngFor="let paciente of listaCoincidenciasEntrada" (click)="chooseAlert( paciente._id )" lines="none">
+          <ion-item *ngFor="let paciente of listaCoincidenciasEntrada" (click)="chooseAlert( paciente._id )"
+            lines="none">
             <ion-avatar slot="start">
               <img src="{{ paciente.img }}" />
             </ion-avatar>
             <ion-label class="ion-text-capitalize">{{ paciente.name + ' ' + paciente.lastName }}</ion-label>
-            <img src="../../../assets/img/asistencia.png" class="ajuste-imagen"/>
+            <img src="../../../assets/img/asistencia.png" class="ajuste-imagen" />
             <!--<ion-icon slot="end" name="arrow-forward" mode="ios"></ion-icon>-->
           </ion-item>
         </ion-list>
+        <div *ngIf="listaCoincidenciasEntrada.length == 0">
+          <app-patient-not-found-message></app-patient-not-found-message>
+        </div>
       </div>
       <!-- Intermedia -->
       <div *ngSwitchCase="'intermedia'">
         <ion-list>
-          <ion-item *ngFor="let paciente of listaCoincidenciasEntrada" (click)="chooseAlert( paciente._id )" lines="none">
+          <ion-item *ngFor="let paciente of listaCoincidenciasEntrada" (click)="chooseAlert( paciente._id )"
+            lines="none">
             <ion-avatar slot="start">
               <img src="{{ paciente.img }}" />
             </ion-avatar>
             <ion-label class="ion-text-capitalize">{{ paciente.name + ' ' + paciente.lastName }}</ion-label>
-            <img src="../../../assets/img/asistencia.png" class="ajuste-imagen"/>
+            <img src="../../../assets/img/asistencia.png" class="ajuste-imagen" />
           </ion-item>
         </ion-list>
+        <div *ngIf="listaCoincidenciasEntrada.length == 0">
+          <app-patient-not-found-message></app-patient-not-found-message>
+        </div>
       </div>
       <!-- Avanzada -->
       <div *ngSwitchCase="'avanzada'">
         <ion-list>
-          <ion-item *ngFor="let paciente of listaCoincidenciasEntrada" (click)="chooseAlert( paciente._id )" lines="none">
+          <ion-item *ngFor="let paciente of listaCoincidenciasEntrada" (click)="chooseAlert( paciente._id )"
+            lines="none">
             <ion-avatar slot="start">
               <img src="{{ paciente.img }}" />
             </ion-avatar>
             <ion-label class="ion-text-capitalize">{{ paciente.name + ' ' + paciente.lastName }}</ion-label>
-            <img src="../../../assets/img/asistencia.png" class="ajuste-imagen"/>
+            <img src="../../../assets/img/asistencia.png" class="ajuste-imagen" />
           </ion-item>
         </ion-list>
+        <div *ngIf="listaCoincidenciasEntrada.length == 0">
+          <app-patient-not-found-message></app-patient-not-found-message>
+        </div>
       </div>
     </div>
   </div>
@@ -66,41 +78,51 @@
     <div [ngSwitch]="fase">
       <!-- Inicial -->
       <div *ngSwitchCase="'inicial'">
-        <ion-item *ngFor="let paciente of listaCoincidenciasSalida" (click)="chooseAlert( paciente )"  lines="none">
+        <ion-item *ngFor="let paciente of listaCoincidenciasSalida" (click)="chooseAlert( paciente )" lines="none">
           <ion-avatar slot="start">
             <img src="{{ paciente.patient.img }}" />
           </ion-avatar>
           <ion-label class="ion-text-capitalize">{{ paciente.patient.name + ' ' + paciente.patient.lastName }}
           </ion-label>
-          <img src="../../../assets/img/asistencia.png" class="ajuste-imagen"/>
+          <img src="../../../assets/img/asistencia.png" class="ajuste-imagen" />
         </ion-item>
+        <div *ngIf="listaCoincidenciasSalida.length == 0">
+          <app-patient-not-found-message></app-patient-not-found-message>
+        </div>
       </div>
       <!-- Intermedia -->
       <div *ngSwitchCase="'intermedia'">
         <ion-list>
-          <ion-item *ngFor="let paciente of listaCoincidenciasSalida" (click)="chooseAlert( paciente )"  lines="none">
+          <ion-item *ngFor="let paciente of listaCoincidenciasSalida" (click)="chooseAlert( paciente )" lines="none">
             <ion-avatar slot="start">
               <img src="{{ paciente.patient.img }}" />
             </ion-avatar>
             <ion-label class="ion-text-capitalize">{{ paciente.patient.name + ' ' + paciente.patient.lastName }}
             </ion-label>
-            <img src="../../../assets/img/asistencia.png" class="ajuste-imagen"/>
+            <img src="../../../assets/img/asistencia.png" class="ajuste-imagen" />
           </ion-item>
         </ion-list>
+        <div *ngIf="listaCoincidenciasSalida.length == 0">
+          <app-patient-not-found-message></app-patient-not-found-message>
+        </div>
       </div>
       <!-- Avanzada -->
       <div *ngSwitchCase="'avanzada'">
         <ion-list>
-          <ion-item *ngFor="let paciente of listaCoincidenciasSalida" (click)="chooseAlert( paciente )"  lines="none">
+          <ion-item *ngFor="let paciente of listaCoincidenciasSalida" (click)="chooseAlert( paciente )" lines="none">
             <ion-avatar slot="start">
               <img src="{{ paciente.patient.img }}" />
             </ion-avatar>
             <ion-label class="ion-text-capitalize">{{ paciente.patient.name + ' ' + paciente.patient.lastName }}
             </ion-label>
-            <img src="../../../assets/img/asistencia.png" class="ajuste-imagen"/>
+            <img src="../../../assets/img/asistencia.png" class="ajuste-imagen" />
           </ion-item>
         </ion-list>
+        <div *ngIf="listaCoincidenciasSalida.length == 0">
+          <app-patient-not-found-message></app-patient-not-found-message>
+        </div>
       </div>
     </div>
   </div>
+
 </ion-content>

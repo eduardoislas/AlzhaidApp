@@ -78,6 +78,44 @@ ion-datetime{
     margin-left: 2%;
 }
 
+.margen-derecha-chico{
+    margin-left: 2%;
+}
+
 .margen-superior{
     margin-top: 10%;
 }
+
+.contenedorLabel {
+    min-width: 50%;
+}
+
+.contenedorLabelFase {
+    min-width: 70%;
+}
+
+.imagenBoolean {
+    width:25%;
+    max-width: 25%;
+}
+
+.contenedorImagenesAnimo {
+    width: 10%;
+    max-width: 10%;
+}
+
+
+ion-row, ion-grid, ion-col {
+    font-size: medium;
+    justify-content: center;
+}
+
+ion-grid {
+    margin-top: 2%;
+    margin-left: 2%;
+}
+
+ion-row.rowsTablas {
+    margin-bottom: 5%;
+}
+
