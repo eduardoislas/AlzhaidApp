@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { TabAvisosPageRoutingModule } from './tab-avisos-routing.module';
 
 import { TabAvisosPage } from './tab-avisos.page';
+import { ComponentsModule } from '../../../../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TabAvisosPageRoutingModule
+    TabAvisosPageRoutingModule,
+    ComponentsModule // Para poder usar los componentes
   ],
   declarations: [TabAvisosPage]
 })
