@@ -56,9 +56,9 @@ export class NotificationListComponent implements OnInit {
       res.vigentes.forEach(nota => {
         if (nota.area.includes(this.rol)) {
           filtado.push(nota);
-          console.log('Sí estuvo vigente');
+          console.log('Sí edel area');
         }else{
-          console.log('No estuvo vigente');
+          console.log('No del area');
         }
       });
       this.notifications.push(filtado);
