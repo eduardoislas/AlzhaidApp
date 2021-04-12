@@ -7,3 +7,39 @@ p {
   display: flex;
   justify-content: center;
 }
+
+/*.ajuste-botones{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 5%;
+}
+
+.botones{
+  size: 40%;
+  font-size: smaller;
+  margin-right: 3%;
+  margin-left: 3%;
+}
+
+.contenedor-interno{
+  padding: 2%;
+}*/
+
+//separacion
+.contenedor2 {
+  margin-bottom: 10%;
+  margin-top: 10%;
+  width: 40%;
+}
+
+.letra-mediana{
+  font-size: 65%;
+  width: 90%;
+}
+
+.orientacion-fila{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

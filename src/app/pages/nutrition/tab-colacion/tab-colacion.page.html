@@ -53,13 +53,28 @@
             <ion-avatar slot="start">
               <img src="{{ paciente.patient.img }}" />
             </ion-avatar>
-            <ion-label>{{ paciente.patient.name + ' ' + paciente.patient.lastName}}</ion-label>
+            <ion-label
+              >{{ paciente.patient.name + ' ' +
+              paciente.patient.lastName}}</ion-label
+            >
             <ion-toggle slot="end" [(ngModel)]="paciente.selected"></ion-toggle>
           </ion-item>
 
           <div class="contenedorRange">
-            <ion-range *ngIf="paciente.selected" pin snaps min="0" max="5" [(ngModel)]="paciente.score">
-              <ion-icon size="small" slot="start" name="star" color="medium"></ion-icon>
+            <ion-range
+              *ngIf="paciente.selected"
+              pin
+              snaps
+              min="0"
+              max="5"
+              [(ngModel)]="paciente.score"
+            >
+              <ion-icon
+                size="small"
+                slot="start"
+                name="star"
+                color="medium"
+              ></ion-icon>
               <ion-icon slot="end" name="star" color="medium"></ion-icon>
             </ion-range>
           </div>
@@ -79,27 +94,21 @@
         <!-- </ion-item> -->
       </ion-list>
 
-      <div class="contenedor">
-        <ion-button (click)="sendDataDesempeno()">
-          Enviar desempeño
-        </ion-button>
+      <div class="orientacion-fila">
+        <div class="contenedor2">
+          <ion-button (click)="sendDataDesempeno()" class="letra-mediana">
+            Enviar desempeño
+          </ion-button>
+        </div>
+  
+        <div class="contenedor2">
+              <ion-button (click)="sendMassiveData()" class="letra-mediana">
+                Todo en orden
+              </ion-button>
+        </div>
       </div>
-
-
-      <p>ó </p>
-
-      <div *ngIf="infoEnviada === false">
-        <ion-slides [options]="sliderOpts">
-          <ion-slide>
-            <ion-button (click)="sendMassiveData()">
-              Todo en orden
-            </ion-button>
-          </ion-slide>
-        </ion-slides>
-      </div>
-
+      
     </div>
-
     <!-- Información enviada es true -->
     <div class="slides" *ngIf="infoEnviada === true">
       <ion-slides [options]="sliderOpts">
@@ -109,5 +118,4 @@
       </ion-slides>
     </div>
   </div>
-
 </ion-content>

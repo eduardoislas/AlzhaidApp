@@ -46,13 +46,20 @@
   <ion-list>
     <ion-item lines="none">
       <ion-label>Hora Inicio</ion-label>
-      <ion-datetime display-format="HH:mm A" picker-format="HH:mm A" cancel-text="Cancelar" done-text="Aceptar"
-        [(ngModel)]="horaInicio"></ion-datetime>
+      <ion-datetime display-format="HH:mm A" picker-format="HH:mm A" [(ngModel)]="horaInicio" cancel-text="Cancelar"
+      done-text="Aceptar" class="texto-regular">
+      </ion-datetime>
+      <img src="assets\img\calendario.png" class = "ajuste-tamaño">
+      <!--<ion-datetime display-format="HH:mm A" picker-format="HH:mm A" cancel-text="Cancelar" done-text="Aceptar"
+        [(ngModel)]="horaInicio"></ion-datetime>-->
     </ion-item>
     <ion-item>
       <ion-label>Hora Fin</ion-label>
-      <ion-datetime display-format="HH:mm A" picker-format="HH:mm A" cancel-text="Cancelar" done-text="Aceptar"
-        [(ngModel)]="horaFin" display-timezone="Asia/Shanghai"></ion-datetime>
+      <ion-datetime display-format="HH:mm A" picker-format="HH:mm A" [(ngModel)]="horaFin" display-timezone="Asia/Shanghai" cancel-text="Cancelar"
+      done-text="Aceptar" class="texto-regular"></ion-datetime>
+      <img src="assets\img\calendario.png" class = "ajuste-tamaño">
+      <!--<ion-datetime display-format="HH:mm A" picker-format="HH:mm A" cancel-text="Cancelar" done-text="Aceptar"
+        [(ngModel)]="horaFin" display-timezone="Asia/Shanghai"></ion-datetime>-->
     </ion-item>
   </ion-list>
 
