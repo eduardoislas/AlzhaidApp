@@ -24,4 +24,8 @@
     </ion-item>
   </ion-list>
 
+  <div *ngIf="coincidencias.length == 0">
+    <app-patient-not-found-message></app-patient-not-found-message>
+  </div>
+
 </ion-content>

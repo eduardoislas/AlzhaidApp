@@ -5,19 +5,22 @@ import { NotificationListComponent } from './notification-list/notification-list
 import { IonicModule } from '@ionic/angular';
 import { ModalComponent } from './modal/modal.component';
 import { NotFoundMessageComponent } from './not-found-message/not-found-message.component';
+import { PatientNotFoundMessageComponent } from './patient-not-found-message/patient-not-found-message.component';
 
 @NgModule({
   declarations: [
     SearchbarComponent,
     NotificationListComponent,
     ModalComponent,
-    NotFoundMessageComponent
+    NotFoundMessageComponent,
+    PatientNotFoundMessageComponent
   ],
   exports: [
     SearchbarComponent,
     NotificationListComponent,
     ModalComponent,
-    NotFoundMessageComponent
+    NotFoundMessageComponent,
+    PatientNotFoundMessageComponent
   ],
   imports: [
     CommonModule,

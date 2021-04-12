@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { Subscription } from 'rxjs';
 import { NotificationsListenerService } from 'src/app/services/notifications/notificationsListener.service';
+import { CaregiverService } from 'src/app/services/caregiver.service';
 
 @Component({
   selector: 'app-notification-list',
@@ -15,10 +16,12 @@ export class NotificationListComponent implements OnInit {
   notifications: any = [];
   rol: string;
   filtradas: any = [];
+  paciente;
 
 
   constructor(
     private notificationsService: NotificationsService,
+    private caregiverService: CaregiverService,
     private storage: Storage,
     private router: Router,
     private notificationsListenerService: NotificationsListenerService) {
@@ -31,11 +34,6 @@ export class NotificationListComponent implements OnInit {
 
   ngOnInit() {
     this.cargarLista();
-    this.storage.get('Rol').then((val) => {
-      this.rol = val;
-      console.log(this.rol);
-    });
-    // this.filtrarLista()
   }
 
   async openComponent() {
@@ -43,37 +41,50 @@ export class NotificationListComponent implements OnInit {
   }
 
   cargarLista() {
-    const filtado = [];
-    this.notificationsService.getNotifications().subscribe(res => {
-      console.log(this.rol);
-      if(res == undefined){
-        console.log('no hubo notifiaciones');
-      }else{
-        console.log("'Sí hubo: ")
-        console.log(res);
+    this.storage.get('Rol').then((res) => {
+      this.rol = res;
+      this.notifications = [];
+
+      if (this.rol === 'FAMILIAR') {//Si el rol del usuario es familiar, tiene acceso a su paciente vinculado
+        let userID;
+
+        this.storage.get("id").then((res) => {
+          userID = res;
+          console.log(userID);
+
+          this.caregiverService.getCaregiverByUserID(userID).subscribe((resCaregiver) => {
+            this.paciente = resCaregiver.caregiver[0].patient;
+
+            this.notificationsService.getNotifications().subscribe(res => {
+              res.vigentes.forEach(nota => {
+                if (nota.area.includes(this.rol) && nota.patient._id == this.paciente._id) {
+                  this.notifications.push(nota);
+                  console.log('Sí estuvo en el area y el paciente coincide');
+                }
+              });
+              console.log(this.notifications);
+            });
+
+          });
+        });
+
+      } else {
+
+        this.notificationsService.getNotifications().subscribe(res => {
+          res.vigentes.forEach(nota => {
+            if (nota.area.includes(this.rol)) {
+              this.notifications.push(nota);
+              console.log('Sí estuvo en el area');
+            }
+          });
+          console.log(this.notifications);
+        });
+
       }
 
-      res.vigentes.forEach(nota => {
-        if (nota.area.includes(this.rol)) {
-          filtado.push(nota);
-          console.log('Sí edel area');
-        }else{
-          console.log('No del area');
-        }
-      });
-      this.notifications.push(filtado);
-      this.notifications = filtado;
-      console.log(filtado);
     });
+
   }
 
-  // filtrarLista(){
-  //   for (let x in this.notifications){
-  //     for (let a in x.area){
-  //       if (a === this.rol){
-  //         this.filtradas.push(x);
-  //       }
-  //     }
-  //   }
-  // }
+
 }
