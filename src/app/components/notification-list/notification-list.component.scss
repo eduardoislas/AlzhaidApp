@@ -5,7 +5,10 @@
 }
 
 .margen{
-    margin: 10%;
+    margin-top: 2%;
+    margin-bottom: 5%;
+    margin-left: 8%;
+    margin-left: 8%;
     text-align: center;
 }
 
@@ -13,4 +16,62 @@
     margin-top: 10%;
     width: 30%;
     align-self: center;
+}
+
+.envelop{
+    --background: #FFF3A1;
+}
+
+ion-card-title{
+    font-size: small;
+}
+
+.envelop-tittle{
+    --background: #ffffcc;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.fila{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 5%;
+}
+
+.no-margin{
+    padding: 2%;
+    margin: 0%;
+}
+
+img{
+    width: 70%;
+    height: auto;
+}
+
+.ajustar-imagen{
+    width: 10%;
+    height: auto;
+}
+
+.alinear-derechas{
+    display: flex;
+    align-self: flex-end;
+}
+
+.display{
+    margin: 0%;
+    padding: 0%;
+    display: flex;
+    flex-direction: column;
+    margin-right: 5%;
+}
+
+.boton{
+    margin-top: 3%;
+    width: 60%;
+    align-self: center;
+    --background: #18485e;
 }

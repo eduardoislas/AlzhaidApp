@@ -1,39 +1,61 @@
 <ion-content>
-    <div>
-        <ion-list>
-            <ion-card fullscreen="fullscreen" *ngFor="let notificacion of notifications" onclick="">
-                <ion-item>
-                    <ion-avatar slot="start">
-                        <img *ngIf="notificacion.high_priority" src="assets\img\notificaciones+P.png">
-                        <img *ngIf="!notificacion.high_priority" src="assets\img\notificaciones-P.png">
-                    </ion-avatar>
+  <div class="display">
+    <ion-button class="alinear-derecha boton" size="small">
+        Notificaciones ocultas
+    </ion-button>
 
-                    <ion-card-title>
-                        {{notificacion.patient.name}} {{notificacion.patient.lastName}}
-                        {{notificacion.patient.lastNameSecond}}
-                    </ion-card-title>
+    <ion-list>
+      <ion-card
+        *ngFor="let notificacion of notifications"
+        onclick=""
+        class="envelop-tittle margen"
+      >
+        <ion-item class="envelop no-margin" lines="none">
+          <ion-avatar slot="start">
+            <img
+              *ngIf="notificacion.high_priority"
+              src="assets\img\red-siren.png"
+            />
+            <img
+              *ngIf="!notificacion.high_priority"
+              src="assets\img\green-siren.png"
+            />
+          </ion-avatar>
 
-                </ion-item>
+          <ion-label>
+            <b>{{ notificacion.patient.name }} {{ notificacion.patient.lastName }}
+            {{ notificacion.patient.lastNameSecond }}</b>
+          </ion-label>
 
-                <ion-card-subtitle class="ion-padding">
-                    {{notificacion.expiration_date |date:"dd-MM-yyyy"}}
-                </ion-card-subtitle>
-                <ion-card-content>{{notificacion.type}}</ion-card-content>
-                <ion-card-content>{{notificacion.description}}</ion-card-content>
-            </ion-card>
-        </ion-list>
-    </div>
+          <img src="assets\img\hiden.png" class="ajustar-imagen">
+        </ion-item>
 
-    <div *ngIf="notifications.length == 0">
-        <div class="margen contenedor">
-            <img src="assets\img\folder.png" class="ajuste-tamaño">
-            No hay avisos
+        <div class="fila">
+          <ion-card-subtitle class="ion-padding no-margin">
+            <b>Vencimiento: </b
+            >{{ notificacion.expiration_date | date: "dd-MM-yyyy" }}
+          </ion-card-subtitle>
+          <ion-card-content class="no-margin"
+            ><b>Área: </b>{{ notificacion.type }}</ion-card-content
+          >
+          <ion-card-content class="no-margin"
+            ><b>Mensaje: </b>{{ notificacion.description }}</ion-card-content
+          >
         </div>
-    </div>
+      </ion-card>
+    </ion-list>
+  </div>
 
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button (click)="openComponent()">
-            <ion-icon name="add"></ion-icon>
-        </ion-fab-button>
-    </ion-fab>
+  <div *ngIf="notifications.length == 0">
+    <div class="margen contenedor">
+      <img src="assets\img\folder.png" class="ajuste-tamaño" />
+      No hay avisos
+    </div>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openComponent()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
