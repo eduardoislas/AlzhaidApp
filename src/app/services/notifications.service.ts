@@ -52,7 +52,7 @@ export class NotificationsService {
    * @returns 
    */
   putNotificationSuscribe(id: string, subscribedUser){
-    return this.http.put(`${url}notification/subscribe/${id}`,{
+    return this.http.put<RootNotification>(`${url}/subscribe/${id}`,{
       subscribedUser
     });
   }

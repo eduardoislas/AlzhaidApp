@@ -17,6 +17,8 @@ export class NotificationListComponent implements OnInit {
   rol: string;
   filtradas: any = [];
   paciente;
+  ocultas = false;
+  textoBoton = "Ver notificaciones ocultas";
 
   constructor(
     private notificationsService: NotificationsService,
@@ -46,23 +48,45 @@ export class NotificationListComponent implements OnInit {
     this.storage.get("id").then((res) => {
       usuarioID = res;
 
-      this.notificationsService.putNotificationUnsuscribe(notificationID,usuarioID).subscribe(
-        res => {
-          if (res.success === true) {
-           console.log("Sí se desuscribió");
-           this.cargarLista();
+      if (this.textoBoton == "Ver notificaciones ocultas") {
+        this.notificationsService
+        .putNotificationUnsuscribe(notificationID, usuarioID)
+        .subscribe(
+          (res) => {
+            if (res.success === true) {
+              this.cargarLista();
+            }
+          },
+          (err) => {
+            console.log("error", err);
           }
-        },
-        err => {
-          console.log("error", err);
-        }
-      );
+        );
+      }else{
+        this.notificationsService
+        .putNotificationSuscribe(notificationID, usuarioID)
+        .subscribe(
+          (res) => {
+            if (res.success === true) {
+              this.cargarLista();
+            }
+          },
+          (err) => {
+            console.log("error", err);
+          }
+        );
+      }
     });
   }
 
-  notificacionesOcultas(){
-    console.log('URl: '+this.router.url);
-    this.router.navigateByUrl('../../../../components/hiden-notification-list/hiden-notification-list');
+  notificacionesOcultas() {
+    if (this.textoBoton == "Ver notificaciones ocultas") {
+      this.ocultas = true;
+      this.textoBoton = "Regresar";
+    } else {
+      this.ocultas = false;
+      this.textoBoton = "Ver notificaciones ocultas";
+    }
+    this.cargarLista();
   }
 
   cargarLista() {
@@ -76,7 +100,6 @@ export class NotificationListComponent implements OnInit {
 
         this.storage.get("id").then((res) => {
           userID = res;
-          console.log(userID);
 
           this.caregiverService
             .getCaregiverByUserID(userID)
@@ -89,11 +112,26 @@ export class NotificationListComponent implements OnInit {
                     nota.area.includes(this.rol) &&
                     nota.patient._id == this.paciente._id
                   ) {
-                    this.notifications.push(nota);
-                    console.log("Sí estuvo en el area, el paciente coincide");
+                    // nuevo pq iba arriba
+                    if (
+                      this.ocultas == false &&
+                      nota.unsubscribedUsers.find(
+                        (element) => element == userID
+                      ) == undefined
+                    ) {
+                      this.notifications.push(nota);
+                    } else {
+                      if (
+                        this.ocultas == true &&
+                        nota.unsubscribedUsers.find(
+                          (element) => element == userID
+                        ) != undefined
+                      ) {
+                        this.notifications.push(nota);
+                      }
+                    }
                   }
                 });
-                console.log(this.notifications);
               });
             });
         });
@@ -102,19 +140,28 @@ export class NotificationListComponent implements OnInit {
 
         this.storage.get("id").then((res) => {
           userID = res;
-          console.log(userID);
 
           this.notificationsService.getNotifications().subscribe((res) => {
             res.vigentes.forEach((nota) => {
-              if (
-                nota.area.includes(this.rol) && 
-                nota.unsubscribedUsers.find(element => element == userID) == undefined
-              ) {
-                this.notifications.push(nota);
-                console.log("Sí estuvo en el area y no está en la lista de desuscritos");
+              if (nota.area.includes(this.rol)) {
+                if (
+                  this.ocultas == false &&
+                  nota.unsubscribedUsers.find((element) => element == userID) ==
+                    undefined
+                ) {
+                  this.notifications.push(nota);
+                } else {
+                  if (
+                    this.ocultas == true &&
+                    nota.unsubscribedUsers.find(
+                      (element) => element == userID
+                    ) != undefined
+                  ) {
+                    this.notifications.push(nota);
+                  }
+                }
               }
             });
-            console.log(this.notifications);
           });
         });
       }

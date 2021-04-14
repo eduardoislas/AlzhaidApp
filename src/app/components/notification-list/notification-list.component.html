@@ -1,7 +1,7 @@
 <ion-content>
   <div class="display">
     <ion-button class="alinear-derecha boton" size="small" (click)="notificacionesOcultas()">
-        Notificaciones ocultas
+        {{textoBoton}}
     </ion-button>
 
     <ion-list>
@@ -27,7 +27,8 @@
             {{ notificacion.patient.lastNameSecond }}</b>
           </ion-label>
 
-          <img src="assets\img\hiden.png" class="ajustar-imagen" (click)="ocultarNotificacion(notificacion._id)">
+          <img *ngIf="textoBoton=='Ver notificaciones ocultas'" src="assets\img\hiden.png" class="ajustar-imagen" (click)="ocultarNotificacion(notificacion._id)">
+          <img *ngIf="textoBoton!='Ver notificaciones ocultas'" src="assets\img\shown.png" class="ajustar-imagen" (click)="ocultarNotificacion(notificacion._id)">
         </ion-item>
 
         <div class="fila">
