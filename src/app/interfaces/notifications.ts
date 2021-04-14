@@ -13,6 +13,7 @@ export   interface Vigente {
     type: Type;
     patient: Patient;
     user: string;
+    unsubscribedUsers: string[];
   }
 
 export   interface Patient {
@@ -27,4 +28,7 @@ export   interface Type {
     name: string;
   }
 
-  
+export interface RootNotification {
+  success: boolean;
+  respuestas: [];
+}

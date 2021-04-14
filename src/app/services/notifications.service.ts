@@ -34,4 +34,26 @@ export class NotificationsService {
   postNotifications(notification: any) {
     return this.http.post(`${url}`, { notification });
   }
+
+  /**
+   * Método PUT que desuscribe un usuario a una notificación.
+   * @param id 
+   * @returns 
+   */
+   putNotificationUnsuscribe(id: string, unsubscribedUser){
+    return this.http.put<RootNotification>(`${url}/unsubscribe/${id}`,{
+      unsubscribedUser
+    });
+  }
+
+  /**
+   * Método PUT que suscribe un usuario a una notificación.
+   * @param id 
+   * @returns 
+   */
+  putNotificationSuscribe(id: string, subscribedUser){
+    return this.http.put(`${url}notification/subscribe/${id}`,{
+      subscribedUser
+    });
+  }
 }

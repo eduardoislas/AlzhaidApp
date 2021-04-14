@@ -7,11 +7,12 @@ import { NotificationsListenerService } from "src/app/services/notifications/not
 import { CaregiverService } from "src/app/services/caregiver.service";
 
 @Component({
-  selector: "app-notification-list",
-  templateUrl: "./notification-list.component.html",
-  styleUrls: ["./notification-list.component.scss"],
+  selector: 'app-hiden-notification-list',
+  templateUrl: './hiden-notification-list.component.html',
+  styleUrls: ['./hiden-notification-list.component.scss'],
 })
-export class NotificationListComponent implements OnInit {
+export class HidenNotificationListComponent implements OnInit {
+
   clickEventsubscription: Subscription;
   notifications: any = [];
   rol: string;
@@ -37,7 +38,7 @@ export class NotificationListComponent implements OnInit {
   }
 
   async openComponent() {
-    this.router.navigateByUrl(`notifications-add`);
+    this.router.navigateByUrl('../tab-avisos');
   }
 
   async ocultarNotificacion(notificationID) {
@@ -58,11 +59,6 @@ export class NotificationListComponent implements OnInit {
         }
       );
     });
-  }
-
-  notificacionesOcultas(){
-    console.log('URl: '+this.router.url);
-    this.router.navigateByUrl('../../../../components/hiden-notification-list/hiden-notification-list');
   }
 
   cargarLista() {
