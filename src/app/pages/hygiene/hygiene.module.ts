@@ -7,14 +7,20 @@ import { IonicModule } from '@ionic/angular';
 import { HygienePageRoutingModule } from './hygiene-routing.module';
 
 import { HygienePage } from './hygiene.page';
+import { PopoverComponent } from 'src/app/components/popover/popover.component';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
+  entryComponents: [
+    PopoverComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HygienePageRoutingModule
+    HygienePageRoutingModule,
+    ComponentsModule
   ],
   declarations: [HygienePage]
 })
-export class HygienePageModule {}
+export class HygienePageModule { }

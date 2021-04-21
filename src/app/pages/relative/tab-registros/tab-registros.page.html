@@ -30,7 +30,9 @@
 
     <ion-grid class="contenedorGrid">
       <ion-row>
-        <ion-col class="contenedorCol">
+        <ion-col class="contenedorCol parent">
+          <ion-icon class="childLeft" name="ios-arrow-back"></ion-icon>
+
           <ion-segment #iSegmentRegistros (ionChange)="segmentChangedRegistros( $event )" mode="md">
             <ion-segment-button checked value="general">
               <ion-label>General</ion-label>
@@ -55,6 +57,7 @@
               <ion-label>Fisioterapia</ion-label>
             </ion-segment-button>
           </ion-segment>
+          <ion-icon class="childRight" name="ios-arrow-forward"></ion-icon>
         </ion-col>
       </ion-row>
     </ion-grid>

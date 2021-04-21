@@ -15,6 +15,10 @@
             <ion-label>Signos</ion-label>
         </ion-tab-button>
 
+        <ion-tab-button *ngIf="usuarioCoordinador == 'true'">
+            <app-popover-rol></app-popover-rol>
+        </ion-tab-button>
+
         <ion-tab-button (click)="cerrarSesion()">
             <ion-icon name="log-out"></ion-icon>
             <ion-label>Cerrar sesión</ion-label>

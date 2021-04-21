@@ -1,98 +1,72 @@
 <ion-content>
   <div class="display">
     <ion-button class="alinear-derecha boton" size="small" (click)="notificacionesOcultas()">
-        {{textoBoton}}
+      {{textoBoton}}
     </ion-button>
 
     <ion-list *ngIf="textoBoton=='Ver notificaciones ocultas'">
-      <ion-card
-        *ngFor="let notificacion of notifications"
-        onclick=""
-        class="envelop-tittle margen"
-      >
+      <ion-card *ngFor="let notificacion of notifications" onclick="" class="envelop-tittle margen">
         <ion-item class="envelop no-margin" lines="none">
           <ion-avatar slot="start">
-            <img
-              *ngIf="notificacion.high_priority"
-              src="assets\img\red-siren.png"
-            />
-            <img
-              *ngIf="!notificacion.high_priority"
-              src="assets\img\green-siren.png"
-            />
+            <img *ngIf="notificacion.high_priority" src="assets\img\red-siren.png" />
+            <img *ngIf="!notificacion.high_priority" src="assets\img\green-siren.png" />
           </ion-avatar>
 
           <ion-label>
             <b>{{ notificacion.patient.name }} {{ notificacion.patient.lastName }}
-            {{ notificacion.patient.lastNameSecond }}</b>
+              {{ notificacion.patient.lastNameSecond }}</b>
           </ion-label>
 
-          <img *ngIf="textoBoton=='Ver notificaciones ocultas'" src="assets\img\hiden.png" class="ajustar-imagen" (click)="ocultarNotificacion(notificacion._id)">
-          <img *ngIf="textoBoton!='Ver notificaciones ocultas'" src="assets\img\shown.png" class="ajustar-imagen" (click)="ocultarNotificacion(notificacion._id)">
+          <img *ngIf="textoBoton=='Ver notificaciones ocultas'" src="assets\img\hiden.png" class="ajustar-imagen"
+            (click)="ocultarNotificacion(notificacion._id)">
+          <img *ngIf="textoBoton!='Ver notificaciones ocultas'" src="assets\img\shown.png" class="ajustar-imagen"
+            (click)="ocultarNotificacion(notificacion._id)">
         </ion-item>
 
         <div class="fila">
           <ion-card-subtitle class="ion-padding no-margin">
-            <b>Vencimiento: </b
-            >{{ notificacion.expiration_date | date: "dd-MM-yyyy" }}
+            <b>Vencimiento: </b>{{ notificacion.expiration_date | date: "dd-MM-yyyy" }}
           </ion-card-subtitle>
-          <ion-card-content class="no-margin"
-            ><b>Área: </b>{{ notificacion.type }}</ion-card-content
-          >
-          <ion-card-content class="no-margin"
-            ><b>Mensaje: </b>{{ notificacion.description }}</ion-card-content
-          >
+          <ion-card-content class="no-margin"><b>Área: </b>{{ notificacion.type }}</ion-card-content>
+          <ion-card-content class="no-margin"><b>Mensaje: </b>{{ notificacion.description }}</ion-card-content>
         </div>
       </ion-card>
     </ion-list>
 
     <ion-list *ngIf="textoBoton!='Ver notificaciones ocultas'">
-      <ion-card
-        *ngFor="let notificacion of notifications"
-        onclick=""
-        class="hiden-envelop-tittle margen"
-      >
+      <ion-card *ngFor="let notificacion of notifications" onclick="" class="hiden-envelop-tittle margen">
         <ion-item class="hiden-envelop no-margin" lines="none">
           <ion-avatar slot="start">
-            <img
-              *ngIf="notificacion.high_priority"
-              src="assets\img\red-siren.png"
-            />
-            <img
-              *ngIf="!notificacion.high_priority"
-              src="assets\img\green-siren.png"
-            />
+            <img *ngIf="notificacion.high_priority" src="assets\img\red-siren.png" />
+            <img *ngIf="!notificacion.high_priority" src="assets\img\green-siren.png" />
           </ion-avatar>
 
           <ion-label>
             <b>{{ notificacion.patient.name }} {{ notificacion.patient.lastName }}
-            {{ notificacion.patient.lastNameSecond }}</b>
+              {{ notificacion.patient.lastNameSecond }}</b>
           </ion-label>
 
-          <img *ngIf="textoBoton=='Ver notificaciones ocultas'" src="assets\img\hiden.png" class="ajustar-imagen" (click)="ocultarNotificacion(notificacion._id)">
-          <img *ngIf="textoBoton!='Ver notificaciones ocultas'" src="assets\img\shown.png" class="ajustar-imagen" (click)="ocultarNotificacion(notificacion._id)">
+          <img *ngIf="textoBoton=='Ver notificaciones ocultas'" src="assets\img\hiden.png" class="ajustar-imagen"
+            (click)="ocultarNotificacion(notificacion._id)">
+          <img *ngIf="textoBoton!='Ver notificaciones ocultas'" src="assets\img\shown.png" class="ajustar-imagen"
+            (click)="ocultarNotificacion(notificacion._id)">
         </ion-item>
 
         <div class="fila">
           <ion-card-subtitle class="ion-padding no-margin">
-            <b>Vencimiento: </b
-            >{{ notificacion.expiration_date | date: "dd-MM-yyyy" }}
+            <b>Vencimiento: </b>{{ notificacion.expiration_date | date: "dd-MM-yyyy" }}
           </ion-card-subtitle>
-          <ion-card-content class="no-margin"
-            ><b>Área: </b>{{ notificacion.type }}</ion-card-content
-          >
-          <ion-card-content class="no-margin"
-            ><b>Mensaje: </b>{{ notificacion.description }}</ion-card-content
-          >
+          <ion-card-content class="no-margin"><b>Área: </b>{{ notificacion.type }}</ion-card-content>
+          <ion-card-content class="no-margin"><b>Mensaje: </b>{{ notificacion.description }}</ion-card-content>
         </div>
       </ion-card>
     </ion-list>
   </div>
 
   <div *ngIf="notifications.length == 0">
-    <div class="margen contenedor">
+    <div class=" contenedor">
       <img src="assets\img\folder.png" class="ajuste-tamaño" />
-      No hay avisos
+      <p>No hay avisos</p>
     </div>
   </div>
 

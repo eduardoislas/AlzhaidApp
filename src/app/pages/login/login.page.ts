@@ -36,10 +36,17 @@ export class LoginPage implements OnInit {
     this.loginService.login(username, password).subscribe((res: any) => {
       let user: User = res.user;
 
-      this.storage.set('Rol', user.role);
+      if (user.role == 'COORDINADOR') { //Si el usuario tiene rol de COORDINADOR, se le asigna el rol de ENFERMERIA por defecto
+        this.storage.set('Rol', 'ENFERMERIA');
+        this.storage.set('UsuarioCoordinador', 'true');//Se crea un nuevo key/value para identificar que el usuario es coordinador
+      } else {
+        this.storage.set('Rol', user.role);
+        this.storage.set('UsuarioCoordinador', 'false');
+      }
+
       this.storage.set('username', user.name);
-      this.storage.set('id',user._id);
-      
+      this.storage.set('id', user._id);
+
       switch (user.role) {
         case 'FASE_INICIAL':
           this.router.navigateByUrl('/phase');
@@ -64,6 +71,9 @@ export class LoginPage implements OnInit {
           break;
         case 'FAMILIAR':
           this.router.navigateByUrl('/relative');
+          break;
+        case 'COORDINADOR':
+          this.router.navigateByUrl('/nursery');//Si el usuario es coordinador, se le reenvia a la pantalla de enfermeria por defecto
           break;
       }
 

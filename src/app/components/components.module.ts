@@ -6,6 +6,8 @@ import { IonicModule } from '@ionic/angular';
 import { ModalComponent } from './modal/modal.component';
 import { NotFoundMessageComponent } from './not-found-message/not-found-message.component';
 import { PatientNotFoundMessageComponent } from './patient-not-found-message/patient-not-found-message.component';
+import { PopoverRolComponent } from './popover-rol/popover-rol.component';
+import { PopoverComponent } from './popover/popover.component';
 
 @NgModule({
   declarations: [
@@ -13,14 +15,18 @@ import { PatientNotFoundMessageComponent } from './patient-not-found-message/pat
     NotificationListComponent,
     ModalComponent,
     NotFoundMessageComponent,
-    PatientNotFoundMessageComponent
+    PatientNotFoundMessageComponent,
+    PopoverRolComponent,
+    PopoverComponent
   ],
   exports: [
     SearchbarComponent,
     NotificationListComponent,
     ModalComponent,
     NotFoundMessageComponent,
-    PatientNotFoundMessageComponent
+    PatientNotFoundMessageComponent,
+    PopoverRolComponent,
+    PopoverComponent
   ],
   imports: [
     CommonModule,
