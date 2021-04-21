@@ -48,7 +48,7 @@
               <ion-label>Comida</ion-label>
             </ion-segment-button>
             <ion-segment-button value="behavior">
-              <ion-label>Humor</ion-label>
+              <ion-label>Conducta</ion-label>
             </ion-segment-button>
             <ion-segment-button value="phaseBinnacle">
               <ion-label>Fase</ion-label>
@@ -266,7 +266,7 @@
         </div>
       </div>
 
-      <!-- Humor -->
+      <!-- Conducta -->
       <div *ngSwitchCase="'behavior'">
         <div *ngIf="dailyRecordSeleccionado != undefined">
           <ion-list *ngIf="dailyRecordSeleccionado.behavior.length > 0">
@@ -415,7 +415,7 @@
               </ion-item>
               <ion-item lines="none">
                 <div class="contenedorLabel">
-                  <ion-label class="subtitulo"> Humor inicial </ion-label>
+                  <ion-label class="subtitulo"> Conducta inicial </ion-label>
                 </div>
                 <div class="contenedorImagenesAnimo">
                   <ion-img *ngIf="dailyRecordSeleccionado.physioBinnacle.startMood <= 2"
@@ -429,7 +429,7 @@
               </ion-item>
               <ion-item lines="none">
                 <div class="contenedorLabel">
-                  <ion-label class="subtitulo"> Humor final </ion-label>
+                  <ion-label class="subtitulo"> Conducta final </ion-label>
                 </div>
                 <div class="contenedorImagenesAnimo">
                   <ion-img *ngIf="dailyRecordSeleccionado.physioBinnacle.endMood <= 2"

@@ -178,9 +178,8 @@ export class PageBitacoraPage implements OnInit {
                 this.router.navigateByUrl("physio/tab-bitacora");
                 this.physioService.sendClickEvent();
 
-                console.log('HORAS:');
-                console.log(this.horaInicio);
-                console.log(this.horaFin);
+                console.log(this.humorAntes);
+                console.log(this.humorDespues);
               }
             },
             (err) => {
