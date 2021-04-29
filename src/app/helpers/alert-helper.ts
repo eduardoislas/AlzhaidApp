@@ -1,5 +1,6 @@
 import Swal, { SweetAlertIcon } from "sweetalert2";
 import { Router } from '@angular/router';
+import { Storage } from "@ionic/storage";
 
 export function mostrarAlerta(
   msg: string,
@@ -86,7 +87,7 @@ export function mostrarAlertaError(msg: string) {
   Toast.fire({});
 }
 
-export function mostrarAlertaCerrarSesion(router: Router) {
+export function mostrarAlertaCerrarSesion(router: Router, storage: Storage) {
   if (!Swal.isVisible()) {
     Swal.fire({
       html:
@@ -106,6 +107,7 @@ export function mostrarAlertaCerrarSesion(router: Router) {
 
     }).then((result) => {
       if (result.value) {
+        storage.clear();
         router.navigateByUrl('');
       }
     });

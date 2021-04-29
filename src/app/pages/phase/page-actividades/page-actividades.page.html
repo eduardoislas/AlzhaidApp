@@ -19,8 +19,8 @@
     <ion-grid fixed>
       <ion-row>
         <ion-col size="6">
-          <ion-card  class="fondo-blanco">
-            <ion-item  class="fondo-blanco">
+          <ion-card class="fondo-blanco">
+            <ion-item class="fondo-blanco">
               <ion-label class="fondo-blanco ajuste-texto">Ubicación</ion-label>
               <ion-toggle slot="end" [(ngModel)]="toggleUbicacion"></ion-toggle>
             </ion-item>
@@ -62,7 +62,7 @@
         <ion-toggle [(ngModel)]="toggleCalculo" slot="end"></ion-toggle>
       </ion-item>
       <div *ngIf="toggleCalculo" class="ion-padding">
-        <ion-item *ngFor="let item of calculo"  lines="none">
+        <ion-item *ngFor="let item of calculo" lines="none">
           <ion-label>{{ item.name }}</ion-label>
           <ion-toggle [(ngModel)]="item.selected"></ion-toggle>
           <ion-range *ngIf="item.selected" pin snaps min="0" max="5" [(ngModel)]="item.score"></ion-range>
@@ -75,7 +75,7 @@
         <ion-toggle [(ngModel)]="toggleEstimulacion" slot="end"></ion-toggle>
       </ion-item>
       <div *ngIf="toggleEstimulacion" class="ion-padding">
-        <ion-item *ngFor="let item of estimulacion"  lines="none">
+        <ion-item *ngFor="let item of estimulacion" lines="none">
           <ion-label>{{ item.name }}</ion-label>
           <ion-toggle [(ngModel)]="item.selected"></ion-toggle>
           <ion-range *ngIf="item.selected" pin snaps min="0" max="5" [(ngModel)]="item.score"></ion-range>
@@ -101,7 +101,7 @@
         <ion-toggle [(ngModel)]="toggleMemoria" slot="end"></ion-toggle>
       </ion-item>
       <div *ngIf="toggleMemoria" class="ion-padding">
-        <ion-item *ngFor="let item of memoria"  lines="none">
+        <ion-item *ngFor="let item of memoria" lines="none">
           <ion-label>{{ item.name }}</ion-label>
           <ion-toggle [(ngModel)]="item.selected"></ion-toggle>
           <ion-range *ngIf="item.selected" pin snaps min="0" max="5" [(ngModel)]="item.score"></ion-range>
@@ -150,10 +150,10 @@
     </ion-grid>
   </div>
 
-  <div  *ngIf="emptyDailyRecords === true">
+  <div *ngIf="emptyDailyRecords === true">
     <div class="margen">
       <ion-label>No existe un programa diario</ion-label>
-      <img src="assets\img\folder.png" class = "ajuste-tamaño">
+      <img src="assets\img\folder.png" class="ajuste-tamaño">
       <div class="contenedor margen">
         <ion-button (click)="salirSinArgumentos()">
           Salir

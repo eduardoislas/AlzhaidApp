@@ -23,7 +23,9 @@ export class LoginPage implements OnInit {
     private alertCtrl: AlertController,
     private storage: Storage) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.storage.clear();
+  }
 
   /*
     Método login que recibe dos parametros, el usuario y contraseña obtenidos

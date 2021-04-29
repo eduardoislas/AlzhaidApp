@@ -25,26 +25,21 @@ export class TabRegistrosPage implements OnInit {
   horaSalida;
 
   constructor(
-    private patientService: PatientsService,
-    private alertCtrl: AlertController,
     private dailyService: DailyRecordService,
     private caregiverService: CaregiverService,
     private storage: Storage,
-    private router: Router,
   ) { }
 
   ngOnInit() {
+    //this.cargarPacientes();
+  }
+
+  ionViewWillEnter() {
     this.cargarPacientes();
   }
 
   ngAfterViewInit() {
     this.dateChanged(new Date());
-  }
-
-
-  //METODO PARA ACTIVAR EL FAB DE NOTIFICACIONES, MOVER A UNA TAB MAS APROPIADA EN EL FUTURO
-  async openComponent() {
-    this.router.navigateByUrl(`notifications-add`,);
   }
 
   /*cargarPacientes() {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Storage } from "@ionic/storage";
 import { Activity } from 'src/app/interfaces/daily-records';
 import { DailyRecordService } from 'src/app/services/daily-record.service';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 import { mostrarAlertaConfirmacion } from '../../../helpers/alert-helper';
 
 @Component({
@@ -26,11 +26,18 @@ export class PageActividadesPage implements OnInit {
 
   toggleUbicacion = false;
   toggleFecha = false;
+  toggleAtencion = false;
+  toggleCalculo = false;
+  toggleEstimulacion = false;
+  toggleLenguaje = false;
+  toggleMemoria = false;
+  toggleReminiscencia = false;
+
   observation;
 
-  constructor( private dailyService: DailyRecordService,
-               private storage: Storage,
-               private location: Location ) { }
+  constructor(private dailyService: DailyRecordService,
+    private storage: Storage,
+    private location: Location) { }
 
   ngOnInit() {
     this.paciente = history.state.data;
@@ -192,7 +199,7 @@ export class PageActividadesPage implements OnInit {
     }
     );
     this.location.back();
-    
+
   }
 
 

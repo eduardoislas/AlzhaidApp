@@ -14,12 +14,15 @@ export class NutritionPage implements OnInit {
   constructor(private router: Router, private storage: Storage) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
     this.storage.get("UsuarioCoordinador").then(res => {
       this.usuarioCoordinador = res;
     });
   }
 
   cerrarSesion() {
-    mostrarAlertaCerrarSesion(this.router);
+    mostrarAlertaCerrarSesion(this.router, this.storage);
   }
 }

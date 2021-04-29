@@ -15,18 +15,18 @@ const routes: Routes = [
       },
       {
         path: 'tab-avisos',
-        loadChildren: () => import('./tab-avisos/tab-avisos/tab-avisos.module').then( m => m.TabAvisosPageModule)
+        loadChildren: () => import('./tab-avisos/tab-avisos/tab-avisos.module').then(m => m.TabAvisosPageModule)
       },
       {
         path: '',
-        redirectTo: '/relative/tab-registros',
+        redirectTo: '/relative/tab-avisos',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/relative/tab-registros',
+    redirectTo: '/relative/tab-avisos',
     pathMatch: 'full'
   }
   /*,
