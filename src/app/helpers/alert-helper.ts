@@ -108,6 +108,7 @@ export function mostrarAlertaCerrarSesion(router: Router, storage: Storage) {
     }).then((result) => {
       if (result.value) {
         storage.clear();
+        localStorage.clear();
         router.navigateByUrl('');
       }
     });

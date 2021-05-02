@@ -25,6 +25,7 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.storage.clear();
+    localStorage.clear();
   }
 
   /*
@@ -48,6 +49,7 @@ export class LoginPage implements OnInit {
 
       this.storage.set('username', user.name);
       this.storage.set('id', user._id);
+      localStorage.setItem('token', res.token);
 
       switch (user.role) {
         case 'FASE_INICIAL':

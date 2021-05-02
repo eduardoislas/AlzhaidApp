@@ -16,14 +16,17 @@ import { ComponentsModule } from './components/components.module';
 import { IonicStorageModule } from "@ionic/storage";
 import { NotificationsAddPageModule } from './components/notifications-add/notifications-add.module';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from '../app/services/token-interceptor';
+
 
 @NgModule({
   declarations: [AppComponent, FilterPipe],
   entryComponents: [],
   imports: [
-    BrowserModule, 
-    IonicModule.forRoot(), 
-    AppRoutingModule, 
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
     HttpClientModule,
     ComponentsModule,
     NotificationsAddPageModule,
@@ -33,8 +36,13 @@ import { NotificationsAddPageModule } from './components/notifications-add/notif
     StatusBar,
     SplashScreen,
     LoginService,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
