@@ -42,11 +42,11 @@
   <!-- si Opción desempeño es reportar desempeño -->
   <div class="reporte" *ngIf="this.opcionDesempeno === 'reporte'">
     <!-- La información aún no ha sido enviada -->
-    <div *ngIf="infoEnviada === false">
+    <div>
       <ion-list>
-        <!-- <ion-list-header>
+        <ion-list-header>
           <ion-label>Pacientes del día</ion-label>
-        </ion-list-header> -->
+        </ion-list-header>
 
         <div *ngFor="let paciente of pacientes">
           <ion-item lines="none">
@@ -100,22 +100,21 @@
             Enviar desempeño
           </ion-button>
         </div>
-  
+
         <div class="contenedor2">
-              <ion-button (click)="sendMassiveData()" class="letra-mediana">
-                Todo en orden
-              </ion-button>
+          <ion-button (click)="sendMassiveData()" class="letra-mediana">
+            Todo en orden
+          </ion-button>
         </div>
       </div>
-      
     </div>
     <!-- Información enviada es true -->
-    <div class="slides" *ngIf="infoEnviada === true">
+    <!-- <div class="slides" *ngIf="infoEnviada === true">
       <ion-slides [options]="sliderOpts">
         <ion-slide>
           <ion-label>Colación ya reportada.</ion-label>
         </ion-slide>
       </ion-slides>
-    </div>
+    </div> -->
   </div>
 </ion-content>

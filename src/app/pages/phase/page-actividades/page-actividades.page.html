@@ -5,14 +5,16 @@
 </ion-header>
 
 <ion-content>
-
   <div *ngIf="emptyDailyRecords === false">
     <ion-list>
       <ion-item>
         <ion-avatar slot="start">
           <img src="{{ paciente.patient.img }}" />
         </ion-avatar>
-        <ion-label>{{ paciente.patient.name + ' ' + paciente.patient.lastName }}</ion-label>
+        <ion-label
+          >{{ paciente.patient.name + ' ' + paciente.patient.lastName
+          }}</ion-label
+        >
       </ion-item>
     </ion-list>
 
@@ -49,24 +51,66 @@
         <ion-toggle [(ngModel)]="toggleAtencion" slot="end"></ion-toggle>
       </ion-item>
       <div *ngIf="toggleAtencion" class="ion-padding">
-        <ion-item *ngFor="let item of atencion" lines="none">
-          <ion-label>{{ item.name }}</ion-label>
-          <ion-toggle [(ngModel)]="item.selected"></ion-toggle>
-          <ion-range *ngIf="item.selected" pin snaps min="0" max="5" [(ngModel)]="item.score"></ion-range>
-        </ion-item>
+        <div *ngFor="let item of atencion">
+          <ion-item lines="none">
+            <ion-label>{{ item.name }}</ion-label>
+            <ion-toggle slot="end" [(ngModel)]="item.selected"></ion-toggle>
+          </ion-item>
+
+          <div class="contenedorRange">
+            <ion-range
+              *ngIf="item.selected"
+              pin
+              snaps
+              min="0"
+              max="5"
+              [(ngModel)]="item.score"
+            >
+              <ion-icon
+                size="small"
+                slot="start"
+                name="star"
+                color="medium"
+              ></ion-icon>
+              <ion-icon slot="end" name="star" color="medium"></ion-icon>
+            </ion-range>
+          </div>
+        </div>
       </div>
 
       <!-- Calculo -->
+
       <ion-item *ngIf="calculo.length > 0" lines="none">
         <ion-label>Cálculo</ion-label>
         <ion-toggle [(ngModel)]="toggleCalculo" slot="end"></ion-toggle>
       </ion-item>
+
       <div *ngIf="toggleCalculo" class="ion-padding">
-        <ion-item *ngFor="let item of calculo" lines="none">
-          <ion-label>{{ item.name }}</ion-label>
-          <ion-toggle [(ngModel)]="item.selected"></ion-toggle>
-          <ion-range *ngIf="item.selected" pin snaps min="0" max="5" [(ngModel)]="item.score"></ion-range>
-        </ion-item>
+        <div *ngFor="let item of calculo">
+          <ion-item lines="none">
+            <ion-label>{{ item.name }}</ion-label>
+            <ion-toggle slot="end" [(ngModel)]="item.selected"></ion-toggle>
+          </ion-item>
+
+          <div class="contenedorRange">
+            <ion-range
+              *ngIf="item.selected"
+              pin
+              snaps
+              min="0"
+              max="5"
+              [(ngModel)]="item.score"
+            >
+              <ion-icon
+                size="small"
+                slot="start"
+                name="star"
+                color="medium"
+              ></ion-icon>
+              <ion-icon slot="end" name="star" color="medium"></ion-icon>
+            </ion-range>
+          </div>
+        </div>
       </div>
 
       <!-- Estmimulación sensorial -->
@@ -75,11 +119,31 @@
         <ion-toggle [(ngModel)]="toggleEstimulacion" slot="end"></ion-toggle>
       </ion-item>
       <div *ngIf="toggleEstimulacion" class="ion-padding">
-        <ion-item *ngFor="let item of estimulacion" lines="none">
-          <ion-label>{{ item.name }}</ion-label>
-          <ion-toggle [(ngModel)]="item.selected"></ion-toggle>
-          <ion-range *ngIf="item.selected" pin snaps min="0" max="5" [(ngModel)]="item.score"></ion-range>
-        </ion-item>
+        <div *ngFor="let item of estimulacion">
+          <ion-item lines="none">
+            <ion-label>{{ item.name }}</ion-label>
+            <ion-toggle slot="end" [(ngModel)]="item.selected"></ion-toggle>
+          </ion-item>
+
+          <div class="contenedorRange">
+            <ion-range
+              *ngIf="item.selected"
+              pin
+              snaps
+              min="0"
+              max="5"
+              [(ngModel)]="item.score"
+            >
+              <ion-icon
+                size="small"
+                slot="start"
+                name="star"
+                color="medium"
+              ></ion-icon>
+              <ion-icon slot="end" name="star" color="medium"></ion-icon>
+            </ion-range>
+          </div>
+        </div>
       </div>
 
       <!-- Lenguaje -->
@@ -88,11 +152,31 @@
         <ion-toggle [(ngModel)]="toggleLenguaje" slot="end"></ion-toggle>
       </ion-item>
       <div *ngIf="toggleLenguaje" class="ion-padding">
-        <ion-item *ngFor="let item of lenguaje" lines="none">
-          <ion-label>{{ item.name }}</ion-label>
-          <ion-toggle [(ngModel)]="item.selected"></ion-toggle>
-          <ion-range *ngIf="item.selected" pin snaps min="0" max="5" [(ngModel)]="item.score"></ion-range>
-        </ion-item>
+        <div *ngFor="let item of lenguaje">
+          <ion-item lines="none">
+            <ion-label>{{ item.name }}</ion-label>
+            <ion-toggle slot="end" [(ngModel)]="item.selected"></ion-toggle>
+          </ion-item>
+
+          <div class="contenedorRange">
+            <ion-range
+              *ngIf="item.selected"
+              pin
+              snaps
+              min="0"
+              max="5"
+              [(ngModel)]="item.score"
+            >
+              <ion-icon
+                size="small"
+                slot="start"
+                name="star"
+                color="medium"
+              ></ion-icon>
+              <ion-icon slot="end" name="star" color="medium"></ion-icon>
+            </ion-range>
+          </div>
+        </div>
       </div>
 
       <!-- Memoria -->
@@ -101,11 +185,31 @@
         <ion-toggle [(ngModel)]="toggleMemoria" slot="end"></ion-toggle>
       </ion-item>
       <div *ngIf="toggleMemoria" class="ion-padding">
-        <ion-item *ngFor="let item of memoria" lines="none">
-          <ion-label>{{ item.name }}</ion-label>
-          <ion-toggle [(ngModel)]="item.selected"></ion-toggle>
-          <ion-range *ngIf="item.selected" pin snaps min="0" max="5" [(ngModel)]="item.score"></ion-range>
-        </ion-item>
+        <div *ngFor="let item of memoria">
+          <ion-item lines="none">
+            <ion-label>{{ item.name }}</ion-label>
+            <ion-toggle slot="end" [(ngModel)]="item.selected"></ion-toggle>
+          </ion-item>
+
+          <div class="contenedorRange">
+            <ion-range
+              *ngIf="item.selected"
+              pin
+              snaps
+              min="0"
+              max="5"
+              [(ngModel)]="item.score"
+            >
+              <ion-icon
+                size="small"
+                slot="start"
+                name="star"
+                color="medium"
+              ></ion-icon>
+              <ion-icon slot="end" name="star" color="medium"></ion-icon>
+            </ion-range>
+          </div>
+        </div>
       </div>
 
       <!-- Reminiscencia -->
@@ -114,11 +218,31 @@
         <ion-toggle [(ngModel)]="toggleReminiscencia" slot="end"></ion-toggle>
       </ion-item>
       <div *ngIf="toggleReminiscencia" class="ion-padding">
-        <ion-item *ngFor="let item of reminiscencia" lines="none">
-          <ion-label>{{ item.name }}</ion-label>
-          <ion-toggle [(ngModel)]="item.selected"></ion-toggle>
-          <ion-range *ngIf="item.selected" pin snaps min="0" max="5" [(ngModel)]="item.score"></ion-range>
-        </ion-item>
+        <div *ngFor="let item of reminiscencia">
+          <ion-item lines="none">
+            <ion-label>{{ item.name }}</ion-label>
+            <ion-toggle slot="end" [(ngModel)]="item.selected"></ion-toggle>
+          </ion-item>
+
+          <div class="contenedorRange">
+            <ion-range
+              *ngIf="item.selected"
+              pin
+              snaps
+              min="0"
+              max="5"
+              [(ngModel)]="item.score"
+            >
+              <ion-icon
+                size="small"
+                slot="start"
+                name="star"
+                color="medium"
+              ></ion-icon>
+              <ion-icon slot="end" name="star" color="medium"></ion-icon>
+            </ion-range>
+          </div>
+        </div>
       </div>
     </ion-list>
 
@@ -127,8 +251,13 @@
       <ion-card class="fondo-blanco">
         <ion-card-content class="fondo-blanco">
           <ion-item class="fondo-blanco">
-            <ion-label class="fondo-blanco" position="stacked">Observaciones</ion-label>
-            <ion-textarea class="fondo-blanco" [(ngModel)]="observation"></ion-textarea>
+            <ion-label class="fondo-blanco" position="stacked"
+              >Observaciones</ion-label
+            >
+            <ion-textarea
+              class="fondo-blanco"
+              [(ngModel)]="observation"
+            ></ion-textarea>
           </ion-item>
         </ion-card-content>
       </ion-card>
@@ -137,12 +266,20 @@
     <ion-grid fixed>
       <ion-row>
         <ion-col size="6">
-          <ion-button class="botonSalir" expand="full" (click)="salirSinArgumentos()">
+          <ion-button
+            class="botonSalir"
+            expand="full"
+            (click)="salirSinArgumentos()"
+          >
             Salir
           </ion-button>
         </ion-col>
         <ion-col size="6">
-          <ion-button class="botonAceptar" expand="full" (click)="EnviarDatos()">
+          <ion-button
+            class="botonAceptar"
+            expand="full"
+            (click)="EnviarDatos()"
+          >
             Enviar
           </ion-button>
         </ion-col>
@@ -153,14 +290,10 @@
   <div *ngIf="emptyDailyRecords === true">
     <div class="margen">
       <ion-label>No existe un programa diario</ion-label>
-      <img src="assets\img\folder.png" class="ajuste-tamaño">
+      <img src="assets\img\folder.png" class="ajuste-tamaño" />
       <div class="contenedor margen">
-        <ion-button (click)="salirSinArgumentos()">
-          Salir
-        </ion-button>
+        <ion-button (click)="salirSinArgumentos()"> Salir </ion-button>
       </div>
-
     </div>
   </div>
-
 </ion-content>

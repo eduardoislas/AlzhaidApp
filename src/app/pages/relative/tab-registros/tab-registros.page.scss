@@ -1,141 +1,144 @@
+* {
+  font-size: small;
+}
+
+ion-title {
+  font-size: 150%;
+}
+
 .contenedorPacientes {
-    height: 12%;
-    max-height: 12%;
+  height: 12%;
+  max-height: 12%;
 }
 
 .contenedorGrid {
-    margin: 0%;
-    padding: 0%;
-    padding-bottom: 1%;
-    background-color: #0088cc;
+  margin: 0%;
+  padding: 0%;
+  padding-bottom: 1%;
+  background-color: #0088cc;
 }
 
 .contenedorCol {
-    margin: 0%;
-    padding: 0%;
+  margin: 0%;
+  padding: 0%;
 }
 
-.subtitulo{
-    font-weight: bold;
+.subtitulo {
+  font-weight: bold;
 }
 
 ion-segment {
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    padding-left: 90%;
-    background-color: #0088cc;
-    color:#E8F7F9;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  padding-left: 90%;
+  background-color: #0088cc;
+  color: #e8f7f9;
 }
 
 ion-label {
-    margin: 0%;
-    padding: 0%;
-    font-size: 80%;
+  margin: 0%;
+  padding: 0%;
+  font-size: 80%;
 }
 
-
-*{
-    font-size: small;
+.ajustar-ancho {
+  width: 35%;
 }
 
-.ajustar-ancho{
-    width: 35%;
+.ajuste-tamaño {
+  margin-top: 10%;
+  width: 30%;
+  align-self: center;
 }
 
-.ajuste-tamaño{
-    margin-top: 10%;
-    width: 30%;
-    align-self: center;
+.margen {
+  display: flex;
+  flex-direction: column;
+  margin: 15%;
+  align-items: center;
 }
 
-.margen{
-    display: flex;
-    flex-direction: column;
-    margin: 15%;
-    align-items: center;
+ion-datetime {
+  margin: 0px;
+  padding: 0px;
+  padding-left: 5%;
 }
 
-ion-datetime{
-    margin: 0px; 
-    padding: 0px; 
-    padding-left: 5%;
+.texto-regular {
+  font-weight: normal;
 }
 
-.texto-regular{
-    font-weight: normal;
+.ajuste-tamaño-datetime {
+  width: 6%;
+  margin-left: 3%;
 }
 
-.ajuste-tamaño-datetime{
-    width: 6%;
-    margin-left: 3%;
+.margen-izquierdo {
+  margin-left: 5%;
 }
 
-.margen-izquierdo{
-    margin-left: 5%;
+.margen-izquierdo-chico {
+  margin-left: 2%;
 }
 
-.margen-izquierdo-chico{
-    margin-left: 2%;
+.margen-derecha-chico {
+  margin-left: 2%;
 }
 
-.margen-derecha-chico{
-    margin-left: 2%;
-}
-
-.margen-superior{
-    margin-top: 10%;
+.margen-superior {
+  margin-top: 10%;
 }
 
 .contenedorLabel {
-    min-width: 50%;
+  min-width: 50%;
 }
 
 .contenedorLabelFase {
-    min-width: 70%;
+  min-width: 70%;
 }
 
 .imagenBoolean {
-    width:25%;
-    max-width: 25%;
+  width: 25%;
+  max-width: 25%;
 }
 
 .contenedorImagenesAnimo {
-    width: 10%;
-    max-width: 10%;
+  width: 10%;
+  max-width: 10%;
 }
 
 .childLeft {
-    position: absolute;
-    top:0;
-    left: 0;
-    color: #E8F7F9;
-    font-size: 100%;
-
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #e8f7f9;
+  font-size: 100%;
 }
 
 .childRight {
-    position: absolute;
-    top:0;
-    right: 0;
-    color: #E8F7F9;
-    font-size: 100%;
-}
-  
-.parent {
-    position: relative;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #e8f7f9;
+  font-size: 100%;
 }
 
-ion-row, ion-grid, ion-col {
-    font-size: medium;
-    justify-content: center;
+.parent {
+  position: relative;
+}
+
+ion-row,
+ion-grid,
+ion-col {
+  font-size: medium;
+  justify-content: center;
 }
 
 ion-grid {
-    margin-top: 2%;
-    margin-left: 2%;
+  margin-top: 2%;
+  margin-left: 2%;
 }
 
 ion-row.rowsTablas {
-    margin-bottom: 5%;
+  margin-bottom: 5%;
 }
-

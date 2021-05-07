@@ -3,19 +3,23 @@ import { Storage } from "@ionic/storage";
 import { CatalogService } from "src/app/services/catalog.service";
 import { DailyRecordService } from "src/app/services/daily-record.service";
 import { Info } from "../../../interfaces/daily-records";
-import { Router } from '@angular/router';
-import { coincidenciasLista } from '../../../helpers/searchbar-helper';
-import { mostrarAlertaAdvertencia, mostrarAlertaGrande, mostrarAlertaConfirmacion } from '../../../helpers/alert-helper';
+import { Router } from "@angular/router";
+import { coincidenciasLista } from "../../../helpers/searchbar-helper";
+import {
+  mostrarAlertaAdvertencia,
+  mostrarAlertaGrande,
+  mostrarAlertaConfirmacion,
+} from "../../../helpers/alert-helper";
 
 @Component({
   selector: "app-tab2",
   templateUrl: "./tab-activacion.page.html",
-  styleUrls: ["./tab-activacion.page.scss"]
+  styleUrls: ["./tab-activacion.page.scss"],
 })
 export class TabActivacionPage implements OnInit {
   opcion;
 
-  busqueda = '';
+  busqueda = "";
   fase;
   rol;
 
@@ -44,23 +48,33 @@ export class TabActivacionPage implements OnInit {
     private dailyService: DailyRecordService,
     private router: Router,
     private storage: Storage
-  ) { }
+  ) {}
+
+  validarSobreescrituraDePrograma() {
+    if (this.emptyDailyRecords === false) {
+      mostrarAlertaGrande(
+        "Ya hay un programa diario",
+        "¿Desea sobreescribirlo?",
+        "warning",
+        "/phase",
+        this.router
+      );
+    }
+  }
 
   ngOnInit() {
     this.rutaActual = this.router.url;
-    this.storage.get("Rol").then(val => {
+    this.storage.get("Rol").then((val) => {
       this.getDailyProgramsPhase(val);
       this.rol = val;
     });
 
-    this.opcion = 'programa';
+    this.opcion = "programa";
     this.getCatalogosTipo("actividad");
   }
 
-  validarSobreescrituraDePrograma() {
-    if (this.emptyDailyRecords === false) {
-      mostrarAlertaGrande('Ya hay un programa diario', "¿Desea sobreescribirlo?", 'warning', '/phase', this.router);
-    }
+  ionViewWillEnter() {
+    this.validarSobreescrituraDePrograma();
   }
 
   segmentChangedRegistros(event) {
@@ -80,10 +94,11 @@ export class TabActivacionPage implements OnInit {
   }
 
   getDailyProgramsPhase(phase: string) {
-    this.dailyService.getDailyProgramPhase(phase).subscribe(res => {
-      res.cuantos === 0 ? this.emptyDailyRecords = true : this.emptyDailyRecords = false;
+    this.dailyService.getDailyProgramPhase(phase).subscribe((res) => {
+      res.cuantos === 0
+        ? (this.emptyDailyRecords = true)
+        : (this.emptyDailyRecords = false);
       this.validarSobreescrituraDePrograma();
-      console.log("Ya actualicé si es o no empty");
     });
   }
   /* 
@@ -108,8 +123,8 @@ export class TabActivacionPage implements OnInit {
     }
 
     // Se obtienen todos los pacientes filtrados por su fase.
-    this.dailyService.getDailyRecordsToday().subscribe(res => {
-      res.drs.forEach(r => {
+    this.dailyService.getDailyRecordsToday().subscribe((res) => {
+      res.drs.forEach((r) => {
         if (r.patient.phase === this.capitalize(this.fase)) {
           this.pacientes.push(r);
         }
@@ -122,7 +137,9 @@ export class TabActivacionPage implements OnInit {
     Método encargado de abrir el modal de actividades.
   */
   openActividades(paciente) {
-    this.router.navigateByUrl(`${this.rutaActual}/page-actividades`, { state: { data: paciente } });
+    this.router.navigateByUrl(`${this.rutaActual}/page-actividades`, {
+      state: { data: paciente },
+    });
   }
   /*
     Método que sirve para volver mayúscula la primera letra de una palabra
@@ -143,11 +160,11 @@ export class TabActivacionPage implements OnInit {
     this.memoria = [];
     this.reminiscencia = [];
 
-    this.catalogService.getCatalogsType(type).subscribe(res => {
+    this.catalogService.getCatalogsType(type).subscribe((res) => {
       for (let i of res.catalogs) {
         i["selected"] = false;
       }
-      res.catalogs.forEach(r => {
+      res.catalogs.forEach((r) => {
         switch (r.classification) {
           case "Atención":
             this.atencion.push(r);
@@ -183,66 +200,66 @@ export class TabActivacionPage implements OnInit {
     let memory = [];
     let reminiscence = [];
 
-    this.atencion.forEach(r => {
+    this.atencion.forEach((r) => {
       if (r.selected === true) {
         let data: Info = {
           name: r.name,
-          classification: r.classification
+          classification: r.classification,
         };
         attention.push(data);
         r.selected = false;
       }
     });
 
-    this.calculo.forEach(r => {
+    this.calculo.forEach((r) => {
       if (r.selected === true) {
         let data = {
           name: r.name,
-          classification: r.classification
+          classification: r.classification,
         };
         calculus.push(data);
         r.selected = false;
       }
     });
 
-    this.estimulacion.forEach(r => {
+    this.estimulacion.forEach((r) => {
       if (r.selected === true) {
         let data = {
           name: r.name,
-          classification: r.classification
+          classification: r.classification,
         };
         sensory.push(data);
         r.selected = false;
       }
     });
 
-    this.lenguaje.forEach(r => {
+    this.lenguaje.forEach((r) => {
       if (r.selected === true) {
         let data = {
           name: r.name,
-          classification: r.classification
+          classification: r.classification,
         };
         language.push(data);
         r.selected = false;
       }
     });
 
-    this.memoria.forEach(r => {
+    this.memoria.forEach((r) => {
       if (r.selected === true) {
         let data = {
           name: r.name,
-          classification: r.classification
+          classification: r.classification,
         };
         memory.push(data);
         r.selected = false;
       }
     });
 
-    this.reminiscencia.forEach(r => {
+    this.reminiscencia.forEach((r) => {
       if (r.selected === true) {
         let data = {
           name: r.name,
-          classification: r.classification
+          classification: r.classification,
         };
         reminiscence.push(data);
         r.selected = false;
@@ -250,8 +267,15 @@ export class TabActivacionPage implements OnInit {
     });
 
     //Validar que el programa diario no se encuentre vacio
-    if (!attention.length && !calculus.length && !sensory.length && !language.length && !memory.length && !reminiscence.length) {
-      mostrarAlertaAdvertencia('Programa diario vacío');
+    if (
+      !attention.length &&
+      !calculus.length &&
+      !sensory.length &&
+      !language.length &&
+      !memory.length &&
+      !reminiscence.length
+    ) {
+      mostrarAlertaAdvertencia("Programa diario vacío");
     } else {
       let dailyProgram = {
         phase: this.rol,
@@ -261,13 +285,13 @@ export class TabActivacionPage implements OnInit {
           sensory,
           language,
           memory,
-          reminiscence
-        }
+          reminiscence,
+        },
       };
 
       this.dailyService.postDailyProgram(dailyProgram).subscribe(
-        res => {
-          this.getDailyProgramsPhase(this.rol);
+        (res) => {
+          //this.getDailyProgramsPhase(this.rol);
 
           this.toggleAtencion = false;
           this.toggleCalculo = false;
@@ -275,12 +299,14 @@ export class TabActivacionPage implements OnInit {
           this.toggleLenguaje = false;
           this.toggleMemoria = false;
           this.toggleReminiscencia = false;
-          reminiscence
+          reminiscence;
 
-          mostrarAlertaConfirmacion('El programa diario se actualizó con éxito');
-          this.router.navigateByUrl('/phase');
+          mostrarAlertaConfirmacion(
+            "El programa diario se actualizó con éxito"
+          );
+          //this.router.navigateByUrl("/phase");
         },
-        err => {
+        (err) => {
           console.log("Error servicio", err);
         }
       );
