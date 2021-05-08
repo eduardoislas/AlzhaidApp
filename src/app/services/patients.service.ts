@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RootPatient, RPatient } from '../interfaces/patients';
+import { RootPatient, RPatient, Incidence } from '../interfaces/patients';
 
 const url = 'http://localhost:3000/patient/';
 //const url = 'https://alzaid.herokuapp.com/patient/';
@@ -40,6 +40,12 @@ export class PatientsService {
   putPatientAssistance(id: string, assistance: boolean) {
     return this.http.put(`${url}assistance/${id}`, {
       assistance
+    });
+  }
+
+  putPatientIncidence(id: string, incidence: Incidence) {
+    return this.http.put(`${url}incidence/${id}`, {
+      incidence
     });
   }
 }

@@ -1,0 +1,87 @@
+ion-segment-button{
+    --background: #3880ff;
+    --color: #E8F7F9;
+    --background-checked:#18485e;
+    --color-checked: white;
+}
+.contenedorSelect {
+    padding: 0%;
+    margin: 0%;
+}
+
+ion-segment-button.botonPrioridad {
+    height: 0%;
+    max-height: 5% !important;
+    padding-bottom: 2%;
+    margin-top: 2%;
+}
+
+.alineado-centro{
+    align-self: center;
+}
+
+ion-select {
+    min-width: 100% !important; 
+    margin: 0%;
+    padding: 0%;
+}
+
+ion-select-option {
+    margin: 0%;
+    padding: 0%;
+}
+
+ion-datetime {
+    margin: 0%;
+    padding: 0%;
+    padding-bottom: 5%;
+}
+
+ion-label{
+    align-self: flex-start;
+}
+
+.fuente-regular{
+    font-weight: normal;
+}
+
+.orientacion-columna{
+    display: flex;
+    flex-direction: column;
+}
+
+.orientacion-fila{
+    display: flex;
+    flex-direction: row;
+}
+
+.orientacion{
+    display: flex;
+    flex-direction: row;
+    margin-left: 5%;
+    margin-top: 5%;
+    font-weight: bold;
+}
+
+.ajuste-tamaño{
+    width: 7%;
+    height: 5%;
+    margin-left: 3%;
+}
+
+.margen-derecho{
+    margin-right: 5%;
+}
+
+.margen-superior{
+    margin-top: 10%;
+}
+
+.padding-inferior{
+    --padding-bottom: 5%;
+}
+
+.subtitulo-margen{
+    font-weight: bold;
+    margin-bottom: 5%;
+}

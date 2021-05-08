@@ -18,6 +18,7 @@ import { NotificationsAddPageModule } from './components/notifications-add/notif
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from '../app/services/token-interceptor';
+import { IncidenceAddPageModule } from './components/incidence-add/incidence-add.module';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { TokenInterceptor } from '../app/services/token-interceptor';
     HttpClientModule,
     ComponentsModule,
     NotificationsAddPageModule,
+    IncidenceAddPageModule,
     IonicStorageModule.forRoot()
   ],
   providers: [

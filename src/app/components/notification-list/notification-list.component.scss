@@ -50,6 +50,13 @@ ion-card-title{
     margin-left: 5%;
 }
 
+.columna{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-left: 5%;
+}
+
 .no-margin{
     padding: 2%;
     margin: 0%;
@@ -84,4 +91,8 @@ img{
     align-self: center;
     --background: #18485e;
     font-size: x-small;
+}
+
+.fab-button-color{
+    --background:  #004d99;
 }

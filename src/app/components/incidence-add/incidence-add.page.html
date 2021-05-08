@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Agregar incidencia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="margen-superior">
+  <ion-grid class="ion-padding" fixed="fixed">
+    <!-- Descripcion -->
+    <ion-item>
+      <ion-segment class="orientacion-columna">
+        <ion-label class="subtitulo margen-derecho margen-superior">
+          Descripción</ion-label>
+        <ion-input autoGrow="autoGrow" placeholder="Ingrese una descripción" [(ngModel)]="textDescripcion" type="text">
+        </ion-input>
+      </ion-segment>
+    </ion-item>
+
+    <!-- Paciente -->
+    <ion-item class="padding-inferior">
+      <ion-segment class="orientacion-columna">
+        <ion-label class="subtitulo-margen margen-derecho margen-superior">Paciente</ion-label>
+        <ion-select (ionChange)="selecionarPaciente($event)" placeholder="Seleccione un paciente" okText="LISTO"
+          cancelText="CANCELAR">
+          <ion-select-option *ngFor="let paciente of pacientes" [value]="paciente._id">
+            <ion-avatar slot="start">
+              <img src="{{ paciente.img }}" />
+              <ion-label class="ion-text-capitalize">
+                {{ paciente.lastName + ', ' + paciente.name }}
+              </ion-label>
+            </ion-avatar>
+          </ion-select-option>
+        </ion-select>
+      </ion-segment>
+    </ion-item>
+
+    <!-- Tipo de aviso -->
+    <ion-item class="subtitulo margen-superior" lines="none">
+      <ion-label>Tipo de aviso</ion-label>
+    </ion-item>
+
+    <ion-segment mode="ios" scrollable="false" name="btnTipo" (ionChange)="tipoAviso($event)">
+      <ion-grid>
+        <ion-row>
+          <ion-col class="contenedorCol">
+            <ion-segment-button value="Conducta">
+              <ion-label class="alineado-centro">Conducta</ion-label>
+              <ion-icon name="clipboard"></ion-icon>
+            </ion-segment-button>
+          </ion-col>
+          <ion-col class="contenedorCol">
+            <ion-segment-button value="Salud">
+              <ion-label class="alineado-centro">Salud</ion-label>
+              <ion-icon name="heart-empty"></ion-icon>
+            </ion-segment-button>
+          </ion-col>
+          <ion-col class="contenedorCol">
+            <ion-segment-button value="Higiene">
+              <ion-label class="alineado-centro">Higiene</ion-label>
+              <ion-icon name="water"></ion-icon>
+            </ion-segment-button>
+          </ion-col>
+          <ion-col class="contenedorCol">
+            <ion-segment-button value="Fisica">
+              <ion-label class="alineado-centro">Fisica</ion-label>
+              <ion-icon name="body"></ion-icon>
+            </ion-segment-button>
+          </ion-col>
+          <ion-col class="contenedorCol">
+            <ion-segment-button value="Sueño">
+              <ion-label class="alineado-centro">Sueño</ion-label>
+              <ion-icon name="bed"></ion-icon>
+            </ion-segment-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-segment>
+
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col>
+          <ion-button class="botonSalir" type="button" expand="block" (click)="salir()">
+            Salir</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button class="botonAceptar" type="button" expand="block" (click)="enviar()">
+            Enviar</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-grid>
+</ion-content>

@@ -19,6 +19,7 @@ export class NotificationListComponent implements OnInit {
   paciente;
   ocultas = false;
   textoBoton = "Ver notificaciones ocultas";
+  coordinador = 'false';
 
   constructor(
     private notificationsService: NotificationsService,
@@ -32,6 +33,11 @@ export class NotificationListComponent implements OnInit {
       .subscribe(() => {
         this.cargarLista();
       });
+
+    this.storage.get("UsuarioCoordinador").then((res) => {
+      this.coordinador = res;
+      console.log(this.coordinador);
+    });
   }
 
   ngOnInit() {
@@ -42,6 +48,10 @@ export class NotificationListComponent implements OnInit {
     this.router.navigateByUrl(`notifications-add`);
   }
 
+  async openIncidenceComponent() {
+    this.router.navigateByUrl(`incidence-add`);
+  }
+
   async ocultarNotificacion(notificationID) {
     let usuarioID;
 
@@ -50,30 +60,30 @@ export class NotificationListComponent implements OnInit {
 
       if (this.textoBoton == "Ver notificaciones ocultas") {
         this.notificationsService
-        .putNotificationUnsuscribe(notificationID, usuarioID)
-        .subscribe(
-          (res) => {
-            if (res.success === true) {
-              this.cargarLista();
+          .putNotificationUnsuscribe(notificationID, usuarioID)
+          .subscribe(
+            (res) => {
+              if (res.success === true) {
+                this.cargarLista();
+              }
+            },
+            (err) => {
+              console.log("error", err);
             }
-          },
-          (err) => {
-            console.log("error", err);
-          }
-        );
-      }else{
+          );
+      } else {
         this.notificationsService
-        .putNotificationSuscribe(notificationID, usuarioID)
-        .subscribe(
-          (res) => {
-            if (res.success === true) {
-              this.cargarLista();
+          .putNotificationSuscribe(notificationID, usuarioID)
+          .subscribe(
+            (res) => {
+              if (res.success === true) {
+                this.cargarLista();
+              }
+            },
+            (err) => {
+              console.log("error", err);
             }
-          },
-          (err) => {
-            console.log("error", err);
-          }
-        );
+          );
       }
     });
   }

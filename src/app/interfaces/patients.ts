@@ -28,6 +28,15 @@ export interface Patient {
     medicines: any[];
     physicalLimitations: PhysicalLimitations[];
     assistance: boolean;
+    user: string;
+}
+
+export interface Incidence{
+    _id: string;
+    date: Date;
+    description: string;
+    type: string;
+    user: string;
 }
 
 export interface Allergy {

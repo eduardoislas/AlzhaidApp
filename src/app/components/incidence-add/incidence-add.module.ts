@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { NotificationsAddPageRoutingModule } from './notifications-add-routing.module';
+import { IncidenceAddPageRoutingModule } from './incidence-add-routing.module';
 
-import { NotificationsAddPage } from './notifications-add.page';
+import { IncidenceAddPage } from './incidence-add.page';
 
 import { UserListPageModule } from '../user-list/user-list.module';
 
@@ -15,9 +15,9 @@ import { UserListPageModule } from '../user-list/user-list.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    NotificationsAddPageRoutingModule,
+    IncidenceAddPageRoutingModule,
     UserListPageModule
   ],
-  declarations: [NotificationsAddPage]
+  declarations: [IncidenceAddPage]
 })
-export class NotificationsAddPageModule {}
+export class IncidenceAddPageModule {}

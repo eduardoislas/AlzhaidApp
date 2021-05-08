@@ -32,6 +32,10 @@ const routes: Routes = [
     loadChildren: () => import('./components/notifications-add/notifications-add.module').then(m => m.NotificationsAddPageModule)
   },
   {
+    path: 'incidence-add',
+    loadChildren: () => import('./components/incidence-add/incidence-add.module').then(m => m.IncidenceAddPageModule)
+  },
+  {
     path: 'user-list',
     loadChildren: () => import('./components/user-list/user-list.module').then(m => m.UserListPageModule)
   },

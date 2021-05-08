@@ -68,6 +68,7 @@ export class TabRegistrosPage implements OnInit {
           this.patients = patientsArray;
           this.pacienteSeleccionado = this.patients[0];
           this.seleccionarPaciente(this.pacienteSeleccionado);
+          console.log(this.pacienteSeleccionado);
         });
     });
   }
